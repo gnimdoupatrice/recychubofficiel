@@ -1,7 +1,29 @@
+import { useState } from "react";
 import { LogIn, Phone, Lock } from "lucide-react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { useAuth } from "@/contexts/AuthContext";
+import { toast } from "@/components/ui/sonner";
 
 const Connexion = () => {
+  const { signIn } = useAuth();
+  const navigate = useNavigate();
+  const [loading, setLoading] = useState(false);
+  const [tel, setTel] = useState("");
+  const [password, setPassword] = useState("");
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setLoading(true);
+    const { error } = await signIn(tel, password);
+    setLoading(false);
+    if (error) {
+      toast.error("Identifiants incorrects");
+    } else {
+      toast.success("Connexion réussie !");
+      navigate("/");
+    }
+  };
+
   return (
     <div className="pt-24 pb-16 min-h-screen flex items-center">
       <div className="container mx-auto px-4">
@@ -14,31 +36,23 @@ const Connexion = () => {
             <p className="text-sm text-muted-foreground">Accédez à votre espace RecycHub</p>
           </div>
 
-          <div className="p-6 rounded-2xl glass space-y-5">
+          <form onSubmit={handleSubmit} className="p-6 rounded-2xl glass space-y-5">
             <div>
               <label className="block text-sm font-medium mb-2">Téléphone</label>
               <div className="relative">
                 <Phone className="absolute left-3 top-3 w-4 h-4 text-muted-foreground" />
-                <input
-                  type="tel"
-                  placeholder="+228 XX XX XX XX"
-                  className="w-full pl-10 pr-4 py-3 rounded-xl border border-input bg-background text-sm focus:ring-2 focus:ring-primary/30 outline-none"
-                />
+                <input type="tel" required placeholder="+228 XX XX XX XX" value={tel} onChange={(e) => setTel(e.target.value)} className="w-full pl-10 pr-4 py-3 rounded-xl border border-input bg-background text-sm focus:ring-2 focus:ring-primary/30 outline-none" />
               </div>
             </div>
             <div>
               <label className="block text-sm font-medium mb-2">Mot de passe</label>
               <div className="relative">
                 <Lock className="absolute left-3 top-3 w-4 h-4 text-muted-foreground" />
-                <input
-                  type="password"
-                  placeholder="••••••••"
-                  className="w-full pl-10 pr-4 py-3 rounded-xl border border-input bg-background text-sm focus:ring-2 focus:ring-primary/30 outline-none"
-                />
+                <input type="password" required placeholder="••••••••" value={password} onChange={(e) => setPassword(e.target.value)} className="w-full pl-10 pr-4 py-3 rounded-xl border border-input bg-background text-sm focus:ring-2 focus:ring-primary/30 outline-none" />
               </div>
             </div>
-            <button className="w-full shimmer py-3 rounded-xl gradient-bio text-primary-foreground font-semibold transition-transform hover:scale-[1.02] glow-emerald">
-              Se connecter
+            <button type="submit" disabled={loading} className="w-full shimmer py-3 rounded-xl gradient-bio text-primary-foreground font-semibold transition-transform hover:scale-[1.02] glow-emerald disabled:opacity-50">
+              {loading ? "Connexion..." : "Se connecter"}
             </button>
             <p className="text-xs text-center text-muted-foreground">
               Pas de compte ?{" "}
@@ -46,7 +60,7 @@ const Connexion = () => {
                 S'inscrire
               </Link>
             </p>
-          </div>
+          </form>
         </div>
       </div>
     </div>

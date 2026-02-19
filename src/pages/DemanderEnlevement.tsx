@@ -1,6 +1,32 @@
+import { useState } from "react";
 import { Truck, MapPin, Send, CheckCircle } from "lucide-react";
+import { useAuth } from "@/contexts/AuthContext";
+import { supabase } from "@/integrations/supabase/client";
+import { toast } from "@/components/ui/sonner";
+import { Link } from "react-router-dom";
 
 const DemanderEnlevement = () => {
+  const { user } = useAuth();
+  const [repere, setRepere] = useState("");
+  const [loading, setLoading] = useState(false);
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!user) {
+      toast.error("Connectez-vous d'abord");
+      return;
+    }
+    setLoading(true);
+    const { error } = await supabase.from("pickup_requests").insert({ user_id: user.id, repere });
+    setLoading(false);
+    if (error) {
+      toast.error("Erreur lors de l'envoi");
+    } else {
+      toast.success("Demande envoyée ! Un agent passera sous 48h 🚛");
+      setRepere("");
+    }
+  };
+
   return (
     <div className="pt-24 pb-16 min-h-screen">
       <div className="container mx-auto px-4">
@@ -27,26 +53,29 @@ const DemanderEnlevement = () => {
             ))}
           </div>
 
-          <div className="p-6 rounded-2xl glass space-y-5">
-            <div>
-              <label className="block text-sm font-medium mb-2">Repère / Lieu précis *</label>
-              <div className="relative">
-                <MapPin className="absolute left-3 top-3 w-4 h-4 text-muted-foreground" />
-                <input
-                  type="text"
-                  placeholder="Ex: Devant la pharmacie, Kozah 3"
-                  className="w-full pl-10 pr-4 py-3 rounded-xl border border-input bg-background text-sm focus:ring-2 focus:ring-primary/30 outline-none"
-                />
-              </div>
+          {!user ? (
+            <div className="p-6 rounded-2xl glass text-center space-y-4">
+              <p className="text-muted-foreground">Connectez-vous pour demander un enlèvement.</p>
+              <Link to="/connexion" className="inline-block shimmer px-6 py-3 rounded-xl gradient-bio text-primary-foreground font-semibold">Se connecter</Link>
             </div>
-            <button className="w-full shimmer py-3 rounded-xl gradient-bio text-primary-foreground font-semibold flex items-center justify-center gap-2 transition-transform hover:scale-[1.02] glow-emerald">
-              <Send className="w-4 h-4" />
-              Envoyer la demande
-            </button>
-            <p className="text-xs text-muted-foreground text-center">
-              Votre profil (pseudo, téléphone, commune, quartier) sera attaché automatiquement.
-            </p>
-          </div>
+          ) : (
+            <form onSubmit={handleSubmit} className="p-6 rounded-2xl glass space-y-5">
+              <div>
+                <label className="block text-sm font-medium mb-2">Repère / Lieu précis *</label>
+                <div className="relative">
+                  <MapPin className="absolute left-3 top-3 w-4 h-4 text-muted-foreground" />
+                  <input type="text" required placeholder="Ex: Devant la pharmacie, Kozah 3" value={repere} onChange={(e) => setRepere(e.target.value)} className="w-full pl-10 pr-4 py-3 rounded-xl border border-input bg-background text-sm focus:ring-2 focus:ring-primary/30 outline-none" />
+                </div>
+              </div>
+              <button type="submit" disabled={loading} className="w-full shimmer py-3 rounded-xl gradient-bio text-primary-foreground font-semibold flex items-center justify-center gap-2 transition-transform hover:scale-[1.02] glow-emerald disabled:opacity-50">
+                <Send className="w-4 h-4" />
+                {loading ? "Envoi..." : "Envoyer la demande"}
+              </button>
+              <p className="text-xs text-muted-foreground text-center">
+                Votre profil (pseudo, téléphone, commune, quartier) sera attaché automatiquement.
+              </p>
+            </form>
+          )}
         </div>
       </div>
     </div>
