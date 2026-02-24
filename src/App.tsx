@@ -15,6 +15,7 @@ import DemanderEnlevement from "./pages/DemanderEnlevement";
 import Connexion from "./pages/Connexion";
 import Inscription from "./pages/Inscription";
 import NotFound from "./pages/NotFound";
+import AdminDashboard from "./pages/AdminDashboard";
 
 const queryClient = new QueryClient();
 
@@ -35,6 +36,7 @@ const App = () => (
             <Route path="/enlevement" element={<DemanderEnlevement />} />
             <Route path="/connexion" element={<Connexion />} />
             <Route path="/inscription" element={<Inscription />} />
+            <Route path="/admin" element={<AdminDashboard />} />
             <Route path="*" element={<NotFound />} />
           </Routes>
           <Footer />
