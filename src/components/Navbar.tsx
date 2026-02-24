@@ -1,7 +1,8 @@
 import { useState, useEffect } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
-import { Recycle, Menu, X, Sprout, AlertTriangle, CalendarDays, LogIn, UserPlus, LogOut, User } from "lucide-react";
+import { Recycle, Menu, X, Sprout, AlertTriangle, CalendarDays, LogIn, UserPlus, LogOut, User, ShieldCheck } from "lucide-react";
 import { useAuth } from "@/contexts/AuthContext";
+import { supabase } from "@/integrations/supabase/client";
 
 const navLinks = [
   { to: "/", label: "Accueil", icon: null },
@@ -13,9 +14,15 @@ const navLinks = [
 const Navbar = () => {
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
+  const [isAdmin, setIsAdmin] = useState(false);
   const location = useLocation();
   const navigate = useNavigate();
   const { user, profile, signOut } = useAuth();
+
+  useEffect(() => {
+    if (!user) { setIsAdmin(false); return; }
+    supabase.rpc("has_role", { _user_id: user.id, _role: "admin" }).then(({ data }) => setIsAdmin(!!data));
+  }, [user]);
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 50);
@@ -76,6 +83,15 @@ const Navbar = () => {
           <div className="hidden lg:flex items-center gap-3">
             {user ? (
               <>
+                {isAdmin && (
+                  <Link
+                    to="/admin"
+                    className="px-4 py-2 text-sm font-medium text-primary hover:text-primary/80 transition-colors flex items-center gap-1"
+                  >
+                    <ShieldCheck className="w-4 h-4" />
+                    Admin
+                  </Link>
+                )}
                 <span className="text-sm text-foreground/70 flex items-center gap-1">
                   <User className="w-4 h-4" />
                   {profile?.pseudo || "Utilisateur"}
@@ -135,6 +151,11 @@ const Navbar = () => {
           <div className="flex flex-col items-center gap-4 mt-8" style={{ animation: mobileOpen ? "slide-up 0.5s ease-out 0.4s forwards" : "none", opacity: 0 }}>
             {user ? (
               <>
+                {isAdmin && (
+                  <Link to="/admin" className="text-lg text-primary font-semibold flex items-center gap-2">
+                    <ShieldCheck className="w-5 h-5" /> Admin
+                  </Link>
+                )}
                 <span className="text-lg text-foreground/70">{profile?.pseudo || "Utilisateur"}</span>
                 <button onClick={handleSignOut} className="text-lg text-foreground/70">Déconnexion</button>
               </>
