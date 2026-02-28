@@ -24,7 +24,7 @@ const HeroSection = () => {
             className="font-display text-4xl sm:text-5xl lg:text-6xl font-bold leading-tight mb-6 animate-slide-up"
             style={{ animationDelay: "0.1s" }}
           >
-            Transformez vos{" "}
+            Bienvenu sur RECYC HUB TOGO Transformez vos{" "}
             <span className="text-gradient-emerald">déchets</span> en{" "}
             <span className="text-gradient-emerald">revenus</span> à Kara
           </h1>
@@ -33,9 +33,8 @@ const HeroSection = () => {
             className="text-lg text-muted-foreground mb-8 max-w-lg animate-slide-up"
             style={{ animationDelay: "0.2s" }}
           >
-            Plateforme phygitale d'enlèvement de déchets ménagers, de vente de
-            plastiques et de sensibilisation environnementale dans la préfecture
-            de Kozah.
+            RECYC HUB TOGO votre Plateforme phygitale gestion de déchets ménagers, de vente de
+            plastiques et de sensibilisation environnementale à Kara.
           </p>
 
           <div
