@@ -7,6 +7,7 @@ import { AuthProvider } from "@/contexts/AuthContext";
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
 import WhatsAppButton from "./components/WhatsAppButton";
+import MobileStickyBar from "./components/MobileStickyBar";
 import Index from "./pages/Index";
 import GreenAcademy from "./pages/GreenAcademy";
 import AlerteDepotoir from "./pages/AlerteDepotoir";
@@ -42,6 +43,7 @@ const App = () => (
           </Routes>
           <Footer />
           <WhatsAppButton />
+          <MobileStickyBar />
         </AuthProvider>
       </BrowserRouter>
     </TooltipProvider>
