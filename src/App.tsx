@@ -6,6 +6,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { AuthProvider } from "@/contexts/AuthContext";
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
+import WhatsAppButton from "./components/WhatsAppButton";
 import Index from "./pages/Index";
 import GreenAcademy from "./pages/GreenAcademy";
 import AlerteDepotoir from "./pages/AlerteDepotoir";
@@ -40,6 +41,7 @@ const App = () => (
             <Route path="*" element={<NotFound />} />
           </Routes>
           <Footer />
+          <WhatsAppButton />
         </AuthProvider>
       </BrowserRouter>
     </TooltipProvider>
