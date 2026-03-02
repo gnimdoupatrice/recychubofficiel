@@ -3,6 +3,7 @@ import { Link, useLocation, useNavigate } from "react-router-dom";
 import { Recycle, Menu, X, Sprout, AlertTriangle, CalendarDays, LogIn, UserPlus, LogOut, User, ShieldCheck } from "lucide-react";
 import { useAuth } from "@/contexts/AuthContext";
 import { supabase } from "@/integrations/supabase/client";
+import logoImg from "@/assets/logo.png";
 
 const navLinks = [
   { to: "/", label: "Accueil", icon: null },
@@ -48,10 +49,9 @@ const Navbar = () => {
       >
         <div className="container mx-auto px-4 flex items-center justify-between">
           <Link to="/" className="flex items-center gap-2 group">
-            <div className="animate-glow-pulse">
-              <Recycle className="w-8 h-8 text-primary transition-transform group-hover:rotate-180 duration-700" />
-            </div>
-            <span className="font-display font-bold text-xl text-gradient-emerald">RecycHub</span>
+            <img src={logoImg} alt="Recyclage à Kara" width="10%" height="20vh"/>
+            
+            <span className="font-display font-bold text-xl text-gradient-emerald">RECYC HUB TOGO</span>
           </Link>
 
           <div className="hidden lg:flex items-center gap-1">

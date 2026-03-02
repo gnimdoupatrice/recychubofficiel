@@ -7,7 +7,7 @@ const HeroSection = () => {
     <section className="relative min-h-screen flex items-center overflow-hidden">
       {/* BG Image */}
       <div className="absolute inset-0">
-        <img src={heroImg} alt="Recyclage à Kara" className="w-full h-full object-cover" />
+        <img src={heroImg} alt="recyc hub togo" className="logo" />
         <div className="absolute inset-0 bg-gradient-to-r from-background/95 via-background/80 to-background/40" />
       </div>
 
