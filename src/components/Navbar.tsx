@@ -44,8 +44,8 @@ const Navbar = () => {
     <>
       <nav
         className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
-          scrolled ? "py-2" : "py-4"
-        } glass`}
+          scrolled ? "py-2 shadow-md" : "py-4"
+        } bg-background/80 backdrop-blur-xl backdrop-brightness-[0.85] border-b border-border/40`}
       >
         <div className="container mx-auto px-4 flex items-center justify-between">
           <Link to="/" className="flex items-center gap-2 group">
@@ -108,15 +108,14 @@ const Navbar = () => {
               <>
                 <Link
                   to="/connexion"
-                  className="relative px-4 py-2 text-sm font-medium text-foreground/70 hover:text-foreground transition-colors group"
+                  className="px-4 py-2 text-sm font-medium text-foreground/60 hover:text-foreground border border-transparent hover:border-border rounded-full transition-all duration-300 flex items-center gap-1"
                 >
-                  <LogIn className="w-4 h-4 inline mr-1" />
+                  <LogIn className="w-4 h-4" />
                   Connexion
-                  <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-primary transition-all duration-300 group-hover:w-full" />
                 </Link>
                 <Link
                   to="/inscription"
-                  className="shimmer px-5 py-2 rounded-full gradient-bio text-primary-foreground text-sm font-semibold transition-transform hover:scale-105 flex items-center gap-1"
+                  className="shimmer px-6 py-2.5 rounded-full gradient-bio text-primary-foreground text-sm font-bold transition-all duration-300 hover:scale-105 hover:shadow-lg hover:shadow-primary/25 flex items-center gap-1.5"
                 >
                   <UserPlus className="w-4 h-4" />
                   S'inscrire
