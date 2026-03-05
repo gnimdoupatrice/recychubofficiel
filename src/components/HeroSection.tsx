@@ -61,7 +61,7 @@ const HeroSection = () => {
           </h2>
 
           {/* Description card */}
-          <div className="flex flex-col md:flex-row gap-6 mb-8 animate-slide-up" style={{ animationDelay: "0.15s" }}>
+          <div className="flex flex-col md:flex-row gap-6 mb-8 animate-slide-up" style={{ animationDelay: "0.2s" }}>
             {/* Stat card */}
             <div className="glass rounded-2xl px-5 py-4 flex items-center gap-4 shrink-0">
               <div className="flex -space-x-2">
