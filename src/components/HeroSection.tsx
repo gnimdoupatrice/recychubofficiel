@@ -51,15 +51,17 @@ const HeroSection = () => {
 
       {/* Content */}
       <div className="relative z-[3] container mx-auto px-4 pb-12 md:pb-20 pt-32">
-        <div className="max-w-3xl">
-          <h1 className="font-display text-3xl sm:text-4xl lg:text-5xl xl:text-6xl font-bold leading-tight mb-6 text-primary-foreground animate-slide-up">
-            Recyclez vos déchets,{" "}
-            <span className="text-accent">Gagnez de l'argent</span> —{" "}
-            Solutions durables pour un Kara plus vert
+      <div className="max-w-3xl">
+          <h1 className="font-display text-2xl sm:text-3xl lg:text-4xl font-bold leading-tight mb-4 text-primary-foreground animate-slide-up">
+            DE BIENVENU SUR <span className="text-accent">RECYC HUB TOGO</span>
           </h1>
+          <h2 className="font-display text-3xl sm:text-4xl lg:text-5xl xl:text-6xl font-bold leading-tight mb-6 text-primary-foreground animate-slide-up" style={{ animationDelay: "0.05s" }}>
+            Votre solution pour vous débarrasser de vos déchets ménagers, vendre vos déchets plastiques et{" "}
+            <span className="text-accent">optimiser vos tournées de collecte</span>
+          </h2>
 
           {/* Description card */}
-          <div className="flex flex-col md:flex-row gap-6 mb-8 animate-slide-up" style={{ animationDelay: "0.15s" }}>
+          <div className="flex flex-col md:flex-row gap-6 mb-8 animate-slide-up" style={{ animationDelay: "0.2s" }}>
             {/* Stat card */}
             <div className="glass rounded-2xl px-5 py-4 flex items-center gap-4 shrink-0">
               <div className="flex -space-x-2">
@@ -82,7 +84,7 @@ const HeroSection = () => {
           </div>
 
           {/* CTA + Trust */}
-          <div className="flex flex-col sm:flex-row items-start sm:items-center gap-6 animate-slide-up" style={{ animationDelay: "0.3s" }}>
+          <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4 animate-slide-up" style={{ animationDelay: "0.35s" }}>
             <Link
               to="/vendre"
               className="shimmer inline-flex items-center justify-center gap-2 px-8 py-4 rounded-lg gradient-bio text-primary-foreground font-semibold text-base uppercase tracking-wide transition-transform hover:scale-105 glow-emerald"
@@ -90,6 +92,13 @@ const HeroSection = () => {
               <ShoppingBag className="w-5 h-5" />
               Vendre maintenant
               <ArrowRight className="w-5 h-5" />
+            </Link>
+
+            <Link
+              to="/enlever"
+              className="inline-flex items-center justify-center gap-2 px-8 py-4 rounded-lg border-2 border-primary-foreground text-primary-foreground font-semibold text-base uppercase tracking-wide transition-all hover:bg-primary-foreground/10"
+            >
+              Demander un enlèvement
             </Link>
 
             {/* Trust score */}
