@@ -84,7 +84,7 @@ const HeroSection = () => {
           </div>
 
           {/* CTA + Trust */}
-          <div className="flex flex-col sm:flex-row items-start sm:items-center gap-6 animate-slide-up" style={{ animationDelay: "0.3s" }}>
+          <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4 animate-slide-up" style={{ animationDelay: "0.35s" }}>
             <Link
               to="/vendre"
               className="shimmer inline-flex items-center justify-center gap-2 px-8 py-4 rounded-lg gradient-bio text-primary-foreground font-semibold text-base uppercase tracking-wide transition-transform hover:scale-105 glow-emerald"
@@ -92,6 +92,13 @@ const HeroSection = () => {
               <ShoppingBag className="w-5 h-5" />
               Vendre maintenant
               <ArrowRight className="w-5 h-5" />
+            </Link>
+
+            <Link
+              to="/enlever"
+              className="inline-flex items-center justify-center gap-2 px-8 py-4 rounded-lg border-2 border-primary-foreground text-primary-foreground font-semibold text-base uppercase tracking-wide transition-all hover:bg-primary-foreground/10"
+            >
+              Demander un enlèvement
             </Link>
 
             {/* Trust score */}
