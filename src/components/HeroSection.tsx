@@ -65,6 +65,14 @@ const HeroSection = () => {
             Simple, rapide et disponible dans toute la commune de Kozah.
           </p>
 
+
+
+
+
+
+
+          
+
           {/* CTA row — one primary (large), one secondary (outline) */}
           <div
             className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 mb-6 animate-slide-up"
