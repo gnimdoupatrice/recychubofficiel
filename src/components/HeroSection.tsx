@@ -1,11 +1,8 @@
 import { useState, useEffect, useCallback } from "react";
 import { ArrowRight, ShoppingBag, Truck, Phone } from "lucide-react";
 import { Link } from "react-router-dom";
-import heroImg1 from "@/assets/hero-recycling.jpg";
-import heroImg2 from "@/assets/hero-slide-2.jpg";
-import heroImg3 from "@/assets/hero-slide-3.jpg";
-
-const slides = [heroImg1, heroImg2, heroImg3];
+// Images placeholder — en attente des nouvelles images de déchets plastiques
+const slides: string[] = [];
 
 const HeroSection = () => {
   const [current, setCurrent] = useState(0);
@@ -21,21 +18,8 @@ const HeroSection = () => {
 
   return (
     <section className="relative min-h-[85vh] md:min-h-screen flex items-end overflow-hidden">
-      {/* Background slides */}
-      {slides.map((src, i) => (
-        <div
-          key={i}
-          className="absolute inset-0 transition-opacity duration-1000 ease-in-out"
-          style={{ opacity: i === current ? 1 : 0, zIndex: i === current ? 1 : 0 }}
-        >
-          <img
-            src={src}
-            alt={`Recyc Hub Togo – activité terrain ${i + 1}`}
-            className="w-full h-full object-cover"
-            loading={i === 0 ? "eager" : "lazy"}
-          />
-        </div>
-      ))}
+      {/* Background — couleur unie en attendant les nouvelles images */}
+      <div className="absolute inset-0 bg-primary" />
 
       {/* Dark overlay — stronger for readability */}
       <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/65 to-black/40 z-[2]" />
