@@ -1,8 +1,14 @@
 import { useState, useEffect, useCallback } from "react";
 import { ArrowRight, ShoppingBag, Truck, Phone } from "lucide-react";
 import { Link } from "react-router-dom";
-// Images placeholder — en attente des nouvelles images de déchets plastiques
-const slides: string[] = [];
+
+import purWater from "@/assets/hero/pur_water.jpg";
+import petPlastique from "@/assets/hero/pet_plastique.png";
+import ppPlastique from "@/assets/hero/pp_plastique.png";
+import chaisesPlastique from "@/assets/hero/chaises_plastique.jpg";
+import pvcTuyaux from "@/assets/hero/pvc_tuyaux.jpg";
+
+const slides = [purWater, petPlastique, ppPlastique, chaisesPlastique, pvcTuyaux];
 
 const HeroSection = () => {
   const [current, setCurrent] = useState(0);
@@ -18,28 +24,37 @@ const HeroSection = () => {
 
   return (
     <section className="relative min-h-[85vh] md:min-h-screen flex items-end overflow-hidden">
-      {/* Background — couleur unie en attendant les nouvelles images */}
-      <div className="absolute inset-0 bg-primary" />
+      {/* Background slides */}
+      {slides.map((src, i) => (
+        <div
+          key={i}
+          className="absolute inset-0 transition-opacity duration-1000"
+          style={{ opacity: i === current ? 1 : 0 }}
+        >
+          <img
+            src={src}
+            alt={`Type de plastique ${i + 1}`}
+            className="w-full h-full object-cover"
+          />
+        </div>
+      ))}
 
-      {/* Dark overlay — stronger for readability */}
+      {/* Dark overlay */}
       <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/65 to-black/40 z-[2]" />
 
       {/* Content */}
       <div className="relative z-[3] container mx-auto px-4 pb-10 md:pb-16 pt-28 md:pt-32">
         <div className="max-w-2xl">
-          {/* Subtitle badge */}
           <span className="inline-block px-3 py-1 rounded-full text-xs font-semibold uppercase tracking-widest bg-accent/20 text-accent border border-accent/30 mb-4 animate-slide-up">
             Bienvenue sur Recyc Hub Togo
           </span>
 
-          {/* Main headline — concrete, action-oriented */}
           <h1 className="font-display text-2xl sm:text-3xl lg:text-4xl xl:text-5xl font-bold leading-tight mb-4 text-white animate-slide-up" style={{ animationDelay: "0.05s" }}>
             Faites collecter vos déchets ménagers et{" "}
             <span className="text-accent">vendez vos plastiques</span>{" "}
             en quelques clics
           </h1>
 
-          {/* Sub-description — short, benefit-driven */}
           <p
             className="text-base sm:text-lg text-white/75 leading-relaxed max-w-xl mb-8 animate-slide-up"
             style={{ animationDelay: "0.15s" }}
@@ -49,20 +64,10 @@ const HeroSection = () => {
             Simple, rapide et disponible dans toute la commune de Kozah.
           </p>
 
-
-
-
-
-
-
-          
-
-          {/* CTA row — one primary (large), one secondary (outline) */}
           <div
             className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 mb-6 animate-slide-up"
             style={{ animationDelay: "0.25s" }}
           >
-            {/* Primary CTA — largest, most visible */}
             <Link
               to="/vendre"
               className="group inline-flex items-center justify-center gap-2.5 px-8 py-4 rounded-xl gradient-bio text-white font-bold text-base uppercase tracking-wide transition-all duration-300 hover:scale-[1.03] hover:shadow-xl hover:shadow-primary/30 active:scale-[0.98] focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2"
@@ -72,7 +77,6 @@ const HeroSection = () => {
               <ArrowRight className="w-5 h-5 transition-transform duration-300 group-hover:translate-x-1" />
             </Link>
 
-            {/* Secondary CTA — ghost/outline */}
             <Link
               to="/enlevement"
               className="group inline-flex items-center justify-center gap-2 px-6 py-4 rounded-xl border border-white/30 text-white font-semibold text-sm uppercase tracking-wide transition-all duration-300 hover:bg-white/10 hover:border-white/50 active:scale-[0.98] focus-visible:ring-2 focus-visible:ring-white/50"
@@ -82,7 +86,6 @@ const HeroSection = () => {
             </Link>
           </div>
 
-          {/* Trust line + phone */}
           <div
             className="flex flex-col sm:flex-row items-start sm:items-center gap-4 text-sm text-white/60 animate-slide-up"
             style={{ animationDelay: "0.35s" }}
