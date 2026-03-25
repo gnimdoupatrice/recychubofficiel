@@ -4,7 +4,7 @@ import ImpactSection from "@/components/ImpactSection";
 import ServicesSection from "@/components/ServicesSection";
 import TestimonialsSection from "@/components/TestimonialsSection";
 import PartnersSection from "@/components/PartnersSection";
-import CTASection from "@/components/CtaSection";
+import CTASection from "@/components/CTASection";
 
 const Index = () => {
   return (
