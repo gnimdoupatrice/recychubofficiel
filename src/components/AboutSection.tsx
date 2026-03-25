@@ -1,119 +1,105 @@
-import { AlertTriangle, TrendingDown, Trash2, Target, Eye, Compass } from "lucide-react";
-
-const constats = [
-  {
-    icon: TrendingDown,
-    title: "Précarité financière",
-    desc: "La majorité des ménages togolais n'ont pas les moyens de souscrire aux services de collecte de déchets, rendant la gestion des ordures impossible.",
-  },
-  {
-    icon: Trash2,
-    title: "Déchets dans les rues",
-    desc: "Faute de solution accessible, les déchets finissent dans les rues, les caniveaux et les rivières — alors qu'ils représentent une mine d'or pour le recyclage.",
-  },
-  {
-    icon: AlertTriangle,
-    title: "Services désorganisés",
-    desc: "Les entreprises de collecte manquent d'outils efficaces pour organiser leurs tournées et atteindre les ménages dans les quartiers reculés.",
-  },
-];
-
-const missions = [
-  {
-    icon: Target,
-    title: "Notre Mission",
-    desc: "Connecter les ménages, les collecteurs et les recycleurs grâce à une plateforme numérique qui transforme les déchets plastiques en revenus pour tous.",
-  },
-  {
-    icon: Eye,
-    title: "Notre Vision",
-    desc: "Un Togo où chaque déchet plastique est valorisé, chaque citoyen est acteur du changement, et chaque quartier est propre et durable.",
-  },
-  {
-    icon: Compass,
-    title: "Nos Objectifs",
-    desc: "Démocratiser l'accès au recyclage, créer des emplois verts, digitaliser la collecte et bâtir une économie circulaire inclusive au Togo.",
-  },
-];
+import { Clock, Target, Compass } from "lucide-react";
+import aboutHero from "@/assets/about-hero.jpg";
 
 const AboutSection = () => {
   return (
-    <section className="py-20 md:py-28">
+    <section className="py-20 md:py-28 bg-background">
       <div className="container mx-auto px-4">
         {/* Header */}
         <div className="text-center max-w-3xl mx-auto mb-16">
-          <span className="text-sm font-semibold uppercase tracking-wider text-primary">
+          <span className="text-sm font-semibold uppercase tracking-wider text-primary flex items-center justify-center gap-2 mb-3">
+            <span className="w-5 h-5 rounded-full border-2 border-primary flex items-center justify-center text-[10px]">♻</span>
             À propos
           </span>
-          <h2 className="font-display text-3xl sm:text-4xl font-bold mt-2 mb-4 text-foreground">
+          <h2 className="font-display text-3xl sm:text-4xl lg:text-5xl font-bold text-foreground leading-tight">
             Pourquoi <span className="text-gradient-emerald">RecycHub Togo</span> ?
           </h2>
-          <p className="text-muted-foreground leading-relaxed">
-            Au Togo, la gestion des déchets est un défi quotidien. Entre la précarité des ménages, 
-            l'absence de solutions accessibles et la désorganisation des services de collecte, 
-            des millions de tonnes de plastiques finissent dans nos rues chaque année — 
-            alors qu'elles pourraient créer de la valeur.
-          </p>
         </div>
 
-        {/* Constat - 2 column layout inspired by reference */}
-        <div className="grid lg:grid-cols-2 gap-12 items-start mb-20">
-          {/* Left: Constat cards */}
-          <div>
-            <p className="text-sm font-semibold text-destructive uppercase tracking-wider mb-6 flex items-center gap-2">
-              <AlertTriangle className="w-4 h-4" />
-              Le constat
-            </p>
-            <div className="space-y-5">
-              {constats.map((item, i) => (
-                <div
-                  key={item.title}
-                  className="flex gap-4 p-5 rounded-2xl bg-card border border-border/60 shadow-sm hover:shadow-md transition-shadow"
-                >
-                  <div className="w-12 h-12 rounded-xl bg-destructive/10 flex items-center justify-center shrink-0">
-                    <item.icon className="w-5 h-5 text-destructive" />
-                  </div>
-                  <div>
-                    <h3 className="font-semibold text-foreground mb-1">{item.title}</h3>
-                    <p className="text-sm text-muted-foreground leading-relaxed">{item.desc}</p>
-                  </div>
-                </div>
-              ))}
+        {/* 2-column layout like reference */}
+        <div className="grid lg:grid-cols-2 gap-10 lg:gap-16 items-start">
+          {/* Left: Image with stat badge */}
+          <div className="relative">
+            <div className="rounded-2xl overflow-hidden shadow-xl">
+              <img
+                src={aboutHero}
+                alt="Équipe RecycHub collectant des plastiques au Togo"
+                className="w-full h-[400px] lg:h-[520px] object-cover"
+                loading="lazy"
+                width={800}
+                height={900}
+              />
+            </div>
+            {/* Stat badge */}
+            <div className="absolute bottom-6 left-6 bg-card rounded-2xl shadow-lg p-5 border border-border/60">
+              <div className="font-display text-4xl font-bold text-primary">3</div>
+              <div className="text-sm font-semibold text-foreground bg-primary/10 rounded-lg px-3 py-1 mt-1">
+                Problèmes majeurs
+              </div>
             </div>
           </div>
 
-          {/* Right: Mission, Vision, Objectifs */}
-          <div>
-            <p className="text-sm font-semibold text-primary uppercase tracking-wider mb-6 flex items-center gap-2">
-              <Target className="w-4 h-4" />
-              Notre réponse
+          {/* Right: Content */}
+          <div className="flex flex-col justify-center">
+            <p className="text-muted-foreground leading-relaxed mb-8 text-base">
+              Au Togo, la gestion des déchets est un défi quotidien. La <strong className="text-foreground">précarité financière</strong> des 
+              ménages les empêche de souscrire aux services de collecte. Par conséquent, les déchets finissent dans les rues et les 
+              caniveaux — alors même que ces déchets, qui sont <strong className="text-foreground">une charge pour les ménages</strong>, 
+              représentent <strong className="text-primary">une mine d'or pour les entreprises de recyclage</strong>. 
+              De l'autre côté, les services de collecte manquent d'outils efficaces pour organiser leurs tournées.
             </p>
-            <div className="space-y-5">
-              {missions.map((item) => (
-                <div
-                  key={item.title}
-                  className="flex gap-4 p-5 rounded-2xl bg-card border border-primary/20 shadow-sm hover:shadow-md transition-shadow"
-                >
-                  <div className="w-12 h-12 rounded-xl gradient-bio flex items-center justify-center shrink-0">
-                    <item.icon className="w-5 h-5 text-primary-foreground" />
-                  </div>
-                  <div>
-                    <h3 className="font-semibold text-foreground mb-1">{item.title}</h3>
-                    <p className="text-sm text-muted-foreground leading-relaxed">{item.desc}</p>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
-        </div>
 
-        {/* Bottom highlight */}
-        <div className="max-w-3xl mx-auto text-center p-8 rounded-2xl bg-primary/5 border border-primary/10">
-          <p className="text-foreground font-medium leading-relaxed">
-            <span className="font-bold text-primary">RecycHub Togo</span> est né de cette réalité : 
-            transformer un problème national en opportunité économique et environnementale, 
-            en donnant à chaque citoyen le pouvoir d'agir.
-          </p>
+            {/* Mission */}
+            <div className="flex gap-4 mb-6">
+              <div className="w-12 h-12 rounded-full border-2 border-primary/30 flex items-center justify-center shrink-0">
+                <Clock className="w-5 h-5 text-primary" />
+              </div>
+              <div>
+                <h3 className="font-display text-xl font-bold text-foreground mb-1">Notre Mission</h3>
+                <p className="text-sm text-muted-foreground leading-relaxed">
+                  Connecter les ménages, les collecteurs et les recycleurs grâce à une plateforme numérique 
+                  qui transforme les déchets plastiques en revenus pour tous.
+                </p>
+              </div>
+            </div>
+
+            {/* Vision */}
+            <div className="flex gap-4 mb-6">
+              <div className="w-12 h-12 rounded-full border-2 border-primary/30 flex items-center justify-center shrink-0">
+                <Target className="w-5 h-5 text-primary" />
+              </div>
+              <div>
+                <h3 className="font-display text-xl font-bold text-foreground mb-1">Notre Vision</h3>
+                <p className="text-sm text-muted-foreground leading-relaxed">
+                  Un Togo où chaque déchet plastique est valorisé, chaque citoyen est acteur du changement, 
+                  et chaque quartier est propre et durable.
+                </p>
+              </div>
+            </div>
+
+            {/* Objectifs */}
+            <div className="flex gap-4 mb-8">
+              <div className="w-12 h-12 rounded-full border-2 border-primary/30 flex items-center justify-center shrink-0">
+                <Compass className="w-5 h-5 text-primary" />
+              </div>
+              <div>
+                <h3 className="font-display text-xl font-bold text-foreground mb-1">Nos Objectifs</h3>
+                <p className="text-sm text-muted-foreground leading-relaxed">
+                  Démocratiser l'accès au recyclage, créer des emplois verts, digitaliser la collecte 
+                  et bâtir une économie circulaire inclusive au Togo.
+                </p>
+              </div>
+            </div>
+
+            {/* CTA */}
+            <a
+              href="/inscription"
+              className="inline-flex items-center gap-2 px-6 py-3 rounded-full gradient-bio text-primary-foreground font-semibold transition-transform hover:scale-105 self-start"
+            >
+              En savoir plus
+              <span className="text-lg">↗</span>
+            </a>
+          </div>
         </div>
       </div>
     </section>
