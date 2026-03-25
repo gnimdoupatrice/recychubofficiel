@@ -23,12 +23,12 @@ const HeroSection = () => {
   }, [goNext]);
 
   return (
-    <section className="relative min-h-[85vh] md:min-h-screen flex items-end overflow-hidden">
-      {/* Background slides */}
+    <section className="relative min-h-[85vh] md:min-h-screen flex items-end overflow-hidden pt-16 md:pt-20">
+      {/* Background slides — start below the navbar */}
       {slides.map((src, i) => (
         <div
           key={i}
-          className="absolute inset-0 transition-opacity duration-1000"
+          className="absolute left-0 right-0 bottom-0 top-16 md:top-20 transition-opacity duration-1000"
           style={{ opacity: i === current ? 1 : 0 }}
         >
           <img
