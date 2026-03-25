@@ -1,11 +1,8 @@
 import { useState, useEffect, useCallback } from "react";
 import { ArrowRight, ShoppingBag, Truck, Phone } from "lucide-react";
 import { Link } from "react-router-dom";
-import heroImg1 from "@/assets/hero-recycling.jpg";
-import heroImg2 from "@/assets/hero-slide-2.jpg";
-import heroImg3 from "@/assets/hero-slide-3.jpg";
-
-const slides = [heroImg1, heroImg2, heroImg3];
+// Images placeholder — en attente des nouvelles images de déchets plastiques
+const slides: string[] = [];
 
 const HeroSection = () => {
   const [current, setCurrent] = useState(0);
