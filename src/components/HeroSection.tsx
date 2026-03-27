@@ -46,7 +46,7 @@ const HeroSection = () => {
       <div className="relative z-[3] container mx-auto px-4 pb-10 md:pb-16 pt-28 md:pt-32">
         <div className="max-w-2xl">
           <span className="inline-block px-3 py-1 rounded-full text-xs font-semibold uppercase tracking-widest bg-accent/20 text-accent border border-accent/30 mb-4 animate-slide-up">
-            Bienvenue sur Recyc Hub Togo
+            Bienvenue sur RECYC HUB TOGO
           </span>
 
           <h1 className="font-display text-2xl sm:text-3xl lg:text-4xl xl:text-5xl font-bold leading-tight mb-4 text-white animate-slide-up" style={{ animationDelay: "0.05s" }}>
@@ -60,8 +60,8 @@ const HeroSection = () => {
             style={{ animationDelay: "0.15s" }}
           >
             Demandez un enlèvement ou vendez vos plastiques à{" "}
-            <strong className="text-white">55 FCFA/kg</strong>.
-            Simple, rapide et disponible dans toute la commune de Kozah.
+            <strong className="text-white">  au kg</strong>.
+            Simple, rapide et disponible partous à Kara.
           </p>
 
           <div
@@ -99,7 +99,7 @@ const HeroSection = () => {
               className="flex items-center gap-1.5 text-white/60 hover:text-accent transition-colors"
             >
               <Phone className="w-4 h-4" />
-              +228 90 12 34 56
+              +228 97 68 40 30
             </a>
           </div>
         </div>
