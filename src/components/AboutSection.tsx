@@ -1,6 +1,5 @@
 import { useState } from "react";
 import { Eye, Target, Trophy, ArrowRight, Home, Recycle, Truck } from "lucide-react";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import challenge1 from "@/assets/challenge-1.jpg";
 import challenge2 from "@/assets/challenge-2.jpg";
 import challenge3 from "@/assets/challenge-3.jpg";
