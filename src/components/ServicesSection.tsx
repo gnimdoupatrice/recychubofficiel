@@ -1,85 +1,239 @@
+import { useEffect, useCallback } from "react";
+import useEmblaCarousel from "embla-carousel-react";
+import Autoplay from "embla-carousel-autoplay";
 import {
-  Truck,
+  Recycle,
+  ArrowRight,
+  CheckCircle2,
+  Monitor,
   AlertTriangle,
   GraduationCap,
-  Recycle,
-  Monitor,
   Users,
-  MapPin,
   BarChart3,
   Route,
+  Truck,
   Bell,
   Camera,
   Shield,
   BookOpen,
   Award,
   Wrench,
-  ArrowRight,
-  HelpCircle,
-  Weight,
 } from "lucide-react";
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import {
-  Tooltip,
-  TooltipContent,
-  TooltipProvider,
-  TooltipTrigger,
-} from "@/components/ui/tooltip";
 
-import plasticPet from "@/assets/plastic-pet.jpg";
-import plasticPehd from "@/assets/plastic-pehd.jpg";
-import plasticPp from "@/assets/plastic-pp.jpg";
-import plasticPvc from "@/assets/plastic-pvc.jpg";
-import plasticMobilier from "@/assets/plastic-mobilier.jpg";
+/* ─── Images imports ─── */
+import petBottles1 from "@/assets/pet-bottles-1.jpg";
+import petBottles2 from "@/assets/pet-bottles-2.jpg";
+import pehdContainers1 from "@/assets/pehd-containers-1.jpg";
+import pehdContainers2 from "@/assets/pehd-containers-2.jpg";
+import ppItems1 from "@/assets/pp-items-1.jpg";
+import ppItems2 from "@/assets/pp-items-2.jpg";
+import pvcPipes1 from "@/assets/pvc-pipes-1.jpg";
+import pvcPipes2 from "@/assets/pvc-pipes-2.jpg";
+import mobilier1 from "@/assets/mobilier-1.jpg";
+import mobilier2 from "@/assets/mobilier-2.jpg";
 
-/* ─── Types de plastiques ─── */
-const plasticTypes = [
+/* ─── Données plastiques ─── */
+const plasticRows = [
   {
     code: "PET",
     name: "Bouteilles transparentes",
-    image: plasticPet,
-    identify: "Plastique qui craque sous la main, utilisé pour les boissons (eau, soda, jus).",
+    images: [petBottles1, petBottles2],
+    identifiers: [
+      "Plastique léger qui craque sous la main",
+      "Utilisé pour les boissons : eau, soda, jus",
+      "Transparent avec bouchons colorés",
+      "Étiquettes souvent encore collées",
+    ],
     price: "55",
     unit: "kg",
   },
   {
     code: "PEHD",
     name: "Bidons & flacons opaques",
-    image: plasticPehd,
-    identify: "Plastique dur, non transparent, utilisé pour les bidons d'huile, lessive et shampoing.",
+    images: [pehdContainers1, pehdContainers2],
+    identifiers: [
+      "Plastique dur, épais et non transparent",
+      "Bidons d'huile, détergent, lessive",
+      "Flacons de shampoing et produits ménagers",
+      "Résistant aux chocs, souvent coloré",
+    ],
     price: "55",
     unit: "kg",
   },
   {
     code: "PP",
     name: "Bassines, seaux & bouchons",
-    image: plasticPp,
-    identify: "Plastique rigide mais incassable, souvent coloré. Ustensiles de cuisine, seaux.",
+    images: [ppItems1, ppItems2],
+    identifiers: [
+      "Plastique rigide mais incassable",
+      "Souvent très coloré (rouge, bleu, jaune)",
+      "Ustensiles de cuisine, seaux, bassines",
+      "Bouchons de bouteilles en grande quantité",
+    ],
     price: "80",
     unit: "kg",
   },
   {
     code: "PVC",
     name: "Tuyaux & plomberie",
-    image: plasticPvc,
-    identify: "Plastique gris ou blanc très rigide utilisé pour l'évacuation d'eau et la plomberie.",
+    images: [pvcPipes1, pvcPipes2],
+    identifiers: [
+      "Plastique gris ou blanc très rigide",
+      "Tuyaux d'évacuation d'eau",
+      "Raccords et coudes de plomberie",
+      "Ne se plie pas, casse net sous la force",
+    ],
     price: "55",
     unit: "kg",
   },
   {
     code: "Mobilier",
     name: "Chaises & tables cassées",
-    image: plasticMobilier,
-    identify: "Plastique épais et lourd utilisé pour le mobilier d'extérieur (chaises, tables).",
+    images: [mobilier1, mobilier2],
+    identifiers: [
+      "Plastique épais et lourd",
+      "Chaises de jardin, tables d'extérieur",
+      "Souvent fissurées ou décolorées par le soleil",
+      "Se vend aussi à la pièce (non broyé)",
+    ],
     price: "150",
     unit: "kg",
     altPrice: "400 FCFA/pièce (non broyé)",
   },
 ];
 
-/* ─── Autres services ─── */
+/* ─── Carousel auto-play pour chaque ligne ─── */
+const PlasticCarousel = ({ images, alt }: { images: string[]; alt: string }) => {
+  const [emblaRef, emblaApi] = useEmblaCarousel({ loop: true }, [
+    Autoplay({ delay: 3000, stopOnInteraction: false }),
+  ]);
+
+  const onSelect = useCallback(() => {
+    if (!emblaApi) return;
+  }, [emblaApi]);
+
+  useEffect(() => {
+    if (!emblaApi) return;
+    onSelect();
+    emblaApi.on("select", onSelect);
+    return () => { emblaApi.off("select", onSelect); };
+  }, [emblaApi, onSelect]);
+
+  return (
+    <div ref={emblaRef} className="overflow-hidden rounded-2xl h-full">
+      <div className="flex h-full">
+        {images.map((src, i) => (
+          <div key={i} className="flex-[0_0_100%] min-w-0 h-full">
+            <img
+              src={src}
+              alt={`${alt} - exemple ${i + 1}`}
+              loading="lazy"
+              width={800}
+              height={600}
+              className="w-full h-full object-cover"
+            />
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+};
+
+/* ─── Ligne plastique ─── */
+const PlasticRow = ({
+  plastic,
+  index,
+}: {
+  plastic: (typeof plasticRows)[0];
+  index: number;
+}) => {
+  const isEven = index % 2 === 0;
+
+  return (
+    <div
+      className={`rounded-2xl border border-border shadow-sm overflow-hidden ${
+        isEven ? "bg-card" : "bg-muted/40"
+      }`}
+    >
+      <div
+        className={`flex flex-col md:flex-row ${
+          !isEven ? "md:flex-row-reverse" : ""
+        } min-h-[320px]`}
+      >
+        {/* Colonne Visuel — Carousel */}
+        <div className="w-full md:w-[45%] aspect-[4/3] md:aspect-auto">
+          <PlasticCarousel images={plastic.images} alt={`${plastic.code} - ${plastic.name}`} />
+        </div>
+
+        {/* Colonne Info */}
+        <div className="w-full md:w-[55%] p-6 md:p-8 lg:p-10 flex flex-col justify-center">
+          {/* Code + Nom */}
+          <div className="flex items-center gap-3 mb-1">
+            <Badge className="bg-primary/10 text-primary hover:bg-primary/10 border-0 text-xs font-bold uppercase tracking-widest">
+              {plastic.code}
+            </Badge>
+            <div className="h-px flex-1 bg-border" />
+          </div>
+          <h3 className="font-display text-xl md:text-2xl lg:text-3xl font-bold text-foreground mb-5">
+            {plastic.name}
+          </h3>
+
+          {/* Identification */}
+          <div className="mb-6">
+            <p className="text-sm font-semibold text-foreground uppercase tracking-wider mb-3 flex items-center gap-2">
+              <Recycle className="w-4 h-4 text-primary" />
+              Comment l'identifier ?
+            </p>
+            <ul className="space-y-2">
+              {plastic.identifiers.map((item) => (
+                <li key={item} className="flex items-start gap-2.5">
+                  <CheckCircle2 className="w-4 h-4 text-primary mt-0.5 shrink-0" />
+                  <span className="text-sm md:text-base text-foreground/90 leading-snug">
+                    {item}
+                  </span>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          {/* Prix + CTA */}
+          <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4">
+            <div className="flex flex-col">
+              <div className="flex items-center gap-2">
+                <span className="text-3xl md:text-4xl font-extrabold text-primary">
+                  {plastic.price}
+                </span>
+                <span className="text-sm text-muted-foreground font-medium">
+                  FCFA/{plastic.unit}
+                </span>
+              </div>
+              {plastic.altPrice && (
+                <span className="text-xs text-muted-foreground mt-1 italic">
+                  ou {plastic.altPrice}
+                </span>
+              )}
+            </div>
+
+            <Button
+              asChild
+              size="lg"
+              className="gradient-green border-0 text-primary-foreground hover:opacity-90"
+            >
+              <Link to="/vendre-plastiques">
+                Vendre maintenant <ArrowRight className="ml-2 w-4 h-4" />
+              </Link>
+            </Button>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+/* ─── Services secondaires ─── */
 const otherServices = [
   {
     icon: Monitor,
@@ -102,7 +256,7 @@ const otherServices = [
     title: "Veille Citoyenne & Alerte Dépotoir",
     badge: "Civic Tech",
     description:
-      "Nous donnons à chaque citoyen le pouvoir d'agir pour la salubrité de sa communauté. Notre fonctionnalité d'alerte géolocalisée permet de signaler instantanément les dépotoirs sauvages. Ces données déclenchent des interventions rapides et cartographient les zones prioritaires.",
+      "Nous donnons à chaque citoyen le pouvoir d'agir pour la salubrité de sa communauté. Notre fonctionnalité d'alerte géolocalisée permet de signaler instantanément les dépotoirs sauvages.",
     target: "Citoyens engagés et autorités locales",
     features: [
       { icon: Camera, text: "Signalement photo géolocalisé en 3 clics" },
@@ -118,7 +272,7 @@ const otherServices = [
     title: "Green Academy",
     badge: "Formation",
     description:
-      "Parce que le changement durable passe par l'éducation, nous intégrons une interface d'apprentissage dédiée aux métiers de l'environnement. La Green Academy propose des ressources, des formations et des bonnes pratiques pour sensibiliser le grand public et former la prochaine génération de professionnels verts.",
+      "Parce que le changement durable passe par l'éducation, nous intégrons une interface d'apprentissage dédiée aux métiers de l'environnement et aux bonnes pratiques écologiques.",
     target: "Étudiants, jeunes professionnels et citoyens en quête de savoir",
     features: [
       { icon: BookOpen, text: "Modules adaptés à tous les niveaux" },
@@ -131,87 +285,13 @@ const otherServices = [
   },
 ];
 
-/* ─── Composant carte plastique ─── */
-const PlasticCard = ({ plastic }: { plastic: typeof plasticTypes[0] }) => (
-  <div className="group rounded-2xl border border-border bg-card overflow-hidden shadow-sm hover:shadow-lg transition-all duration-300 hover:-translate-y-1">
-    {/* Header */}
-    <div className="px-5 pt-5 pb-3">
-      <div className="flex items-center justify-between">
-        <div>
-          <span className="text-xs font-bold uppercase tracking-widest text-primary">
-            {plastic.code}
-          </span>
-          <h3 className="font-display text-lg font-semibold text-foreground mt-0.5">
-            {plastic.name}
-          </h3>
-        </div>
-        <div className="w-10 h-10 rounded-xl bg-primary/10 flex items-center justify-center">
-          <Recycle className="w-5 h-5 text-primary" />
-        </div>
-      </div>
-    </div>
-
-    {/* Image */}
-    <div className="mx-5 rounded-xl overflow-hidden bg-muted aspect-[4/3]">
-      <img
-        src={plastic.image}
-        alt={`${plastic.code} - ${plastic.name}`}
-        loading="lazy"
-        width={640}
-        height={512}
-        className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-      />
-    </div>
-
-    {/* Identification */}
-    <div className="px-5 pt-4 pb-3">
-      <TooltipProvider>
-        <Tooltip>
-          <TooltipTrigger asChild>
-            <div className="flex items-start gap-2 cursor-help">
-              <HelpCircle className="w-4 h-4 text-muted-foreground mt-0.5 shrink-0" />
-              <p className="text-sm text-muted-foreground leading-snug line-clamp-2">
-                {plastic.identify}
-              </p>
-            </div>
-          </TooltipTrigger>
-          <TooltipContent side="top" className="max-w-xs">
-            <p className="text-sm font-medium">Comment l'identifier ?</p>
-            <p className="text-xs mt-1">{plastic.identify}</p>
-          </TooltipContent>
-        </Tooltip>
-      </TooltipProvider>
-    </div>
-
-    {/* Price */}
-    <div className="px-5 pb-5">
-      <div className="flex items-center justify-between rounded-xl bg-primary/10 px-4 py-3">
-        <div className="flex items-center gap-2">
-          <Weight className="w-4 h-4 text-primary" />
-          <span className="text-sm font-medium text-foreground">Prix de rachat</span>
-        </div>
-        <Badge className="bg-primary text-primary-foreground text-sm font-bold px-3 py-1 hover:bg-primary">
-          {plastic.price} FCFA/{plastic.unit}
-        </Badge>
-      </div>
-      {plastic.altPrice && (
-        <p className="text-xs text-muted-foreground mt-2 text-center italic">
-          ou {plastic.altPrice}
-        </p>
-      )}
-    </div>
-  </div>
-);
-
-/* ─── Composant service secondaire ─── */
-const ServiceCard = ({ service }: { service: typeof otherServices[0] }) => {
+const ServiceCard = ({ service }: { service: (typeof otherServices)[0] }) => {
   const Icon = service.icon;
   const isDestructive = service.accent === "destructive";
 
   return (
     <div className="rounded-2xl border border-border bg-card overflow-hidden shadow-sm hover:shadow-lg transition-all duration-300">
       <div className="p-6 md:p-8">
-        {/* Badge + Icon */}
         <div className="flex items-center justify-between mb-5">
           <Badge
             variant={isDestructive ? "destructive" : "default"}
@@ -219,9 +299,11 @@ const ServiceCard = ({ service }: { service: typeof otherServices[0] }) => {
           >
             {service.badge}
           </Badge>
-          <div className={`w-12 h-12 rounded-2xl flex items-center justify-center ${
-            isDestructive ? "bg-destructive/10" : "bg-primary/10"
-          }`}>
+          <div
+            className={`w-12 h-12 rounded-2xl flex items-center justify-center ${
+              isDestructive ? "bg-destructive/10" : "bg-primary/10"
+            }`}
+          >
             <Icon className={`w-6 h-6 ${isDestructive ? "text-destructive" : "text-primary"}`} />
           </div>
         </div>
@@ -229,12 +311,8 @@ const ServiceCard = ({ service }: { service: typeof otherServices[0] }) => {
         <h3 className="font-display text-xl md:text-2xl font-bold text-foreground mb-3">
           {service.title}
         </h3>
+        <p className="text-muted-foreground leading-relaxed mb-6">{service.description}</p>
 
-        <p className="text-muted-foreground leading-relaxed mb-6">
-          {service.description}
-        </p>
-
-        {/* Target */}
         <div className="flex items-center gap-2 mb-6 text-sm">
           <Users className="w-4 h-4 text-primary shrink-0" />
           <span className="text-muted-foreground">
@@ -243,13 +321,14 @@ const ServiceCard = ({ service }: { service: typeof otherServices[0] }) => {
           </span>
         </div>
 
-        {/* Features */}
         <ul className="space-y-3 mb-8">
           {service.features.map((f) => (
             <li key={f.text} className="flex items-center gap-3">
-              <div className={`w-8 h-8 rounded-lg flex items-center justify-center shrink-0 ${
-                isDestructive ? "bg-destructive/10" : "bg-primary/10"
-              }`}>
+              <div
+                className={`w-8 h-8 rounded-lg flex items-center justify-center shrink-0 ${
+                  isDestructive ? "bg-destructive/10" : "bg-primary/10"
+                }`}
+              >
                 <f.icon className={`w-4 h-4 ${isDestructive ? "text-destructive" : "text-primary"}`} />
               </div>
               <span className="text-sm text-foreground">{f.text}</span>
@@ -303,7 +382,7 @@ const ServicesSection = () => {
           </p>
         </div>
 
-        {/* ═══ SERVICE 1 : Rachat de plastiques ═══ */}
+        {/* ═══ CATALOGUE DE RACHAT — Lignes empilées ═══ */}
         <div className="mb-24">
           <div className="flex items-center gap-3 mb-2">
             <div className="w-10 h-10 rounded-xl gradient-green flex items-center justify-center">
@@ -314,33 +393,21 @@ const ServicesSection = () => {
                 Service phare
               </Badge>
               <h3 className="font-display text-2xl md:text-3xl font-bold text-foreground">
-                Rachat de déchets plastiques
+                Catalogue de rachat
               </h3>
             </div>
           </div>
           <p className="text-muted-foreground max-w-3xl mt-3 mb-10 text-base md:text-lg leading-relaxed">
-            Transformez vos déchets en revenus. Nous rachetons vos plastiques au kilo avec un
-            paiement immédiat — cash ou Mobile Money. Identifiez ci-dessous les types de plastiques
-            que nous acceptons et leurs tarifs.
+            Transformez vos déchets en revenus. Identifiez le type de plastique,
+            apportez-le à notre point de collecte ou demandez un enlèvement — paiement
+            immédiat en cash ou Mobile Money.
           </p>
 
-          {/* Grille de cartes plastiques */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
-            {plasticTypes.map((plastic) => (
-              <PlasticCard key={plastic.code} plastic={plastic} />
+          {/* Lignes empilées */}
+          <div className="space-y-6">
+            {plasticRows.map((plastic, index) => (
+              <PlasticRow key={plastic.code} plastic={plastic} index={index} />
             ))}
-          </div>
-
-          <div className="text-center">
-            <Button
-              asChild
-              size="lg"
-              className="gradient-green border-0 text-primary-foreground hover:opacity-90"
-            >
-              <Link to="/vendre-plastiques">
-                Commencer à vendre <ArrowRight className="ml-2 w-4 h-4" />
-              </Link>
-            </Button>
           </div>
         </div>
 
