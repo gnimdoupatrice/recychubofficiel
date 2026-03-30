@@ -1,4 +1,5 @@
 import HeroSection from "@/components/HeroSection";
+import WhyUsSection from "@/components/WhyUsSection";
 import ServicesSection from "@/components/ServicesSection";
 import HowItWorks from "@/components/HowItWorks";
 import ImpactSection from "@/components/ImpactSection";
@@ -14,6 +15,7 @@ const Index = () => {
   return (
     <div>
       <HeroSection />
+      <WhyUsSection />
       <ServicesSection />
       <HowItWorks />
       <ImpactSection />
