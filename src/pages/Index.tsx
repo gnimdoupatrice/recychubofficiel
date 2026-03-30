@@ -15,11 +15,11 @@ const Index = () => {
   return (
     <div>
       <HeroSection />
+      <AboutSection />
       <WhyUsSection />
       <ServicesSection />
       <HowItWorks />
       <ImpactSection />
-      <AboutSection />
       <AcademyTeaser />
       <AlerteTeaser />
       <EventsTeaser />
