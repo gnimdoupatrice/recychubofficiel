@@ -16,7 +16,7 @@ const HowItWorks = () => {
   };
 
   return (
-    <section className="py-20 md:py-28 bg-background relative overflow-hidden">
+    <section className="section-spacing bg-muted/20 relative overflow-hidden">
       {/* Subtle background pattern */}
       <div className="absolute inset-0 opacity-[0.03]" style={{
         backgroundImage: "radial-gradient(hsl(var(--primary)) 1px, transparent 1px)",

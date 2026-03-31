@@ -30,7 +30,7 @@ const upcomingEvents = [
 ];
 
 const EventsTeaser = () => (
-  <section className="py-20 md:py-28 bg-muted/40 overflow-hidden">
+  <section className="section-spacing bg-muted/30 overflow-hidden">
     <div className="container mx-auto px-4">
       {/* Header */}
       <motion.div

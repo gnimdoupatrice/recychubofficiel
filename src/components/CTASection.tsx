@@ -4,9 +4,10 @@ import { motion } from "framer-motion";
 
 const CTASection = () => (
   <section className="relative py-20 md:py-28 overflow-hidden">
-    {/* Background */}
-    <div className="absolute inset-0 gradient-bio opacity-95" />
-    <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,_rgba(255,255,255,0.1)_0%,_transparent_60%)]" />
+    {/* Background — dual-tone gradient for distinction */}
+    <div className="absolute inset-0 bg-gradient-to-br from-primary via-accent to-primary opacity-95" />
+    <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,_hsl(42_92%_55%_/_0.15)_0%,_transparent_60%)]" />
+    <div className="absolute bottom-0 left-0 w-96 h-96 bg-secondary/10 rounded-full blur-3xl translate-y-1/2 -translate-x-1/4" />
 
     <div className="relative container mx-auto px-4 text-center">
       <motion.div

@@ -44,7 +44,7 @@ const AboutSection = () => {
   const [activeChallenge, setActiveChallenge] = useState(0);
 
   return (
-    <section id="pourquoi" className="py-20 md:py-28 bg-background overflow-hidden">
+    <section id="pourquoi" className="section-spacing-lg bg-background overflow-hidden">
       <div className="container mx-auto px-4">
         {/* Section header */}
         <div className="text-center mb-16">
