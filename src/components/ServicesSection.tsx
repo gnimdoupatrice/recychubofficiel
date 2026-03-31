@@ -108,7 +108,7 @@ const plasticRows = [
 /* ─── Carousel auto-play pour chaque ligne ─── */
 const PlasticCarousel = ({ images, alt }: { images: string[]; alt: string }) => {
   const [emblaRef, emblaApi] = useEmblaCarousel({ loop: true }, [
-    Autoplay({ delay: 3000, stopOnInteraction: false }),
+    Autoplay({ delay: 10000, stopOnInteraction: false }),
   ]);
 
   const onSelect = useCallback(() => {
