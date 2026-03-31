@@ -12,7 +12,7 @@ const partners = [
 ];
 
 const PartnersSection = () => (
-  <section className="py-16 md:py-20 bg-muted/50">
+  <section className="section-spacing bg-muted/30">
     <div className="container mx-auto px-4">
       <div className="text-center mb-10">
         <span className="text-sm font-semibold uppercase tracking-wider text-primary">
