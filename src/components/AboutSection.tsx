@@ -1,6 +1,5 @@
 import { useState } from "react";
 import { Eye, Target, Trophy, ArrowRight, Home, Recycle, Truck } from "lucide-react";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import challenge1 from "@/assets/challenge-1.jpg";
 import challenge2 from "@/assets/challenge-2.jpg";
 import challenge3 from "@/assets/challenge-3.jpg";
@@ -45,7 +44,7 @@ const AboutSection = () => {
   const [activeChallenge, setActiveChallenge] = useState(0);
 
   return (
-    <section id="pourquoi" className="py-20 md:py-28 bg-background overflow-hidden">
+    <section id="pourquoi" className="section-spacing-lg bg-background overflow-hidden">
       <div className="container mx-auto px-4">
         {/* Section header */}
         <div className="text-center mb-16">
@@ -126,105 +125,126 @@ const AboutSection = () => {
           })}
         </div>
 
-        {/* Vision / Mission / Objectifs tabs */}
-        <div className="max-w-3xl mx-auto">
-          <div className="text-center mb-8">
-            <h3 className="font-display text-xl sm:text-2xl font-bold text-foreground">
-              Notre réponse à ces défis
+        {/* Notre réponse — immersive cards */}
+        <div className="mt-20 md:mt-28">
+          <div className="text-center mb-14">
+            <span className="inline-block text-xs font-bold uppercase tracking-[0.25em] text-accent/80 mb-3 px-4 py-1.5 rounded-full border border-accent/20 bg-accent/5">
+              Notre réponse
+            </span>
+            <h3 className="font-display text-2xl sm:text-3xl lg:text-4xl font-extrabold text-foreground tracking-tight">
+              Transformer les défis en <span className="text-gradient-emerald">opportunités</span>
             </h3>
+            <p className="mt-3 text-muted-foreground max-w-xl mx-auto text-sm leading-relaxed">
+              Une vision claire, une mission concrète, des objectifs mesurables.
+            </p>
           </div>
 
-          <Tabs defaultValue="vision" className="w-full">
-            <TabsList className="w-full bg-muted/50 p-1 rounded-xl h-auto gap-1 border border-border/30">
-              <TabsTrigger
-                value="vision"
-                className="flex-1 min-w-[100px] rounded-lg py-2.5 px-3 text-xs sm:text-sm font-semibold gap-1.5 data-[state=active]:bg-primary data-[state=active]:text-primary-foreground data-[state=active]:shadow-lg transition-all duration-200"
-              >
-                <Eye className="w-3.5 h-3.5" />
-                Notre Vision
-              </TabsTrigger>
-              <TabsTrigger
-                value="mission"
-                className="flex-1 min-w-[100px] rounded-lg py-2.5 px-3 text-xs sm:text-sm font-semibold gap-1.5 data-[state=active]:bg-primary data-[state=active]:text-primary-foreground data-[state=active]:shadow-lg transition-all duration-200"
-              >
-                <Target className="w-3.5 h-3.5" />
-                Notre Mission
-              </TabsTrigger>
-              <TabsTrigger
-                value="objectifs"
-                className="flex-1 min-w-[100px] rounded-lg py-2.5 px-3 text-xs sm:text-sm font-semibold gap-1.5 data-[state=active]:bg-primary data-[state=active]:text-primary-foreground data-[state=active]:shadow-lg transition-all duration-200"
-              >
-                <Trophy className="w-3.5 h-3.5" />
-                Nos Objectifs
-              </TabsTrigger>
-            </TabsList>
-
-            <TabsContent value="vision" className="mt-5 animate-in fade-in-50 duration-300">
-              <div className="bg-card rounded-xl shadow-lg border border-border/30 p-6 flex gap-4 items-start">
-                <div className="w-11 h-11 rounded-xl bg-primary/10 flex items-center justify-center shrink-0">
-                  <Eye className="w-5 h-5 text-primary" />
+          <div className="grid md:grid-cols-3 gap-6 lg:gap-8">
+            {/* Vision */}
+            <div className="group relative rounded-2xl overflow-hidden border border-border/30 bg-card shadow-lg hover:shadow-2xl transition-all duration-500 hover:-translate-y-1">
+              {/* Top accent bar */}
+              <div className="h-1.5 w-full gradient-bio" />
+              <div className="p-6 sm:p-8">
+                {/* Icon */}
+                <div className="w-14 h-14 rounded-2xl gradient-bio flex items-center justify-center mb-6 shadow-lg group-hover:scale-110 transition-transform duration-300">
+                  <Eye className="w-7 h-7 text-primary-foreground" />
                 </div>
-                <div>
-                  <h4 className="font-display text-sm font-bold text-foreground mb-2 uppercase tracking-wide">
-                    Notre Vision
-                  </h4>
-                  <p className="text-muted-foreground text-sm leading-relaxed">
-                    Un Togo où{" "}
-                    <strong className="text-foreground">chaque déchet plastique est valorisé</strong>,
-                    chaque citoyen est acteur du changement et chaque quartier est propre et
-                    durable. Nous croyons en des solutions économiques inclusives qui élèvent
-                    les standards de vie de manière significative.
-                  </p>
+                {/* Label */}
+                <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-primary/60 mb-2">
+                  Pilier 01
+                </p>
+                <h4 className="font-display text-lg sm:text-xl font-bold text-foreground mb-3">
+                  Notre Vision
+                </h4>
+                <p className="text-muted-foreground text-sm leading-relaxed mb-6">
+                  Un Togo où <strong className="text-foreground">chaque déchet plastique est valorisé</strong>, chaque citoyen est acteur du changement et chaque quartier est propre et durable.
+                </p>
+                {/* Key points */}
+                <div className="space-y-3 pt-4 border-t border-border/30">
+                  {["Valorisation universelle des déchets", "Citoyenneté active et responsable", "Quartiers propres et durables"].map((point, i) => (
+                    <div key={i} className="flex items-start gap-2.5">
+                      <div className="w-5 h-5 rounded-full bg-primary/10 flex items-center justify-center shrink-0 mt-0.5">
+                        <ArrowRight className="w-3 h-3 text-primary" />
+                      </div>
+                      <span className="text-xs text-muted-foreground leading-relaxed">{point}</span>
+                    </div>
+                  ))}
                 </div>
               </div>
-            </TabsContent>
+            </div>
 
-            <TabsContent value="mission" className="mt-5 animate-in fade-in-50 duration-300">
-              <div className="bg-card rounded-xl shadow-lg border border-border/30 p-6 flex gap-4 items-start">
-                <div className="w-11 h-11 rounded-xl bg-primary/10 flex items-center justify-center shrink-0">
-                  <Target className="w-5 h-5 text-primary" />
+            {/* Mission — featured/elevated */}
+            <div className="group relative rounded-2xl overflow-hidden border-2 border-primary/30 bg-card shadow-xl hover:shadow-2xl transition-all duration-500 hover:-translate-y-1 md:-mt-4 md:mb-[-1rem]">
+              {/* Top accent bar */}
+              <div className="h-2 w-full gradient-bio" />
+              {/* Featured badge */}
+              <div className="absolute top-5 right-5">
+                <span className="text-[9px] font-bold uppercase tracking-wider bg-primary text-primary-foreground px-2.5 py-1 rounded-full">
+                  Cœur
+                </span>
+              </div>
+              <div className="p-6 sm:p-8">
+                {/* Icon */}
+                <div className="w-16 h-16 rounded-2xl gradient-bio flex items-center justify-center mb-6 shadow-lg glow-emerald group-hover:scale-110 transition-transform duration-300">
+                  <Target className="w-8 h-8 text-primary-foreground" />
                 </div>
-                <div>
-                  <h4 className="font-display text-sm font-bold text-foreground mb-2 uppercase tracking-wide">
-                    Notre Mission
-                  </h4>
-                  <p className="text-muted-foreground text-sm leading-relaxed">
-                    Connecter ménages, collecteurs et recycleurs via une{" "}
-                    <strong className="text-foreground">plateforme numérique</strong> qui
-                    transforme les déchets plastiques en revenus pour tous, en digitalisant
-                    la chaîne de collecte et de recyclage au Togo.
-                  </p>
+                {/* Label */}
+                <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-primary/60 mb-2">
+                  Pilier 02
+                </p>
+                <h4 className="font-display text-lg sm:text-xl font-bold text-foreground mb-3">
+                  Notre Mission
+                </h4>
+                <p className="text-muted-foreground text-sm leading-relaxed mb-6">
+                  Connecter ménages, collecteurs et recycleurs via une <strong className="text-foreground">plateforme numérique</strong> qui transforme les déchets en revenus, en digitalisant toute la chaîne de collecte et de recyclage.
+                </p>
+                {/* Key points */}
+                <div className="space-y-3 pt-4 border-t border-primary/20">
+                  {["Connexion directe ménages ↔ recycleurs", "Digitalisation de la chaîne de valeur", "Revenus pour tous les acteurs", "Économie circulaire inclusive"].map((point, i) => (
+                    <div key={i} className="flex items-start gap-2.5">
+                      <div className="w-5 h-5 rounded-full bg-primary/15 flex items-center justify-center shrink-0 mt-0.5">
+                        <ArrowRight className="w-3 h-3 text-primary" />
+                      </div>
+                      <span className="text-xs text-muted-foreground leading-relaxed">{point}</span>
+                    </div>
+                  ))}
                 </div>
               </div>
-            </TabsContent>
+            </div>
 
-            <TabsContent value="objectifs" className="mt-5 animate-in fade-in-50 duration-300">
-              <div className="bg-card rounded-xl shadow-lg border border-border/30 p-6 flex gap-4 items-start">
-                <div className="w-11 h-11 rounded-xl bg-primary/10 flex items-center justify-center shrink-0">
-                  <Trophy className="w-5 h-5 text-primary" />
+            {/* Objectifs */}
+            <div className="group relative rounded-2xl overflow-hidden border border-border/30 bg-card shadow-lg hover:shadow-2xl transition-all duration-500 hover:-translate-y-1">
+              {/* Top accent bar */}
+              <div className="h-1.5 w-full gradient-bio" />
+              <div className="p-6 sm:p-8">
+                {/* Icon */}
+                <div className="w-14 h-14 rounded-2xl gradient-bio flex items-center justify-center mb-6 shadow-lg group-hover:scale-110 transition-transform duration-300">
+                  <Trophy className="w-7 h-7 text-primary-foreground" />
                 </div>
-                <div>
-                  <h4 className="font-display text-sm font-bold text-foreground mb-2 uppercase tracking-wide">
-                    Nos Objectifs
-                  </h4>
-                  <div className="text-muted-foreground text-sm leading-relaxed space-y-2.5">
-                    <p className="flex items-start gap-2">
-                      <ArrowRight className="w-3.5 h-3.5 text-primary mt-1 shrink-0" />
-                      <span><strong className="text-foreground">Démocratiser</strong> l'accès au recyclage pour tous les ménages togolais.</span>
-                    </p>
-                    <p className="flex items-start gap-2">
-                      <ArrowRight className="w-3.5 h-3.5 text-primary mt-1 shrink-0" />
-                      <span><strong className="text-foreground">Créer des emplois verts</strong> et valoriser le travail des collecteurs informels.</span>
-                    </p>
-                    <p className="flex items-start gap-2">
-                      <ArrowRight className="w-3.5 h-3.5 text-primary mt-1 shrink-0" />
-                      <span><strong className="text-foreground">Digitaliser la collecte</strong> et bâtir une économie circulaire inclusive.</span>
-                    </p>
-                  </div>
+                {/* Label */}
+                <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-primary/60 mb-2">
+                  Pilier 03
+                </p>
+                <h4 className="font-display text-lg sm:text-xl font-bold text-foreground mb-3">
+                  Nos Objectifs
+                </h4>
+                <p className="text-muted-foreground text-sm leading-relaxed mb-6">
+                  Des résultats <strong className="text-foreground">concrets et mesurables</strong> pour un impact durable sur l'environnement et l'économie togolaise.
+                </p>
+                {/* Key points */}
+                <div className="space-y-3 pt-4 border-t border-border/30">
+                  {["Démocratiser l'accès au recyclage", "Créer des emplois verts durables", "Digitaliser la collecte nationale"].map((point, i) => (
+                    <div key={i} className="flex items-start gap-2.5">
+                      <div className="w-5 h-5 rounded-full bg-primary/10 flex items-center justify-center shrink-0 mt-0.5">
+                        <ArrowRight className="w-3 h-3 text-primary" />
+                      </div>
+                      <span className="text-xs text-muted-foreground leading-relaxed">{point}</span>
+                    </div>
+                  ))}
                 </div>
               </div>
-            </TabsContent>
-          </Tabs>
+            </div>
+          </div>
         </div>
       </div>
     </section>

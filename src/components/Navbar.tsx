@@ -49,7 +49,7 @@ const Navbar = () => {
       >
         <div className="container mx-auto px-4 flex items-center justify-between">
           <Link to="/" className="flex items-center gap-2 group">
-            <img src={logoImg} alt="Recyclage à Kara" width="10%" height="20vh"/>
+            <img src={logoImg} alt="RecycHub Togo — recyclage à Kara" className="w-10 h-10 sm:w-12 sm:h-12 object-contain" />
             
             <span className="font-display font-bold text-xl text-gradient-emerald">RECYC HUB TOGO</span>
           </Link>

@@ -1,23 +1,31 @@
 import HeroSection from "@/components/HeroSection";
-import AboutSection from "@/components/AboutSection";
+import WhyUsSection from "@/components/WhyUsSection";
+import ServicesSection from "@/components/ServicesSection";
 import HowItWorks from "@/components/HowItWorks";
 import ImpactSection from "@/components/ImpactSection";
-import ServicesSection from "@/components/ServicesSection";
+import AboutSection from "@/components/AboutSection";
+import AcademyTeaser from "@/components/AcademyTeaser";
+import AlerteTeaser from "@/components/AlerteTeaser";
+import EventsTeaser from "@/components/EventsTeaser";
 import TestimonialsSection from "@/components/TestimonialsSection";
 import PartnersSection from "@/components/PartnersSection";
-
+import CTASection from "@/components/CTASection";
 
 const Index = () => {
   return (
     <div>
       <HeroSection />
       <AboutSection />
+      
+      <ServicesSection />
       <HowItWorks />
       <ImpactSection />
-      <ServicesSection />
+      <AcademyTeaser />
+      <AlerteTeaser />
+      <EventsTeaser />
       <TestimonialsSection />
       <PartnersSection />
-      
+      <CTASection />
     </div>
   );
 };

@@ -1,302 +1,424 @@
+import { useEffect, useCallback } from "react";
+import useEmblaCarousel from "embla-carousel-react";
+import Autoplay from "embla-carousel-autoplay";
 import {
-  Truck,
-  ShoppingBag,
+  Recycle,
+  ArrowRight,
+  CheckCircle2,
+  Monitor,
   AlertTriangle,
   GraduationCap,
-  CalendarDays,
-  Clock,
-  MapPin,
-  RefreshCw,
+  Users,
+  BarChart3,
+  Route,
+  Truck,
+  Bell,
   Camera,
-  Eye,
-  ShieldCheck,
+  Shield,
   BookOpen,
   Award,
   Wrench,
-  CalendarCheck,
-  Briefcase,
-  Users,
-  ArrowRight,
 } from "lucide-react";
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
+import { Badge } from "@/components/ui/badge";
 
-/* ─── Module 1 : Enlèvement ─── */
-const EnlevementModule = () => (
-  <section className="py-16 md:py-24">
-    <div className="container mx-auto px-4">
-      <div className="grid md:grid-cols-2 gap-10 items-center max-w-6xl mx-auto">
-        {/* Texte à gauche */}
-        <div>
-          <span className="text-sm font-semibold uppercase tracking-wider text-primary">
-            Service de Proximité
-          </span>
-          <h2 className="font-display text-3xl sm:text-4xl font-bold mt-2 mb-4 text-foreground">
-            Un ramassage rapide et efficace, directement chez vous.
-          </h2>
-          <p className="text-muted-foreground mb-8 leading-relaxed">
-            Ne vous souciez plus de l'encombrement. Notre équipe intervient dans les secteurs
-            Kozah&nbsp;1 à&nbsp;4 pour collecter vos déchets ménagers de manière hygiénique et
-            ponctuelle.
-          </p>
-          <ul className="space-y-4 mb-8">
-            {[
-              { icon: Clock, text: "Intervention rapide sous 24/48h." },
-              { icon: MapPin, text: "Couverture complète de Kozah 1-4." },
-              { icon: RefreshCw, text: "Abonnements mensuels ou interventions ponctuelles." },
-            ].map((p) => (
-              <li key={p.text} className="flex items-start gap-3">
-                <div className="w-8 h-8 rounded-lg gradient-green flex items-center justify-center shrink-0 mt-0.5">
-                  <p.icon className="w-4 h-4 text-primary-foreground" />
-                </div>
-                <span className="text-foreground">{p.text}</span>
-              </li>
-            ))}
-          </ul>
-          <Button asChild size="lg" className="gradient-green border-0 text-primary-foreground hover:opacity-90">
-            <Link to="/enlevement">
-              Demander un ramassage <ArrowRight className="ml-2 w-4 h-4" />
-            </Link>
-          </Button>
-        </div>
-        {/* Visuel à droite */}
-        <div className="relative">
-          <div className="aspect-[4/3] rounded-2xl bg-accent flex items-center justify-center overflow-hidden border border-border">
-            <Truck className="w-24 h-24 text-primary/30" />
+/* ─── Images imports ─── */
+import petBottles1 from "@/assets/pet-bottles-1.jpg";
+import petBottles2 from "@/assets/pet-bottles-2.jpg";
+import pehdContainers1 from "@/assets/pehd-containers-1.jpg";
+import pehdContainers2 from "@/assets/pehd-containers-2.jpg";
+import ppItems1 from "@/assets/pp-items-1.jpg";
+import ppItems2 from "@/assets/pp-items-2.jpg";
+import pvcPipes1 from "@/assets/pvc-pipes-1.jpg";
+import pvcPipes2 from "@/assets/pvc-pipes-2.jpg";
+import mobilier1 from "@/assets/mobilier-1.jpg";
+import mobilier2 from "@/assets/mobilier-2.jpg";
+
+/* ─── Données plastiques ─── */
+const plasticRows = [
+  {
+    code: "PET",
+    name: "Bouteilles transparentes",
+    images: [petBottles1, petBottles2],
+    identifiers: [
+      "Plastique léger qui craque sous la main",
+      "Utilisé pour les boissons : eau, soda, jus",
+      "Transparent avec bouchons colorés",
+      "Étiquettes souvent encore collées",
+    ],
+    price: "55",
+    unit: "kg",
+  },
+  {
+    code: "PEHD",
+    name: "Bidons & flacons opaques",
+    images: [pehdContainers1, pehdContainers2],
+    identifiers: [
+      "Plastique dur, épais et non transparent",
+      "Bidons d'huile, détergent, lessive",
+      "Flacons de shampoing et produits ménagers",
+      "Résistant aux chocs, souvent coloré",
+    ],
+    price: "55",
+    unit: "kg",
+  },
+  {
+    code: "PP",
+    name: "Bassines, seaux & bouchons",
+    images: [ppItems1, ppItems2],
+    identifiers: [
+      "Plastique rigide mais incassable",
+      "Souvent très coloré (rouge, bleu, jaune)",
+      "Ustensiles de cuisine, seaux, bassines",
+      "Bouchons de bouteilles en grande quantité",
+    ],
+    price: "80",
+    unit: "kg",
+  },
+  {
+    code: "PVC",
+    name: "Tuyaux & plomberie",
+    images: [pvcPipes1, pvcPipes2],
+    identifiers: [
+      "Plastique gris ou blanc très rigide",
+      "Tuyaux d'évacuation d'eau",
+      "Raccords et coudes de plomberie",
+      "Ne se plie pas, casse net sous la force",
+    ],
+    price: "55",
+    unit: "kg",
+  },
+  {
+    code: "Mobilier",
+    name: "Chaises & tables cassées",
+    images: [mobilier1, mobilier2],
+    identifiers: [
+      "Plastique épais et lourd",
+      "Chaises de jardin, tables d'extérieur",
+      "Souvent fissurées ou décolorées par le soleil",
+      "Se vend aussi à la pièce (non broyé)",
+    ],
+    price: "150",
+    unit: "kg",
+    altPrice: "400 FCFA/pièce (non broyé)",
+  },
+];
+
+/* ─── Carousel auto-play pour chaque ligne ─── */
+const PlasticCarousel = ({ images, alt }: { images: string[]; alt: string }) => {
+  const [emblaRef, emblaApi] = useEmblaCarousel({ loop: true }, [
+    Autoplay({ delay: 10000, stopOnInteraction: false }),
+  ]);
+
+  const onSelect = useCallback(() => {
+    if (!emblaApi) return;
+  }, [emblaApi]);
+
+  useEffect(() => {
+    if (!emblaApi) return;
+    onSelect();
+    emblaApi.on("select", onSelect);
+    return () => { emblaApi.off("select", onSelect); };
+  }, [emblaApi, onSelect]);
+
+  return (
+    <div ref={emblaRef} className="overflow-hidden rounded-2xl h-full">
+      <div className="flex h-full">
+        {images.map((src, i) => (
+          <div key={i} className="flex-[0_0_100%] min-w-0 h-full">
+            <img
+              src={src}
+              alt={`${alt} - exemple ${i + 1}`}
+              loading="lazy"
+              width={800}
+              height={600}
+              className="w-full h-full object-cover"
+            />
           </div>
-          <div className="absolute -bottom-4 -left-4 w-24 h-24 rounded-xl gradient-green opacity-20 blur-2xl" />
-        </div>
+        ))}
       </div>
     </div>
-  </section>
-);
+  );
+};
 
-/* ─── Module 2 : Vente plastiques ─── */
-const VenteModule = () => (
-  <section className="py-16 md:py-24 bg-muted/50">
-    <div className="container mx-auto px-4">
-      <div className="grid md:grid-cols-2 gap-10 items-center max-w-6xl mx-auto">
-        {/* Visuel à gauche */}
-        <div className="order-2 md:order-1 relative">
-          <div className="aspect-[4/3] rounded-2xl bg-accent flex items-center justify-center overflow-hidden border border-border">
-            <ShoppingBag className="w-24 h-24 text-primary/30" />
-          </div>
+/* ─── Ligne plastique ─── */
+const PlasticRow = ({
+  plastic,
+  index,
+}: {
+  plastic: (typeof plasticRows)[0];
+  index: number;
+}) => {
+  const isEven = index % 2 === 0;
+
+  return (
+    <div
+      className={`rounded-2xl border border-border shadow-sm overflow-hidden ${
+        isEven ? "bg-card" : "bg-muted/40"
+      }`}
+    >
+      <div
+        className={`flex flex-col md:flex-row ${
+          !isEven ? "md:flex-row-reverse" : ""
+        } min-h-[320px]`}
+      >
+        {/* Colonne Visuel — Carousel */}
+        <div className="w-full md:w-[45%] aspect-[4/3] md:aspect-auto">
+          <PlasticCarousel images={plastic.images} alt={`${plastic.code} - ${plastic.name}`} />
         </div>
-        {/* Texte à droite */}
-        <div className="order-1 md:order-2">
-          <span className="text-sm font-semibold uppercase tracking-wider text-primary">
-            Gagnez de l'argent
-          </span>
-          <h2 className="font-display text-3xl sm:text-4xl font-bold mt-2 mb-4 text-foreground">
-            Transformez vos déchets plastiques en revenus.
-          </h2>
-          <p className="text-muted-foreground mb-8 leading-relaxed">
-            Vos déchets ont de la valeur. Apportez-nous vos plastiques et soyez rémunéré
-            immédiatement au kilo. Nous garantissons une tarification transparente pour soutenir
-            l'économie locale.
-          </p>
 
-          {/* Barème */}
-          <div className="rounded-xl border border-border bg-card overflow-hidden mb-8">
-            <div className="gradient-green px-4 py-3">
-              <h3 className="text-sm font-semibold text-primary-foreground">Barème de rachat</h3>
-            </div>
-            <div className="divide-y divide-border">
-              {[
-                ["PP – Polypropylène", "80 FCFA / kg"],
-                ["Bidon – Plastique HDPE", "55 FCFA / kg"],
-                ["Sachets « Pure Water » (Films)", "55 FCFA / kg"],
-                ["Tuyaux PVC cendre", "55 FCFA / kg"],
-                ["Chaise broyée", "150 FCFA / kg"],
-                ["Chaise cassée (non broyée)", "400 FCFA / pièce"],
-              ].map(([type, prix]) => (
-                <div key={type} className="flex justify-between px-4 py-3 text-sm">
-                  <span className="text-foreground">{type}</span>
-                  <span className="font-semibold text-primary">{prix}</span>
-                </div>
+        {/* Colonne Info */}
+        <div className="w-full md:w-[55%] p-6 md:p-8 lg:p-10 flex flex-col justify-center">
+          {/* Code + Nom */}
+          <div className="flex items-center gap-3 mb-1">
+            <Badge className="bg-primary/10 text-primary hover:bg-primary/10 border-0 text-xs font-bold uppercase tracking-widest">
+              {plastic.code}
+            </Badge>
+            <div className="h-px flex-1 bg-border" />
+          </div>
+          <h3 className="font-display text-xl md:text-2xl lg:text-3xl font-bold text-foreground mb-5">
+            {plastic.name}
+          </h3>
+
+          {/* Identification */}
+          <div className="mb-6">
+            <p className="text-sm font-semibold text-foreground uppercase tracking-wider mb-3 flex items-center gap-2">
+              <Recycle className="w-4 h-4 text-primary" />
+              Comment l'identifier ?
+            </p>
+            <ul className="space-y-2">
+              {plastic.identifiers.map((item) => (
+                <li key={item} className="flex items-start gap-2.5">
+                  <CheckCircle2 className="w-4 h-4 text-primary mt-0.5 shrink-0" />
+                  <span className="text-sm md:text-base text-foreground/90 leading-snug">
+                    {item}
+                  </span>
+                </li>
               ))}
+            </ul>
+          </div>
+
+          {/* Prix + CTA */}
+          <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4">
+            <div className="flex flex-col">
+              <div className="flex items-center gap-2">
+                <span className="text-3xl md:text-4xl font-extrabold text-primary">
+                  {plastic.price}
+                </span>
+                <span className="text-sm text-muted-foreground font-medium">
+                  FCFA/{plastic.unit}
+                </span>
+              </div>
+              {plastic.altPrice && (
+                <span className="text-xs text-muted-foreground mt-1 italic">
+                  ou {plastic.altPrice}
+                </span>
+              )}
             </div>
-          </div>
 
-          <Button asChild size="lg" className="gradient-green border-0 text-primary-foreground hover:opacity-90">
-            <Link to="/vendre">
-              Vendre mes plastiques <ArrowRight className="ml-2 w-4 h-4" />
-            </Link>
-          </Button>
+            <Button
+              asChild
+              size="lg"
+              className="gradient-green border-0 text-primary-foreground hover:opacity-90"
+            >
+              <Link to="/vendre-plastiques">
+                Vendre maintenant <ArrowRight className="ml-2 w-4 h-4" />
+              </Link>
+            </Button>
+          </div>
         </div>
       </div>
     </div>
-  </section>
-);
+  );
+};
 
-/* ─── Module 3 : Alerte dépotoir ─── */
-const AlerteModule = () => (
-  <section className="py-16 md:py-24">
-    <div className="container mx-auto px-4">
-      <div className="grid md:grid-cols-2 gap-10 items-center max-w-6xl mx-auto">
-        {/* Texte à gauche */}
-        <div>
-          <span className="text-sm font-semibold uppercase tracking-wider text-destructive">
-            Action Citoyenne
+/* ─── Services secondaires ─── */
+const otherServices = [
+  {
+    icon: Monitor,
+    title: "Digitalisation de la collecte",
+    badge: "Solutions Pro",
+    description:
+      "Nous accompagnons les entreprises de pré-collecte et de gestion des déchets en leur fournissant un outil de gestion clé en main. Grâce à notre interface dédiée, ces entreprises peuvent digitaliser leur flotte, recevoir les demandes d'enlèvement en temps réel, et optimiser leurs tournées logistiques.",
+    target: "Entreprises de collecte, mairies et PME de l'assainissement",
+    features: [
+      { icon: Truck, text: "Gestion de flotte digitalisée" },
+      { icon: BarChart3, text: "Tableau de bord analytique en temps réel" },
+      { icon: Route, text: "Optimisation intelligente des tournées" },
+    ],
+    ctaLabel: "Demander une démo",
+    ctaLink: "/demander-enlevement",
+    accent: "primary" as const,
+  },
+  {
+    icon: AlertTriangle,
+    title: "Veille Citoyenne & Alerte Dépotoir",
+    badge: "Civic Tech",
+    description:
+      "Nous donnons à chaque citoyen le pouvoir d'agir pour la salubrité de sa communauté. Notre fonctionnalité d'alerte géolocalisée permet de signaler instantanément les dépotoirs sauvages.",
+    target: "Citoyens engagés et autorités locales",
+    features: [
+      { icon: Camera, text: "Signalement photo géolocalisé en 3 clics" },
+      { icon: Bell, text: "Notifications d'intervention en temps réel" },
+      { icon: Shield, text: "Cartographie des zones à risque" },
+    ],
+    ctaLabel: "Signaler un dépotoir",
+    ctaLink: "/alerte-depotoir",
+    accent: "destructive" as const,
+  },
+  {
+    icon: GraduationCap,
+    title: "Green Academy",
+    badge: "Formation",
+    description:
+      "Parce que le changement durable passe par l'éducation, nous intégrons une interface d'apprentissage dédiée aux métiers de l'environnement et aux bonnes pratiques écologiques.",
+    target: "Étudiants, jeunes professionnels et citoyens en quête de savoir",
+    features: [
+      { icon: BookOpen, text: "Modules adaptés à tous les niveaux" },
+      { icon: Award, text: "Certifications reconnues incluses" },
+      { icon: Wrench, text: "Ateliers pratiques sur le terrain" },
+    ],
+    ctaLabel: "Découvrir les formations",
+    ctaLink: "/green-academy",
+    accent: "primary" as const,
+  },
+];
+
+const ServiceCard = ({ service }: { service: (typeof otherServices)[0] }) => {
+  const Icon = service.icon;
+  const isDestructive = service.accent === "destructive";
+
+  return (
+    <div className="rounded-2xl border border-border bg-card overflow-hidden shadow-sm hover:shadow-lg transition-all duration-300">
+      <div className="p-6 md:p-8">
+        <div className="flex items-center justify-between mb-5">
+          <Badge
+            variant={isDestructive ? "destructive" : "default"}
+            className="text-xs uppercase tracking-wider"
+          >
+            {service.badge}
+          </Badge>
+          <div
+            className={`w-12 h-12 rounded-2xl flex items-center justify-center ${
+              isDestructive ? "bg-destructive/10" : "bg-primary/10"
+            }`}
+          >
+            <Icon className={`w-6 h-6 ${isDestructive ? "text-destructive" : "text-primary"}`} />
+          </div>
+        </div>
+
+        <h3 className="font-display text-xl md:text-2xl font-bold text-foreground mb-3">
+          {service.title}
+        </h3>
+        <p className="text-muted-foreground leading-relaxed mb-6">{service.description}</p>
+
+        <div className="flex items-center gap-2 mb-6 text-sm">
+          <Users className="w-4 h-4 text-primary shrink-0" />
+          <span className="text-muted-foreground">
+            <span className="font-medium text-foreground">Cible : </span>
+            {service.target}
           </span>
-          <h2 className="font-display text-3xl sm:text-4xl font-bold mt-2 mb-4 text-foreground">
-            Devenez acteur de la propreté de Kara.
-          </h2>
-          <p className="text-muted-foreground mb-8 leading-relaxed">
-            Vous remarquez un dépôt sauvage ? Prenez une photo, géolocalisez le lieu, et notre
-            équipe s'occupe du reste. Ensemble, gardons notre ville propre.
-          </p>
-          <ul className="space-y-4 mb-8">
-            {[
-              { icon: Camera, text: "Signalement en 3 clics avec photo." },
-              { icon: Eye, text: "Suivi de l'intervention en temps réel." },
-              { icon: ShieldCheck, text: "Anonymat garanti." },
-            ].map((p) => (
-              <li key={p.text} className="flex items-start gap-3">
-                <div className="w-8 h-8 rounded-lg bg-destructive/10 flex items-center justify-center shrink-0 mt-0.5">
-                  <p.icon className="w-4 h-4 text-destructive" />
-                </div>
-                <span className="text-foreground">{p.text}</span>
-              </li>
-            ))}
-          </ul>
-          <Button asChild size="lg" variant="destructive">
-            <Link to="/alerte">
-              Signaler un dépotoir (Urgence) <ArrowRight className="ml-2 w-4 h-4" />
-            </Link>
-          </Button>
         </div>
-        {/* Visuel à droite */}
-        <div className="relative">
-          <div className="aspect-[4/3] rounded-2xl bg-destructive/5 flex items-center justify-center overflow-hidden border border-destructive/20">
-            <AlertTriangle className="w-24 h-24 text-destructive/30" />
-          </div>
-        </div>
+
+        <ul className="space-y-3 mb-8">
+          {service.features.map((f) => (
+            <li key={f.text} className="flex items-center gap-3">
+              <div
+                className={`w-8 h-8 rounded-lg flex items-center justify-center shrink-0 ${
+                  isDestructive ? "bg-destructive/10" : "bg-primary/10"
+                }`}
+              >
+                <f.icon className={`w-4 h-4 ${isDestructive ? "text-destructive" : "text-primary"}`} />
+              </div>
+              <span className="text-sm text-foreground">{f.text}</span>
+            </li>
+          ))}
+        </ul>
+
+        <Button
+          asChild
+          size="lg"
+          variant={isDestructive ? "destructive" : "default"}
+          className={`w-full ${!isDestructive ? "gradient-green border-0 text-primary-foreground hover:opacity-90" : ""}`}
+        >
+          <Link to={service.ctaLink}>
+            {service.ctaLabel} <ArrowRight className="ml-2 w-4 h-4" />
+          </Link>
+        </Button>
       </div>
     </div>
-  </section>
-);
+  );
+};
 
-/* ─── Module 4 : Green Academy ─── */
-const AcademyModule = () => (
-  <section className="py-16 md:py-24 bg-muted/50">
-    <div className="container mx-auto px-4">
-      <div className="grid md:grid-cols-2 gap-10 items-center max-w-6xl mx-auto">
-        {/* Visuel à gauche */}
-        <div className="order-2 md:order-1 relative">
-          <div className="aspect-[4/3] rounded-2xl bg-accent flex items-center justify-center overflow-hidden border border-border">
-            <GraduationCap className="w-24 h-24 text-primary/30" />
-          </div>
-        </div>
-        {/* Texte à droite */}
-        <div className="order-1 md:order-2">
-          <span className="text-sm font-semibold uppercase tracking-wider text-primary">
-            Éducation & Avenir
-          </span>
-          <h2 className="font-display text-3xl sm:text-4xl font-bold mt-2 mb-4 text-foreground">
-            Formez-vous aux métiers verts de demain.
-          </h2>
-          <p className="text-muted-foreground mb-8 leading-relaxed">
-            La transition écologique crée de nouveaux emplois. Rejoignez la Green Academy pour
-            suivre des cours spécialisés sur l'économie circulaire et l'environnement, validés par
-            des certifications reconnues.
-          </p>
-          <ul className="space-y-4 mb-8">
-            {[
-              { icon: BookOpen, text: "Modules adaptés à tous les niveaux." },
-              { icon: Award, text: "Certifications incluses à la fin du parcours." },
-              { icon: Wrench, text: "Ateliers pratiques sur le terrain." },
-            ].map((p) => (
-              <li key={p.text} className="flex items-start gap-3">
-                <div className="w-8 h-8 rounded-lg gradient-green flex items-center justify-center shrink-0 mt-0.5">
-                  <p.icon className="w-4 h-4 text-primary-foreground" />
-                </div>
-                <span className="text-foreground">{p.text}</span>
-              </li>
-            ))}
-          </ul>
-          <Button asChild size="lg" className="gradient-green border-0 text-primary-foreground hover:opacity-90">
-            <Link to="/academy">
-              Découvrir les formations <ArrowRight className="ml-2 w-4 h-4" />
-            </Link>
-          </Button>
-        </div>
-      </div>
-    </div>
-  </section>
-);
-
-/* ─── Module 5 : Hub Événementiel ─── */
-const EvenementsModule = () => (
-  <section className="py-16 md:py-24">
-    <div className="container mx-auto px-4">
-      <div className="grid md:grid-cols-2 gap-10 items-center max-w-6xl mx-auto">
-        {/* Texte à gauche */}
-        <div>
-          <span className="text-sm font-semibold uppercase tracking-wider text-primary">
-            Réseau & Opportunités
-          </span>
-          <h2 className="font-display text-3xl sm:text-4xl font-bold mt-2 mb-4 text-foreground">
-            Ne manquez aucun événement éco-responsable à Kara.
-          </h2>
-          <p className="text-muted-foreground mb-8 leading-relaxed">
-            Connectez-vous avec la communauté verte de Kara. Retrouvez notre calendrier des
-            opportunités, les offres de « jobs verts », et participez à nos journées de
-            sensibilisation.
-          </p>
-          <ul className="space-y-4 mb-8">
-            {[
-              { icon: CalendarCheck, text: "Agenda mis à jour chaque semaine." },
-              { icon: Briefcase, text: "Offres d'emploi et de stages exclusifs." },
-              { icon: Users, text: "Rencontres avec des acteurs du développement durable." },
-            ].map((p) => (
-              <li key={p.text} className="flex items-start gap-3">
-                <div className="w-8 h-8 rounded-lg gradient-green flex items-center justify-center shrink-0 mt-0.5">
-                  <p.icon className="w-4 h-4 text-primary-foreground" />
-                </div>
-                <span className="text-foreground">{p.text}</span>
-              </li>
-            ))}
-          </ul>
-          <Button asChild size="lg" className="gradient-green border-0 text-primary-foreground hover:opacity-90">
-            <Link to="/evenements">
-              Voir le calendrier <ArrowRight className="ml-2 w-4 h-4" />
-            </Link>
-          </Button>
-        </div>
-        {/* Visuel à droite */}
-        <div className="relative">
-          <div className="aspect-[4/3] rounded-2xl bg-accent flex items-center justify-center overflow-hidden border border-border">
-            <CalendarDays className="w-24 h-24 text-primary/30" />
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-);
-
-/* ─── Composant principal ─── */
+/* ─── Section principale ─── */
 const ServicesSection = () => {
   return (
-    <>
-      {/* En-tête global */}
-      <section className="py-16 text-center">
-        <div className="container mx-auto px-4">
-          <h2 className="font-display text-3xl sm:text-4xl font-bold mb-4 text-foreground">
-            Nos <span className="text-primary">Services</span>
+    <section id="services" className="section-spacing-lg bg-muted/30 relative overflow-hidden">
+      {/* Background pattern */}
+      <div
+        className="absolute inset-0 opacity-[0.03]"
+        style={{
+          backgroundImage: "radial-gradient(hsl(var(--primary)) 1px, transparent 1px)",
+          backgroundSize: "24px 24px",
+        }}
+      />
+
+      <div className="container mx-auto px-4 relative z-10">
+        {/* Section header */}
+        <div className="text-center mb-16">
+          <span className="inline-block px-4 py-1.5 rounded-full bg-primary/10 text-primary text-sm font-semibold uppercase tracking-wider mb-4">
+            Notre écosystème
+          </span>
+          <h2 className="font-display text-3xl sm:text-4xl lg:text-5xl font-bold text-foreground mb-4">
+            Nos{" "}
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-accent">
+              Services
+            </span>
           </h2>
-          <p className="text-muted-foreground max-w-xl mx-auto">
-            Une plateforme complète pour transformer la gestion des déchets à Kara.
+          <p className="text-muted-foreground max-w-2xl mx-auto text-lg">
+            Une plateforme complète pour transformer la gestion des déchets à Kara —
+            du rachat de plastiques à la formation environnementale.
           </p>
         </div>
-      </section>
 
-      <EnlevementModule />
-      <VenteModule />
-      <AlerteModule />
-      <AcademyModule />
-      <EvenementsModule />
-    </>
+        {/* ═══ CATALOGUE DE RACHAT — Lignes empilées ═══ */}
+        <div className="mb-24">
+          <div className="flex items-center gap-3 mb-2">
+            <div className="w-10 h-10 rounded-xl gradient-green flex items-center justify-center">
+              <Recycle className="w-5 h-5 text-primary-foreground" />
+            </div>
+            <div>
+              <Badge className="bg-primary/10 text-primary hover:bg-primary/10 border-0 text-xs uppercase tracking-wider mb-1">
+                Service phare
+              </Badge>
+              <h3 className="font-display text-2xl md:text-3xl font-bold text-foreground">
+                Catalogue de rachat
+              </h3>
+            </div>
+          </div>
+          <p className="text-muted-foreground max-w-3xl mt-3 mb-10 text-base md:text-lg leading-relaxed">
+            Transformez vos déchets en revenus. Identifiez le type de plastique,
+            apportez-le à notre point de collecte ou demandez un enlèvement — paiement
+            immédiat en cash ou Mobile Money.
+          </p>
+
+          {/* Lignes empilées */}
+          <div className="space-y-6">
+            {plasticRows.map((plastic, index) => (
+              <PlasticRow key={plastic.code} plastic={plastic} index={index} />
+            ))}
+          </div>
+        </div>
+
+        {/* ═══ SERVICES 2, 3, 4 ═══ */}
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+          {otherServices.map((service) => (
+            <ServiceCard key={service.title} service={service} />
+          ))}
+        </div>
+      </div>
+    </section>
   );
 };
 
