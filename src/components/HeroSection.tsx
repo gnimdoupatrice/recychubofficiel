@@ -10,6 +10,12 @@ import pvcTuyaux from "@/assets/hero/pvc_tuyaux.jpg";
 
 const slides = [purWater, petPlastique, ppPlastique, chaisesPlastique, pvcTuyaux];
 
+const stats = [
+  { value: "2 500+", label: "kg collectés" },
+  { value: "150+", label: "ménages servis" },
+  { value: "100%", label: "recyclage local" },
+];
+
 const HeroSection = () => {
   const [current, setCurrent] = useState(0);
 
@@ -23,98 +29,113 @@ const HeroSection = () => {
   }, [goNext]);
 
   return (
-    <section className="relative min-h-[85vh] md:min-h-[92vh] flex items-end overflow-hidden pt-16 md:pt-20">
-      {/* Background slides — start below the navbar */}
+    <section className="relative min-h-screen flex flex-col items-center justify-center overflow-hidden">
+      {/* Background slides */}
       {slides.map((src, i) => (
         <div
           key={i}
-          className="absolute left-0 right-0 bottom-0 top-16 md:top-20 transition-opacity duration-1000"
+          className="absolute inset-0 transition-opacity duration-[1.5s] ease-in-out"
           style={{ opacity: i === current ? 1 : 0 }}
         >
           <img
             src={src}
             alt={`Type de plastique ${i + 1}`}
-            className="w-full h-full object-cover"
+            className="w-full h-full object-cover scale-105"
           />
         </div>
       ))}
 
-      {/* Dark overlay */}
-      <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/60 to-black/30 z-[2]" />
+      {/* Dark overlay — Worky-style deep overlay */}
+      <div className="absolute inset-0 bg-black/70 z-[1]" />
+      <div className="absolute inset-0 bg-gradient-to-b from-black/40 via-transparent to-black/80 z-[2]" />
 
-      {/* Content */}
-      <div className="relative z-[3] container mx-auto px-4 pb-10 md:pb-16 pt-28 md:pt-32">
-        <div className="max-w-2xl">
-          <span className="inline-block px-3 py-1 rounded-full text-xs font-semibold uppercase tracking-widest bg-accent/20 text-accent border border-accent/30 mb-4 animate-slide-up">
-            Bienvenue sur RECYC HUB TOGO
-          </span>
+      {/* Centered content */}
+      <div className="relative z-[3] container mx-auto px-4 text-center flex flex-col items-center pt-24">
+        {/* Small label */}
+        <span className="inline-block px-5 py-1.5 rounded-full text-[10px] sm:text-xs font-bold uppercase tracking-[0.25em] border border-accent/40 text-accent bg-accent/10 mb-8 animate-slide-up">
+          Recyclage · Collecte · Rachat
+        </span>
 
-          <h1 className="font-display text-2xl sm:text-3xl lg:text-4xl xl:text-5xl font-bold leading-tight mb-4 text-white animate-slide-up" style={{ animationDelay: "0.05s" }}>
-            Faites collecter vos déchets ménagers et{" "}
-            <span className="text-accent">vendez vos plastiques</span>{" "}
-            en quelques clics
-          </h1>
+        {/* Main title — uppercase, spaced, Worky architectural style */}
+        <h1
+          className="font-display text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-black uppercase tracking-[0.08em] leading-[1.1] text-white mb-6 animate-slide-up"
+          style={{ animationDelay: "0.08s" }}
+        >
+          Nous construisons
+          <br />
+          <span className="text-gradient-warm inline-block mt-1">un Kara plus propre</span>
+        </h1>
 
-          <p
-            className="text-base sm:text-lg text-white/75 leading-relaxed max-w-xl mb-8 animate-slide-up"
-            style={{ animationDelay: "0.15s" }}
+        {/* Subtitle */}
+        <p
+          className="text-sm sm:text-base md:text-lg text-white/60 max-w-xl leading-relaxed mb-10 animate-slide-up font-body"
+          style={{ animationDelay: "0.18s" }}
+        >
+          Faites collecter vos déchets ménagers et vendez vos plastiques au kg.
+          <br className="hidden sm:block" />
+          Simple, rapide et disponible partout à Kara.
+        </p>
+
+        {/* CTAs — Worky style: uppercase, letter-spacing, bordered */}
+        <div
+          className="flex flex-col sm:flex-row items-center gap-4 mb-12 animate-slide-up"
+          style={{ animationDelay: "0.28s" }}
+        >
+          <Link
+            to="/vendre"
+            className="group inline-flex items-center justify-center gap-3 px-8 py-4 rounded-none bg-secondary text-secondary-foreground font-bold text-sm uppercase tracking-[0.15em] transition-all duration-300 hover:scale-[1.03] hover:shadow-xl hover:shadow-secondary/30 active:scale-[0.98]"
           >
-            Demandez un enlèvement ou vendez vos plastiques à{" "}
-            <strong className="text-white">  au kg</strong>.
-            Simple, rapide et disponible partous à Kara.
-          </p>
+            <ShoppingBag className="w-5 h-5" />
+            Vendre mes plastiques
+            <ArrowRight className="w-5 h-5 transition-transform duration-300 group-hover:translate-x-1" />
+          </Link>
 
-          <div
-            className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 mb-6 animate-slide-up"
-            style={{ animationDelay: "0.25s" }}
+          <Link
+            to="/enlevement"
+            className="group inline-flex items-center justify-center gap-2.5 px-8 py-4 rounded-none border-2 border-white/40 text-white font-semibold text-sm uppercase tracking-[0.15em] transition-all duration-300 hover:bg-white/10 hover:border-white/70 active:scale-[0.98]"
           >
-            <Link
-              to="/vendre"
-              className="group inline-flex items-center justify-center gap-2.5 px-8 py-4 rounded-xl gradient-bio text-white font-bold text-base uppercase tracking-wide transition-all duration-300 hover:scale-[1.03] hover:shadow-xl hover:shadow-primary/30 active:scale-[0.98] focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2"
-            >
-              <ShoppingBag className="w-5 h-5" />
-              Vendre mes plastiques
-              <ArrowRight className="w-5 h-5 transition-transform duration-300 group-hover:translate-x-1" />
-            </Link>
-
-            <Link
-              to="/enlevement"
-              className="group inline-flex items-center justify-center gap-2 px-6 py-4 rounded-xl border border-white/30 text-white font-semibold text-sm uppercase tracking-wide transition-all duration-300 hover:bg-white/10 hover:border-white/50 active:scale-[0.98] focus-visible:ring-2 focus-visible:ring-white/50"
-            >
-              <Truck className="w-5 h-5" />
-              Demander un enlèvement
-            </Link>
-          </div>
-
-          <div
-            className="flex flex-col sm:flex-row items-start sm:items-center gap-4 text-sm text-white/60 animate-slide-up"
-            style={{ animationDelay: "0.35s" }}
-          >
-            <span className="flex items-center gap-1.5">
-              <span className="w-2 h-2 rounded-full bg-accent animate-pulse" />
-              2 500+ kg de plastiques collectés
-            </span>
-            <a
-              href="tel:+22890123456"
-              className="flex items-center gap-1.5 text-white/60 hover:text-accent transition-colors"
-            >
-              <Phone className="w-4 h-4" />
-              +228 97 68 40 30
-            </a>
-          </div>
+            <Truck className="w-5 h-5" />
+            Demander un enlèvement
+          </Link>
         </div>
 
+        {/* Phone */}
+        <a
+          href="tel:+22897684030"
+          className="flex items-center gap-2 text-white/40 hover:text-accent text-xs uppercase tracking-[0.15em] transition-colors mb-10 animate-slide-up"
+          style={{ animationDelay: "0.35s" }}
+        >
+          <Phone className="w-4 h-4" />
+          +228 97 68 40 30
+        </a>
+
         {/* Slide indicators */}
-        <div className="flex gap-2 mt-8 animate-slide-up" style={{ animationDelay: "0.4s" }}>
+        <div className="flex gap-2.5 mb-12 animate-slide-up" style={{ animationDelay: "0.4s" }}>
           {slides.map((_, i) => (
             <button
               key={i}
               onClick={() => setCurrent(i)}
-              className={`h-1 rounded-full transition-all duration-500 ${
-                i === current ? "w-8 bg-accent" : "w-4 bg-white/30 hover:bg-white/50"
+              className={`h-[3px] rounded-full transition-all duration-500 ${
+                i === current ? "w-10 bg-secondary" : "w-5 bg-white/20 hover:bg-white/40"
               }`}
               aria-label={`Slide ${i + 1}`}
             />
+          ))}
+        </div>
+      </div>
+
+      {/* Bottom stats bar — like Worky's footer strip */}
+      <div className="absolute bottom-0 left-0 right-0 z-[4] bg-black/50 backdrop-blur-md border-t border-white/10">
+        <div className="container mx-auto px-4 py-5 flex items-center justify-center gap-8 sm:gap-16">
+          {stats.map((stat, i) => (
+            <div key={i} className="text-center">
+              <span className="block text-xl sm:text-2xl md:text-3xl font-display font-black text-white tracking-tight">
+                {stat.value}
+              </span>
+              <span className="block text-[10px] sm:text-xs uppercase tracking-[0.2em] text-white/50 mt-1">
+                {stat.label}
+              </span>
+            </div>
           ))}
         </div>
       </div>
