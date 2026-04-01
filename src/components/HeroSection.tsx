@@ -111,7 +111,7 @@ const HeroSection = () => {
               key={i}
               onClick={() => setCurrent(i)}
               className={`h-1 rounded-full transition-all duration-500 ${
-                i === current ? "w-8 bg-accent" : "w-4 bg-white/30 hover:bg-white/50"
+                i === current ? "w-8 bg-accent" : "w-4   bg-white/30 hover:bg-white/50"
               }`}
               aria-label={`Slide ${i + 1}`}
             />
