@@ -23,7 +23,7 @@ const HeroSection = () => {
   }, [goNext]);
 
   return (
-    <section className="relative min-h-[85vh] md:min-h-[92vh] flex items-end overflow-hidden pt-16 md:pt-20">
+    <section className="relative min-h-[85vh] md:min-h-[92vh] flex items-center overflow-hidden pt-16 md:pt-20">
       {/* Background slides — start below the navbar */}
       {slides.map((src, i) => (
         <div
@@ -43,7 +43,7 @@ const HeroSection = () => {
       <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/60 to-black/30 z-[2]" />
 
       {/* Content */}
-      <div className="relative z-[3] container mx-auto px-4 pb-10 md:pb-16 pt-28 md:pt-32">
+      <div className="relative z-[3] container mx-auto px-4 pb-10 md:pb-16 pt-28 md:pt-32 text-center flex flex-col items-center">
         <div className="max-w-2xl">
           <span className="inline-block px-3 py-1 rounded-full text-xs font-semibold uppercase tracking-widest bg-accent/20 text-accent border border-accent/30 mb-4 animate-slide-up">
             Bienvenue sur RECYC HUB TOGO
@@ -56,7 +56,7 @@ const HeroSection = () => {
           </h1>
 
           <p
-            className="text-base sm:text-lg text-white/75 leading-relaxed max-w-xl mb-8 animate-slide-up"
+            className="text-base sm:text-lg text-white/75 leading-relaxed max-w-xl mx-auto mb-8 animate-slide-up"
             style={{ animationDelay: "0.15s" }}
           >
             Demandez un enlèvement ou vendez vos plastiques à{" "}
@@ -65,7 +65,7 @@ const HeroSection = () => {
           </p>
 
           <div
-            className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 mb-6 animate-slide-up"
+            className="flex flex-col sm:flex-row items-stretch sm:items-center justify-center gap-3 mb-6 animate-slide-up"
             style={{ animationDelay: "0.25s" }}
           >
             <Link
@@ -87,7 +87,7 @@ const HeroSection = () => {
           </div>
 
           <div
-            className="flex flex-col sm:flex-row items-start sm:items-center gap-4 text-sm text-white/60 animate-slide-up"
+            className="flex flex-col sm:flex-row items-center justify-center gap-4 text-sm text-white/60 animate-slide-up"
             style={{ animationDelay: "0.35s" }}
           >
             <span className="flex items-center gap-1.5">
@@ -105,7 +105,7 @@ const HeroSection = () => {
         </div>
 
         {/* Slide indicators */}
-        <div className="flex gap-2 mt-8 animate-slide-up" style={{ animationDelay: "0.4s" }}>
+        <div className="flex justify-center gap-2 mt-8 animate-slide-up" style={{ animationDelay: "0.4s" }}>
           {slides.map((_, i) => (
             <button
               key={i}
