@@ -43,7 +43,7 @@ const HeroSection = () => {
       <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/60 to-black/30 z-[2]" />
 
       {/* Content */}
-      <div className="relative z-[3] container mx-auto px-4 pb-10 md:pb-16 pt-28 md:pt-32">
+      <div className="relative z-[3] container mx-auto px-4 pb-10 md:pb-16 pt-28 md:pt-32 text-center flex flex-col items-center">
         <div className="max-w-2xl">
           <span className="inline-block px-3 py-1 rounded-full text-xs font-semibold uppercase tracking-widest bg-accent/20 text-accent border border-accent/30 mb-4 animate-slide-up">
             Bienvenue sur RECYC HUB TOGO
