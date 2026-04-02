@@ -87,7 +87,7 @@ const HeroSection = () => {
           </div>
 
           <div
-            className="flex flex-col sm:flex-row items-start sm:items-center gap-4 text-sm text-white/60 animate-slide-up"
+            className="flex flex-col sm:flex-row items-center justify-center gap-4 text-sm text-white/60 animate-slide-up"
             style={{ animationDelay: "0.35s" }}
           >
             <span className="flex items-center gap-1.5">
