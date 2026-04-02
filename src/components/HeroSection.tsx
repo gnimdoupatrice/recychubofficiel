@@ -23,7 +23,7 @@ const HeroSection = () => {
   }, [goNext]);
 
   return (
-    <section className="relative min-h-[85vh] md:min-h-[92vh] flex items-end overflow-hidden pt-16 md:pt-20">
+    <section className="relative min-h-[85vh] md:min-h-[92vh] flex items-center overflow-hidden pt-16 md:pt-20">
       {/* Background slides — start below the navbar */}
       {slides.map((src, i) => (
         <div
