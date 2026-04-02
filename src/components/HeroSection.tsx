@@ -65,7 +65,7 @@ const HeroSection = () => {
           </p>
 
           <div
-            className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 mb-6 animate-slide-up"
+            className="flex flex-col sm:flex-row items-stretch sm:items-center justify-center gap-3 mb-6 animate-slide-up"
             style={{ animationDelay: "0.25s" }}
           >
             <Link
