@@ -56,7 +56,7 @@ const HeroSection = () => {
           </h1>
 
           <p
-            className="text-base sm:text-lg text-white/75 leading-relaxed max-w-xl mb-8 animate-slide-up"
+            className="text-base sm:text-lg text-white/75 leading-relaxed max-w-xl mx-auto mb-8 animate-slide-up"
             style={{ animationDelay: "0.15s" }}
           >
             Demandez un enlèvement ou vendez vos plastiques à{" "}
