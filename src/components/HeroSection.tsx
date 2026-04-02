@@ -105,7 +105,7 @@ const HeroSection = () => {
         </div>
 
         {/* Slide indicators */}
-        <div className="flex gap-2 mt-8 animate-slide-up" style={{ animationDelay: "0.4s" }}>
+        <div className="flex justify-center gap-2 mt-8 animate-slide-up" style={{ animationDelay: "0.4s" }}>
           {slides.map((_, i) => (
             <button
               key={i}
