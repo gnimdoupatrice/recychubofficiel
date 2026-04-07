@@ -13,7 +13,7 @@ import CTASection from "@/components/CTASection";
 
 const Index = () => {
   return (
-    <div>
+    <div className="pb-16 lg:pb-0">
       <HeroSection />
       <AboutSection />
       
