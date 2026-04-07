@@ -1,6 +1,4 @@
-import { useEffect, useCallback } from "react";
-import useEmblaCarousel from "embla-carousel-react";
-import Autoplay from "embla-carousel-autoplay";
+import { useState } from "react";
 import {
   Recycle,
   ArrowRight,
@@ -105,39 +103,29 @@ const plasticRows = [
   },
 ];
 
-/* ─── Carousel auto-play pour chaque ligne ─── */
-const PlasticCarousel = ({ images, alt }: { images: string[]; alt: string }) => {
-  const [emblaRef, emblaApi] = useEmblaCarousel({ loop: true }, [
-    Autoplay({ delay: 10000, stopOnInteraction: false }),
-  ]);
-
-  const onSelect = useCallback(() => {
-    if (!emblaApi) return;
-  }, [emblaApi]);
-
-  useEffect(() => {
-    if (!emblaApi) return;
-    onSelect();
-    emblaApi.on("select", onSelect);
-    return () => { emblaApi.off("select", onSelect); };
-  }, [emblaApi, onSelect]);
+/* ─── Image swap on hover ─── */
+const PlasticImageSwap = ({ images, alt }: { images: string[]; alt: string }) => {
+  const [hovered, setHovered] = useState(false);
 
   return (
-    <div ref={emblaRef} className="overflow-hidden rounded-2xl h-full">
-      <div className="flex h-full">
-        {images.map((src, i) => (
-          <div key={i} className="flex-[0_0_100%] min-w-0 h-full">
-            <img
-              src={src}
-              alt={`${alt} - exemple ${i + 1}`}
-              loading="lazy"
-              width={800}
-              height={600}
-              className="w-full h-full object-cover"
-            />
-          </div>
-        ))}
-      </div>
+    <div
+      className="relative w-full h-full overflow-hidden rounded-2xl"
+      onMouseEnter={() => setHovered(true)}
+      onMouseLeave={() => setHovered(false)}
+    >
+      {images.map((src, i) => (
+        <img
+          key={i}
+          src={src}
+          alt={`${alt} - exemple ${i + 1}`}
+          loading="lazy"
+          width={800}
+          height={600}
+          className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-700 ${
+            (i === 0 && !hovered) || (i === 1 && hovered) ? "opacity-100" : "opacity-0"
+          }`}
+        />
+      ))}
     </div>
   );
 };
@@ -165,7 +153,7 @@ const PlasticRow = ({
       >
         {/* Colonne Visuel — Carousel */}
         <div className="w-full md:w-[45%] aspect-[4/3] md:aspect-auto">
-          <PlasticCarousel images={plastic.images} alt={`${plastic.code} - ${plastic.name}`} />
+          <PlasticImageSwap images={plastic.images} alt={`${plastic.code} - ${plastic.name}`} />
         </div>
 
         {/* Colonne Info */}
