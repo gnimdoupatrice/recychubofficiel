@@ -45,7 +45,7 @@ const HeroSection = () => {
       {/* Content */}
       <div className="relative z-[3] container mx-auto px-4 pb-10 md:pb-16 pt-28 md:pt-32 text-center flex flex-col items-center">
         <div className="max-w-2xl">
-          <span className="inline-block px-3 py-1 rounded-full text-xs font-semibold uppercase tracking-widest bg-accent/20 text-accent border border-accent/30 mb-4 animate-slide-up">
+          <span className="inline-block px-4 py-2 rounded-full text-xs font-bold uppercase tracking-widest bg-black/50 text-white border border-white/30 mb-4 animate-slide-up backdrop-blur-md shadow-lg">
             Bienvenue sur RECYC HUB TOGO
           </span>
 
@@ -87,31 +87,31 @@ const HeroSection = () => {
           </div>
 
           <div
-            className="flex flex-col sm:flex-row items-center justify-center gap-4 text-sm text-white/60 animate-slide-up"
+            className="flex flex-col sm:flex-row items-center justify-center gap-5 animate-slide-up"
             style={{ animationDelay: "0.35s" }}
           >
-            <span className="flex items-center gap-1.5">
-              <span className="w-2 h-2 rounded-full bg-accent animate-pulse" />
+            <span className="flex items-center gap-2 px-4 py-2 rounded-full bg-black/40 backdrop-blur-md border border-white/20 text-white font-semibold text-sm shadow-lg">
+              <span className="w-2.5 h-2.5 rounded-full bg-accent animate-pulse" />
               2 500+ kg de plastiques collectés
             </span>
             <a
-              href="tel:+22890123456"
-              className="flex items-center gap-1.5 text-white/60 hover:text-accent transition-colors"
+              href="tel:+22897684030"
+              className="flex items-center gap-2 px-4 py-2 rounded-full bg-black/40 backdrop-blur-md border border-white/20 text-white font-semibold text-sm shadow-lg hover:bg-accent/20 hover:border-accent/40 transition-all"
             >
-              <Phone className="w-4 h-4" />
+              <Phone className="w-4 h-4 text-accent" />
               +228 97 68 40 30
             </a>
           </div>
         </div>
 
         {/* Slide indicators */}
-        <div className="flex justify-center gap-2 mt-8 animate-slide-up" style={{ animationDelay: "0.4s" }}>
+        <div className="flex justify-center gap-3 mt-8 animate-slide-up" style={{ animationDelay: "0.4s" }}>
           {slides.map((_, i) => (
             <button
               key={i}
               onClick={() => setCurrent(i)}
-              className={`h-1 rounded-full transition-all duration-500 ${
-                i === current ? "w-8 bg-accent" : "w-4 bg-white/30 hover:bg-white/50"
+              className={`rounded-full transition-all duration-500 ${
+                i === current ? "w-10 h-2.5 bg-accent shadow-lg shadow-accent/40" : "w-6 h-2.5 bg-white/40 hover:bg-white/60"
               }`}
               aria-label={`Slide ${i + 1}`}
             />
