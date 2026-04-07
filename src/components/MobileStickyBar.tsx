@@ -2,8 +2,8 @@ import { ShoppingBag, Truck, Phone } from "lucide-react";
 import { Link } from "react-router-dom";
 
 const MobileStickyBar = () => (
-  <div className="fixed bottom-0 left-0 right-0 z-40 lg:hidden">
-    <div className="bg-background/95 backdrop-blur-xl border-t border-border px-3 py-2 flex items-center gap-2">
+  <div className="fixed bottom-0 left-0 right-0 z-50 lg:hidden">
+    <div className="bg-background/95 backdrop-blur-xl border-t border-border px-3 py-2 pb-[max(0.5rem,env(safe-area-inset-bottom))] flex items-center gap-2">
       <Link
         to="/vendre"
         className="flex-1 inline-flex items-center justify-center gap-1.5 px-3 py-2.5 rounded-full gradient-bio text-primary-foreground font-semibold text-sm transition-transform active:scale-95"
