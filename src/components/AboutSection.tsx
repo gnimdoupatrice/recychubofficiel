@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Eye, Target, Trophy, ArrowRight, Home, Recycle, Truck } from "lucide-react";
-import challenge1 from "@/assets/challenge-1.jpg";
+import challenge1 from "@/assets/challenge-1.png";
 import challenge2 from "@/assets/challenge-2.jpg";
 import challenge3 from "@/assets/challenge-3.jpg";
 
@@ -11,7 +11,7 @@ const challenges = [
     title: "Précarité & Négligence",
     subtitle: "Les ménages submergés",
     description:
-      "La majorité des ménages vivent dans une précarité financière qui relègue la gestion des déchets au second plan. Les déchets s'accumulent dans les cours et finissent dans les rues, les rivières et les caniveaux.",
+      "Aujourd'hui, à Kara, à Lomé, comme dans la plupart des villes au Togo, la majorité des ménages vivent dans une précarité financière avec environ 3000 FCFA par jour, contraignant les familles à privilégier la survie immédiate au détriment de tout autre besoin, y compris la gestion des déchets. Cela relègue au second plan la gestion des déchets ménagers jusqu'à ce qu'elle devienne quasi inexistante, ainsi faisant les déchets s'accumuler progressivement dans les cours avant de saturer les rues, les rivières et les caniveaux, transformant même les ponts en véritables dépotoirs à ciel ouvert.",
     image: challenge1,
     accent: "from-orange-500/80 to-red-600/80",
     number: "01",
@@ -22,7 +22,7 @@ const challenges = [
     title: "Charge vs Mine d'or",
     subtitle: "Un paradoxe économique",
     description:
-      "Ce qui est une charge insupportable pour les ménages est une véritable mine d'or pour les entreprises de recyclage. Des tonnes de matières premières se perdent chaque jour faute de connexion entre ces deux mondes.",
+      "Ce qui constitue aujourd'hui une charge environnementale et sociale insupportable pour les ménages représente, en réalité, une mine d'or inexploitée pour l'industrie du recyclage. Faute d'une connexion structurée entre ces deux mondes, des tonnes de matières premières à haute valeur ajoutée sont perdues chaque jour, transformant un potentiel économique majeur en une pollution urbaine coûteuse.",
     image: challenge2,
     accent: "from-primary/80 to-emerald-700/80",
     number: "02",
@@ -33,7 +33,7 @@ const challenges = [
     title: "Collecte à l'aveugle",
     subtitle: "Des tournées inefficaces",
     description:
-      "Les entreprises de collecte travaillent sans outils numériques : elles passent chez des clients sans savoir s'il y a un besoin réel, gaspillant temps, carburant et ressources à chaque tournée.",
+      "Aujourd'hui, les entreprises de collecte opèrent très souvent en aveugle, sans aucun outil de pilotage numérique. Elles effectuent des tournées aléatoires, passant chez des clients sans savoir si un besoin réel existe, ce qui engendre un gaspillage massif de temps, de carburant et de ressources humaines à chaque trajet. Cette absence de données transforme la collecte en un centre de coûts lourd et inefficace, limitant drastiquement l'impact environnemental et la rentabilité du secteur.",
     image: challenge3,
     accent: "from-blue-600/80 to-indigo-700/80",
     number: "03",

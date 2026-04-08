@@ -1,7 +1,7 @@
 import { MessageCircle } from "lucide-react";
 
-const WHATSAPP_NUMBER = "22890000000"; // À remplacer par le vrai numéro
-const WHATSAPP_URL = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent("Bonjour RecycHub, je souhaite en savoir plus sur vos services.")}`;
+const WHATSAPP_NUMBER = "22897684030"; // À remplacer par le vrai numéro
+const WHATSAPP_URL = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent("Bonjour RECYC HUB, je souhaite en savoir plus sur vos services.")}`;
 
 const WhatsAppButton = () => (
   <a
