@@ -6,9 +6,9 @@ const partners = [
   "Mairie de Kara",
   "Préfecture de Kozah",
   "ANGE Togo",
-  "GIZ Togo",
-  "PNUD",
-  "UNICEF",
+  "AJACK KARA",
+  "Rotaract Club Université de Kara",
+  "JCI Kara Elite",
 ];
 
 const PartnersSection = () => (
