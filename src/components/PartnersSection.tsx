@@ -5,7 +5,7 @@ import { ArrowRight } from "lucide-react";
 const partners = [
   "Mairie de Kara",
   "Préfecture de Kozah",
-  "ANGE Togo",
+  "JVE Branche locale Kara",
   "AJACK KARA",
   "Rotaract Club Université de Kara",
   "JCI Kara Elite",
@@ -22,7 +22,7 @@ const PartnersSection = () => (
           Ils nous font <span className="text-gradient-emerald">confiance</span>
         </h2>
         <p className="text-muted-foreground max-w-lg mx-auto">
-          RECYC HUB TOGO collabore avec les institutions locales, ONG et partenaires au développement pour un impact durable.
+          RECYC HUB TOGO collabore avec les institutions locales, ONG et partenaires du développement pour un impact durable.
         </p>
       </div>
 
@@ -50,7 +50,8 @@ const PartnersSection = () => (
               Vous êtes une institution ou une ONG ?
             </h3>
             <p className="text-xs text-muted-foreground mb-2">
-              Collaborons pour un Kara plus propre. Contactez-nous pour un partenariat.
+              Collaborons ensemble pour un avenir
+               plus propre. Contactez-nous pour un partenariat.
             </p>
             <a
               href="mailto:recychubtogo@gmail.com"
