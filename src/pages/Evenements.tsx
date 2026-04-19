@@ -1,4 +1,5 @@
 import { CalendarDays, MapPin, Users, ArrowRight } from "lucide-react";
+import SEO from "@/components/SEO";
 
 const events = [
   {
@@ -34,6 +35,7 @@ const events = [
 const Evenements = () => {
   return (
     <div className="pt-24 pb-16 min-h-screen">
+      <SEO title="Événements écologiques à Kara" description="Rejoignez nos opérations de nettoyage, ateliers compostage et forums des métiers verts à Kara. Calendrier et inscription en ligne." path="/evenements" />
       <div className="container mx-auto px-4">
         <div className="text-center mb-12">
           <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full glass mb-4">

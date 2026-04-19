@@ -4,6 +4,7 @@ import { useAuth } from "@/contexts/AuthContext";
 import { supabase } from "@/integrations/supabase/client";
 import { toast } from "@/components/ui/sonner";
 import { Link } from "react-router-dom";
+import SEO from "@/components/SEO";
 
 const DemanderEnlevement = () => {
   const { user } = useAuth();
@@ -29,6 +30,7 @@ const DemanderEnlevement = () => {
 
   return (
     <div className="pt-24 pb-16 min-h-screen">
+      <SEO title="Demander un enlèvement de déchets à Kara" description="Faites enlever vos déchets ménagers à domicile à Kara. Service simple, rapide et abordable. Réservation en ligne ou par WhatsApp." path="/enlevement" />
       <div className="container mx-auto px-4">
         <div className="text-center mb-12">
           <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full glass mb-4">

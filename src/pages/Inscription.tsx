@@ -3,6 +3,7 @@ import { UserPlus, User, Phone, MapPin, Home, Lock } from "lucide-react";
 import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from "@/contexts/AuthContext";
 import { toast } from "@/components/ui/sonner";
+import SEO from "@/components/SEO";
 
 const communes = ["KOZAH 1", "KOZAH 2", "KOZAH 3", "KOZAH 4"];
 
@@ -45,6 +46,7 @@ const Inscription = () => {
 
   return (
     <div className="pt-24 pb-16 min-h-screen flex items-center">
+      <SEO title="Inscription" description="Créez votre compte RecycHub Togo en 1 minute pour vendre vos plastiques et bénéficier de l'enlèvement à domicile à Kara." path="/inscription" />
       <div className="container mx-auto px-4">
         <div className="max-w-sm mx-auto">
           <div className="text-center mb-8">

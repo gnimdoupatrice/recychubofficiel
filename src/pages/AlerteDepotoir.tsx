@@ -3,6 +3,7 @@ import { AlertTriangle, Camera, MapPin, Send } from "lucide-react";
 import { useAuth } from "@/contexts/AuthContext";
 import { supabase } from "@/integrations/supabase/client";
 import { toast } from "@/components/ui/sonner";
+import SEO from "@/components/SEO";
 
 const AlerteDepotoir = () => {
   const { user } = useAuth();
@@ -38,6 +39,7 @@ const AlerteDepotoir = () => {
 
   return (
     <div className="pt-24 pb-16 min-h-screen">
+      <SEO title="Alerte Dépotoir Sauvage" description="Signalez en quelques clics un dépotoir sauvage à Kara. Photo + repère et notre équipe intervient pour dépolluer votre quartier." path="/alerte" />
       <div className="container mx-auto px-4">
         <div className="text-center mb-12">
           <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full glass mb-4 animate-pulse-orange">

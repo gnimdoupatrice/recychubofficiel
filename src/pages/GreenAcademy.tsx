@@ -1,4 +1,5 @@
 import { BookOpen, Play, Award, TrendingUp } from "lucide-react";
+import SEO from "@/components/SEO";
 
 const modules = [
   { title: "Introduction à l'économie circulaire", duration: "15 min", type: "Vidéo", free: true },
@@ -11,6 +12,7 @@ const modules = [
 const GreenAcademy = () => {
   return (
     <div className="pt-24 pb-16 min-h-screen">
+      <SEO title="Green Academy — Formations économie circulaire" description="Apprenez le tri, le compostage et les métiers verts au Togo. Modules vidéo et certifications via la Green Academy de RecycHub Togo." path="/academy" />
       <div className="container mx-auto px-4">
         <div className="text-center mb-12">
           <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full glass mb-4">
