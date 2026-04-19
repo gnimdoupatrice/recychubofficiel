@@ -209,7 +209,7 @@ const PlasticRow = ({
               size="lg"
               className="gradient-green border-0 text-primary-foreground hover:opacity-90"
             >
-              <Link to="/vendre-plastiques">
+              <Link to="/vendre">
                 Vendre maintenant <ArrowRight className="ml-2 w-4 h-4" />
               </Link>
             </Button>
@@ -235,7 +235,7 @@ const otherServices = [
       { icon: Route, text: "Optimisation intelligente des tournées" },
     ],
     ctaLabel: "Demander une démo",
-    ctaLink: "/demander-enlevement",
+    ctaLink: "/enlevement",
     accent: "primary" as const,
   },
   {
@@ -251,7 +251,7 @@ const otherServices = [
       { icon: Shield, text: "Cartographie des zones à risque" },
     ],
     ctaLabel: "Signaler un dépotoir",
-    ctaLink: "/alerte-depotoir",
+    ctaLink: "/alerte",
     accent: "destructive" as const,
   },
   {
@@ -267,7 +267,7 @@ const otherServices = [
       { icon: Wrench, text: "Ateliers pratiques sur le terrain" },
     ],
     ctaLabel: "Découvrir les formations",
-    ctaLink: "/green-academy",
+    ctaLink: "/academy",
     accent: "primary" as const,
   },
 ];
