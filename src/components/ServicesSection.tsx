@@ -32,6 +32,8 @@ import pvcPipes1 from "@/assets/pvc-pipes-1.jpg";
 import pvcPipes2 from "@/assets/pvc-pipes-2.jpg";
 import mobilier1 from "@/assets/mobilier-1.jpg";
 import mobilier2 from "@/assets/mobilier-2.jpg";
+import pureWater1 from "@/assets/pure-water-1.jpg";
+import pureWater2 from "@/assets/pure-water-2.jpg";
 
 /* ─── Données plastiques ─── */
 const plasticRows = [
@@ -99,6 +101,20 @@ const plasticRows = [
     price: "100",
     unit: "kg",
     altPrice: "200 FCFA/pièce (non broyé)",
+  },
+  {
+    code: "PEBD",
+    name: "Sachets Pure Water & films plastiques",
+    images: [pureWater1, pureWater2],
+    identifiers: [
+      "Code de recyclage : Chiffre 04 dans un triangle de recyclage",
+      "Aspect physique : sachets souples, fins et transparents",
+      "Surnoms : sachets « pure water », sachets d'eau, films d'emballage",
+      "Exemple : sachets d'eau pure water vidés, sachets plastiques fins, films d'emballage propres",
+    ],
+    price: "30",
+    unit: "kg",
+    altPrice: "Sachets propres et secs uniquement",
   },
 ];
 
