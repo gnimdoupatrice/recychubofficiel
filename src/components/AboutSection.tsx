@@ -11,7 +11,7 @@ const challenges = [
     title: "Précarité & Négligence",
     subtitle: "Les ménages submergés",
     description:
-      "Aujourd'hui, à Kara, à Lomé, comme dans la plupart des villes au Togo, la majorité des ménages vivent dans une précarité financière avec environ 3000 FCFA par jour, contraignant les familles à privilégier la survie immédiate au détriment de tout autre besoin, y compris la gestion des déchets. Cela relègue au second plan la gestion des déchets ménagers jusqu'à ce qu'elle devienne quasi inexistante, ainsi faisant les déchets s'accumuler progressivement dans les cours avant de saturer les rues, les rivières et les caniveaux, transformant même les ponts en véritables dépotoirs à ciel ouvert.",
+      "À Kara, à Lomé et dans la plupart des villes togolaises, la majorité des ménages vivent avec environ 3 000 FCFA par jour. Cette précarité contraint les familles à privilégier la survie immédiate, reléguant la gestion des déchets au second plan jusqu'à la rendre quasi inexistante. Les ordures s'accumulent alors dans les cours, saturent les rues, les caniveaux et les rivières, transformant même certains ponts en véritables dépotoirs à ciel ouvert.",
     image: challenge1,
     accent: "from-orange-500/80 to-red-600/80",
     number: "01",
@@ -22,7 +22,7 @@ const challenges = [
     title: "Charge vs Mine d'or",
     subtitle: "Un paradoxe économique",
     description:
-      "Ce qui constitue aujourd'hui une charge environnementale et sociale insupportable pour les ménages représente, en réalité, une mine d'or inexploitée pour l'industrie du recyclage. Faute d'une connexion structurée entre ces deux mondes, des tonnes de matières premières à haute valeur ajoutée sont perdues chaque jour, transformant un potentiel économique majeur en une pollution urbaine coûteuse.",
+      "Ce qui pèse aujourd'hui comme une charge environnementale et sociale sur les ménages représente, en réalité, une véritable mine d'or pour l'industrie du recyclage. Faute d'une connexion structurée entre ces deux mondes, des tonnes de matières premières à haute valeur ajoutée sont perdues chaque jour, transformant un puissant potentiel économique en pollution urbaine coûteuse.",
     image: challenge2,
     accent: "from-primary/80 to-emerald-700/80",
     number: "02",
@@ -33,7 +33,7 @@ const challenges = [
     title: "Collecte à l'aveugle",
     subtitle: "Des tournées inefficaces",
     description:
-      "Aujourd'hui, les entreprises de collecte opèrent très souvent en aveugle, sans aucun outil de pilotage numérique. Elles effectuent des tournées aléatoires, passant chez des clients sans savoir si un besoin réel existe, ce qui engendre un gaspillage massif de temps, de carburant et de ressources humaines à chaque trajet. Cette absence de données transforme la collecte en un centre de coûts lourd et inefficace, limitant drastiquement l'impact environnemental et la rentabilité du secteur.",
+      "Les entreprises de collecte opèrent encore largement en aveugle, sans outil numérique de pilotage. Leurs tournées, souvent aléatoires, les conduisent à passer chez des clients sans besoin réel, gaspillant temps, carburant et ressources humaines à chaque trajet. Faute de données, la collecte devient un centre de coûts lourd et inefficace, limitant drastiquement son impact environnemental comme sa rentabilité.",
     image: challenge3,
     accent: "from-blue-600/80 to-indigo-700/80",
     number: "03",
@@ -114,8 +114,8 @@ const AboutSection = () => {
                   <h3 className="font-display text-base font-bold text-foreground mb-2">
                     {challenge.title}
                   </h3>
-                  <p className={`text-xs leading-relaxed text-muted-foreground transition-all duration-500 ${
-                    isActive ? "max-h-40 opacity-100" : "max-h-0 opacity-0 overflow-hidden"
+                  <p className={`text-xs leading-relaxed text-muted-foreground text-justify transition-all duration-500 ${
+                    isActive ? "max-h-96 opacity-100" : "max-h-0 opacity-0 overflow-hidden"
                   }`}>
                     {challenge.description}
                   </p>
