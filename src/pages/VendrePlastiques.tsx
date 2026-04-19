@@ -4,6 +4,7 @@ import { useAuth } from "@/contexts/AuthContext";
 import { supabase } from "@/integrations/supabase/client";
 import { toast } from "@/components/ui/sonner";
 import { Link } from "react-router-dom";
+import SEO from "@/components/SEO";
 
 const VendrePlastiques = () => {
   const { user } = useAuth();
@@ -42,6 +43,7 @@ const VendrePlastiques = () => {
 
   return (
     <div className="pt-24 pb-16 min-h-screen">
+      <SEO title="Vendre mes plastiques au kg" description="Vendez vos plastiques (PET, PEHD, PP, PVC, sachets pure water) au meilleur prix à Kara. Calcul instantané, paiement rapide." path="/vendre" />
       <div className="container mx-auto px-4">
         <div className="text-center mb-12">
           <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full glass mb-4">

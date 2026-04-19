@@ -35,6 +35,9 @@ const HeroSection = () => {
             src={src}
             alt={`Type de plastique ${i + 1}`}
             className="w-full h-full object-cover"
+            loading={i === 0 ? "eager" : "lazy"}
+            decoding="async"
+            fetchPriority={i === 0 ? "high" : "low"}
           />
         </div>
       ))}
