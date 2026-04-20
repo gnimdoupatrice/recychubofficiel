@@ -59,11 +59,11 @@ const HeroSection = () => {
       {/* Content */}
       <div className="relative z-[3] container mx-auto px-4 pt-24 md:pt-28 pb-12 md:pb-16">
         <div className="max-w-6xl mx-auto">
-          {/* Badge éco */}
+          
           <div className="flex justify-center mb-6">
             <span className="inline-flex items-center gap-2 px-4 py-2 rounded-full text-[11px] sm:text-xs font-bold uppercase tracking-[0.2em] bg-white/10 text-white border border-white/20 backdrop-blur-md shadow-lg animate-slide-up">
               <Sparkles className="w-3.5 h-3.5 text-secondary" />
-              Plateforme phygitale de recyclage — Kara, Togo
+              Bienvenue sur RECYC HUB TOGO
             </span>
           </div>
 
@@ -72,10 +72,10 @@ const HeroSection = () => {
             className="font-display text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold leading-[1.05] tracking-tight text-center text-white mb-5 animate-slide-up"
             style={{ animationDelay: "0.05s" }}
           >
-            Une ville propre,
+            Faites collecter vos déchets ménagers et 
             <br className="hidden sm:block" />
             <span className="bg-clip-text text-transparent bg-gradient-to-r from-secondary via-secondary to-accent">
-              {" "}des revenus pour tous.
+              {" "}vendez vos plastiques en quelques clics.
             </span>
           </h1>
 
@@ -163,7 +163,7 @@ const HeroSection = () => {
                   Domicile · Kara
                 </span>
                 <span className="inline-flex items-center gap-1.5 text-sm font-bold text-white group-hover:translate-x-1 transition-transform">
-                  Réserver
+                  Demander un enlèvement
                   <ArrowRight className="w-4 h-4" />
                 </span>
               </div>
