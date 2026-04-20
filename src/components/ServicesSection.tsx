@@ -43,12 +43,12 @@ const plasticRows = [
   {
     code: "PET",
     name: "Bouteilles transparentes",
-    images: [ petPlastique, petBottles1, petBottles2],
+    images: [petPlastique, petBottles1, petBottles2],
     identifiers: [
-      "Code de recyclage : Chiffre 01 dans un triangle de recyclage",
-      "Signe distinctif : point  d'injection centré au fond de l'objet  ",
-      "Aspect physique : Plastique parfaitement  transparent",
-      "Exemple : Flacons eau, soda, jus",
+      "Code de recyclage : chiffre 01 dans un triangle de recyclage",
+      "Signe distinctif : point d'injection centré au fond de l'objet",
+      "Aspect physique : plastique parfaitement transparent",
+      "Exemples : flacons d'eau, soda, jus",
     ],
     price: "20",
     unit: "kg",
