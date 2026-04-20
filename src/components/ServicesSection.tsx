@@ -372,19 +372,20 @@ const ServicesSection = () => {
 
       <div className="container mx-auto px-4 relative z-10">
         {/* Section header */}
-        <div className="text-center mb-16">
-          <span className="inline-block px-4 py-1.5 rounded-full bg-primary/10 text-primary text-sm font-semibold uppercase tracking-wider mb-4">
-            Notre écosystème
+        <div className="text-center mb-12 md:mb-16">
+          <span className="inline-block px-4 py-1.5 rounded-full bg-primary/10 text-primary text-xs font-bold uppercase tracking-[0.2em] mb-4">
+            Notre écosystème · 3 piliers
           </span>
-          <h2 className="font-display text-3xl sm:text-4xl lg:text-5xl font-bold text-foreground mb-4">
-            Nos{" "}
+          <h2 className="font-display text-3xl sm:text-4xl lg:text-5xl font-extrabold text-foreground mb-4 tracking-tight">
+            Deux parcours,{" "}
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-accent">
-              Services
+              un même engagement
             </span>
           </h2>
-          <p className="text-muted-foreground max-w-2xl mx-auto text-lg">
-            Une plateforme complète pour transformer la gestion des déchets à Kara —
-            du rachat de plastiques à la formation environnementale.
+          <p className="text-muted-foreground max-w-2xl mx-auto text-base md:text-lg leading-relaxed">
+            <strong className="text-foreground">Vendez vos plastiques au kg</strong> ou
+            <strong className="text-foreground"> faites enlever vos déchets ménagers</strong> —
+            pendant que la communauté agit via l'alerte dépotoir et la Green Academy.
           </p>
         </div>
 
