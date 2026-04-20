@@ -43,12 +43,12 @@ const plasticRows = [
   {
     code: "PET",
     name: "Bouteilles transparentes",
-    images: [ petPlastique, petBottles1, petBottles2],
+    images: [petPlastique, petBottles1, petBottles2],
     identifiers: [
-      "Code de recyclage : Chiffre 01 dans un triangle de recyclage",
-      "Signe distinctif : point  d'injection centré au fond de l'objet  ",
-      "Aspect physique : Plastique parfaitement  transparent",
-      "Exemple : Flacons eau, soda, jus",
+      "Code de recyclage : chiffre 01 dans un triangle de recyclage",
+      "Signe distinctif : point d'injection centré au fond de l'objet",
+      "Aspect physique : plastique parfaitement transparent",
+      "Exemples : flacons d'eau, soda, jus",
     ],
     price: "20",
     unit: "kg",
@@ -58,23 +58,23 @@ const plasticRows = [
     name: "Bidons & flacons opaques",
     images: [hdpe, pehdContainers1, pehdContainers2],
     identifiers: [
-      "Code de recyclage : Chiffre 02 dans un triangle de recyclage",
-      "Signe distinctif : ligne de soudure droite  traversnt tout le fond de l'objet ",
-      "surnoms : Bidon, Plastique non transparent",
-      "Exemple : Flacons de shampoing, Bidons d'huile, détergent, bidon de Cosmetique",
+      "Code de recyclage : chiffre 02 dans un triangle de recyclage",
+      "Signe distinctif : ligne de soudure droite traversant tout le fond de l'objet",
+      "Surnoms : bidon, plastique non transparent",
+      "Exemples : flacons de shampoing, bidons d'huile, détergent, bidons cosmétiques",
     ],
     price: "50",
     unit: "kg",
   },
   {
     code: "PP",
-    name: "Bassines, seaux pastique",
+    name: "Bassines & seaux plastique",
     images: [ppPlastique, ppItems1, ppItems2],
     identifiers: [
-      "Code de recyclage : Chiffre 05 dans un triangle de recyclage",
-      "Signe distinctif : petit  point  rond d'injection centré au fond de l'objet ",
-      "surnoms : Plastique de ménage, pastique de foyer",
-      "Exemple : Ustensiles de cuisine, seaux, bassines en plastique",
+      "Code de recyclage : chiffre 05 dans un triangle de recyclage",
+      "Signe distinctif : petit point rond d'injection centré au fond de l'objet",
+      "Surnoms : plastique de ménage, plastique de foyer",
+      "Exemples : ustensiles de cuisine, seaux, bassines en plastique",
     ],
     price: "50",
     unit: "kg",
@@ -84,9 +84,9 @@ const plasticRows = [
     name: "Tuyaux & plomberie",
     images: [pvcTuyaux, pvcPipes2],
     identifiers: [
-      "Code de recyclage : Chiffre 03 dans le triangle de recyclage",
-      "Tuyaux gris, blanc et noir  très rigide",
-      "Tuyaux d'évacuation d'eau gris, blanc et noir",
+      "Code de recyclage : chiffre 03 dans le triangle de recyclage",
+      "Tuyaux gris, blancs ou noirs très rigides",
+      "Tuyaux d'évacuation d'eau",
       "Raccords et coudes de plomberie",
     ],
     price: "50",
@@ -97,7 +97,7 @@ const plasticRows = [
     name: "Chaises & tables cassées",
     images: [chaisesPlastique, mobilier2],
     identifiers: [
-      "Chaises en plastique , tables en plastique",
+      "Chaises et tables en plastique",
       "Souvent fissurées, décolorées par le soleil ou cassées",
       "Se vend aussi à la pièce (non broyé)",
     ],
@@ -108,16 +108,16 @@ const plasticRows = [
   {
     code: "PEBD",
     name: "Sachets Pure Water & films plastiques",
-    images: [purWater, purWater],
+    images: [purWater, pureWater2],
     identifiers: [
-      "Code de recyclage : Chiffre 04 dans un triangle de recyclage",
+      "Code de recyclage : chiffre 04 dans un triangle de recyclage",
       "Aspect physique : sachets souples, fins et transparents",
       "Surnoms : sachets « pure water », sachets d'eau, films d'emballage",
-      "Exemple : sachets d'eau pure water vidés, sachets plastiques fins, films d'emballage propres",
+      "Exemples : sachets d'eau vidés, sachets plastiques fins, films d'emballage propres",
     ],
     price: "50",
     unit: "kg",
-    altPrice: "Sachets propres, salle  comme secs ",
+    altPrice: "Sachets propres, sales comme secs",
   },
 ];
 
@@ -372,19 +372,20 @@ const ServicesSection = () => {
 
       <div className="container mx-auto px-4 relative z-10">
         {/* Section header */}
-        <div className="text-center mb-16">
-          <span className="inline-block px-4 py-1.5 rounded-full bg-primary/10 text-primary text-sm font-semibold uppercase tracking-wider mb-4">
-            Notre écosystème
+        <div className="text-center mb-12 md:mb-16">
+          <span className="inline-block px-4 py-1.5 rounded-full bg-primary/10 text-primary text-xs font-bold uppercase tracking-[0.2em] mb-4">
+            Notre écosystème · 3 piliers
           </span>
-          <h2 className="font-display text-3xl sm:text-4xl lg:text-5xl font-bold text-foreground mb-4">
-            Nos{" "}
+          <h2 className="font-display text-3xl sm:text-4xl lg:text-5xl font-extrabold text-foreground mb-4 tracking-tight">
+            Deux parcours,{" "}
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-accent">
-              Services
+              un même engagement
             </span>
           </h2>
-          <p className="text-muted-foreground max-w-2xl mx-auto text-lg">
-            Une plateforme complète pour transformer la gestion des déchets à Kara —
-            du rachat de plastiques à la formation environnementale.
+          <p className="text-muted-foreground max-w-2xl mx-auto text-base md:text-lg leading-relaxed">
+            <strong className="text-foreground">Vendez vos plastiques au kg</strong> ou
+            <strong className="text-foreground"> faites enlever vos déchets ménagers</strong> —
+            pendant que la communauté agit via l'alerte dépotoir et la Green Academy.
           </p>
         </div>
 
