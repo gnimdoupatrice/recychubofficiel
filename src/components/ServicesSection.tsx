@@ -23,24 +23,27 @@ import { Badge } from "@/components/ui/badge";
 
 /* ─── Images imports ─── */
 import petBottles1 from "@/assets/pet-bottles-1.jpg";
+import petPlastique from "@/assets/hero/pet_plastique.png";
 import petBottles2 from "@/assets/pet-bottles-2.jpg";
 import pehdContainers1 from "@/assets/pehd-containers-1.jpg";
 import pehdContainers2 from "@/assets/pehd-containers-2.jpg";
 import ppItems1 from "@/assets/pp-items-1.jpg";
 import ppItems2 from "@/assets/pp-items-2.jpg";
-import pvcPipes1 from "@/assets/pvc-pipes-1.jpg";
+import pvcTuyaux from "@/assets/hero/pvc_tuyaux.jpg";
 import pvcPipes2 from "@/assets/pvc-pipes-2.jpg";
-import mobilier1 from "@/assets/mobilier-1.jpg";
+import chaisesPlastique from "@/assets/hero/chaises_plastique.jpg";
 import mobilier2 from "@/assets/mobilier-2.jpg";
-import pureWater1 from "@/assets/pure-water-1.jpg";
+import purWater from "@/assets/hero/pur_water.jpg";
 import pureWater2 from "@/assets/pure-water-2.jpg";
+import hdpe from "@/assets/hdpe.png";
+import ppPlastique from "@/assets/hero/pp_plastique.png";
 
 /* ─── Données plastiques ─── */
 const plasticRows = [
   {
     code: "PET",
     name: "Bouteilles transparentes",
-    images: [petBottles1, petBottles2],
+    images: [ petPlastique, petBottles1, petBottles2],
     identifiers: [
       "Code de recyclage : Chiffre 01 dans un triangle de recyclage",
       "Signe distinctif : point  d'injection centré au fond de l'objet  ",
@@ -53,7 +56,7 @@ const plasticRows = [
   {
     code: "PEHD",
     name: "Bidons & flacons opaques",
-    images: [pehdContainers1, pehdContainers2],
+    images: [hdpe, pehdContainers1, pehdContainers2],
     identifiers: [
       "Code de recyclage : Chiffre 02 dans un triangle de recyclage",
       "Signe distinctif : ligne de soudure droite  traversnt tout le fond de l'objet ",
@@ -66,7 +69,7 @@ const plasticRows = [
   {
     code: "PP",
     name: "Bassines, seaux pastique",
-    images: [ppItems1, ppItems2],
+    images: [ppPlastique, ppItems1, ppItems2],
     identifiers: [
       "Code de recyclage : Chiffre 05 dans un triangle de recyclage",
       "Signe distinctif : petit  point  rond d'injection centré au fond de l'objet ",
@@ -79,7 +82,7 @@ const plasticRows = [
   {
     code: "PVC",
     name: "Tuyaux & plomberie",
-    images: [pvcPipes1, pvcPipes2],
+    images: [pvcTuyaux, pvcPipes2],
     identifiers: [
       "Code de recyclage : Chiffre 03 dans le triangle de recyclage",
       "Tuyaux gris, blanc et noir  très rigide",
@@ -92,7 +95,7 @@ const plasticRows = [
   {
     code: "Mobilier",
     name: "Chaises & tables cassées",
-    images: [mobilier1, mobilier2],
+    images: [chaisesPlastique, mobilier2],
     identifiers: [
       "Chaises en plastique , tables en plastique",
       "Souvent fissurées, décolorées par le soleil ou cassées",
@@ -105,16 +108,16 @@ const plasticRows = [
   {
     code: "PEBD",
     name: "Sachets Pure Water & films plastiques",
-    images: [pureWater1, pureWater2],
+    images: [purWater, purWater],
     identifiers: [
       "Code de recyclage : Chiffre 04 dans un triangle de recyclage",
       "Aspect physique : sachets souples, fins et transparents",
       "Surnoms : sachets « pure water », sachets d'eau, films d'emballage",
       "Exemple : sachets d'eau pure water vidés, sachets plastiques fins, films d'emballage propres",
     ],
-    price: "30",
+    price: "50",
     unit: "kg",
-    altPrice: "Sachets propres et secs uniquement",
+    altPrice: "Sachets propres, salle  comme secs ",
   },
 ];
 
