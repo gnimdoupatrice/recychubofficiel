@@ -93,7 +93,7 @@ const Footer = () => {
           </form>
         </div>
         <div className="border-t border-background/10 mt-10 pt-6 text-center text-xs text-background/40">
-          © {new Date().getFullYear()} RECYC HUB TOGO. Tous droits réservés.
+          © 2026 {new Date().getFullYear()} RECYC HUB TOGO. Tous droits réservés.
         </div>
       </div>
     </footer>

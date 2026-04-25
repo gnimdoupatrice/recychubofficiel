@@ -52,7 +52,7 @@ const HeroSection = () => {
         </div>
       ))}
 
-      {/* Overlay gradient renforcé pour lisibilité mobile */}
+      {/* Overlay gradient renforcé pour lisibilité  COMME  desktop */}
       <div className="absolute inset-0 bg-gradient-to-br from-black/85 via-black/65 to-primary/40 z-[2]" />
       <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-transparent to-black/40 z-[2]" />
 
