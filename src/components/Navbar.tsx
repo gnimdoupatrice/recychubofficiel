@@ -1,34 +1,37 @@
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef, useMemo } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import {
-  Menu, X, Sprout, AlertTriangle, CalendarDays, LogIn, UserPlus, LogOut, User, ShieldCheck,
-  ChevronDown, ShoppingBag, Truck, Recycle,
+  Menu, X, Sprout, AlertTriangle, CalendarDays, LogOut, User, ShieldCheck,
+  ChevronDown, ShoppingBag, Truck, Compass, UserCircle2,
 } from "lucide-react";
 import { useAuth } from "@/contexts/AuthContext";
 import { supabase } from "@/integrations/supabase/client";
 import logoImg from "@/assets/logo.png";
 
-const serviceLinks = [
-  { to: "/vendre", label: "Vendre mes plastiques", desc: "Catalogue de rachat au kg", icon: ShoppingBag, accent: "secondary" as const },
-  { to: "/enlevement", label: "Enlèvement de déchets", desc: "Logistique à domicile", icon: Truck, accent: "accent" as const },
-  { to: "/alerte", label: "Alerte dépotoir", desc: "Signalement géolocalisé", icon: AlertTriangle, accent: "destructive" as const },
-];
+// ──────────────────────────────────────────────────────────────────────────────
+// Définition des liens
+// ──────────────────────────────────────────────────────────────────────────────
+type NavItem = { to: string; label: string; icon?: React.ComponentType<{ className?: string }> };
 
-const navLinks = [
-  { to: "/", label: "Accueil" },
+const HOME: NavItem = { to: "/", label: "Accueil" };
+const ALERTE: NavItem = { to: "/alerte", label: "Alerte dépotoir", icon: AlertTriangle };
+
+const DISCOVER_LINKS: NavItem[] = [
   { to: "/academy", label: "Green Academy", icon: Sprout },
-  { to: "/evenements", label: "Événements", icon: CalendarDays, hasDot: true },
+  { to: "/evenements", label: "Événements", icon: CalendarDays },
 ];
 
 const Navbar = () => {
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
-  const [servicesOpen, setServicesOpen] = useState(false);
+  const [discoverOpen, setDiscoverOpen] = useState(false);
   const [isAdmin, setIsAdmin] = useState(false);
-  const servicesRef = useRef<HTMLDivElement>(null);
+  const discoverRef = useRef<HTMLDivElement>(null);
   const location = useLocation();
   const navigate = useNavigate();
   const { user, profile, signOut } = useAuth();
+
+  const isHome = location.pathname === "/";
 
   useEffect(() => {
     if (!user) { setIsAdmin(false); return; }
@@ -43,14 +46,13 @@ const Navbar = () => {
 
   useEffect(() => {
     setMobileOpen(false);
-    setServicesOpen(false);
+    setDiscoverOpen(false);
   }, [location]);
 
-  // Click outside dropdown
   useEffect(() => {
     const onClick = (e: MouseEvent) => {
-      if (servicesRef.current && !servicesRef.current.contains(e.target as Node)) {
-        setServicesOpen(false);
+      if (discoverRef.current && !discoverRef.current.contains(e.target as Node)) {
+        setDiscoverOpen(false);
       }
     };
     document.addEventListener("mousedown", onClick);
@@ -62,14 +64,23 @@ const Navbar = () => {
     navigate("/");
   };
 
-  const isServicesActive = serviceLinks.some(s => location.pathname === s.to);
+  // ────────────────────────────────────────────────────────────────────────────
+  // Logique adaptative
+  // État A (Home) : Accueil | Alerte dépotoir | Découvrir (dropdown)
+  // État B (interne) : on retire le lien correspondant à la page courante,
+  //                    et on "détache" Découvrir → liens directs.
+  // ────────────────────────────────────────────────────────────────────────────
+  const leftLinks: NavItem[] = useMemo(() => {
+    const base: NavItem[] = isHome
+      ? [HOME, ALERTE]
+      : [HOME, ALERTE, ...DISCOVER_LINKS];
+    return base.filter(l => l.to !== location.pathname);
+  }, [isHome, location.pathname]);
 
-  const accentClasses: Record<string, string> = {
-    secondary: "bg-secondary/10 text-secondary group-hover:bg-secondary/20",
-    accent: "bg-accent/10 text-accent group-hover:bg-accent/20",
-    destructive: "bg-destructive/10 text-destructive group-hover:bg-destructive/20",
-  };
+  const showDiscoverDropdown =
+    isHome && !DISCOVER_LINKS.some(l => l.to === location.pathname);
 
+  // ────────────────────────────────────────────────────────────────────────────
   return (
     <>
       <nav
@@ -77,7 +88,8 @@ const Navbar = () => {
           scrolled ? "py-2 shadow-lg shadow-black/5" : "py-3"
         } bg-background/75 backdrop-blur-2xl border-b border-border/40`}
       >
-        <div className="container mx-auto px-4 flex items-center justify-between gap-4">
+        <div className="container mx-auto px-4 flex items-center gap-4">
+          {/* Logo + nom — ancré à gauche */}
           <Link to="/" className="flex items-center gap-2 group shrink-0">
             <img src={logoImg} alt="RecycHub Togo — recyclage à Kara" className="w-10 h-10 sm:w-11 sm:h-11 object-contain" />
             <span className="font-display font-extrabold text-lg sm:text-xl text-gradient-emerald hidden sm:inline">
@@ -85,77 +97,88 @@ const Navbar = () => {
             </span>
           </Link>
 
-          <div className="hidden lg:flex items-center gap-1">
-            {/* Accueil */}
-            <Link
-              to="/"
-              className={`px-3.5 py-2 rounded-full text-sm font-medium transition-all ${
-                location.pathname === "/" ? "text-primary bg-primary/5" : "text-foreground/70 hover:text-foreground hover:bg-muted/60"
-              }`}
-            >
-              Accueil
-            </Link>
-
-            {/* Services dropdown */}
-            <div ref={servicesRef} className="relative">
-              <button
-                onClick={() => setServicesOpen(o => !o)}
-                onMouseEnter={() => setServicesOpen(true)}
-                aria-expanded={servicesOpen}
-                aria-haspopup="true"
-                className={`px-3.5 py-2 rounded-full text-sm font-medium transition-all flex items-center gap-1.5 ${
-                  isServicesActive ? "text-primary bg-primary/5" : "text-foreground/70 hover:text-foreground hover:bg-muted/60"
-                }`}
-              >
-                <Recycle className="w-4 h-4" />
-                Nos services
-                <ChevronDown className={`w-3.5 h-3.5 transition-transform ${servicesOpen ? "rotate-180" : ""}`} />
-              </button>
-
-              {servicesOpen && (
-                <div
-                  onMouseLeave={() => setServicesOpen(false)}
-                  className="absolute top-full left-1/2 -translate-x-1/2 mt-2 w-[420px] rounded-2xl bg-background/95 backdrop-blur-2xl border border-border shadow-2xl shadow-black/10 p-2 animate-slide-up"
-                >
-                  {serviceLinks.map(s => (
-                    <Link
-                      key={s.to}
-                      to={s.to}
-                      className="group flex items-start gap-3 p-3 rounded-xl hover:bg-muted/60 transition-colors"
-                    >
-                      <div className={`w-10 h-10 rounded-xl flex items-center justify-center shrink-0 transition-colors ${accentClasses[s.accent]}`}>
-                        <s.icon className="w-5 h-5" />
-                      </div>
-                      <div className="flex-1 min-w-0">
-                        <div className="font-semibold text-sm text-foreground">{s.label}</div>
-                        <div className="text-xs text-muted-foreground mt-0.5">{s.desc}</div>
-                      </div>
-                    </Link>
-                  ))}
-                </div>
-              )}
-            </div>
-
-            {/* Liens secondaires */}
-            {navLinks.slice(1).map((link) => {
+          {/* Zone NAV (gauche) — flex-1 absorbe l'espace pour ancrer la zone business à droite */}
+          <div className="hidden lg:flex flex-1 items-center gap-1 min-w-0">
+            {leftLinks.map(link => {
               const isActive = location.pathname === link.to;
               return (
                 <Link
                   key={link.to}
                   to={link.to}
-                  className={`px-3.5 py-2 rounded-full text-sm font-medium transition-all flex items-center gap-2 ${
-                    isActive ? "text-primary bg-primary/5" : "text-foreground/70 hover:text-foreground hover:bg-muted/60"
+                  className={`px-3.5 py-2 rounded-full text-sm font-medium flex items-center gap-2 transition-all duration-300 ease-out animate-in fade-in ${
+                    isActive
+                      ? "text-primary bg-primary/5"
+                      : "text-foreground/70 hover:text-foreground hover:bg-muted/60"
                   }`}
                 >
                   {link.icon && <link.icon className="w-4 h-4" />}
                   {link.label}
-                  {link.hasDot && <span className="w-1.5 h-1.5 rounded-full bg-accent animate-pulse" />}
                 </Link>
               );
             })}
+
+            {/* Découvrir (dropdown) — uniquement sur la home */}
+            {showDiscoverDropdown && (
+              <div ref={discoverRef} className="relative animate-in fade-in duration-300">
+                <button
+                  onClick={() => setDiscoverOpen(o => !o)}
+                  onMouseEnter={() => setDiscoverOpen(true)}
+                  aria-expanded={discoverOpen}
+                  aria-haspopup="true"
+                  className="px-3.5 py-2 rounded-full text-sm font-medium transition-all flex items-center gap-1.5 text-foreground/70 hover:text-foreground hover:bg-muted/60"
+                >
+                  <Compass className="w-4 h-4" />
+                  Découvrir
+                  <ChevronDown className={`w-3.5 h-3.5 transition-transform duration-300 ${discoverOpen ? "rotate-180" : ""}`} />
+                </button>
+
+                <div
+                  onMouseLeave={() => setDiscoverOpen(false)}
+                  className={`absolute top-full left-1/2 -translate-x-1/2 mt-2 w-[280px] rounded-2xl bg-background/95 backdrop-blur-2xl border border-border shadow-2xl shadow-black/10 p-2 transition-all duration-300 origin-top ${
+                    discoverOpen ? "opacity-100 scale-100 pointer-events-auto" : "opacity-0 scale-95 pointer-events-none"
+                  }`}
+                >
+                  {DISCOVER_LINKS.map(s => (
+                    <Link
+                      key={s.to}
+                      to={s.to}
+                      className="group flex items-center gap-3 p-3 rounded-xl hover:bg-muted/60 transition-colors"
+                    >
+                      <div className="w-9 h-9 rounded-xl flex items-center justify-center shrink-0 bg-primary/10 text-primary group-hover:bg-primary/20 transition-colors">
+                        {s.icon && <s.icon className="w-4 h-4" />}
+                      </div>
+                      <span className="font-semibold text-sm text-foreground">{s.label}</span>
+                    </Link>
+                  ))}
+                </div>
+              </div>
+            )}
           </div>
 
-          <div className="hidden lg:flex items-center gap-2">
+          {/* ZONE BUSINESS — ancrée à droite, position stable */}
+          <div className="hidden lg:flex items-center gap-2 shrink-0">
+            {/* CTA secondaire — Outline */}
+            <Link
+              to="/vendre"
+              className="px-4 py-2 rounded-full text-sm font-semibold border-2 border-primary text-primary hover:bg-primary/5 transition-all duration-300 flex items-center gap-1.5"
+            >
+              <ShoppingBag className="w-4 h-4" />
+              Vendre mes plastiques
+            </Link>
+
+            {/* CTA principal — Solid */}
+            <Link
+              to="/enlevement"
+              className="px-4 py-2 rounded-full text-sm font-semibold bg-primary text-primary-foreground hover:bg-primary/90 transition-all duration-300 hover:shadow-lg hover:shadow-primary/25 flex items-center gap-1.5"
+            >
+              <Truck className="w-4 h-4" />
+              Demander un enlèvement
+            </Link>
+
+            {/* Séparateur */}
+            <div className="w-px h-6 bg-border mx-1" />
+
+            {/* Auth */}
             {user ? (
               <>
                 {isAdmin && (
@@ -178,25 +201,20 @@ const Navbar = () => {
                 </button>
               </>
             ) : (
-              <>
-                <Link
-                  to="/connexion"
-                  className="px-4 py-2 text-sm font-medium text-foreground/70 hover:text-foreground rounded-full transition-all flex items-center gap-1.5"
-                >
-                  <LogIn className="w-4 h-4" /> Connexion
-                </Link>
-                <Link
-                  to="/inscription"
-                  className="px-5 py-2.5 rounded-full gradient-bio text-primary-foreground text-sm font-bold transition-all hover:scale-105 hover:shadow-lg hover:shadow-primary/25 flex items-center gap-1.5"
-                >
-                  <UserPlus className="w-4 h-4" /> S'inscrire
-                </Link>
-              </>
+              <Link
+                to="/connexion"
+                className="px-4 py-2 text-sm font-medium text-foreground/80 hover:text-foreground hover:bg-muted/60 rounded-full transition-all flex items-center gap-1.5"
+                aria-label="Connexion ou inscription"
+              >
+                <UserCircle2 className="w-5 h-5" />
+                Connexion
+              </Link>
             )}
           </div>
 
+          {/* Mobile burger — ancré à droite */}
           <button
-            className="lg:hidden p-2 text-foreground rounded-lg hover:bg-muted/60 transition-colors"
+            className="lg:hidden ml-auto p-2 text-foreground rounded-lg hover:bg-muted/60 transition-colors"
             onClick={() => setMobileOpen(!mobileOpen)}
             aria-label={mobileOpen ? "Fermer le menu" : "Ouvrir le menu"}
             aria-expanded={mobileOpen}
@@ -214,43 +232,42 @@ const Navbar = () => {
         <div className="absolute inset-0 bg-background/95 backdrop-blur-2xl" />
         <div className="relative h-full overflow-y-auto pt-20 pb-10 px-6">
           <div className="max-w-md mx-auto space-y-6">
+            {/* Navigation principale */}
             <div>
-              <p className="text-xs uppercase tracking-widest text-muted-foreground font-bold mb-3">Nos services</p>
-              <div className="space-y-2">
-                {serviceLinks.map(s => (
-                  <Link
-                    key={s.to}
-                    to={s.to}
-                    className="flex items-center gap-3 p-3 rounded-2xl bg-muted/40 border border-border hover:bg-muted/70 transition-colors"
-                  >
-                    <div className={`w-10 h-10 rounded-xl flex items-center justify-center shrink-0 ${accentClasses[s.accent]}`}>
-                      <s.icon className="w-5 h-5" />
-                    </div>
-                    <div>
-                      <div className="font-semibold text-foreground">{s.label}</div>
-                      <div className="text-xs text-muted-foreground">{s.desc}</div>
-                    </div>
-                  </Link>
-                ))}
-              </div>
-            </div>
-
-            <div>
-              <p className="text-xs uppercase tracking-widest text-muted-foreground font-bold mb-3">Découvrir</p>
+              <p className="text-xs uppercase tracking-widest text-muted-foreground font-bold mb-3">Navigation</p>
               <div className="space-y-1">
-                {navLinks.map(link => (
-                  <Link
-                    key={link.to}
-                    to={link.to}
-                    className="flex items-center gap-3 px-3 py-3 rounded-xl hover:bg-muted/60 text-foreground font-medium"
-                  >
-                    {link.icon && <link.icon className="w-5 h-5 text-primary" />}
-                    {link.label}
-                  </Link>
-                ))}
+                {[HOME, ALERTE, ...DISCOVER_LINKS]
+                  .filter(l => l.to !== location.pathname)
+                  .map(link => (
+                    <Link
+                      key={link.to}
+                      to={link.to}
+                      className="flex items-center gap-3 px-3 py-3 rounded-xl hover:bg-muted/60 text-foreground font-medium transition-colors"
+                    >
+                      {link.icon && <link.icon className="w-5 h-5 text-primary" />}
+                      {link.label}
+                    </Link>
+                  ))}
               </div>
             </div>
 
+            {/* CTA Business */}
+            <div className="space-y-2">
+              <Link
+                to="/vendre"
+                className="flex items-center justify-center gap-2 px-5 py-3.5 rounded-full border-2 border-primary text-primary font-bold"
+              >
+                <ShoppingBag className="w-5 h-5" /> Vendre mes plastiques
+              </Link>
+              <Link
+                to="/enlevement"
+                className="flex items-center justify-center gap-2 px-5 py-3.5 rounded-full bg-primary text-primary-foreground font-bold"
+              >
+                <Truck className="w-5 h-5" /> Demander un enlèvement
+              </Link>
+            </div>
+
+            {/* Auth */}
             <div className="pt-4 border-t border-border space-y-2">
               {user ? (
                 <>
@@ -265,14 +282,12 @@ const Navbar = () => {
                   </button>
                 </>
               ) : (
-                <>
-                  <Link to="/connexion" className="flex items-center gap-2 px-3 py-3 rounded-xl hover:bg-muted/60 text-foreground font-medium">
-                    <LogIn className="w-5 h-5" /> Connexion
-                  </Link>
-                  <Link to="/inscription" className="flex items-center justify-center gap-2 px-5 py-3.5 rounded-full gradient-bio text-primary-foreground font-bold">
-                    <UserPlus className="w-5 h-5" /> S'inscrire
-                  </Link>
-                </>
+                <Link
+                  to="/connexion"
+                  className="flex items-center justify-center gap-2 px-5 py-3.5 rounded-full bg-muted text-foreground font-bold"
+                >
+                  <UserCircle2 className="w-5 h-5" /> Connexion
+                </Link>
               )}
             </div>
           </div>
