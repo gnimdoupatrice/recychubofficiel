@@ -32,6 +32,7 @@ const Navbar = () => {
   const { user, profile, signOut } = useAuth();
 
   const isHome = location.pathname === "/";
+  const isOnDiscoverPage = DISCOVER_LINKS.some(l => l.to === location.pathname);
 
   useEffect(() => {
     if (!user) { setIsAdmin(false); return; }
@@ -66,19 +67,22 @@ const Navbar = () => {
 
   // ────────────────────────────────────────────────────────────────────────────
   // Logique adaptative
-  // État A (Home) : Accueil | Alerte dépotoir | Découvrir (dropdown)
-  // État B (interne) : on retire le lien correspondant à la page courante,
-  //                    et on "détache" Découvrir → liens directs.
+  // Règle : on retire toujours le lien de la page courante.
+  // - Si on est sur une page de Découvrir (Academy/Événements) → le dropdown
+  //   se "dissout" et l'AUTRE sous-lien vient se poser directement dans la barre.
+  // - Sinon → on garde le dropdown Découvrir intact.
   // ────────────────────────────────────────────────────────────────────────────
   const leftLinks: NavItem[] = useMemo(() => {
-    const base: NavItem[] = isHome
-      ? [HOME, ALERTE]
-      : [HOME, ALERTE, ...DISCOVER_LINKS];
+    const base: NavItem[] = [HOME, ALERTE];
+    if (isOnDiscoverPage) {
+      // Détache les sous-liens (sauf celui de la page courante)
+      base.push(...DISCOVER_LINKS.filter(l => l.to !== location.pathname));
+    }
     return base.filter(l => l.to !== location.pathname);
-  }, [isHome, location.pathname]);
+  }, [isOnDiscoverPage, location.pathname]);
 
-  const showDiscoverDropdown =
-    isHome && !DISCOVER_LINKS.some(l => l.to === location.pathname);
+  // Le dropdown Découvrir n'apparaît QUE si on n'est pas sur une de ses pages
+  const showDiscoverDropdown = !isOnDiscoverPage;
 
   // ────────────────────────────────────────────────────────────────────────────
   return (
