@@ -116,9 +116,29 @@ const Navbar = () => {
     return seq;
   }, [path, isOnDiscoverPage]);
 
-  // Style par item — chaque service garde son identité visuelle distincte.
-  // Hauteur uniforme h-10 (40px) sur TOUS les éléments → alignement vertical parfait.
+  // ──────────────────────────────────────────────────────────────────────────
+  // SYSTÈME DE STYLES — deux familles seulement :
+  //
+  //   1. NAV-LINK (informationnel) : Accueil, Alerte, Découvrir, sous-liens promus
+  //      → forme identique au repos (h-10, px-3.5, rounded-full, text-sm font-medium,
+  //         fond transparent, même couleur de texte).
+  //      → la différenciation arrive UNIQUEMENT au survol / état actif.
+  //      → Alerte conserve un point rouge pulsé discret (sémantique d'urgence)
+  //         mais sa CHASSE et son CADRE restent identiques aux autres nav-links.
+  //
+  //   2. CTA (action business) : Vendre (outline), Enlèvement (solid)
+  //      → mis en exergue par leur design, comme demandé.
+  //
+  // Résultat : ergonomie homogène à gauche, hiérarchie claire à droite.
+  // ──────────────────────────────────────────────────────────────────────────
+
+  const NAV_LINK_BASE =
+    "group relative h-10 px-3.5 rounded-full text-sm font-medium flex items-center gap-1.5 transition-colors duration-300 animate-in fade-in";
+
   const renderSlot = (slot: Slot, idx: number) => {
+    const delay = { animationDelay: `${idx * 30}ms` };
+
+    // ── DROPDOWN DÉCOUVRIR ── (même chasse qu'un nav-link standard)
     if (slot.kind === "discover") {
       const discoverActive = isOnDiscoverPage || discoverOpen;
       return (
@@ -126,23 +146,26 @@ const Navbar = () => {
           key="discover"
           ref={discoverRef}
           className="relative animate-in fade-in duration-300"
-          style={{ animationDelay: `${idx * 30}ms` }}
+          style={delay}
         >
           <button
             onClick={() => setDiscoverOpen(o => !o)}
             onMouseEnter={() => setDiscoverOpen(true)}
             aria-expanded={discoverOpen}
             aria-haspopup="true"
-            className={`group relative h-10 px-3.5 rounded-full text-sm font-medium flex items-center gap-1.5 transition-colors duration-300 ${
-              discoverActive ? "text-foreground" : "text-foreground/75 hover:text-foreground"
+            className={`${NAV_LINK_BASE} ${
+              discoverActive ? "text-foreground" : "text-foreground/80 hover:text-foreground"
             }`}
           >
             <span className={`absolute inset-0 rounded-full transition-colors duration-300 ${
-              discoverActive ? "bg-muted/60" : "bg-muted/0 group-hover:bg-muted/60"
+              discoverActive ? "bg-muted/70" : "bg-muted/0 group-hover:bg-muted/60"
             }`} />
             <Compass className="w-4 h-4 relative" />
             <span className="relative">Découvrir</span>
             <ChevronDown className={`w-3.5 h-3.5 relative transition-transform duration-300 ${discoverOpen ? "rotate-180" : ""}`} />
+            <span className={`absolute left-1/2 -translate-x-1/2 bottom-1 h-0.5 bg-primary rounded-full transition-all duration-300 ${
+              discoverActive ? "w-6" : "w-0 group-hover:w-6"
+            }`} />
           </button>
 
           <div
@@ -171,29 +194,9 @@ const Navbar = () => {
     }
 
     const { item } = slot;
-    const delay = { animationDelay: `${idx * 30}ms` };
+    const isActive = item.to === path;
 
-    // Identité visuelle par type d'item
-    if (item.to === ALERTE.to) {
-      return (
-        <Link
-          key={item.to}
-          to={item.to}
-          style={delay}
-          className="group relative h-10 px-3.5 rounded-full text-sm font-semibold flex items-center gap-1.5 bg-destructive/8 hover:bg-destructive/15 text-destructive border border-destructive/25 hover:border-destructive/50 transition-all duration-300 animate-in fade-in"
-          aria-label="Signaler un dépotoir sauvage"
-        >
-          <span className="relative flex w-2 h-2">
-            <span className="absolute inline-flex w-full h-full rounded-full bg-destructive opacity-60 animate-ping" />
-            <span className="relative inline-flex w-2 h-2 rounded-full bg-destructive" />
-          </span>
-          <AlertTriangle className="w-4 h-4" />
-          <span className="hidden xl:inline">{item.label}</span>
-          <span className="xl:hidden">{item.shortLabel}</span>
-        </Link>
-      );
-    }
-
+    // ── CTA #1 — Vendre (outline) ──
     if (item.to === VENDRE.to) {
       return (
         <Link
@@ -210,6 +213,7 @@ const Navbar = () => {
       );
     }
 
+    // ── CTA #2 — Enlèvement (solid) ──
     if (item.to === ENLEVEMENT.to) {
       return (
         <Link
@@ -226,28 +230,46 @@ const Navbar = () => {
       );
     }
 
-    // Lien standard (Accueil, Academy, Événements promus)
-    const isActive = item.to === path;
+    // ── NAV-LINK informationnel — forme STRICTEMENT identique au repos
+    //    (Accueil, Alerte, Academy/Événements promus). Différenciation au survol.
+    const isAlerte = item.to === ALERTE.to;
     return (
       <Link
         key={item.to}
         to={item.to}
         style={delay}
         aria-current={isActive ? "page" : undefined}
-        className={`group relative h-10 px-3.5 rounded-full text-sm font-medium flex items-center gap-1.5 transition-colors duration-300 animate-in fade-in ${
+        aria-label={isAlerte ? "Signaler un dépotoir sauvage" : undefined}
+        className={`${NAV_LINK_BASE} ${
           isActive
-            ? "text-primary bg-primary/8"
-            : "text-foreground/75 hover:text-foreground"
+            ? "text-foreground"
+            : isAlerte
+              ? "text-foreground/80 hover:text-destructive"
+              : "text-foreground/80 hover:text-foreground"
         }`}
       >
         <span className={`absolute inset-0 rounded-full transition-colors duration-300 ${
-          isActive ? "bg-transparent" : "bg-muted/0 group-hover:bg-muted/60"
+          isActive
+            ? "bg-muted/70"
+            : isAlerte
+              ? "bg-muted/0 group-hover:bg-destructive/10"
+              : "bg-muted/0 group-hover:bg-muted/60"
         }`} />
-        {item.icon && <item.icon className="w-4 h-4 relative" />}
-        <span className="relative">{item.label}</span>
-        <span className={`absolute left-1/2 -translate-x-1/2 bottom-1 h-0.5 bg-primary rounded-full transition-all duration-300 ${
-          isActive ? "w-6" : "w-0 group-hover:w-6"
-        }`} />
+        {isAlerte && (
+          <span className="relative flex w-2 h-2 shrink-0" aria-hidden="true">
+            <span className="absolute inline-flex w-full h-full rounded-full bg-destructive opacity-60 animate-ping" />
+            <span className="relative inline-flex w-2 h-2 rounded-full bg-destructive" />
+          </span>
+        )}
+        {item.icon && !isAlerte && <item.icon className="w-4 h-4 relative" />}
+        {isAlerte && <AlertTriangle className="w-4 h-4 relative" />}
+        <span className="relative">
+          <span className="hidden xl:inline">{item.label}</span>
+          <span className="xl:hidden">{item.shortLabel || item.label}</span>
+        </span>
+        <span className={`absolute left-1/2 -translate-x-1/2 bottom-1 h-0.5 rounded-full transition-all duration-300 ${
+          isAlerte ? "bg-destructive" : "bg-primary"
+        } ${isActive ? "w-6" : "w-0 group-hover:w-6"}`} />
       </Link>
     );
   };
