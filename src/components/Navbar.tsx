@@ -263,45 +263,55 @@ const Navbar = () => {
         } backdrop-blur-2xl border-b border-border/40`}
       >
         <div className="container mx-auto px-4 flex items-center gap-3">
-          {/* ── Logo + Nom ── */}
-          <Link to="/" className="flex items-center gap-2 group shrink-0 mr-2">
+          {/* ── Logo + Nom — interaction subtile, pas de déformation ── */}
+          <Link
+            to="/"
+            className="flex items-center gap-2.5 group shrink-0 mr-1 rounded-xl focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/40 focus-visible:ring-offset-2 focus-visible:ring-offset-background"
+            aria-label="RecycHub Togo — Accueil"
+          >
             <div className="relative">
+              {/* Halo doux au survol — aucune rotation, aucune déformation */}
+              <div className="absolute inset-0 bg-primary/25 blur-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 -z-10 rounded-full" />
               <img
                 src={logoImg}
-                alt="RecycHub Togo — recyclage à Kara"
-                className="w-10 h-10 sm:w-11 sm:h-11 object-contain transition-transform duration-500 group-hover:rotate-6"
+                alt=""
+                aria-hidden="true"
+                draggable={false}
+                className="w-10 h-10 sm:w-11 sm:h-11 object-contain select-none transition-transform duration-300 ease-out group-hover:scale-[1.04] group-active:scale-[0.97]"
               />
-              <div className="absolute inset-0 bg-primary/20 blur-xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 -z-10" />
             </div>
-            <span className="font-display font-extrabold text-lg sm:text-xl text-gradient-emerald hidden sm:inline tracking-tight">
+            <span className="font-display font-extrabold text-lg sm:text-xl text-gradient-emerald hidden sm:inline tracking-tight leading-none">
               RECYC HUB <span className="text-foreground/80 font-bold">TOGO</span>
             </span>
           </Link>
 
           {/* ── SÉQUENCE NAV — ordre canonique, gap homogène, zéro trou ── */}
-          <div className="hidden lg:flex items-center gap-2 flex-1 min-w-0">
+          <div className="hidden lg:flex items-center gap-1.5 flex-1 min-w-0">
             {navSequence.map((slot, idx) => renderSlot(slot, idx))}
           </div>
 
-          {/* ── CONNEXION — toujours à droite, masquée sur /connexion ── */}
-          <div className="hidden lg:flex items-center gap-2 shrink-0">
+          {/* ── Séparateur ergonomique discret entre Services et Compte ── */}
+          <div className="hidden lg:block h-6 w-px bg-border/70 shrink-0" aria-hidden="true" />
+
+          {/* ── ZONE COMPTE — toujours à droite, hauteur unifiée h-10 ── */}
+          <div className="hidden lg:flex items-center gap-1.5 shrink-0">
             {user ? (
               <>
                 {isAdmin && (
                   <Link
                     to="/admin"
-                    className="px-3 py-2 text-sm font-medium text-primary hover:bg-primary/5 rounded-full transition-colors flex items-center gap-1.5"
+                    className="h-10 px-3 text-sm font-medium text-primary hover:bg-primary/8 rounded-full transition-colors flex items-center gap-1.5"
                   >
                     <ShieldCheck className="w-4 h-4" /> Admin
                   </Link>
                 )}
-                <span className="text-sm text-foreground/70 flex items-center gap-1.5 px-2 max-w-[140px] truncate">
+                <span className="h-10 text-sm text-foreground/70 flex items-center gap-1.5 px-2 max-w-[140px] truncate">
                   <User className="w-4 h-4 shrink-0" />
                   <span className="truncate">{profile?.pseudo || "Utilisateur"}</span>
                 </span>
                 <button
                   onClick={handleSignOut}
-                  className="p-2 text-foreground/60 hover:text-destructive hover:bg-destructive/5 rounded-full transition-colors"
+                  className="h-10 w-10 flex items-center justify-center text-foreground/60 hover:text-destructive hover:bg-destructive/8 rounded-full transition-colors"
                   aria-label="Déconnexion"
                 >
                   <LogOut className="w-4 h-4" />
@@ -311,7 +321,7 @@ const Navbar = () => {
               CONNEXION.to !== path && (
                 <Link
                   to={CONNEXION.to}
-                  className="px-3.5 py-2 text-sm font-semibold text-foreground/80 hover:text-foreground bg-muted/60 hover:bg-muted rounded-full transition-all flex items-center gap-1.5 animate-in fade-in"
+                  className="h-10 px-3.5 text-sm font-semibold text-foreground/85 hover:text-foreground bg-muted/60 hover:bg-muted rounded-full transition-all flex items-center gap-1.5 animate-in fade-in"
                   aria-label="Connexion ou inscription"
                 >
                   <UserCircle2 className="w-4 h-4" />
