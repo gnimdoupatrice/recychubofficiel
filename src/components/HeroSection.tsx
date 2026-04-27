@@ -1,5 +1,5 @@
 import { useState, useEffect, useCallback } from "react";
-import { ArrowRight, ShoppingBag, Truck, Phone, MapPin, AlertTriangle, Coins, Sparkles } from "lucide-react";
+import { ArrowRight, ShoppingBag, Truck, Phone, MapPin, AlertTriangle, Coins } from "lucide-react";
 import { Link } from "react-router-dom";
 
 import purWater from "@/assets/hero/pur_water.jpg";
