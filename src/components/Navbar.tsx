@@ -90,8 +90,11 @@ const Navbar = () => {
   const navSequence: Slot[] = useMemo(() => {
     const seq: Slot[] = [];
 
-    // 1. Accueil
-    if (HOME.to !== path) seq.push({ kind: "link", item: HOME });
+    // 1. Accueil — exception : reste visible sur "/" (point d'ancrage,
+    //    pas une destination que l'utilisateur cherche à rejoindre depuis la home).
+    //    Sur toute autre page, la règle générale s'applique : le lien disparaît
+    //    s'il pointe vers la page courante (ici, jamais le cas pour Accueil sauf "/").
+    seq.push({ kind: "link", item: HOME });
 
     // 2. Alerte dépotoir
     if (ALERTE.to !== path) seq.push({ kind: "link", item: ALERTE });
