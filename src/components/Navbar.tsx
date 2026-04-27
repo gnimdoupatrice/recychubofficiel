@@ -116,9 +116,11 @@ const Navbar = () => {
     return seq;
   }, [path, isOnDiscoverPage]);
 
-  // Style par item — chaque service garde son identité visuelle distincte
+  // Style par item — chaque service garde son identité visuelle distincte.
+  // Hauteur uniforme h-10 (40px) sur TOUS les éléments → alignement vertical parfait.
   const renderSlot = (slot: Slot, idx: number) => {
     if (slot.kind === "discover") {
+      const discoverActive = isOnDiscoverPage || discoverOpen;
       return (
         <div
           key="discover"
@@ -131,9 +133,13 @@ const Navbar = () => {
             onMouseEnter={() => setDiscoverOpen(true)}
             aria-expanded={discoverOpen}
             aria-haspopup="true"
-            className="group relative px-3.5 py-2 rounded-full text-sm font-medium flex items-center gap-1.5 text-foreground/75 hover:text-foreground transition-colors duration-300"
+            className={`group relative h-10 px-3.5 rounded-full text-sm font-medium flex items-center gap-1.5 transition-colors duration-300 ${
+              discoverActive ? "text-foreground" : "text-foreground/75 hover:text-foreground"
+            }`}
           >
-            <span className="absolute inset-0 rounded-full bg-muted/0 group-hover:bg-muted/60 transition-colors duration-300" />
+            <span className={`absolute inset-0 rounded-full transition-colors duration-300 ${
+              discoverActive ? "bg-muted/60" : "bg-muted/0 group-hover:bg-muted/60"
+            }`} />
             <Compass className="w-4 h-4 relative" />
             <span className="relative">Découvrir</span>
             <ChevronDown className={`w-3.5 h-3.5 relative transition-transform duration-300 ${discoverOpen ? "rotate-180" : ""}`} />
@@ -174,7 +180,7 @@ const Navbar = () => {
           key={item.to}
           to={item.to}
           style={delay}
-          className="group relative px-3.5 py-2 rounded-full text-sm font-semibold flex items-center gap-1.5 bg-destructive/8 hover:bg-destructive/15 text-destructive border border-destructive/25 hover:border-destructive/50 transition-all duration-300 animate-in fade-in"
+          className="group relative h-10 px-3.5 rounded-full text-sm font-semibold flex items-center gap-1.5 bg-destructive/8 hover:bg-destructive/15 text-destructive border border-destructive/25 hover:border-destructive/50 transition-all duration-300 animate-in fade-in"
           aria-label="Signaler un dépotoir sauvage"
         >
           <span className="relative flex w-2 h-2">
@@ -194,7 +200,7 @@ const Navbar = () => {
           key={item.to}
           to={item.to}
           style={delay}
-          className="group relative px-4 py-2 rounded-full text-sm font-semibold border-2 border-primary/80 text-primary hover:bg-primary hover:text-primary-foreground transition-all duration-300 flex items-center gap-1.5 animate-in fade-in overflow-hidden"
+          className="group relative h-10 px-4 rounded-full text-sm font-semibold border-2 border-primary/80 text-primary hover:bg-primary hover:text-primary-foreground transition-all duration-300 flex items-center gap-1.5 animate-in fade-in overflow-hidden"
         >
           <span className="absolute inset-0 bg-gradient-to-r from-primary/0 via-primary/15 to-primary/0 -translate-x-full group-hover:translate-x-full transition-transform duration-700" />
           <ShoppingBag className="w-4 h-4 relative" />
@@ -210,7 +216,7 @@ const Navbar = () => {
           key={item.to}
           to={item.to}
           style={delay}
-          className="group relative px-4 py-2 rounded-full text-sm font-bold bg-primary text-primary-foreground hover:shadow-[0_8px_30px_-5px_hsl(var(--primary)/0.5)] transition-all duration-300 flex items-center gap-1.5 animate-in fade-in overflow-hidden hover:-translate-y-0.5"
+          className="group relative h-10 px-4 rounded-full text-sm font-bold bg-primary text-primary-foreground hover:shadow-[0_8px_30px_-5px_hsl(var(--primary)/0.5)] transition-all duration-300 flex items-center gap-1.5 animate-in fade-in overflow-hidden hover:-translate-y-0.5"
         >
           <span className="absolute inset-0 bg-gradient-to-r from-accent/0 via-accent/40 to-accent/0 -translate-x-full group-hover:translate-x-full transition-transform duration-700" />
           <Truck className="w-4 h-4 relative" />
