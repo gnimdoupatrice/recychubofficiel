@@ -221,17 +221,27 @@ const Navbar = () => {
     }
 
     // Lien standard (Accueil, Academy, Événements promus)
+    const isActive = item.to === path;
     return (
       <Link
         key={item.to}
         to={item.to}
         style={delay}
-        className="group relative px-3.5 py-2 rounded-full text-sm font-medium flex items-center gap-1.5 text-foreground/75 hover:text-foreground transition-colors duration-300 animate-in fade-in"
+        aria-current={isActive ? "page" : undefined}
+        className={`group relative h-10 px-3.5 rounded-full text-sm font-medium flex items-center gap-1.5 transition-colors duration-300 animate-in fade-in ${
+          isActive
+            ? "text-primary bg-primary/8"
+            : "text-foreground/75 hover:text-foreground"
+        }`}
       >
-        <span className="absolute inset-0 rounded-full bg-muted/0 group-hover:bg-muted/60 transition-colors duration-300" />
+        <span className={`absolute inset-0 rounded-full transition-colors duration-300 ${
+          isActive ? "bg-transparent" : "bg-muted/0 group-hover:bg-muted/60"
+        }`} />
         {item.icon && <item.icon className="w-4 h-4 relative" />}
         <span className="relative">{item.label}</span>
-        <span className="absolute left-1/2 -translate-x-1/2 bottom-0.5 h-0.5 w-0 group-hover:w-6 bg-primary rounded-full transition-all duration-300" />
+        <span className={`absolute left-1/2 -translate-x-1/2 bottom-1 h-0.5 bg-primary rounded-full transition-all duration-300 ${
+          isActive ? "w-6" : "w-0 group-hover:w-6"
+        }`} />
       </Link>
     );
   };
