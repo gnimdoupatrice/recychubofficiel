@@ -1,5 +1,5 @@
 import { useState, useEffect, useCallback } from "react";
-import { ArrowRight, ShoppingBag, Truck, Phone, MapPin, AlertTriangle, Coins } from "lucide-react";
+import { ArrowRight, ShoppingBag, Truck, Phone, MapPin, AlertTriangle, Coins, Sparkles } from "lucide-react";
 import { Link } from "react-router-dom";
 
 import purWater from "@/assets/hero/pur_water.jpg";
@@ -59,6 +59,14 @@ const HeroSection = () => {
       {/* Content */}
       <div className="relative z-[3] container mx-auto px-4 pt-24 md:pt-28 pb-12 md:pb-16">
         <div className="max-w-6xl mx-auto">
+          
+          <div className="flex justify-center mb-6">
+            <span className="inline-flex items-center gap-2 px-4 py-2 rounded-full text-[11px] sm:text-xs font-bold uppercase tracking-[0.2em] bg-white/10 text-white border border-white/20 backdrop-blur-md shadow-lg animate-slide-up">
+              <Sparkles className="w-3.5 h-3.5 text-secondary" />
+              Bienvenue sur RECYC HUB TOGO
+            </span>
+          </div>
+
           {/* Titre principal — neutre, double promesse */}
           <h1
             className="font-display text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold leading-[1.05] tracking-tight text-center text-white mb-5 animate-slide-up"
