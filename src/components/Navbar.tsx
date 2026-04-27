@@ -1,31 +1,24 @@
 import { useState, useEffect, useRef } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import {
-  Menu, X, Sprout, AlertTriangle, CalendarDays, LogIn, UserPlus, LogOut, User, ShieldCheck,
-  ChevronDown, ShoppingBag, Truck, Recycle,
+  Menu, X, Sprout, AlertTriangle, CalendarDays, UserPlus, LogOut, User, ShieldCheck,
+  ChevronDown, ShoppingBag, Truck, Compass,
 } from "lucide-react";
 import { useAuth } from "@/contexts/AuthContext";
 import { supabase } from "@/integrations/supabase/client";
 import logoImg from "@/assets/logo.png";
 
-const serviceLinks = [
-  { to: "/vendre", label: "Vendre mes plastiques", desc: "Catalogue de rachat au kg", icon: ShoppingBag, accent: "secondary" as const },
-  { to: "/enlevement", label: "Enlèvement de déchets", desc: "Logistique à domicile", icon: Truck, accent: "accent" as const },
-  { to: "/alerte", label: "Alerte dépotoir", desc: "Signalement géolocalisé", icon: AlertTriangle, accent: "destructive" as const },
-];
-
-const navLinks = [
-  { to: "/", label: "Accueil" },
-  { to: "/academy", label: "Green Academy", icon: Sprout },
-  { to: "/evenements", label: "Événements", icon: CalendarDays, hasDot: true },
+const discoverLinks = [
+  { to: "/academy", label: "Green Academy", desc: "Formations & ateliers", icon: Sprout, accent: "primary" as const },
+  { to: "/evenements", label: "Événements", desc: "Agenda & opportunités", icon: CalendarDays, accent: "accent" as const },
 ];
 
 const Navbar = () => {
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
-  const [servicesOpen, setServicesOpen] = useState(false);
+  const [discoverOpen, setDiscoverOpen] = useState(false);
   const [isAdmin, setIsAdmin] = useState(false);
-  const servicesRef = useRef<HTMLDivElement>(null);
+  const discoverRef = useRef<HTMLDivElement>(null);
   const location = useLocation();
   const navigate = useNavigate();
   const { user, profile, signOut } = useAuth();
@@ -43,14 +36,13 @@ const Navbar = () => {
 
   useEffect(() => {
     setMobileOpen(false);
-    setServicesOpen(false);
+    setDiscoverOpen(false);
   }, [location]);
 
-  // Click outside dropdown
   useEffect(() => {
     const onClick = (e: MouseEvent) => {
-      if (servicesRef.current && !servicesRef.current.contains(e.target as Node)) {
-        setServicesOpen(false);
+      if (discoverRef.current && !discoverRef.current.contains(e.target as Node)) {
+        setDiscoverOpen(false);
       }
     };
     document.addEventListener("mousedown", onClick);
@@ -62,13 +54,19 @@ const Navbar = () => {
     navigate("/");
   };
 
-  const isServicesActive = serviceLinks.some(s => location.pathname === s.to);
+  const isDiscoverActive = discoverLinks.some(s => location.pathname === s.to);
 
   const accentClasses: Record<string, string> = {
+    primary: "bg-primary/10 text-primary group-hover:bg-primary/20",
     secondary: "bg-secondary/10 text-secondary group-hover:bg-secondary/20",
     accent: "bg-accent/10 text-accent group-hover:bg-accent/20",
     destructive: "bg-destructive/10 text-destructive group-hover:bg-destructive/20",
   };
+
+  const linkClass = (active: boolean) =>
+    `px-3 py-2 rounded-full text-sm font-medium transition-all flex items-center gap-1.5 ${
+      active ? "text-primary bg-primary/5" : "text-foreground/70 hover:text-foreground hover:bg-muted/60"
+    }`;
 
   return (
     <>
@@ -77,47 +75,46 @@ const Navbar = () => {
           scrolled ? "py-2 shadow-lg shadow-black/5" : "py-3"
         } bg-background/75 backdrop-blur-2xl border-b border-border/40`}
       >
-        <div className="container mx-auto px-4 flex items-center justify-between gap-4">
+        <div className="container mx-auto px-4 flex items-center justify-between gap-3">
           <Link to="/" className="flex items-center gap-2 group shrink-0">
             <img src={logoImg} alt="RecycHub Togo — recyclage à Kara" className="w-10 h-10 sm:w-11 sm:h-11 object-contain" />
-            <span className="font-display font-extrabold text-lg sm:text-xl text-gradient-emerald hidden sm:inline">
+            <span className="font-display font-extrabold text-base xl:text-xl text-gradient-emerald hidden sm:inline">
               RECYC HUB <span className="text-foreground/80 font-bold">TOGO</span>
             </span>
           </Link>
 
           <div className="hidden lg:flex items-center gap-1">
             {/* Accueil */}
-            <Link
-              to="/"
-              className={`px-3.5 py-2 rounded-full text-sm font-medium transition-all ${
-                location.pathname === "/" ? "text-primary bg-primary/5" : "text-foreground/70 hover:text-foreground hover:bg-muted/60"
-              }`}
-            >
+            <Link to="/" className={linkClass(location.pathname === "/")}>
               Accueil
             </Link>
 
-            {/* Services dropdown */}
-            <div ref={servicesRef} className="relative">
+            {/* Alerte dépotoir */}
+            <Link to="/alerte" className={linkClass(location.pathname === "/alerte")}>
+              <AlertTriangle className="w-4 h-4" />
+              Alerte dépotoir
+            </Link>
+
+            {/* Découvrir dropdown (Academy + Événements) */}
+            <div ref={discoverRef} className="relative">
               <button
-                onClick={() => setServicesOpen(o => !o)}
-                onMouseEnter={() => setServicesOpen(true)}
-                aria-expanded={servicesOpen}
+                onClick={() => setDiscoverOpen(o => !o)}
+                onMouseEnter={() => setDiscoverOpen(true)}
+                aria-expanded={discoverOpen}
                 aria-haspopup="true"
-                className={`px-3.5 py-2 rounded-full text-sm font-medium transition-all flex items-center gap-1.5 ${
-                  isServicesActive ? "text-primary bg-primary/5" : "text-foreground/70 hover:text-foreground hover:bg-muted/60"
-                }`}
+                className={linkClass(isDiscoverActive)}
               >
-                <Recycle className="w-4 h-4" />
-                Nos services
-                <ChevronDown className={`w-3.5 h-3.5 transition-transform ${servicesOpen ? "rotate-180" : ""}`} />
+                <Compass className="w-4 h-4" />
+                Découvrir
+                <ChevronDown className={`w-3.5 h-3.5 transition-transform ${discoverOpen ? "rotate-180" : ""}`} />
               </button>
 
-              {servicesOpen && (
+              {discoverOpen && (
                 <div
-                  onMouseLeave={() => setServicesOpen(false)}
-                  className="absolute top-full left-1/2 -translate-x-1/2 mt-2 w-[420px] rounded-2xl bg-background/95 backdrop-blur-2xl border border-border shadow-2xl shadow-black/10 p-2 animate-slide-up"
+                  onMouseLeave={() => setDiscoverOpen(false)}
+                  className="absolute top-full left-1/2 -translate-x-1/2 mt-2 w-[360px] rounded-2xl bg-background/95 backdrop-blur-2xl border border-border shadow-2xl shadow-black/10 p-2 animate-slide-up"
                 >
-                  {serviceLinks.map(s => (
+                  {discoverLinks.map(s => (
                     <Link
                       key={s.to}
                       to={s.to}
@@ -136,23 +133,31 @@ const Navbar = () => {
               )}
             </div>
 
-            {/* Liens secondaires */}
-            {navLinks.slice(1).map((link) => {
-              const isActive = location.pathname === link.to;
-              return (
-                <Link
-                  key={link.to}
-                  to={link.to}
-                  className={`px-3.5 py-2 rounded-full text-sm font-medium transition-all flex items-center gap-2 ${
-                    isActive ? "text-primary bg-primary/5" : "text-foreground/70 hover:text-foreground hover:bg-muted/60"
-                  }`}
-                >
-                  {link.icon && <link.icon className="w-4 h-4" />}
-                  {link.label}
-                  {link.hasDot && <span className="w-1.5 h-1.5 rounded-full bg-accent animate-pulse" />}
-                </Link>
-              );
-            })}
+            {/* Service phare 1 : Vendre mes plastiques */}
+            <Link
+              to="/vendre"
+              className={`px-3 py-2 rounded-full text-sm font-semibold transition-all flex items-center gap-1.5 ${
+                location.pathname === "/vendre"
+                  ? "bg-secondary/15 text-secondary"
+                  : "text-secondary hover:bg-secondary/10"
+              }`}
+            >
+              <ShoppingBag className="w-4 h-4" />
+              Vendre mes plastiques
+            </Link>
+
+            {/* Service phare 2 : Enlèvement */}
+            <Link
+              to="/enlevement"
+              className={`px-3 py-2 rounded-full text-sm font-semibold transition-all flex items-center gap-1.5 ${
+                location.pathname === "/enlevement"
+                  ? "bg-accent/15 text-accent"
+                  : "text-accent hover:bg-accent/10"
+              }`}
+            >
+              <Truck className="w-4 h-4" />
+              Enlèvement de déchets
+            </Link>
           </div>
 
           <div className="hidden lg:flex items-center gap-2">
@@ -178,20 +183,12 @@ const Navbar = () => {
                 </button>
               </>
             ) : (
-              <>
-                <Link
-                  to="/connexion"
-                  className="px-4 py-2 text-sm font-medium text-foreground/70 hover:text-foreground rounded-full transition-all flex items-center gap-1.5"
-                >
-                  <LogIn className="w-4 h-4" /> Connexion
-                </Link>
-                <Link
-                  to="/inscription"
-                  className="px-5 py-2.5 rounded-full gradient-bio text-primary-foreground text-sm font-bold transition-all hover:scale-105 hover:shadow-lg hover:shadow-primary/25 flex items-center gap-1.5"
-                >
-                  <UserPlus className="w-4 h-4" /> S'inscrire
-                </Link>
-              </>
+              <Link
+                to="/inscription"
+                className="px-5 py-2.5 rounded-full gradient-bio text-primary-foreground text-sm font-bold transition-all hover:scale-105 hover:shadow-lg hover:shadow-primary/25 flex items-center gap-1.5"
+              >
+                <UserPlus className="w-4 h-4" /> S'inscrire
+              </Link>
             )}
           </div>
 
@@ -214,37 +211,62 @@ const Navbar = () => {
         <div className="absolute inset-0 bg-background/95 backdrop-blur-2xl" />
         <div className="relative h-full overflow-y-auto pt-20 pb-10 px-6">
           <div className="max-w-md mx-auto space-y-6">
+            {/* Services phares en premier sur mobile */}
             <div>
-              <p className="text-xs uppercase tracking-widest text-muted-foreground font-bold mb-3">Nos services</p>
+              <p className="text-xs uppercase tracking-widest text-muted-foreground font-bold mb-3">Services phares</p>
               <div className="space-y-2">
-                {serviceLinks.map(s => (
-                  <Link
-                    key={s.to}
-                    to={s.to}
-                    className="flex items-center gap-3 p-3 rounded-2xl bg-muted/40 border border-border hover:bg-muted/70 transition-colors"
-                  >
-                    <div className={`w-10 h-10 rounded-xl flex items-center justify-center shrink-0 ${accentClasses[s.accent]}`}>
-                      <s.icon className="w-5 h-5" />
-                    </div>
-                    <div>
-                      <div className="font-semibold text-foreground">{s.label}</div>
-                      <div className="text-xs text-muted-foreground">{s.desc}</div>
-                    </div>
-                  </Link>
-                ))}
+                <Link
+                  to="/vendre"
+                  className="flex items-center gap-3 p-3 rounded-2xl bg-muted/40 border border-border hover:bg-muted/70 transition-colors"
+                >
+                  <div className={`w-10 h-10 rounded-xl flex items-center justify-center shrink-0 ${accentClasses.secondary}`}>
+                    <ShoppingBag className="w-5 h-5" />
+                  </div>
+                  <div>
+                    <div className="font-semibold text-foreground">Vendre mes plastiques</div>
+                    <div className="text-xs text-muted-foreground">Catalogue de rachat au kg</div>
+                  </div>
+                </Link>
+                <Link
+                  to="/enlevement"
+                  className="flex items-center gap-3 p-3 rounded-2xl bg-muted/40 border border-border hover:bg-muted/70 transition-colors"
+                >
+                  <div className={`w-10 h-10 rounded-xl flex items-center justify-center shrink-0 ${accentClasses.accent}`}>
+                    <Truck className="w-5 h-5" />
+                  </div>
+                  <div>
+                    <div className="font-semibold text-foreground">Enlèvement de déchets</div>
+                    <div className="text-xs text-muted-foreground">Logistique à domicile</div>
+                  </div>
+                </Link>
+                <Link
+                  to="/alerte"
+                  className="flex items-center gap-3 p-3 rounded-2xl bg-muted/40 border border-border hover:bg-muted/70 transition-colors"
+                >
+                  <div className={`w-10 h-10 rounded-xl flex items-center justify-center shrink-0 ${accentClasses.destructive}`}>
+                    <AlertTriangle className="w-5 h-5" />
+                  </div>
+                  <div>
+                    <div className="font-semibold text-foreground">Alerte dépotoir</div>
+                    <div className="text-xs text-muted-foreground">Signalement géolocalisé</div>
+                  </div>
+                </Link>
               </div>
             </div>
 
             <div>
               <p className="text-xs uppercase tracking-widest text-muted-foreground font-bold mb-3">Découvrir</p>
               <div className="space-y-1">
-                {navLinks.map(link => (
+                <Link to="/" className="flex items-center gap-3 px-3 py-3 rounded-xl hover:bg-muted/60 text-foreground font-medium">
+                  Accueil
+                </Link>
+                {discoverLinks.map(link => (
                   <Link
                     key={link.to}
                     to={link.to}
                     className="flex items-center gap-3 px-3 py-3 rounded-xl hover:bg-muted/60 text-foreground font-medium"
                   >
-                    {link.icon && <link.icon className="w-5 h-5 text-primary" />}
+                    <link.icon className="w-5 h-5 text-primary" />
                     {link.label}
                   </Link>
                 ))}
@@ -265,14 +287,9 @@ const Navbar = () => {
                   </button>
                 </>
               ) : (
-                <>
-                  <Link to="/connexion" className="flex items-center gap-2 px-3 py-3 rounded-xl hover:bg-muted/60 text-foreground font-medium">
-                    <LogIn className="w-5 h-5" /> Connexion
-                  </Link>
-                  <Link to="/inscription" className="flex items-center justify-center gap-2 px-5 py-3.5 rounded-full gradient-bio text-primary-foreground font-bold">
-                    <UserPlus className="w-5 h-5" /> S'inscrire
-                  </Link>
-                </>
+                <Link to="/inscription" className="flex items-center justify-center gap-2 px-5 py-3.5 rounded-full gradient-bio text-primary-foreground font-bold">
+                  <UserPlus className="w-5 h-5" /> S'inscrire
+                </Link>
               )}
             </div>
           </div>
