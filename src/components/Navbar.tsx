@@ -89,10 +89,21 @@ const Navbar = () => {
               Accueil
             </Link>
 
-            {/* Alerte dépotoir */}
-            <Link to="/alerte" className={linkClass(location.pathname === "/alerte")}>
+            {/* Alerte dépotoir — mise en évidence (rôle citoyen prioritaire) */}
+            <Link
+              to="/alerte"
+              className={`relative px-3 py-2 rounded-full text-sm font-semibold transition-all flex items-center gap-1.5 ring-1 ${
+                location.pathname === "/alerte"
+                  ? "bg-destructive/15 text-destructive ring-destructive/40"
+                  : "text-destructive ring-destructive/25 hover:bg-destructive/10 hover:ring-destructive/50"
+              }`}
+            >
               <AlertTriangle className="w-4 h-4" />
               Alerte dépotoir
+              <span className="relative flex w-2 h-2 ml-0.5" aria-hidden="true">
+                <span className="absolute inline-flex h-full w-full rounded-full bg-destructive opacity-75 animate-ping" />
+                <span className="relative inline-flex rounded-full h-2 w-2 bg-destructive" />
+              </span>
             </Link>
 
             {/* Découvrir dropdown (Academy + Événements) */}
