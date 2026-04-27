@@ -90,8 +90,11 @@ const Navbar = () => {
   const navSequence: Slot[] = useMemo(() => {
     const seq: Slot[] = [];
 
-    // 1. Accueil
-    if (HOME.to !== path) seq.push({ kind: "link", item: HOME });
+    // 1. Accueil — exception : reste visible sur "/" (point d'ancrage,
+    //    pas une destination que l'utilisateur cherche à rejoindre depuis la home).
+    //    Sur toute autre page, la règle générale s'applique : le lien disparaît
+    //    s'il pointe vers la page courante (ici, jamais le cas pour Accueil sauf "/").
+    seq.push({ kind: "link", item: HOME });
 
     // 2. Alerte dépotoir
     if (ALERTE.to !== path) seq.push({ kind: "link", item: ALERTE });
@@ -113,9 +116,11 @@ const Navbar = () => {
     return seq;
   }, [path, isOnDiscoverPage]);
 
-  // Style par item — chaque service garde son identité visuelle distincte
+  // Style par item — chaque service garde son identité visuelle distincte.
+  // Hauteur uniforme h-10 (40px) sur TOUS les éléments → alignement vertical parfait.
   const renderSlot = (slot: Slot, idx: number) => {
     if (slot.kind === "discover") {
+      const discoverActive = isOnDiscoverPage || discoverOpen;
       return (
         <div
           key="discover"
@@ -128,9 +133,13 @@ const Navbar = () => {
             onMouseEnter={() => setDiscoverOpen(true)}
             aria-expanded={discoverOpen}
             aria-haspopup="true"
-            className="group relative px-3.5 py-2 rounded-full text-sm font-medium flex items-center gap-1.5 text-foreground/75 hover:text-foreground transition-colors duration-300"
+            className={`group relative h-10 px-3.5 rounded-full text-sm font-medium flex items-center gap-1.5 transition-colors duration-300 ${
+              discoverActive ? "text-foreground" : "text-foreground/75 hover:text-foreground"
+            }`}
           >
-            <span className="absolute inset-0 rounded-full bg-muted/0 group-hover:bg-muted/60 transition-colors duration-300" />
+            <span className={`absolute inset-0 rounded-full transition-colors duration-300 ${
+              discoverActive ? "bg-muted/60" : "bg-muted/0 group-hover:bg-muted/60"
+            }`} />
             <Compass className="w-4 h-4 relative" />
             <span className="relative">Découvrir</span>
             <ChevronDown className={`w-3.5 h-3.5 relative transition-transform duration-300 ${discoverOpen ? "rotate-180" : ""}`} />
@@ -171,7 +180,7 @@ const Navbar = () => {
           key={item.to}
           to={item.to}
           style={delay}
-          className="group relative px-3.5 py-2 rounded-full text-sm font-semibold flex items-center gap-1.5 bg-destructive/8 hover:bg-destructive/15 text-destructive border border-destructive/25 hover:border-destructive/50 transition-all duration-300 animate-in fade-in"
+          className="group relative h-10 px-3.5 rounded-full text-sm font-semibold flex items-center gap-1.5 bg-destructive/8 hover:bg-destructive/15 text-destructive border border-destructive/25 hover:border-destructive/50 transition-all duration-300 animate-in fade-in"
           aria-label="Signaler un dépotoir sauvage"
         >
           <span className="relative flex w-2 h-2">
@@ -191,7 +200,7 @@ const Navbar = () => {
           key={item.to}
           to={item.to}
           style={delay}
-          className="group relative px-4 py-2 rounded-full text-sm font-semibold border-2 border-primary/80 text-primary hover:bg-primary hover:text-primary-foreground transition-all duration-300 flex items-center gap-1.5 animate-in fade-in overflow-hidden"
+          className="group relative h-10 px-4 rounded-full text-sm font-semibold border-2 border-primary/80 text-primary hover:bg-primary hover:text-primary-foreground transition-all duration-300 flex items-center gap-1.5 animate-in fade-in overflow-hidden"
         >
           <span className="absolute inset-0 bg-gradient-to-r from-primary/0 via-primary/15 to-primary/0 -translate-x-full group-hover:translate-x-full transition-transform duration-700" />
           <ShoppingBag className="w-4 h-4 relative" />
@@ -207,7 +216,7 @@ const Navbar = () => {
           key={item.to}
           to={item.to}
           style={delay}
-          className="group relative px-4 py-2 rounded-full text-sm font-bold bg-primary text-primary-foreground hover:shadow-[0_8px_30px_-5px_hsl(var(--primary)/0.5)] transition-all duration-300 flex items-center gap-1.5 animate-in fade-in overflow-hidden hover:-translate-y-0.5"
+          className="group relative h-10 px-4 rounded-full text-sm font-bold bg-primary text-primary-foreground hover:shadow-[0_8px_30px_-5px_hsl(var(--primary)/0.5)] transition-all duration-300 flex items-center gap-1.5 animate-in fade-in overflow-hidden hover:-translate-y-0.5"
         >
           <span className="absolute inset-0 bg-gradient-to-r from-accent/0 via-accent/40 to-accent/0 -translate-x-full group-hover:translate-x-full transition-transform duration-700" />
           <Truck className="w-4 h-4 relative" />
@@ -218,17 +227,27 @@ const Navbar = () => {
     }
 
     // Lien standard (Accueil, Academy, Événements promus)
+    const isActive = item.to === path;
     return (
       <Link
         key={item.to}
         to={item.to}
         style={delay}
-        className="group relative px-3.5 py-2 rounded-full text-sm font-medium flex items-center gap-1.5 text-foreground/75 hover:text-foreground transition-colors duration-300 animate-in fade-in"
+        aria-current={isActive ? "page" : undefined}
+        className={`group relative h-10 px-3.5 rounded-full text-sm font-medium flex items-center gap-1.5 transition-colors duration-300 animate-in fade-in ${
+          isActive
+            ? "text-primary bg-primary/8"
+            : "text-foreground/75 hover:text-foreground"
+        }`}
       >
-        <span className="absolute inset-0 rounded-full bg-muted/0 group-hover:bg-muted/60 transition-colors duration-300" />
+        <span className={`absolute inset-0 rounded-full transition-colors duration-300 ${
+          isActive ? "bg-transparent" : "bg-muted/0 group-hover:bg-muted/60"
+        }`} />
         {item.icon && <item.icon className="w-4 h-4 relative" />}
         <span className="relative">{item.label}</span>
-        <span className="absolute left-1/2 -translate-x-1/2 bottom-0.5 h-0.5 w-0 group-hover:w-6 bg-primary rounded-full transition-all duration-300" />
+        <span className={`absolute left-1/2 -translate-x-1/2 bottom-1 h-0.5 bg-primary rounded-full transition-all duration-300 ${
+          isActive ? "w-6" : "w-0 group-hover:w-6"
+        }`} />
       </Link>
     );
   };
@@ -244,45 +263,55 @@ const Navbar = () => {
         } backdrop-blur-2xl border-b border-border/40`}
       >
         <div className="container mx-auto px-4 flex items-center gap-3">
-          {/* ── Logo + Nom ── */}
-          <Link to="/" className="flex items-center gap-2 group shrink-0 mr-2">
+          {/* ── Logo + Nom — interaction subtile, pas de déformation ── */}
+          <Link
+            to="/"
+            className="flex items-center gap-2.5 group shrink-0 mr-1 rounded-xl focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/40 focus-visible:ring-offset-2 focus-visible:ring-offset-background"
+            aria-label="RecycHub Togo — Accueil"
+          >
             <div className="relative">
+              {/* Halo doux au survol — aucune rotation, aucune déformation */}
+              <div className="absolute inset-0 bg-primary/25 blur-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 -z-10 rounded-full" />
               <img
                 src={logoImg}
-                alt="RecycHub Togo — recyclage à Kara"
-                className="w-10 h-10 sm:w-11 sm:h-11 object-contain transition-transform duration-500 group-hover:rotate-6"
+                alt=""
+                aria-hidden="true"
+                draggable={false}
+                className="w-10 h-10 sm:w-11 sm:h-11 object-contain select-none transition-transform duration-300 ease-out group-hover:scale-[1.04] group-active:scale-[0.97]"
               />
-              <div className="absolute inset-0 bg-primary/20 blur-xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 -z-10" />
             </div>
-            <span className="font-display font-extrabold text-lg sm:text-xl text-gradient-emerald hidden sm:inline tracking-tight">
+            <span className="font-display font-extrabold text-lg sm:text-xl text-gradient-emerald hidden sm:inline tracking-tight leading-none">
               RECYC HUB <span className="text-foreground/80 font-bold">TOGO</span>
             </span>
           </Link>
 
           {/* ── SÉQUENCE NAV — ordre canonique, gap homogène, zéro trou ── */}
-          <div className="hidden lg:flex items-center gap-2 flex-1 min-w-0">
+          <div className="hidden lg:flex items-center gap-1.5 flex-1 min-w-0">
             {navSequence.map((slot, idx) => renderSlot(slot, idx))}
           </div>
 
-          {/* ── CONNEXION — toujours à droite, masquée sur /connexion ── */}
-          <div className="hidden lg:flex items-center gap-2 shrink-0">
+          {/* ── Séparateur ergonomique discret entre Services et Compte ── */}
+          <div className="hidden lg:block h-6 w-px bg-border/70 shrink-0" aria-hidden="true" />
+
+          {/* ── ZONE COMPTE — toujours à droite, hauteur unifiée h-10 ── */}
+          <div className="hidden lg:flex items-center gap-1.5 shrink-0">
             {user ? (
               <>
                 {isAdmin && (
                   <Link
                     to="/admin"
-                    className="px-3 py-2 text-sm font-medium text-primary hover:bg-primary/5 rounded-full transition-colors flex items-center gap-1.5"
+                    className="h-10 px-3 text-sm font-medium text-primary hover:bg-primary/8 rounded-full transition-colors flex items-center gap-1.5"
                   >
                     <ShieldCheck className="w-4 h-4" /> Admin
                   </Link>
                 )}
-                <span className="text-sm text-foreground/70 flex items-center gap-1.5 px-2 max-w-[140px] truncate">
+                <span className="h-10 text-sm text-foreground/70 flex items-center gap-1.5 px-2 max-w-[140px] truncate">
                   <User className="w-4 h-4 shrink-0" />
                   <span className="truncate">{profile?.pseudo || "Utilisateur"}</span>
                 </span>
                 <button
                   onClick={handleSignOut}
-                  className="p-2 text-foreground/60 hover:text-destructive hover:bg-destructive/5 rounded-full transition-colors"
+                  className="h-10 w-10 flex items-center justify-center text-foreground/60 hover:text-destructive hover:bg-destructive/8 rounded-full transition-colors"
                   aria-label="Déconnexion"
                 >
                   <LogOut className="w-4 h-4" />
@@ -292,7 +321,7 @@ const Navbar = () => {
               CONNEXION.to !== path && (
                 <Link
                   to={CONNEXION.to}
-                  className="px-3.5 py-2 text-sm font-semibold text-foreground/80 hover:text-foreground bg-muted/60 hover:bg-muted rounded-full transition-all flex items-center gap-1.5 animate-in fade-in"
+                  className="h-10 px-3.5 text-sm font-semibold text-foreground/85 hover:text-foreground bg-muted/60 hover:bg-muted rounded-full transition-all flex items-center gap-1.5 animate-in fade-in"
                   aria-label="Connexion ou inscription"
                 >
                   <UserCircle2 className="w-4 h-4" />
