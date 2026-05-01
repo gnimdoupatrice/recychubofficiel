@@ -80,7 +80,7 @@ const Navbar = () => {
             <img src={logoImg} alt="RecycHub Togo" className="w-10 h-10 sm:w-11 sm:h-11 object-contain transition-transform group-hover:scale-105" />
           </Link>
 
-          <div className="hidden lg:flex items-center gap-1.5">
+          <div className="hidden lg:flex items-center gap-1 xl:gap-2 mx-auto">
             {/* Accueil */}
             <Link to="/" className={linkClass(location.pathname === "/")}>
               Accueil
