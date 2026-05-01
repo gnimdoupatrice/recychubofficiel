@@ -64,7 +64,7 @@ const Navbar = () => {
   };
 
   const linkClass = (active: boolean) =>
-    `px-3 py-2 rounded-full text-sm font-medium transition-all flex items-center gap-1.5 ${
+    `px-3.5 py-2 rounded-full text-[13.5px] font-medium tracking-tight transition-all flex items-center gap-2 whitespace-nowrap ${
       active ? "text-primary bg-primary/5" : "text-foreground/70 hover:text-foreground hover:bg-muted/60"
     }`;
 
@@ -75,12 +75,12 @@ const Navbar = () => {
           scrolled ? "py-2 shadow-lg shadow-black/5" : "py-3"
         } bg-background/75 backdrop-blur-2xl border-b border-border/40`}
       >
-        <div className="container mx-auto px-4 flex items-center justify-between gap-3">
+        <div className="container mx-auto px-4 flex items-center justify-between gap-6">
           <Link to="/" className="flex items-center gap-2 group shrink-0" aria-label="RecycHub Togo — Accueil">
             <img src={logoImg} alt="RecycHub Togo" className="w-10 h-10 sm:w-11 sm:h-11 object-contain transition-transform group-hover:scale-105" />
           </Link>
 
-          <div className="hidden lg:flex items-center gap-1.5">
+          <div className="hidden lg:flex items-center gap-1 xl:gap-2 mx-auto">
             {/* Accueil */}
             <Link to="/" className={linkClass(location.pathname === "/")}>
               Accueil
@@ -95,7 +95,7 @@ const Navbar = () => {
             {/* Service phare 1 : Vendre mes plastiques */}
             <Link
               to="/vendre"
-              className={`px-3.5 py-2 rounded-full text-sm font-semibold transition-all flex items-center gap-1.5 ${
+              className={`px-4 py-2 rounded-full text-[13.5px] font-semibold tracking-tight transition-all flex items-center gap-2 whitespace-nowrap ${
                 location.pathname === "/vendre"
                   ? "bg-secondary/15 text-secondary"
                   : "text-secondary hover:bg-secondary/10"
@@ -146,7 +146,7 @@ const Navbar = () => {
             {/* Service phare 2 : Enlèvement */}
             <Link
               to="/enlevement"
-              className={`px-3.5 py-2 rounded-full text-sm font-semibold transition-all flex items-center gap-1.5 ${
+              className={`px-4 py-2 rounded-full text-[13.5px] font-semibold tracking-tight transition-all flex items-center gap-2 whitespace-nowrap ${
                 location.pathname === "/enlevement"
                   ? "bg-accent/15 text-accent"
                   : "text-accent hover:bg-accent/10"
