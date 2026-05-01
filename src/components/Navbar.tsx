@@ -76,14 +76,11 @@ const Navbar = () => {
         } bg-background/75 backdrop-blur-2xl border-b border-border/40`}
       >
         <div className="container mx-auto px-4 flex items-center justify-between gap-3">
-          <Link to="/" className="flex items-center gap-2 group shrink-0">
-            <img src={logoImg} alt="RecycHub Togo — recyclage à Kara" className="w-10 h-10 sm:w-11 sm:h-11 object-contain" />
-            <span className="font-display font-extrabold text-base xl:text-xl text-gradient-emerald hidden sm:inline">
-              RECYC HUB <span className="text-foreground/80 font-bold">TOGO</span>
-            </span>
+          <Link to="/" className="flex items-center gap-2 group shrink-0" aria-label="RecycHub Togo — Accueil">
+            <img src={logoImg} alt="RecycHub Togo" className="w-10 h-10 sm:w-11 sm:h-11 object-contain transition-transform group-hover:scale-105" />
           </Link>
 
-          <div className="hidden lg:flex items-center gap-1">
+          <div className="hidden lg:flex items-center gap-1.5">
             {/* Accueil */}
             <Link to="/" className={linkClass(location.pathname === "/")}>
               Accueil
@@ -95,7 +92,20 @@ const Navbar = () => {
               Alerte dépotoir
             </Link>
 
-            {/* Découvrir dropdown (Academy + Événements) */}
+            {/* Service phare 1 : Vendre mes plastiques */}
+            <Link
+              to="/vendre"
+              className={`px-3.5 py-2 rounded-full text-sm font-semibold transition-all flex items-center gap-1.5 ${
+                location.pathname === "/vendre"
+                  ? "bg-secondary/15 text-secondary"
+                  : "text-secondary hover:bg-secondary/10"
+              }`}
+            >
+              <ShoppingBag className="w-4 h-4" />
+              Vendre mes plastiques
+            </Link>
+
+            {/* Découvrir dropdown (Academy + Événements) — placé entre les 2 services phares */}
             <div ref={discoverRef} className="relative">
               <button
                 onClick={() => setDiscoverOpen(o => !o)}
@@ -106,7 +116,7 @@ const Navbar = () => {
               >
                 <Compass className="w-4 h-4" />
                 Découvrir
-                <ChevronDown className={`w-3.5 h-3.5 transition-transform ${discoverOpen ? "rotate-180" : ""}`} />
+                <ChevronDown className={`w-3.5 h-3.5 transition-transform duration-300 ${discoverOpen ? "rotate-180" : ""}`} />
               </button>
 
               {discoverOpen && (
@@ -133,23 +143,10 @@ const Navbar = () => {
               )}
             </div>
 
-            {/* Service phare 1 : Vendre mes plastiques */}
-            <Link
-              to="/vendre"
-              className={`px-3 py-2 rounded-full text-sm font-semibold transition-all flex items-center gap-1.5 ${
-                location.pathname === "/vendre"
-                  ? "bg-secondary/15 text-secondary"
-                  : "text-secondary hover:bg-secondary/10"
-              }`}
-            >
-              <ShoppingBag className="w-4 h-4" />
-              Vendre mes plastiques
-            </Link>
-
             {/* Service phare 2 : Enlèvement */}
             <Link
               to="/enlevement"
-              className={`px-3 py-2 rounded-full text-sm font-semibold transition-all flex items-center gap-1.5 ${
+              className={`px-3.5 py-2 rounded-full text-sm font-semibold transition-all flex items-center gap-1.5 ${
                 location.pathname === "/enlevement"
                   ? "bg-accent/15 text-accent"
                   : "text-accent hover:bg-accent/10"
