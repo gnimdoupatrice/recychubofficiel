@@ -63,10 +63,18 @@ const Navbar = () => {
     destructive: "bg-destructive/10 text-destructive group-hover:bg-destructive/20",
   };
 
+  // Style uniforme pour tous les liens — couleur identique au repos, indicateur actif = barre fine sous le lien
   const linkClass = (active: boolean) =>
-    `px-3 py-2 rounded-full text-sm font-medium transition-all flex items-center gap-1.5 ${
-      active ? "text-primary bg-primary/5" : "text-foreground/70 hover:text-foreground hover:bg-muted/60"
+    `relative px-3 py-2 text-sm transition-all flex items-center gap-1.5 rounded-md ${
+      active
+        ? "text-primary font-semibold"
+        : "text-foreground/75 font-medium hover:text-foreground"
     }`;
+
+  // Barre indicatrice (style Apple/Material)
+  const ActiveBar = () => (
+    <span className="absolute left-1/2 -translate-x-1/2 -bottom-0.5 h-[3px] w-6 rounded-full bg-primary" />
+  );
 
   return (
     <>
@@ -80,32 +88,28 @@ const Navbar = () => {
             <img src={logoImg} alt="RecycHub Togo" className="w-10 h-10 sm:w-11 sm:h-11 object-contain transition-transform group-hover:scale-105" />
           </Link>
 
-          <div className="hidden lg:flex items-center gap-1.5">
+          <div className="hidden lg:flex items-center gap-1">
             {/* Accueil */}
             <Link to="/" className={linkClass(location.pathname === "/")}>
               Accueil
+              {location.pathname === "/" && <ActiveBar />}
             </Link>
 
             {/* Alerte dépotoir */}
             <Link to="/alerte" className={linkClass(location.pathname === "/alerte")}>
               <AlertTriangle className="w-4 h-4" />
               Alerte dépotoir
+              {location.pathname === "/alerte" && <ActiveBar />}
             </Link>
 
-            {/* Service phare 1 : Vendre mes plastiques */}
-            <Link
-              to="/vendre"
-              className={`px-3.5 py-2 rounded-full text-sm font-semibold transition-all flex items-center gap-1.5 ${
-                location.pathname === "/vendre"
-                  ? "bg-secondary/15 text-secondary"
-                  : "text-secondary hover:bg-secondary/10"
-              }`}
-            >
-              <ShoppingBag className="w-4 h-4" />
+            {/* Service phare 1 : Vendre mes plastiques — texte uniforme, icône colorée */}
+            <Link to="/vendre" className={linkClass(location.pathname === "/vendre")}>
+              <ShoppingBag className="w-4 h-4 text-secondary" />
               Vendre mes plastiques
+              {location.pathname === "/vendre" && <ActiveBar />}
             </Link>
 
-            {/* Découvrir dropdown (Academy + Événements) — placé entre les 2 services phares */}
+            {/* Découvrir dropdown — placé entre les 2 services phares */}
             <div ref={discoverRef} className="relative">
               <button
                 onClick={() => setDiscoverOpen(o => !o)}
@@ -117,6 +121,7 @@ const Navbar = () => {
                 <Compass className="w-4 h-4" />
                 Découvrir
                 <ChevronDown className={`w-3.5 h-3.5 transition-transform duration-300 ${discoverOpen ? "rotate-180" : ""}`} />
+                {isDiscoverActive && <ActiveBar />}
               </button>
 
               {discoverOpen && (
@@ -143,17 +148,11 @@ const Navbar = () => {
               )}
             </div>
 
-            {/* Service phare 2 : Enlèvement */}
-            <Link
-              to="/enlevement"
-              className={`px-3.5 py-2 rounded-full text-sm font-semibold transition-all flex items-center gap-1.5 ${
-                location.pathname === "/enlevement"
-                  ? "bg-accent/15 text-accent"
-                  : "text-accent hover:bg-accent/10"
-              }`}
-            >
-              <Truck className="w-4 h-4" />
+            {/* Service phare 2 : Enlèvement — texte uniforme, icône colorée */}
+            <Link to="/enlevement" className={linkClass(location.pathname === "/enlevement")}>
+              <Truck className="w-4 h-4 text-accent" />
               Enlèvement de déchets
+              {location.pathname === "/enlevement" && <ActiveBar />}
             </Link>
           </div>
 
