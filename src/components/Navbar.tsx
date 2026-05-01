@@ -75,7 +75,7 @@ const Navbar = () => {
           scrolled ? "py-2 shadow-lg shadow-black/5" : "py-3"
         } bg-background/75 backdrop-blur-2xl border-b border-border/40`}
       >
-        <div className="container mx-auto px-4 flex items-center justify-between gap-3">
+        <div className="container mx-auto px-4 flex items-center justify-between gap-6">
           <Link to="/" className="flex items-center gap-2 group shrink-0" aria-label="RecycHub Togo — Accueil">
             <img src={logoImg} alt="RecycHub Togo" className="w-10 h-10 sm:w-11 sm:h-11 object-contain transition-transform group-hover:scale-105" />
           </Link>
