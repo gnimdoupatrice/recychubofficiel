@@ -63,10 +63,18 @@ const Navbar = () => {
     destructive: "bg-destructive/10 text-destructive group-hover:bg-destructive/20",
   };
 
+  // Style uniforme pour tous les liens — couleur identique au repos, indicateur actif = barre fine sous le lien
   const linkClass = (active: boolean) =>
-    `px-3 py-2 rounded-full text-sm font-medium transition-all flex items-center gap-1.5 ${
-      active ? "text-primary bg-primary/5" : "text-foreground/70 hover:text-foreground hover:bg-muted/60"
+    `relative px-3 py-2 text-sm transition-all flex items-center gap-1.5 rounded-md ${
+      active
+        ? "text-primary font-semibold"
+        : "text-foreground/75 font-medium hover:text-foreground"
     }`;
+
+  // Barre indicatrice (style Apple/Material)
+  const ActiveBar = () => (
+    <span className="absolute left-1/2 -translate-x-1/2 -bottom-0.5 h-[3px] w-6 rounded-full bg-primary" />
+  );
 
   return (
     <>
