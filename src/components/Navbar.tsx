@@ -63,24 +63,27 @@ const Navbar = () => {
     destructive: "bg-destructive/10 text-destructive group-hover:bg-destructive/20",
   };
 
+  // Style "Bloc utilitaire" : liens en uppercase, tracking large, hover vert primaire
   const linkClass = (active: boolean) =>
-    `px-3.5 py-2 rounded-full text-[13.5px] font-medium tracking-tight transition-all flex items-center gap-2 whitespace-nowrap ${
-      active ? "text-primary bg-primary/5" : "text-foreground/70 hover:text-foreground hover:bg-muted/60"
+    `px-3 py-2 text-[12px] font-semibold uppercase tracking-[0.12em] transition-colors flex items-center gap-1.5 whitespace-nowrap border-b-2 ${
+      active
+        ? "text-primary border-primary"
+        : "text-foreground border-transparent hover:text-primary hover:border-primary/40"
     }`;
 
   return (
     <>
       <nav
-        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
-          scrolled ? "py-2 shadow-lg shadow-black/5" : "py-3"
-        } bg-background/75 backdrop-blur-2xl border-b border-border/40`}
+        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 bg-background border-b-2 border-foreground ${
+          scrolled ? "h-14" : "h-16"
+        } flex items-center`}
       >
-        <div className="container mx-auto px-4 flex items-center justify-between gap-6">
-          <Link to="/" className="flex items-center gap-2 group shrink-0" aria-label="RecycHub Togo — Accueil">
+        <div className="container mx-auto px-4 lg:px-8 flex items-center justify-between gap-6 w-full">
+          <Link to="/" className="flex items-center group shrink-0" aria-label="RecycHub Togo — Accueil">
             <img src={logoImg} alt="RecycHub Togo" className="w-10 h-10 sm:w-11 sm:h-11 object-contain transition-transform group-hover:scale-105" />
           </Link>
 
-          <div className="hidden lg:flex items-center gap-1 xl:gap-2 mx-auto">
+          <div className="hidden lg:flex items-center gap-6 xl:gap-8">
             {/* Accueil */}
             <Link to="/" className={linkClass(location.pathname === "/")}>
               Accueil
@@ -88,24 +91,17 @@ const Navbar = () => {
 
             {/* Alerte dépotoir */}
             <Link to="/alerte" className={linkClass(location.pathname === "/alerte")}>
-              <AlertTriangle className="w-4 h-4" />
+              <AlertTriangle className="w-3.5 h-3.5" />
               Alerte dépotoir
             </Link>
 
             {/* Service phare 1 : Vendre mes plastiques */}
-            <Link
-              to="/vendre"
-              className={`px-4 py-2 rounded-full text-[13.5px] font-semibold tracking-tight transition-all flex items-center gap-2 whitespace-nowrap ${
-                location.pathname === "/vendre"
-                  ? "bg-secondary/15 text-secondary"
-                  : "text-secondary hover:bg-secondary/10"
-              }`}
-            >
-              <ShoppingBag className="w-4 h-4" />
+            <Link to="/vendre" className={linkClass(location.pathname === "/vendre")}>
+              <ShoppingBag className="w-3.5 h-3.5" />
               Vendre mes plastiques
             </Link>
 
-            {/* Découvrir dropdown (Academy + Événements) — placé entre les 2 services phares */}
+            {/* Découvrir dropdown (Academy + Événements) */}
             <div ref={discoverRef} className="relative">
               <button
                 onClick={() => setDiscoverOpen(o => !o)}
@@ -114,28 +110,28 @@ const Navbar = () => {
                 aria-haspopup="true"
                 className={linkClass(isDiscoverActive)}
               >
-                <Compass className="w-4 h-4" />
+                <Compass className="w-3.5 h-3.5" />
                 Découvrir
-                <ChevronDown className={`w-3.5 h-3.5 transition-transform duration-300 ${discoverOpen ? "rotate-180" : ""}`} />
+                <ChevronDown className={`w-3 h-3 transition-transform duration-200 ${discoverOpen ? "rotate-180" : ""}`} />
               </button>
 
               {discoverOpen && (
                 <div
                   onMouseLeave={() => setDiscoverOpen(false)}
-                  className="absolute top-full left-1/2 -translate-x-1/2 mt-2 w-[360px] rounded-2xl bg-background/95 backdrop-blur-2xl border border-border shadow-2xl shadow-black/10 p-2 animate-slide-up"
+                  className="absolute top-full left-1/2 -translate-x-1/2 mt-3 w-[360px] bg-background border-2 border-foreground shadow-[6px_6px_0_0_hsl(var(--foreground))] p-2 animate-slide-up"
                 >
                   {discoverLinks.map(s => (
                     <Link
                       key={s.to}
                       to={s.to}
-                      className="group flex items-start gap-3 p-3 rounded-xl hover:bg-muted/60 transition-colors"
+                      className="group flex items-start gap-3 p-3 hover:bg-primary hover:text-primary-foreground transition-colors"
                     >
-                      <div className={`w-10 h-10 rounded-xl flex items-center justify-center shrink-0 transition-colors ${accentClasses[s.accent]}`}>
+                      <div className={`w-10 h-10 flex items-center justify-center shrink-0 transition-colors ${accentClasses[s.accent]} group-hover:bg-white/20 group-hover:text-white`}>
                         <s.icon className="w-5 h-5" />
                       </div>
                       <div className="flex-1 min-w-0">
-                        <div className="font-semibold text-sm text-foreground">{s.label}</div>
-                        <div className="text-xs text-muted-foreground mt-0.5">{s.desc}</div>
+                        <div className="font-bold text-sm uppercase tracking-wide">{s.label}</div>
+                        <div className="text-xs opacity-80 mt-0.5">{s.desc}</div>
                       </div>
                     </Link>
                   ))}
@@ -144,15 +140,8 @@ const Navbar = () => {
             </div>
 
             {/* Service phare 2 : Enlèvement */}
-            <Link
-              to="/enlevement"
-              className={`px-4 py-2 rounded-full text-[13.5px] font-semibold tracking-tight transition-all flex items-center gap-2 whitespace-nowrap ${
-                location.pathname === "/enlevement"
-                  ? "bg-accent/15 text-accent"
-                  : "text-accent hover:bg-accent/10"
-              }`}
-            >
-              <Truck className="w-4 h-4" />
+            <Link to="/enlevement" className={linkClass(location.pathname === "/enlevement")}>
+              <Truck className="w-3.5 h-3.5" />
               Enlèvement de déchets
             </Link>
           </div>
@@ -163,18 +152,18 @@ const Navbar = () => {
                 {isAdmin && (
                   <Link
                     to="/admin"
-                    className="px-3 py-2 text-sm font-medium text-primary hover:bg-primary/5 rounded-full transition-colors flex items-center gap-1.5"
+                    className="px-3 py-2 text-xs font-bold uppercase tracking-wider text-primary hover:bg-primary hover:text-primary-foreground border-2 border-primary transition-colors flex items-center gap-1.5"
                   >
                     <ShieldCheck className="w-4 h-4" /> Admin
                   </Link>
                 )}
-                <span className="text-sm text-foreground/70 flex items-center gap-1.5 px-2">
+                <span className="text-xs font-semibold uppercase tracking-wider text-foreground/70 flex items-center gap-1.5 px-2">
                   <User className="w-4 h-4" />
                   {profile?.pseudo || "Utilisateur"}
                 </span>
                 <button
                   onClick={handleSignOut}
-                  className="px-3 py-2 text-sm font-medium text-foreground/70 hover:text-foreground hover:bg-muted/60 rounded-full transition-colors flex items-center gap-1.5"
+                  className="px-4 py-2 text-xs font-bold uppercase tracking-wider text-foreground border-2 border-foreground hover:bg-foreground hover:text-background transition-colors flex items-center gap-1.5"
                 >
                   <LogOut className="w-4 h-4" /> Déconnexion
                 </button>
@@ -182,7 +171,7 @@ const Navbar = () => {
             ) : (
               <Link
                 to="/inscription"
-                className="px-5 py-2.5 rounded-full gradient-bio text-primary-foreground text-sm font-bold transition-all hover:scale-105 hover:shadow-lg hover:shadow-primary/25 flex items-center gap-1.5"
+                className="px-6 py-2.5 bg-primary text-primary-foreground text-xs font-bold uppercase tracking-wider border-2 border-primary hover:bg-secondary hover:text-secondary-foreground hover:border-secondary transition-colors flex items-center gap-1.5"
               >
                 <UserPlus className="w-4 h-4" /> S'inscrire
               </Link>
