@@ -25,18 +25,13 @@ const HowItWorks = () => {
 
       <div className="container mx-auto px-4 relative z-10">
         {/* Header */}
-        <div className="text-center mb-10">
-          <span className="inline-block px-4 py-1.5 rounded-full bg-primary/10 text-primary text-sm font-semibold uppercase tracking-wider mb-4">
-            Simple & Accessible
-          </span>
-          <h2 className="font-display text-3xl sm:text-4xl lg:text-5xl font-bold text-foreground mb-4">
-            Comment ça{" "}
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-accent">
-              marche
-            </span>{" "}
-            ?
+        <div className="text-center mb-12">
+          <span className="gb-eyebrow mb-4">Simple & Accessible</span>
+          <h2 className="font-display text-3xl sm:text-4xl lg:text-5xl font-extrabold text-foreground mt-4 uppercase tracking-tight">
+            Comment ça <span className="bg-primary text-primary-foreground px-2 inline-block border-2 border-primary">marche</span> ?
           </h2>
-          <p className="text-muted-foreground max-w-lg mx-auto text-lg">
+          <div className="gb-rule mx-auto mt-5" />
+          <p className="text-muted-foreground max-w-lg mx-auto text-base mt-5 leading-relaxed">
             Choisissez un service et découvrez son fonctionnement en 4 étapes.
           </p>
         </div>
