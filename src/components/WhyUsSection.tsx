@@ -28,18 +28,17 @@ const WhyUsSection = () => {
     <section className="py-20 md:py-28 bg-muted">
       <div className="container">
         <div className="text-center max-w-2xl mx-auto mb-14">
-          <span className="gb-eyebrow mb-4">Notre différence</span>
-          <h2 className="gb-title mt-4">Pourquoi Recyclage Hub Togo ?</h2>
-          <div className="gb-rule mx-auto mt-5" />
+          <p className="text-sm font-semibold text-accent uppercase tracking-wider mb-2">Notre différence</p>
+          <h2 className="text-3xl md:text-4xl font-bold text-foreground">Pourquoi Recyclage Hub Togo ?</h2>
         </div>
 
         <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
           {reasons.map(({ icon: Icon, title, desc }) => (
-            <div key={title} className="gb-block gb-block-hover p-6 text-center">
-              <div className="gb-icon-box w-14 h-14 mx-auto mb-5">
-                <Icon className="h-7 w-7" />
+            <div key={title} className="text-center p-6">
+              <div className="w-14 h-14 rounded-full bg-accent/10 flex items-center justify-center mx-auto mb-5">
+                <Icon className="h-7 w-7 text-accent" />
               </div>
-              <h3 className="font-display text-base font-extrabold text-foreground mb-2 uppercase tracking-wide">{title}</h3>
+              <h3 className="text-lg font-bold text-foreground mb-2">{title}</h3>
               <p className="text-sm text-muted-foreground leading-relaxed">{desc}</p>
             </div>
           ))}

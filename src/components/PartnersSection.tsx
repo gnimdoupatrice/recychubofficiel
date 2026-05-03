@@ -1,4 +1,6 @@
-import { Building2, Handshake, ArrowRight } from "lucide-react";
+import { Building2, Handshake } from "lucide-react";
+import { Link } from "react-router-dom";
+import { ArrowRight } from "lucide-react";
 
 const partners = [
   "Mairie de Kara",
@@ -13,23 +15,26 @@ const PartnersSection = () => (
   <section className="section-spacing bg-muted/30">
     <div className="container mx-auto px-4">
       <div className="text-center mb-10">
-        <span className="gb-eyebrow mb-4">Écosystème</span>
-        <h2 className="gb-title mt-4">Ils nous font confiance</h2>
-        <div className="gb-rule mx-auto mt-5" />
-        <p className="text-muted-foreground max-w-lg mx-auto mt-5 text-sm">
+        <span className="text-sm font-semibold uppercase tracking-wider text-primary">
+          Écosystème
+        </span>
+        <h2 className="font-display text-3xl sm:text-4xl font-bold mt-2 mb-4 text-foreground">
+          Ils nous font <span className="text-gradient-emerald">confiance</span>
+        </h2>
+        <p className="text-muted-foreground max-w-lg mx-auto">
           RECYC HUB TOGO collabore avec les institutions locales, ONG et partenaires du développement pour un impact durable.
         </p>
       </div>
 
-      {/* Partner blocks */}
+      {/* Partner logos placeholder */}
       <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-4 max-w-4xl mx-auto mb-12">
         {partners.map((name) => (
           <div
             key={name}
-            className="gb-block gb-block-hover flex flex-col items-center justify-center p-4 min-h-[100px]"
+            className="flex flex-col items-center justify-center p-4 rounded-xl glass hover:glow-emerald transition-all duration-300 min-h-[100px]"
           >
-            <Building2 className="w-8 h-8 text-foreground/40 mb-2" />
-            <span className="text-[10px] font-extrabold uppercase tracking-wider text-foreground text-center leading-tight">
+            <Building2 className="w-8 h-8 text-primary/40 mb-2" />
+            <span className="text-xs font-medium text-muted-foreground text-center leading-tight">
               {name}
             </span>
           </div>
@@ -37,21 +42,20 @@ const PartnersSection = () => (
       </div>
 
       {/* CTA Partenaires */}
-      <div className="flex justify-center">
-        <div className="gb-block-primary p-6 max-w-lg flex items-center gap-4">
-          <div className="gb-icon-box w-12 h-12 shrink-0">
-            <Handshake className="w-6 h-6" />
-          </div>
+      <div className="text-center">
+        <div className="inline-flex items-center gap-3 p-6 rounded-2xl glass max-w-lg">
+          <Handshake className="w-10 h-10 text-primary shrink-0" />
           <div className="text-left">
-            <h3 className="font-display font-extrabold text-foreground text-sm uppercase tracking-wide mb-1">
+            <h3 className="font-display font-semibold text-foreground text-sm">
               Vous êtes une institution ou une ONG ?
             </h3>
             <p className="text-xs text-muted-foreground mb-2">
-              Collaborons ensemble pour un avenir plus propre.
+              Collaborons ensemble pour un avenir
+               plus propre. Contactez-nous pour un partenariat.
             </p>
             <a
               href="mailto:recychubtogo@gmail.com"
-              className="inline-flex items-center gap-1 text-xs font-extrabold uppercase tracking-[0.15em] text-primary hover:underline"
+              className="inline-flex items-center gap-1 text-sm font-semibold text-primary hover:underline"
             >
               Devenir partenaire <ArrowRight className="w-4 h-4" />
             </a>
