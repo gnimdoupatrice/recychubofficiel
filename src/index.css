@@ -180,6 +180,125 @@
   .section-subtitle {
     @apply text-muted-foreground text-sm sm:text-base leading-relaxed max-w-2xl mx-auto mt-3;
   }
+
+  /* ──────────────────────────────────────────────
+     WordPress Premium "Gutenberg block" design system
+     Aligné avec la navbar (border-2, hard offset shadow,
+     uppercase eyebrows, typographie structurée).
+     ────────────────────────────────────────────── */
+
+  /* Eyebrow: petit label majuscule avec filet vertical primaire */
+  .wp-eyebrow {
+    @apply inline-flex items-center gap-3 text-[11px] font-bold uppercase tracking-[0.22em] text-primary;
+  }
+  .wp-eyebrow::before {
+    content: "";
+    @apply inline-block w-8 h-[2px] bg-primary;
+  }
+
+  .wp-eyebrow-destructive {
+    @apply text-destructive;
+  }
+  .wp-eyebrow-destructive::before {
+    @apply bg-destructive;
+  }
+  .wp-eyebrow-secondary {
+    @apply text-secondary-foreground/80;
+  }
+  .wp-eyebrow-secondary::before {
+    @apply bg-secondary;
+  }
+  .wp-eyebrow-light {
+    @apply text-primary-foreground;
+  }
+  .wp-eyebrow-light::before {
+    @apply bg-secondary;
+  }
+
+  /* Header de section uniforme */
+  .wp-section-header {
+    @apply mb-12 md:mb-16;
+  }
+  .wp-section-header.center {
+    @apply text-center;
+  }
+  .wp-section-header.center .wp-eyebrow {
+    @apply justify-center;
+  }
+
+  /* Titre de section éditorial premium */
+  .wp-section-title {
+    @apply font-display text-3xl sm:text-4xl lg:text-5xl font-extrabold text-foreground tracking-tight leading-[1.05] mt-4;
+  }
+  .wp-section-subtitle {
+    @apply text-muted-foreground text-sm sm:text-base leading-relaxed max-w-2xl mt-4;
+  }
+  .wp-section-header.center .wp-section-subtitle {
+    @apply mx-auto;
+  }
+
+  /* Carte "bloc" : border-2 + hard offset shadow façon Gutenberg */
+  .wp-card {
+    @apply bg-card border-2 border-foreground/90 transition-all duration-200;
+    box-shadow: 6px 6px 0 0 hsl(var(--foreground));
+  }
+  .wp-card:hover {
+    transform: translate(-2px, -2px);
+    box-shadow: 10px 10px 0 0 hsl(var(--foreground));
+  }
+  .wp-card-soft {
+    @apply bg-card border-2 border-border transition-all duration-200;
+  }
+  .wp-card-soft:hover {
+    @apply border-primary;
+    box-shadow: 6px 6px 0 0 hsl(var(--primary));
+  }
+  .wp-card-primary {
+    @apply bg-card border-2 border-primary transition-all duration-200;
+    box-shadow: 6px 6px 0 0 hsl(var(--primary));
+  }
+  .wp-card-primary:hover {
+    transform: translate(-2px, -2px);
+    box-shadow: 10px 10px 0 0 hsl(var(--primary));
+  }
+  .wp-card-destructive {
+    @apply bg-card border-2 border-destructive transition-all duration-200;
+    box-shadow: 6px 6px 0 0 hsl(var(--destructive));
+  }
+  .wp-card-destructive:hover {
+    transform: translate(-2px, -2px);
+    box-shadow: 10px 10px 0 0 hsl(var(--destructive));
+  }
+
+  /* CTA bloc rectangulaire — cohérent avec navbar */
+  .wp-btn-primary {
+    @apply inline-flex items-center justify-center gap-2 px-6 py-3 bg-primary text-primary-foreground text-xs font-bold uppercase tracking-[0.12em] border-2 border-primary transition-all duration-200;
+  }
+  .wp-btn-primary:hover {
+    @apply bg-secondary text-secondary-foreground border-secondary;
+  }
+  .wp-btn-outline {
+    @apply inline-flex items-center justify-center gap-2 px-6 py-3 bg-transparent text-foreground text-xs font-bold uppercase tracking-[0.12em] border-2 border-foreground transition-all duration-200;
+  }
+  .wp-btn-outline:hover {
+    @apply bg-foreground text-background;
+  }
+  .wp-btn-destructive {
+    @apply inline-flex items-center justify-center gap-2 px-6 py-3 bg-destructive text-destructive-foreground text-xs font-bold uppercase tracking-[0.12em] border-2 border-destructive transition-all duration-200;
+  }
+  .wp-btn-destructive:hover {
+    @apply bg-foreground border-foreground;
+  }
+
+  /* Séparateur de section type WP */
+  .wp-section-divider {
+    @apply relative border-t-2 border-foreground/10;
+  }
+
+  /* Filet vertical décoratif pour numéros / steps */
+  .wp-number {
+    @apply font-display text-5xl font-black text-primary/15 leading-none select-none;
+  }
 }
 
 @layer utilities {
