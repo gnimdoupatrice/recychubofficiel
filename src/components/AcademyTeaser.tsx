@@ -25,7 +25,7 @@ const AcademyTeaser = () => (
           </h2>
           <div className="gb-rule mb-5" />
           <p className="text-muted-foreground text-sm sm:text-base leading-relaxed mb-8 max-w-lg">
-            Parce que le changement durable passe par l'éducation. La Green Academy propose des ressources, des formations et des bonnes pratiques pour sensibiliser le grand public et former la prochaine génération de professionnels aux emplois verts.
+            Parce que le changement durable passe par l'éducation. La Green Academy propose des ressources, des formations et des bonnes pratiques pour sensibiliser le grand public et former la prochaine génération de professionnels aux emplois verts.           
           </p>
 
           <div className="space-y-4 mb-8">
