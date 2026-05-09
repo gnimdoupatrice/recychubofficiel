@@ -230,7 +230,7 @@ const PlasticRow = ({
   );
 };
 
-/* ─── Services secondaires ─── */
+/* ─── Services secondaires                ─── */
 const otherServices = [
   {
     icon: Monitor,

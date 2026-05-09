@@ -78,7 +78,7 @@ const AboutSection = () => {
           </h2>
           <div className="gb-rule mx-auto mt-5" />
           <p className="mt-5 text-muted-foreground max-w-2xl mx-auto text-sm sm:text-base leading-relaxed">
-            Trois défis majeurs freinent la gestion des déchets au Togo. Nous les transformons en opportunités.
+            Trois défis majeurs freinent la gestion des déchets au Togo. Nous les transformons en opportunités          .
           </p>
         </div>
 
