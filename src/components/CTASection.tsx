@@ -3,11 +3,16 @@ import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 
 const CTASection = () => (
-  <section className="relative py-20 md:py-28 overflow-hidden">
-    {/* Background — dual-tone gradient for distinction */}
-    <div className="absolute inset-0 bg-gradient-to-br from-primary via-accent to-primary opacity-95" />
-    <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,_hsl(42_92%_55%_/_0.15)_0%,_transparent_60%)]" />
-    <div className="absolute bottom-0 left-0 w-96 h-96 bg-secondary/10 rounded-full blur-3xl translate-y-1/2 -translate-x-1/4" />
+  <section className="relative py-20 md:py-28 bg-primary text-primary-foreground border-t-2 border-b-2 border-foreground overflow-hidden">
+    {/* Pattern grille subtile */}
+    <div
+      className="absolute inset-0 opacity-[0.08]"
+      style={{
+        backgroundImage:
+          "linear-gradient(hsl(var(--primary-foreground)) 1px, transparent 1px), linear-gradient(90deg, hsl(var(--primary-foreground)) 1px, transparent 1px)",
+        backgroundSize: "48px 48px",
+      }}
+    />
 
     <div className="relative container mx-auto px-4 text-center">
       <motion.div
@@ -16,37 +21,40 @@ const CTASection = () => (
         viewport={{ once: true }}
         transition={{ duration: 0.6 }}
       >
-        <h2 className="font-display text-2xl sm:text-3xl lg:text-5xl font-extrabold text-primary-foreground tracking-tight mb-4 leading-tight">
+        <div className="flex justify-center mb-6">
+          <span className="wp-eyebrow wp-eyebrow-light">Passez à l'action</span>
+        </div>
+        <h2 className="font-display text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight mb-5 leading-[1.05]">
           Rejoignez le mouvement
           <br />
-          <span className="text-white/80">pour un Togo plus propre</span>
+          <span className="text-secondary">pour un Togo plus propre</span>
         </h2>
-        <p className="text-primary-foreground/70 text-sm sm:text-base max-w-2xl mx-auto leading-relaxed mb-10">
+        <p className="text-primary-foreground/80 text-sm sm:text-base max-w-2xl mx-auto leading-relaxed mb-10">
           Que vous soyez un ménage, une entreprise ou une collectivité, RecycHub Togo vous offre les outils pour transformer vos déchets en valeur. Commencez dès aujourd'hui.
         </p>
 
         <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-10">
           <Link
             to="/vendre"
-            className="group inline-flex items-center gap-2.5 px-8 py-4 rounded-xl bg-white text-primary font-bold text-sm uppercase tracking-wide transition-all duration-300 hover:scale-[1.03] hover:shadow-2xl"
+            className="inline-flex items-center justify-center gap-2 px-7 py-3.5 bg-secondary text-secondary-foreground text-xs font-bold uppercase tracking-[0.14em] border-2 border-secondary hover:bg-background hover:text-foreground hover:border-background transition-colors"
           >
-            <ShoppingBag className="w-5 h-5" />
+            <ShoppingBag className="w-4 h-4" />
             Vendre mes plastiques
-            <ArrowRight className="w-5 h-5 transition-transform group-hover:translate-x-1" />
+            <ArrowRight className="w-4 h-4" />
           </Link>
 
           <Link
             to="/enlevement"
-            className="group inline-flex items-center gap-2 px-6 py-4 rounded-xl border-2 border-white/40 text-primary-foreground font-semibold text-sm uppercase tracking-wide transition-all duration-300 hover:bg-white/10 hover:border-white/60"
+            className="inline-flex items-center justify-center gap-2 px-7 py-3.5 bg-transparent text-primary-foreground text-xs font-bold uppercase tracking-[0.14em] border-2 border-primary-foreground hover:bg-primary-foreground hover:text-primary transition-colors"
           >
-            <Truck className="w-5 h-5" />
+            <Truck className="w-4 h-4" />
             Demander un enlèvement
           </Link>
         </div>
 
         <a
           href="tel:+22897684030"
-          className="inline-flex items-center gap-2 text-primary-foreground/60 hover:text-primary-foreground transition-colors text-sm"
+          className="inline-flex items-center gap-2 text-primary-foreground/70 hover:text-primary-foreground transition-colors text-sm border-b-2 border-primary-foreground/30 hover:border-primary-foreground pb-1"
         >
           <Phone className="w-4 h-4" />
           Appelez-nous : +228 97 68 40 30
