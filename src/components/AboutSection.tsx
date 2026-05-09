@@ -212,40 +212,6 @@ const AboutSection = () => {
             </div>
           </div>
         </div>
-            {/* Objectifs */}
-            <div className="group relative rounded-2xl overflow-hidden border border-border/30 bg-card shadow-lg hover:shadow-2xl transition-all duration-500 hover:-translate-y-1">
-              {/* Top accent bar */}
-              <div className="h-1.5 w-full gradient-bio" />
-              <div className="p-6 sm:p-8">
-                {/* Icon */}
-                <div className="w-14 h-14 rounded-2xl gradient-bio flex items-center justify-center mb-6 shadow-lg group-hover:scale-110 transition-transform duration-300">
-                  <Trophy className="w-7 h-7 text-primary-foreground" />
-                </div>
-                {/* Label */}
-                <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-primary/60 mb-2">
-                  Pilier 03
-                </p>
-                <h4 className="font-display text-lg sm:text-xl font-bold text-foreground mb-3">
-                  Nos Objectifs
-                </h4>
-                <p className="text-muted-foreground text-sm leading-relaxed mb-6">
-                  Des résultats <strong className="text-foreground">concrets et mesurables</strong> pour un impact durable sur l'environnement et l'économie togolaise.
-                </p>
-                {/* Key points */}
-                <div className="space-y-3 pt-4 border-t border-border/30">
-                  {["Démocratiser l'accès au recyclage", "Créer des emplois verts durables", "Digitaliser la collecte nationale"].map((point, i) => (
-                    <div key={i} className="flex items-start gap-2.5">
-                      <div className="w-5 h-5 rounded-full bg-primary/10 flex items-center justify-center shrink-0 mt-0.5">
-                        <ArrowRight className="w-3 h-3 text-primary" />
-                      </div>
-                      <span className="text-xs text-muted-foreground leading-relaxed">{point}</span>
-                    </div>
-                  ))}
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
       </div>
     </section>
   );
