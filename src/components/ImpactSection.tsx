@@ -7,70 +7,64 @@ const impacts = [
     value: "2,5 T",
     label: "Plastiques collectés",
     desc: "de déchets détournés des rues et rivières de Kara.",
-    gradient: "from-primary to-accent",
+    number: "01",
   },
   {
     icon: Droplets,
     value: "1,2 T",
     label: "CO₂ évité",
     desc: "grâce au recyclage plutôt qu'à l'incinération sauvage.",
-    gradient: "from-accent to-neon-light",
+    number: "02",
   },
   {
     icon: Users,
     value: "300+",
     label: "Familles impactées",
     desc: "qui gagnent un revenu complémentaire grâce à leurs déchets.",
-    gradient: "from-secondary to-orange-alert",
+    number: "03",
   },
   {
     icon: TrendingUp,
     value: "15",
     label: "Dépotoirs signalés",
     desc: "identifiés et en cours de traitement par nos équipes.",
-    gradient: "from-destructive to-secondary",
+    number: "04",
   },
 ];
 
 const ImpactSection = () => (
-  <section className="section-spacing bg-background relative overflow-hidden">
-    {/* Subtle background accent */}
-    <div className="absolute top-0 right-0 w-96 h-96 bg-primary/3 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2" />
-    <div className="absolute bottom-0 left-0 w-72 h-72 bg-secondary/5 rounded-full blur-3xl translate-y-1/2 -translate-x-1/2" />
-
-    <div className="container mx-auto px-4 relative z-10">
-      <div className="text-center mb-14">
-        <span className="section-badge-warm">
-          Notre Impact
-        </span>
-        <h2 className="section-title">
-          Un impact <span className="text-gradient-emerald">mesurable</span> à Kara
+  <section className="section-spacing bg-background">
+    <div className="container mx-auto px-4">
+      <div className="wp-section-header center">
+        <span className="wp-eyebrow">Notre impact</span>
+        <h2 className="wp-section-title">
+          Un impact <span className="text-primary">mesurable</span> à Kara
         </h2>
-        <p className="section-subtitle">
+        <p className="wp-section-subtitle">
           Chaque kilo de plastique vendu contribue à rendre Kara plus propre et à créer des emplois verts.
         </p>
       </div>
 
-      <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6 max-w-5xl mx-auto">
+      <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6 max-w-6xl mx-auto">
         {impacts.map((item, i) => (
           <motion.div
             key={item.label}
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            transition={{ delay: i * 0.1, duration: 0.5 }}
-            className="relative p-6 rounded-2xl bg-card border border-border/50 text-center group hover:shadow-xl hover:-translate-y-1 transition-all duration-300"
+            transition={{ delay: i * 0.08, duration: 0.5 }}
+            className="wp-card p-6 relative"
           >
-            {/* Top accent line */}
-            <div className={`absolute top-0 left-4 right-4 h-0.5 rounded-full bg-gradient-to-r ${item.gradient}`} />
-
-            <div className={`w-14 h-14 rounded-2xl bg-gradient-to-br ${item.gradient} flex items-center justify-center mx-auto mb-4 shadow-lg group-hover:scale-110 transition-transform`}>
-              <item.icon className="w-6 h-6 text-primary-foreground" />
+            <span className="absolute top-3 right-4 wp-number">{item.number}</span>
+            <div className="w-12 h-12 bg-primary text-primary-foreground flex items-center justify-center mb-5 border-2 border-foreground">
+              <item.icon className="w-6 h-6" />
             </div>
-            <div className="font-display text-3xl font-extrabold text-foreground mb-1">
+            <div className="font-display text-4xl font-extrabold text-foreground mb-1 leading-none">
               {item.value}
             </div>
-            <div className="font-semibold text-sm text-primary mb-2">{item.label}</div>
+            <div className="text-[11px] uppercase tracking-[0.18em] font-bold text-primary mt-3 mb-2">
+              {item.label}
+            </div>
             <p className="text-xs text-muted-foreground leading-relaxed">{item.desc}</p>
           </motion.div>
         ))}

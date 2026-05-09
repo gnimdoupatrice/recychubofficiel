@@ -9,7 +9,6 @@ const upcomingEvents = [
     time: "08h00 — 16h00",
     location: "Kara Centre",
     tag: "Sensibilisation",
-    tagColor: "bg-primary/10 text-primary",
   },
   {
     title: "Collecte Géante de Plastiques",
@@ -17,7 +16,6 @@ const upcomingEvents = [
     time: "07h00 — 13h00",
     location: "Quartier Tomdè",
     tag: "Collecte",
-    tagColor: "bg-accent/10 text-accent",
   },
   {
     title: "Formation Tri Sélectif",
@@ -25,83 +23,65 @@ const upcomingEvents = [
     time: "09h00 — 12h00",
     location: "Green Academy",
     tag: "Formation",
-    tagColor: "bg-secondary/10 text-secondary",
   },
 ];
 
 const EventsTeaser = () => (
-  <section className="section-spacing bg-muted/30 overflow-hidden">
+  <section className="section-spacing bg-muted/40">
     <div className="container mx-auto px-4">
-      {/* Header */}
-      <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true }}
-        transition={{ duration: 0.5 }}
-        className="text-center mb-14"
-      >
-        <span className="inline-block text-xs font-bold uppercase tracking-[0.25em] text-primary/80 mb-4 px-4 py-1.5 rounded-full border border-primary/20 bg-primary/5">
-          Événements
-        </span>
-        <h2 className="font-display text-2xl sm:text-3xl lg:text-4xl font-extrabold text-foreground tracking-tight">
-          Prochains <span className="text-gradient-emerald">rendez-vous</span>
+      <div className="wp-section-header center">
+        <span className="wp-eyebrow">Agenda</span>
+        <h2 className="wp-section-title">
+          Prochains <span className="text-primary">rendez-vous</span>
         </h2>
-        <p className="mt-3 text-muted-foreground max-w-xl mx-auto text-sm leading-relaxed">
+        <p className="wp-section-subtitle">
           Rejoignez-nous sur le terrain. Collectes, formations, sensibilisation — chaque événement est un pas vers un Togo plus propre.
         </p>
-      </motion.div>
+      </div>
 
-      {/* Events grid */}
-      <div className="grid md:grid-cols-3 gap-6 mb-10">
+      <div className="grid md:grid-cols-3 gap-6 mb-12 max-w-6xl mx-auto">
         {upcomingEvents.map((event, i) => (
-          <motion.div
+          <motion.article
             key={i}
             initial={{ opacity: 0, y: 25 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            transition={{ delay: i * 0.12, duration: 0.5 }}
-            className="group relative rounded-2xl overflow-hidden border border-border/30 bg-card shadow-lg hover:shadow-2xl transition-all duration-500 hover:-translate-y-1"
+            transition={{ delay: i * 0.1, duration: 0.5 }}
+            className="wp-card overflow-hidden flex flex-col"
           >
-            <div className="h-1.5 w-full gradient-bio" />
-            <div className="p-6">
-              <div className="flex items-center justify-between mb-4">
-                <span className={`text-[10px] font-bold uppercase tracking-wider px-2.5 py-1 rounded-full ${event.tagColor}`}>
-                  {event.tag}
-                </span>
-                <CalendarDays className="w-4 h-4 text-muted-foreground" />
-              </div>
-
-              <h3 className="font-display text-base font-bold text-foreground mb-4 leading-tight">
+            <div className="bg-primary text-primary-foreground px-5 py-3 flex items-center justify-between border-b-2 border-foreground">
+              <span className="text-[10px] font-bold uppercase tracking-[0.18em]">
+                {event.tag}
+              </span>
+              <CalendarDays className="w-4 h-4" />
+            </div>
+            <div className="p-6 flex-1 flex flex-col">
+              <h3 className="font-display text-lg font-extrabold text-foreground mb-5 leading-tight uppercase tracking-tight">
                 {event.title}
               </h3>
-
-              <div className="space-y-2.5 text-xs text-muted-foreground">
-                <div className="flex items-center gap-2">
-                  <CalendarDays className="w-3.5 h-3.5 text-primary" />
+              <ul className="space-y-2.5 text-sm text-muted-foreground flex-1">
+                <li className="flex items-center gap-2.5">
+                  <CalendarDays className="w-4 h-4 text-primary shrink-0" />
                   <span>{event.date}</span>
-                </div>
-                <div className="flex items-center gap-2">
-                  <Clock className="w-3.5 h-3.5 text-primary" />
+                </li>
+                <li className="flex items-center gap-2.5">
+                  <Clock className="w-4 h-4 text-primary shrink-0" />
                   <span>{event.time}</span>
-                </div>
-                <div className="flex items-center gap-2">
-                  <MapPin className="w-3.5 h-3.5 text-primary" />
+                </li>
+                <li className="flex items-center gap-2.5">
+                  <MapPin className="w-4 h-4 text-primary shrink-0" />
                   <span>{event.location}</span>
-                </div>
-              </div>
+                </li>
+              </ul>
             </div>
-          </motion.div>
+          </motion.article>
         ))}
       </div>
 
-      {/* CTA */}
       <div className="text-center">
-        <Link
-          to="/evenements"
-          className="group inline-flex items-center gap-2 px-6 py-3 rounded-xl border-2 border-primary text-primary font-bold text-sm uppercase tracking-wide transition-all duration-300 hover:bg-primary hover:text-primary-foreground hover:scale-[1.03] hover:shadow-lg hover:shadow-primary/20"
-        >
+        <Link to="/evenements" className="wp-btn-outline">
           Voir tous les événements
-          <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
+          <ArrowRight className="w-4 h-4" />
         </Link>
       </div>
     </div>

@@ -47,21 +47,18 @@ const AboutSection = () => {
     <section id="pourquoi" className="section-spacing-lg bg-background overflow-hidden">
       <div className="container mx-auto px-4">
         {/* Section header */}
-        <div className="text-center mb-16">
-          <span className="inline-block text-xs font-bold uppercase tracking-[0.25em] text-primary/80 mb-4 px-4 py-1.5 rounded-full border border-primary/20 bg-primary/5">
-            Pourquoi
-          </span>
-          <h2 className="font-display text-3xl sm:text-4xl lg:text-5xl font-extrabold text-foreground tracking-tight">
+        <div className="wp-section-header center">
+          <span className="wp-eyebrow">Pourquoi</span>
+          <h2 className="wp-section-title">
             RECYC<span className="text-primary">HUB</span> TOGO
           </h2>
-          <p className="mt-4 text-muted-foreground max-w-2xl mx-auto text-sm sm:text-base leading-relaxed">
+          <p className="wp-section-subtitle">
             Trois défis majeurs freinent la gestion des déchets au Togo. Nous les transformons en opportunités.
           </p>
-          <div className="w-16 h-1 bg-primary rounded-full mx-auto mt-5" />
         </div>
 
-        {/* Challenge cards - interactive */}
-        <div className="grid md:grid-cols-3 gap-6 mb-16">
+        {/* Challenge cards - bloc style */}
+        <div className="grid md:grid-cols-3 gap-6 mb-20">
           {challenges.map((challenge, index) => {
             const Icon = challenge.icon;
             const isActive = activeChallenge === index;
@@ -69,49 +66,44 @@ const AboutSection = () => {
               <button
                 key={challenge.id}
                 onClick={() => setActiveChallenge(index)}
-                className={`group relative rounded-2xl overflow-hidden text-left transition-all duration-500 ${
+                className={`group text-left transition-all duration-200 bg-card border-2 ${
                   isActive
-                    ? "ring-2 ring-primary shadow-2xl scale-[1.02]"
-                    : "ring-1 ring-border/40 shadow-lg hover:shadow-xl hover:scale-[1.01]"
+                    ? "border-primary -translate-x-1 -translate-y-1"
+                    : "border-foreground/90 hover:-translate-x-0.5 hover:-translate-y-0.5"
                 }`}
+                style={{
+                  boxShadow: isActive
+                    ? "10px 10px 0 0 hsl(var(--primary))"
+                    : "6px 6px 0 0 hsl(var(--foreground))",
+                }}
               >
                 {/* Image */}
-                <div className="relative h-52 sm:h-60 overflow-hidden">
+                <div className="relative h-52 sm:h-56 overflow-hidden border-b-2 border-foreground/90">
                   <img
                     src={challenge.image}
                     alt={challenge.title}
-                    className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                    className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
                     loading="lazy"
                     width={800}
                     height={600}
                   />
-                  {/* Gradient overlay */}
-                  <div className={`absolute inset-0 bg-gradient-to-t ${challenge.accent} opacity-70 transition-opacity duration-500 group-hover:opacity-80`} />
+                  <div className={`absolute inset-0 bg-gradient-to-t ${challenge.accent} opacity-60`} />
 
-                  {/* Number */}
-                  <span className="absolute top-4 left-4 text-5xl font-black text-white/20 leading-none select-none">
+                  <span className="absolute top-3 left-4 font-display text-5xl font-black text-white/30 leading-none select-none">
                     {challenge.number}
                   </span>
 
-                  {/* Icon */}
-                  <div className={`absolute top-4 right-4 w-10 h-10 rounded-xl flex items-center justify-center transition-all duration-300 ${
-                    isActive ? "bg-white/30 backdrop-blur-md" : "bg-white/15 backdrop-blur-sm"
-                  }`}>
-                    <Icon className="w-5 h-5 text-white" />
+                  <div className="absolute top-4 right-4 w-10 h-10 bg-primary text-primary-foreground border-2 border-foreground flex items-center justify-center">
+                    <Icon className="w-5 h-5" />
                   </div>
-
-                  {/* Active indicator */}
-                  {isActive && (
-                    <div className="absolute bottom-0 left-0 right-0 h-1 bg-primary animate-fade-in" />
-                  )}
                 </div>
 
                 {/* Content */}
-                <div className={`p-5 transition-colors duration-300 ${isActive ? "bg-card" : "bg-card/80"}`}>
-                  <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-primary/70 mb-1">
+                <div className="p-5">
+                  <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-primary mb-2">
                     {challenge.subtitle}
                   </p>
-                  <h3 className="font-display text-base font-bold text-foreground mb-2">
+                  <h3 className="font-display text-base font-extrabold text-foreground uppercase tracking-tight mb-3">
                     {challenge.title}
                   </h3>
                   <p className={`text-xs leading-relaxed text-muted-foreground text-justify transition-all duration-500 ${
@@ -125,123 +117,97 @@ const AboutSection = () => {
           })}
         </div>
 
-        {/* Notre réponse — immersive cards */}
-        <div className="mt-20 md:mt-28">
-          <div className="text-center mb-14">
-            <span className="inline-block text-xs font-bold uppercase tracking-[0.25em] text-accent/80 mb-3 px-4 py-1.5 rounded-full border border-accent/20 bg-accent/5">
-              Notre réponse
-            </span>
-            <h3 className="font-display text-2xl sm:text-3xl lg:text-4xl font-extrabold text-foreground tracking-tight">
-              Transformer les défis en <span className="text-gradient-emerald">opportunités</span>
+        {/* Notre réponse */}
+        <div className="mt-20 md:mt-24">
+          <div className="wp-section-header center">
+            <span className="wp-eyebrow">Notre réponse</span>
+            <h3 className="wp-section-title">
+              Transformer les défis en <span className="text-primary">opportunités</span>
             </h3>
-            <p className="mt-3 text-muted-foreground max-w-xl mx-auto text-sm leading-relaxed">
+            <p className="wp-section-subtitle">
               Une vision claire, une mission concrète, des objectifs mesurables.
             </p>
           </div>
 
           <div className="grid md:grid-cols-3 gap-6 lg:gap-8">
             {/* Vision */}
-            <div className="group relative rounded-2xl overflow-hidden border border-border/30 bg-card shadow-lg hover:shadow-2xl transition-all duration-500 hover:-translate-y-1">
-              {/* Top accent bar */}
-              <div className="h-1.5 w-full gradient-bio" />
-              <div className="p-6 sm:p-8">
-                {/* Icon */}
-                <div className="w-14 h-14 rounded-2xl gradient-bio flex items-center justify-center mb-6 shadow-lg group-hover:scale-110 transition-transform duration-300">
-                  <Eye className="w-7 h-7 text-primary-foreground" />
+            <div className="wp-card overflow-hidden">
+              <div className="bg-primary text-primary-foreground px-6 py-4 border-b-2 border-foreground flex items-center gap-3">
+                <div className="w-10 h-10 bg-background text-primary border-2 border-foreground flex items-center justify-center">
+                  <Eye className="w-5 h-5" />
                 </div>
-                {/* Label */}
-                <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-primary/60 mb-2">
-                  Pilier 01
-                </p>
-                <h4 className="font-display text-lg sm:text-xl font-bold text-foreground mb-3">
-                  Notre Vision
-                </h4>
-                <p className="text-muted-foreground text-sm leading-relaxed mb-6">
+                <div>
+                  <p className="text-[10px] font-bold uppercase tracking-[0.2em] opacity-80">Pilier 01</p>
+                  <h4 className="font-display text-base font-extrabold uppercase tracking-tight">Notre Vision</h4>
+                </div>
+              </div>
+              <div className="p-6">
+                <p className="text-muted-foreground text-sm leading-relaxed mb-5">
                   Un Togo où <strong className="text-foreground">chaque déchet plastique est valorisé</strong>, chaque citoyen est acteur du changement et chaque quartier est propre et durable.
                 </p>
-                {/* Key points */}
-                <div className="space-y-3 pt-4 border-t border-border/30">
+                <ul className="space-y-2.5 pt-4 border-t-2 border-foreground/10">
                   {["Valorisation universelle des déchets", "Citoyenneté active et responsable", "Quartiers propres et durables"].map((point, i) => (
-                    <div key={i} className="flex items-start gap-2.5">
-                      <div className="w-5 h-5 rounded-full bg-primary/10 flex items-center justify-center shrink-0 mt-0.5">
-                        <ArrowRight className="w-3 h-3 text-primary" />
-                      </div>
+                    <li key={i} className="flex items-start gap-2.5">
+                      <ArrowRight className="w-3.5 h-3.5 text-primary mt-0.5 shrink-0" />
                       <span className="text-xs text-muted-foreground leading-relaxed">{point}</span>
-                    </div>
+                    </li>
                   ))}
-                </div>
+                </ul>
               </div>
             </div>
 
-            {/* Mission — featured/elevated */}
-            <div className="group relative rounded-2xl overflow-hidden border-2 border-primary/30 bg-card shadow-xl hover:shadow-2xl transition-all duration-500 hover:-translate-y-1 md:-mt-4 md:mb-[-1rem]">
-              {/* Top accent bar */}
-              <div className="h-2 w-full gradient-bio" />
-              {/* Featured badge */}
-              <div className="absolute top-5 right-5">
-                <span className="text-[9px] font-bold uppercase tracking-wider bg-primary text-primary-foreground px-2.5 py-1 rounded-full">
-                  Cœur
-                </span>
-              </div>
-              <div className="p-6 sm:p-8">
-                {/* Icon */}
-                <div className="w-16 h-16 rounded-2xl gradient-bio flex items-center justify-center mb-6 shadow-lg glow-emerald group-hover:scale-110 transition-transform duration-300">
-                  <Target className="w-8 h-8 text-primary-foreground" />
+            {/* Mission — featured */}
+            <div className="wp-card-primary overflow-hidden md:-mt-4 md:mb-[-1rem] relative">
+              <span className="absolute top-3 right-3 z-10 text-[9px] font-extrabold uppercase tracking-widest bg-secondary text-secondary-foreground px-2.5 py-1 border-2 border-foreground">
+                Cœur
+              </span>
+              <div className="bg-primary text-primary-foreground px-6 py-5 border-b-2 border-foreground flex items-center gap-3">
+                <div className="w-12 h-12 bg-background text-primary border-2 border-foreground flex items-center justify-center">
+                  <Target className="w-6 h-6" />
                 </div>
-                {/* Label */}
-                <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-primary/60 mb-2">
-                  Pilier 02
-                </p>
-                <h4 className="font-display text-lg sm:text-xl font-bold text-foreground mb-3">
-                  Notre Mission
-                </h4>
-                <p className="text-muted-foreground text-sm leading-relaxed mb-6">
+                <div>
+                  <p className="text-[10px] font-bold uppercase tracking-[0.2em] opacity-80">Pilier 02</p>
+                  <h4 className="font-display text-base font-extrabold uppercase tracking-tight">Notre Mission</h4>
+                </div>
+              </div>
+              <div className="p-6">
+                <p className="text-muted-foreground text-sm leading-relaxed mb-5">
                   Connecter ménages, collecteurs et recycleurs via une <strong className="text-foreground">plateforme numérique</strong> qui transforme les déchets en revenus, en digitalisant toute la chaîne de collecte et de recyclage.
                 </p>
-                {/* Key points */}
-                <div className="space-y-3 pt-4 border-t border-primary/20">
+                <ul className="space-y-2.5 pt-4 border-t-2 border-primary/20">
                   {["Connexion directe ménages ↔ recycleurs", "Digitalisation de la chaîne de valeur", "Revenus pour tous les acteurs", "Économie circulaire inclusive"].map((point, i) => (
-                    <div key={i} className="flex items-start gap-2.5">
-                      <div className="w-5 h-5 rounded-full bg-primary/15 flex items-center justify-center shrink-0 mt-0.5">
-                        <ArrowRight className="w-3 h-3 text-primary" />
-                      </div>
+                    <li key={i} className="flex items-start gap-2.5">
+                      <ArrowRight className="w-3.5 h-3.5 text-primary mt-0.5 shrink-0" />
                       <span className="text-xs text-muted-foreground leading-relaxed">{point}</span>
-                    </div>
+                    </li>
                   ))}
-                </div>
+                </ul>
               </div>
             </div>
 
             {/* Objectifs */}
-            <div className="group relative rounded-2xl overflow-hidden border border-border/30 bg-card shadow-lg hover:shadow-2xl transition-all duration-500 hover:-translate-y-1">
-              {/* Top accent bar */}
-              <div className="h-1.5 w-full gradient-bio" />
-              <div className="p-6 sm:p-8">
-                {/* Icon */}
-                <div className="w-14 h-14 rounded-2xl gradient-bio flex items-center justify-center mb-6 shadow-lg group-hover:scale-110 transition-transform duration-300">
-                  <Trophy className="w-7 h-7 text-primary-foreground" />
+            <div className="wp-card overflow-hidden">
+              <div className="bg-primary text-primary-foreground px-6 py-4 border-b-2 border-foreground flex items-center gap-3">
+                <div className="w-10 h-10 bg-background text-primary border-2 border-foreground flex items-center justify-center">
+                  <Trophy className="w-5 h-5" />
                 </div>
-                {/* Label */}
-                <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-primary/60 mb-2">
-                  Pilier 03
-                </p>
-                <h4 className="font-display text-lg sm:text-xl font-bold text-foreground mb-3">
-                  Nos Objectifs
-                </h4>
-                <p className="text-muted-foreground text-sm leading-relaxed mb-6">
+                <div>
+                  <p className="text-[10px] font-bold uppercase tracking-[0.2em] opacity-80">Pilier 03</p>
+                  <h4 className="font-display text-base font-extrabold uppercase tracking-tight">Nos Objectifs</h4>
+                </div>
+              </div>
+              <div className="p-6">
+                <p className="text-muted-foreground text-sm leading-relaxed mb-5">
                   Des résultats <strong className="text-foreground">concrets et mesurables</strong> pour un impact durable sur l'environnement et l'économie togolaise.
                 </p>
-                {/* Key points */}
-                <div className="space-y-3 pt-4 border-t border-border/30">
+                <ul className="space-y-2.5 pt-4 border-t-2 border-foreground/10">
                   {["Démocratiser l'accès au recyclage", "Créer des emplois verts durables", "Digitaliser la collecte nationale"].map((point, i) => (
-                    <div key={i} className="flex items-start gap-2.5">
-                      <div className="w-5 h-5 rounded-full bg-primary/10 flex items-center justify-center shrink-0 mt-0.5">
-                        <ArrowRight className="w-3 h-3 text-primary" />
-                      </div>
+                    <li key={i} className="flex items-start gap-2.5">
+                      <ArrowRight className="w-3.5 h-3.5 text-primary mt-0.5 shrink-0" />
                       <span className="text-xs text-muted-foreground leading-relaxed">{point}</span>
-                    </div>
+                    </li>
                   ))}
-                </div>
+                </ul>
               </div>
             </div>
           </div>
