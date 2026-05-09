@@ -10,52 +10,47 @@ const partners = [
 ];
 
 const PartnersSection = () => (
-  <section className="section-spacing bg-muted/30">
+  <section className="section-spacing bg-background">
     <div className="container mx-auto px-4">
-      <div className="text-center mb-10">
-        <span className="gb-eyebrow mb-4">Écosystème</span>
-        <h2 className="gb-title mt-4">Ils nous font confiance</h2>
-        <div className="gb-rule mx-auto mt-5" />
-        <p className="text-muted-foreground max-w-lg mx-auto mt-5 text-sm">
+      <div className="wp-section-header center">
+        <span className="wp-eyebrow">Écosystème</span>
+        <h2 className="wp-section-title">
+          Ils nous font <span className="text-primary">confiance</span>
+        </h2>
+        <p className="wp-section-subtitle">
           RECYC HUB TOGO collabore avec les institutions locales, ONG et partenaires du développement pour un impact durable.
         </p>
       </div>
 
-      {/* Partner blocks */}
-      <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-4 max-w-4xl mx-auto mb-12">
+      <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 max-w-5xl mx-auto mb-14 border-2 border-foreground/90 divide-x-2 divide-y-2 divide-foreground/10 [&>*:nth-child(-n+3)]:border-t-0 sm:[&>*:nth-child(-n+3)]:border-t-0 [&>*:nth-child(3n+1)]:border-l-0 sm:[&>*:nth-child(3n+1)]:border-l-0 lg:[&>*:nth-child(-n+6)]:border-t-0 lg:[&>*:nth-child(6n+1)]:border-l-0">
         {partners.map((name) => (
           <div
             key={name}
-            className="gb-block gb-block-hover flex flex-col items-center justify-center p-4 min-h-[100px]"
+            className="flex flex-col items-center justify-center p-5 bg-card hover:bg-primary hover:text-primary-foreground transition-colors min-h-[120px] group"
           >
-            <Building2 className="w-8 h-8 text-foreground/40 mb-2" />
-            <span className="text-[10px] font-extrabold uppercase tracking-wider text-foreground text-center leading-tight">
+            <Building2 className="w-8 h-8 text-primary/50 mb-2 group-hover:text-primary-foreground" />
+            <span className="text-[11px] font-bold uppercase tracking-wider text-center leading-tight">
               {name}
             </span>
           </div>
         ))}
       </div>
 
-      {/* CTA Partenaires */}
-      <div className="flex justify-center">
-        <div className="gb-block-primary p-6 max-w-lg flex items-center gap-4">
-          <div className="gb-icon-box w-12 h-12 shrink-0">
-            <Handshake className="w-6 h-6" />
-          </div>
-          <div className="text-left">
-            <h3 className="font-display font-extrabold text-foreground text-sm uppercase tracking-wide mb-1">
-              Vous êtes une institution ou une ONG ?
-            </h3>
-            <p className="text-xs text-muted-foreground mb-2">
-              Collaborons ensemble pour un avenir plus propre.
-            </p>
-            <a
-              href="mailto:recychubtogo@gmail.com"
-              className="inline-flex items-center gap-1 text-xs font-extrabold uppercase tracking-[0.15em] text-primary hover:underline"
-            >
-              Devenir partenaire <ArrowRight className="w-4 h-4" />
-            </a>
-          </div>
+      <div className="max-w-2xl mx-auto wp-card-primary p-7 flex items-start gap-5">
+        <div className="w-14 h-14 bg-primary text-primary-foreground flex items-center justify-center shrink-0 border-2 border-foreground">
+          <Handshake className="w-7 h-7" />
+        </div>
+        <div className="flex-1">
+          <p className="wp-eyebrow mb-2">Partenariat</p>
+          <h3 className="font-display font-extrabold text-foreground text-lg mb-2">
+            Vous êtes une institution ou une ONG ?
+          </h3>
+          <p className="text-sm text-muted-foreground mb-4 leading-relaxed">
+            Collaborons ensemble pour un avenir plus propre. Contactez-nous pour un partenariat institutionnel.
+          </p>
+          <a href="mailto:recychubtogo@gmail.com" className="wp-btn-primary text-[11px]">
+            Devenir partenaire <ArrowRight className="w-4 h-4" />
+          </a>
         </div>
       </div>
     </div>

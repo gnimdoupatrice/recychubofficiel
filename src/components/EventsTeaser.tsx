@@ -3,72 +3,83 @@ import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 
 const upcomingEvents = [
-  { title: "Journée Mondiale du Recyclage", date: "18 Mars 2026", time: "08h00 — 16h00", location: "Kara Centre", tag: "Sensibilisation", variant: "primary" as const },
-  { title: "Collecte Géante de Plastiques", date: "05 Avril 2026", time: "07h00 — 13h00", location: "Quartier Tomdè", tag: "Collecte", variant: "secondary" as const },
-  { title: "Formation Tri Sélectif", date: "22 Avril 2026", time: "09h00 — 12h00", location: "Green Academy", tag: "Formation", variant: "primary" as const },
+  {
+    title: "Journée Mondiale du Recyclage",
+    date: "18 Mars 2026",
+    time: "08h00 — 16h00",
+    location: "Kara Centre",
+    tag: "Sensibilisation",
+  },
+  {
+    title: "Collecte Géante de Plastiques",
+    date: "05 Avril 2026",
+    time: "07h00 — 13h00",
+    location: "Quartier Tomdè",
+    tag: "Collecte",
+  },
+  {
+    title: "Formation Tri Sélectif",
+    date: "22 Avril 2026",
+    time: "09h00 — 12h00",
+    location: "Green Academy",
+    tag: "Formation",
+  },
 ];
 
 const EventsTeaser = () => (
-  <section className="section-spacing bg-muted/30 overflow-hidden">
+  <section className="section-spacing bg-muted/40">
     <div className="container mx-auto px-4">
-      <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true }}
-        transition={{ duration: 0.5 }}
-        className="text-center mb-14"
-      >
-        <span className="gb-eyebrow mb-4">Événements</span>
-        <h2 className="font-display text-2xl sm:text-3xl lg:text-4xl font-extrabold text-foreground tracking-tight mt-4 uppercase">
-          Prochains rendez-vous
+      <div className="wp-section-header center">
+        <span className="wp-eyebrow">Agenda</span>
+        <h2 className="wp-section-title">
+          Prochains <span className="text-primary">rendez-vous</span>
         </h2>
-        <div className="gb-rule mx-auto mt-5" />
-        <p className="mt-5 text-muted-foreground max-w-xl mx-auto text-sm leading-relaxed">
+        <p className="wp-section-subtitle">
           Rejoignez-nous sur le terrain. Collectes, formations, sensibilisation — chaque événement est un pas vers un Togo plus propre.
         </p>
-      </motion.div>
+      </div>
 
-      <div className="grid md:grid-cols-3 gap-6 mb-10">
+      <div className="grid md:grid-cols-3 gap-6 mb-12 max-w-6xl mx-auto">
         {upcomingEvents.map((event, i) => (
-          <motion.div
+          <motion.article
             key={i}
             initial={{ opacity: 0, y: 25 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            transition={{ delay: i * 0.12, duration: 0.5 }}
-            className="gb-block gb-block-hover p-6"
+            transition={{ delay: i * 0.1, duration: 0.5 }}
+            className="wp-card overflow-hidden flex flex-col"
           >
-            <div className="flex items-center justify-between mb-4 pb-4 border-b-2 border-foreground">
-              <span className={event.variant === "primary" ? "gb-tag-primary" : "gb-tag-secondary"}>
+            <div className="bg-primary text-primary-foreground px-5 py-3 flex items-center justify-between border-b-2 border-foreground">
+              <span className="text-[10px] font-bold uppercase tracking-[0.18em]">
                 {event.tag}
               </span>
-              <CalendarDays className="w-4 h-4 text-foreground" />
+              <CalendarDays className="w-4 h-4" />
             </div>
-
-            <h3 className="font-display text-base font-extrabold text-foreground mb-4 leading-tight uppercase">
-              {event.title}
-            </h3>
-
-            <div className="space-y-2 text-xs text-muted-foreground">
-              <div className="flex items-center gap-2">
-                <CalendarDays className="w-3.5 h-3.5 text-primary" />
-                <span className="font-semibold uppercase tracking-wide">{event.date}</span>
-              </div>
-              <div className="flex items-center gap-2">
-                <Clock className="w-3.5 h-3.5 text-primary" />
-                <span>{event.time}</span>
-              </div>
-              <div className="flex items-center gap-2">
-                <MapPin className="w-3.5 h-3.5 text-primary" />
-                <span>{event.location}</span>
-              </div>
+            <div className="p-6 flex-1 flex flex-col">
+              <h3 className="font-display text-lg font-extrabold text-foreground mb-5 leading-tight uppercase tracking-tight">
+                {event.title}
+              </h3>
+              <ul className="space-y-2.5 text-sm text-muted-foreground flex-1">
+                <li className="flex items-center gap-2.5">
+                  <CalendarDays className="w-4 h-4 text-primary shrink-0" />
+                  <span>{event.date}</span>
+                </li>
+                <li className="flex items-center gap-2.5">
+                  <Clock className="w-4 h-4 text-primary shrink-0" />
+                  <span>{event.time}</span>
+                </li>
+                <li className="flex items-center gap-2.5">
+                  <MapPin className="w-4 h-4 text-primary shrink-0" />
+                  <span>{event.location}</span>
+                </li>
+              </ul>
             </div>
-          </motion.div>
+          </motion.article>
         ))}
       </div>
 
       <div className="text-center">
-        <Link to="/evenements" className="gb-btn-outline">
+        <Link to="/evenements" className="wp-btn-outline">
           Voir tous les événements
           <ArrowRight className="w-4 h-4" />
         </Link>

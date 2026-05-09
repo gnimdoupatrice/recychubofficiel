@@ -25,13 +25,12 @@ const HowItWorks = () => {
 
       <div className="container mx-auto px-4 relative z-10">
         {/* Header */}
-        <div className="text-center mb-12">
-          <span className="gb-eyebrow mb-4">Simple & Accessible</span>
-          <h2 className="font-display text-3xl sm:text-4xl lg:text-5xl font-extrabold text-foreground mt-4 uppercase tracking-tight">
-            Comment ça <span className="bg-primary text-primary-foreground px-2 inline-block border-2 border-primary">marche</span> ?
+        <div className="wp-section-header center">
+          <span className="wp-eyebrow">Mode d'emploi</span>
+          <h2 className="wp-section-title">
+            Comment ça <span className="text-primary">marche</span> ?
           </h2>
-          <div className="gb-rule mx-auto mt-5" />
-          <p className="text-muted-foreground max-w-lg mx-auto text-base mt-5 leading-relaxed">
+          <p className="wp-section-subtitle">
             Choisissez un service et découvrez son fonctionnement en 4 étapes.
           </p>
         </div>
