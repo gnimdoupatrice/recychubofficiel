@@ -212,7 +212,6 @@ const AboutSection = () => {
             </div>
           </div>
         </div>
-
             {/* Objectifs */}
             <div className="group relative rounded-2xl overflow-hidden border border-border/30 bg-card shadow-lg hover:shadow-2xl transition-all duration-500 hover:-translate-y-1">
               {/* Top accent bar */}
