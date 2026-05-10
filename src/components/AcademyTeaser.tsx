@@ -17,8 +17,7 @@ const AcademyTeaser = () => (
           initial={{ opacity: 0, x: -30 }}
           whileInView={{ opacity: 1, x: 0 }}
           viewport={{ once: true, amount: 0.3 }}
-          transition={{ duration: 0.6 }}
-        >
+          transition={{ duration: 0.6 }}>
           <span className="wp-eyebrow">Éducation</span>
           <h2 className="wp-section-title">
             Green <span className="text-primary">Academy</span>
@@ -29,7 +28,6 @@ const AcademyTeaser = () => (
           <p className="text-muted-foreground text-sm sm:text-base leading-relaxed mt-5 mb-8 max-w-lg">
             Parce que le changement durable passe par l'éducation. La Green Academy propose des ressources, des formations et des bonnes pratiques pour sensibiliser le grand public et former la prochaine génération de professionnels aux emplois verts.
           </p>
-
           <div className="space-y-4 mb-8">
             {features.map((f, i) => {
               const Icon = f.icon;
@@ -46,13 +44,11 @@ const AcademyTeaser = () => (
               );
             })}
           </div>
-
           <Link to="/academy" className="wp-btn-primary">
             Découvrir la Green Academy
             <ArrowRight className="w-4 h-4" />
           </Link>
         </motion.div>
-
         {/* Visual block */}
         <motion.div
           initial={{ opacity: 0, x: 30 }}
@@ -68,7 +64,7 @@ const AcademyTeaser = () => (
               Apprenez. Agissez. Transformez.
             </h3>
             <p className="text-muted-foreground text-sm text-center leading-relaxed mb-8">
-              Des modules interactifs conçus pour les étudiants, jeunes professionnels et citoyens engagés dans la transition écologique.
+              Des modules interactifs conçus pour les étudiants, jeunes professionnels et citoyens engagés dans la transition écologique                          .
             </p>
 
             <div className="grid grid-cols-3 border-2 border-foreground/90 divide-x-2 divide-foreground/90">
