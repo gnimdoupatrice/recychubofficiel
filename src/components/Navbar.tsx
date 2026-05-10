@@ -193,64 +193,67 @@ const Navbar = () => {
       </nav>
 
       {/* Mobile menu */}
-      <div className={`fixed inset-0 z-40 lg:hidden transition-all duration-500 ${mobileOpen ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none"}`}>
-        <div className="absolute inset-0 bg-background/95 backdrop-blur-2xl" />
+      <div className={`fixed inset-0 z-40 lg:hidden transition-all duration-300 ${mobileOpen ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none"}`}>
+        <div className="absolute inset-0 bg-background" />
         <div className="relative h-full overflow-y-auto pt-20 pb-10 px-6">
-          <div className="max-w-md mx-auto space-y-6">
-            {/* Services phares en premier sur mobile */}
+          <div className="max-w-md mx-auto space-y-8">
+            {/* Services phares */}
             <div>
-              <p className="text-xs uppercase tracking-widest text-muted-foreground font-bold mb-3">Services phares</p>
-              <div className="space-y-2">
+              <p className="wp-eyebrow mb-4">Services phares</p>
+              <div className="space-y-3">
                 <Link
                   to="/vendre"
-                  className="flex items-center gap-3 p-3 rounded-2xl bg-muted/40 border border-border hover:bg-muted/70 transition-colors"
+                  className="flex items-center gap-3 p-3 bg-card border-2 border-foreground hover:bg-primary hover:text-primary-foreground transition-colors"
+                  style={{ boxShadow: "4px 4px 0 0 hsl(var(--foreground))" }}
                 >
-                  <div className={`w-10 h-10 rounded-xl flex items-center justify-center shrink-0 ${accentClasses.secondary}`}>
+                  <div className="w-10 h-10 flex items-center justify-center shrink-0 bg-secondary text-secondary-foreground border-2 border-foreground">
                     <ShoppingBag className="w-5 h-5" />
                   </div>
                   <div>
-                    <div className="font-semibold text-foreground">Vendre mes plastiques</div>
-                    <div className="text-xs text-muted-foreground">Catalogue de rachat au kg</div>
+                    <div className="font-bold uppercase tracking-wide text-sm">Vendre mes plastiques</div>
+                    <div className="text-xs opacity-70 mt-0.5">Catalogue de rachat au kg</div>
                   </div>
                 </Link>
                 <Link
                   to="/enlevement"
-                  className="flex items-center gap-3 p-3 rounded-2xl bg-muted/40 border border-border hover:bg-muted/70 transition-colors"
+                  className="flex items-center gap-3 p-3 bg-card border-2 border-foreground hover:bg-primary hover:text-primary-foreground transition-colors"
+                  style={{ boxShadow: "4px 4px 0 0 hsl(var(--foreground))" }}
                 >
-                  <div className={`w-10 h-10 rounded-xl flex items-center justify-center shrink-0 ${accentClasses.accent}`}>
+                  <div className="w-10 h-10 flex items-center justify-center shrink-0 bg-primary text-primary-foreground border-2 border-foreground">
                     <Truck className="w-5 h-5" />
                   </div>
                   <div>
-                    <div className="font-semibold text-foreground">Enlèvement de déchets</div>
-                    <div className="text-xs text-muted-foreground">Logistique à domicile</div>
+                    <div className="font-bold uppercase tracking-wide text-sm">Enlèvement de déchets</div>
+                    <div className="text-xs opacity-70 mt-0.5">Logistique à domicile</div>
                   </div>
                 </Link>
                 <Link
                   to="/alerte"
-                  className="flex items-center gap-3 p-3 rounded-2xl bg-muted/40 border border-border hover:bg-muted/70 transition-colors"
+                  className="flex items-center gap-3 p-3 bg-card border-2 border-destructive hover:bg-destructive hover:text-destructive-foreground transition-colors"
+                  style={{ boxShadow: "4px 4px 0 0 hsl(var(--destructive))" }}
                 >
-                  <div className={`w-10 h-10 rounded-xl flex items-center justify-center shrink-0 ${accentClasses.destructive}`}>
+                  <div className="w-10 h-10 flex items-center justify-center shrink-0 bg-destructive text-destructive-foreground border-2 border-destructive">
                     <AlertTriangle className="w-5 h-5" />
                   </div>
                   <div>
-                    <div className="font-semibold text-foreground">Alerte dépotoir</div>
-                    <div className="text-xs text-muted-foreground">Signalement géolocalisé</div>
+                    <div className="font-bold uppercase tracking-wide text-sm">Alerte dépotoir</div>
+                    <div className="text-xs opacity-70 mt-0.5">Signalement géolocalisé</div>
                   </div>
                 </Link>
               </div>
             </div>
 
             <div>
-              <p className="text-xs uppercase tracking-widest text-muted-foreground font-bold mb-3">Découvrir</p>
-              <div className="space-y-1">
-                <Link to="/" className="flex items-center gap-3 px-3 py-3 rounded-xl hover:bg-muted/60 text-foreground font-medium">
+              <p className="wp-eyebrow mb-4">Découvrir</p>
+              <div className="divide-y-2 divide-foreground/10 border-y-2 border-foreground/10">
+                <Link to="/" className="flex items-center gap-3 px-3 py-4 hover:bg-muted text-foreground font-bold uppercase tracking-wide text-sm">
                   Accueil
                 </Link>
                 {discoverLinks.map(link => (
                   <Link
                     key={link.to}
                     to={link.to}
-                    className="flex items-center gap-3 px-3 py-3 rounded-xl hover:bg-muted/60 text-foreground font-medium"
+                    className="flex items-center gap-3 px-3 py-4 hover:bg-muted text-foreground font-bold uppercase tracking-wide text-sm"
                   >
                     <link.icon className="w-5 h-5 text-primary" />
                     {link.label}
@@ -259,22 +262,22 @@ const Navbar = () => {
               </div>
             </div>
 
-            <div className="pt-4 border-t border-border space-y-2">
+            <div className="pt-2 space-y-2">
               {user ? (
                 <>
                   {isAdmin && (
-                    <Link to="/admin" className="flex items-center gap-2 px-3 py-3 rounded-xl text-primary font-semibold">
-                      <ShieldCheck className="w-5 h-5" /> Admin
+                    <Link to="/admin" className="w-full wp-btn-outline">
+                      <ShieldCheck className="w-4 h-4" /> Admin
                     </Link>
                   )}
-                  <div className="px-3 py-2 text-sm text-muted-foreground">{profile?.pseudo || "Utilisateur"}</div>
-                  <button onClick={handleSignOut} className="w-full text-left px-3 py-3 rounded-xl hover:bg-muted/60 text-foreground font-medium flex items-center gap-2">
-                    <LogOut className="w-5 h-5" /> Déconnexion
+                  <div className="px-1 py-2 text-xs uppercase tracking-wider text-muted-foreground font-semibold">{profile?.pseudo || "Utilisateur"}</div>
+                  <button onClick={handleSignOut} className="w-full wp-btn-outline">
+                    <LogOut className="w-4 h-4" /> Déconnexion
                   </button>
                 </>
               ) : (
-                <Link to="/inscription" className="flex items-center justify-center gap-2 px-5 py-3.5 rounded-full gradient-bio text-primary-foreground font-bold">
-                  <UserPlus className="w-5 h-5" /> S'inscrire
+                <Link to="/inscription" className="w-full wp-btn-primary">
+                  <UserPlus className="w-4 h-4" /> S'inscrire
                 </Link>
               )}
             </div>
