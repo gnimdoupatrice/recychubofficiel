@@ -10,12 +10,12 @@ const partners = [
 ];
 
 const PartnersSection = () => (
-  <section className="section-spacing bg-background">
+  <section className="wp-section bg-background">
     <div className="container mx-auto px-4">
       <div className="wp-section-header center">
         <span className="wp-eyebrow">Écosystème</span>
         <h2 className="wp-section-title">
-          Ils nous font <span className="text-primary">confiance</span>
+          Ils nous font <span className="text-secondary">confiance</span>
         </h2>
         <p className="wp-section-subtitle">
           RECYC HUB TOGO collabore avec les institutions locales, ONG et partenaires du développement pour un impact durable.

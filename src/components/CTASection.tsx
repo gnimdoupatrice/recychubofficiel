@@ -3,17 +3,9 @@ import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 
 const CTASection = () => (
-  <section className="relative py-20 md:py-28 bg-primary text-primary-foreground border-t-2 border-b-2 border-foreground overflow-hidden">
+  <section className="wp-section wp-section-dark">
     {/* Pattern grille subtile */}
-    <div
-      className="absolute inset-0 opacity-[0.08]"
-      style={{
-        backgroundImage:
-          "linear-gradient(hsl(var(--primary-foreground)) 1px, transparent 1px), linear-gradient(90deg, hsl(var(--primary-foreground)) 1px, transparent 1px)",
-        backgroundSize: "48px 48px",
-      }}
-    />
-
+    <div className="absolute inset-0 opacity-[0.08] wp-grid-pattern" />
     <div className="relative container mx-auto px-4 text-center">
       <motion.div
         initial={{ opacity: 0, y: 25 }}

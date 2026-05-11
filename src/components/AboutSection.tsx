@@ -44,13 +44,13 @@ const AboutSection = () => {
   const [activeChallenge, setActiveChallenge] = useState(0);
 
   return (
-    <section id="pourquoi" className="section-spacing-lg bg-background overflow-hidden">
+    <section id="pourquoi" className="wp-section bg-background overflow-hidden">
       <div className="container mx-auto px-4">
         {/* Section header */}
         <div className="wp-section-header center">
           <span className="wp-eyebrow">Pourquoi</span>
           <h2 className="wp-section-title">
-            RECYC<span className="text-primary">HUB</span> TOGO
+            RECYC<span className="text-secondary">HUB</span> TOGO
           </h2>
           <p className="wp-section-subtitle">
             Trois défis majeurs freinent la gestion des déchets au Togo. Nous les transformons en opportunités.
@@ -122,7 +122,7 @@ const AboutSection = () => {
           <div className="wp-section-header center">
             <span className="wp-eyebrow">Notre réponse</span>
             <h3 className="wp-section-title">
-              Transformer les défis en <span className="text-primary">opportunités</span>
+              Transformer les défis en <span className="text-secondary">opportunités</span>
             </h3>
             <p className="wp-section-subtitle">
               Une vision claire, une mission concrète, des objectifs mesurables.

@@ -27,12 +27,12 @@ const upcomingEvents = [
 ];
 
 const EventsTeaser = () => (
-  <section className="section-spacing bg-muted/40">
+  <section className="wp-section bg-muted/40">
     <div className="container mx-auto px-4">
       <div className="wp-section-header center">
         <span className="wp-eyebrow">Agenda</span>
         <h2 className="wp-section-title">
-          Prochains <span className="text-primary">rendez-vous</span>
+          Prochains <span className="text-secondary">rendez-vous</span>
         </h2>
         <p className="wp-section-subtitle">
           Rejoignez-nous sur le terrain. Collectes, formations, sensibilisation — chaque événement est un pas vers un Togo plus propre.

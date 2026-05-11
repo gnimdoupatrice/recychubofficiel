@@ -16,7 +16,7 @@ const HowItWorks = () => {
   };
 
   return (
-    <section className="section-spacing bg-muted/20 relative overflow-hidden">
+    <section className="wp-section bg-muted/20 relative overflow-hidden">
       {/* Subtle background pattern */}
       <div className="absolute inset-0 opacity-[0.03]" style={{
         backgroundImage: "radial-gradient(hsl(var(--primary)) 1px, transparent 1px)",
@@ -28,7 +28,7 @@ const HowItWorks = () => {
         <div className="wp-section-header center">
           <span className="wp-eyebrow">Mode d'emploi</span>
           <h2 className="wp-section-title">
-            Comment ça <span className="text-primary">marche</span> ?
+            Comment ça <span className="text-secondary">marche</span> ?
           </h2>
           <p className="wp-section-subtitle">
             Choisissez un service et découvrez son fonctionnement en 4 étapes.

@@ -9,7 +9,7 @@ const features = [
 ];
 
 const AcademyTeaser = () => (
-  <section className="section-spacing bg-muted/40">
+  <section className="wp-section bg-muted/40">
     <div className="container mx-auto px-4">
       <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
         {/* Text */}
@@ -21,7 +21,7 @@ const AcademyTeaser = () => (
         >
           <span className="wp-eyebrow">Éducation</span>
           <h2 className="wp-section-title">
-            Green <span className="text-primary">Academy</span>
+            Green <span className="text-secondary">Academy</span>
           </h2>
           <p className="text-muted-foreground text-sm sm:text-base leading-relaxed mt-5 mb-8 max-w-lg">
             Parce que le changement durable passe par l'éducation. La Green Academy propose des ressources, des formations et des bonnes pratiques pour sensibiliser le grand public et former la prochaine génération de professionnels aux emplois verts.
