@@ -198,58 +198,58 @@ const Navbar = () => {
           <div className="max-w-md mx-auto space-y-6">
             {/* Services phares en premier sur mobile */}
             <div>
-              <p className="text-xs uppercase tracking-widest text-muted-foreground font-bold mb-3">Services phares</p>
+              <p className="text-xs uppercase tracking-widest text-white/65 font-bold mb-3">Services phares</p>
               <div className="space-y-2">
                 <Link
                   to="/vendre"
-                  className="flex items-center gap-3 p-3 rounded-2xl bg-muted/40 border border-border hover:bg-muted/70 transition-colors"
+                  className="flex items-center gap-3 p-3 rounded-2xl bg-white/8 border border-white/15 hover:bg-white/15 backdrop-blur-md transition-colors"
                 >
                   <div className={`w-10 h-10 rounded-xl flex items-center justify-center shrink-0 ${accentClasses.secondary}`}>
                     <ShoppingBag className="w-5 h-5" />
                   </div>
                   <div>
-                    <div className="font-semibold text-foreground">Vendre mes plastiques</div>
-                    <div className="text-xs text-muted-foreground">Catalogue de rachat au kg</div>
+                    <div className="font-semibold text-white">Vendre mes plastiques</div>
+                    <div className="text-xs text-white/65">Catalogue de rachat au kg</div>
                   </div>
                 </Link>
                 <Link
                   to="/enlevement"
-                  className="flex items-center gap-3 p-3 rounded-2xl bg-muted/40 border border-border hover:bg-muted/70 transition-colors"
+                  className="flex items-center gap-3 p-3 rounded-2xl bg-white/8 border border-white/15 hover:bg-white/15 backdrop-blur-md transition-colors"
                 >
                   <div className={`w-10 h-10 rounded-xl flex items-center justify-center shrink-0 ${accentClasses.accent}`}>
                     <Truck className="w-5 h-5" />
                   </div>
                   <div>
-                    <div className="font-semibold text-foreground">Enlèvement de déchets</div>
-                    <div className="text-xs text-muted-foreground">Logistique à domicile</div>
+                    <div className="font-semibold text-white">Enlèvement de déchets</div>
+                    <div className="text-xs text-white/65">Logistique à domicile</div>
                   </div>
                 </Link>
                 <Link
                   to="/alerte"
-                  className="flex items-center gap-3 p-3 rounded-2xl bg-muted/40 border border-border hover:bg-muted/70 transition-colors"
+                  className="flex items-center gap-3 p-3 rounded-2xl bg-white/8 border border-white/15 hover:bg-white/15 backdrop-blur-md transition-colors"
                 >
                   <div className={`w-10 h-10 rounded-xl flex items-center justify-center shrink-0 ${accentClasses.destructive}`}>
                     <AlertTriangle className="w-5 h-5" />
                   </div>
                   <div>
-                    <div className="font-semibold text-foreground">Alerte dépotoir</div>
-                    <div className="text-xs text-muted-foreground">Signalement géolocalisé</div>
+                    <div className="font-semibold text-white">Alerte dépotoir</div>
+                    <div className="text-xs text-white/65">Signalement géolocalisé</div>
                   </div>
                 </Link>
               </div>
             </div>
 
             <div>
-              <p className="text-xs uppercase tracking-widest text-muted-foreground font-bold mb-3">Découvrir</p>
+              <p className="text-xs uppercase tracking-widest text-white/65 font-bold mb-3">Découvrir</p>
               <div className="space-y-1">
-                <Link to="/" className="flex items-center gap-3 px-3 py-3 rounded-xl hover:bg-muted/60 text-foreground font-medium">
+                <Link to="/" className="flex items-center gap-3 px-3 py-3 rounded-xl hover:bg-white/10 text-white font-medium">
                   Accueil
                 </Link>
                 {discoverLinks.map(link => (
                   <Link
                     key={link.to}
                     to={link.to}
-                    className="flex items-center gap-3 px-3 py-3 rounded-xl hover:bg-muted/60 text-foreground font-medium"
+                    className="flex items-center gap-3 px-3 py-3 rounded-xl hover:bg-white/10 text-white font-medium"
                   >
                     <link.icon className="w-5 h-5 text-primary" />
                     {link.label}
@@ -258,7 +258,7 @@ const Navbar = () => {
               </div>
             </div>
 
-            <div className="pt-4 border-t border-border space-y-2">
+            <div className="pt-4 border-t border-white/15 space-y-2">
               {user ? (
                 <>
                   {isAdmin && (
@@ -266,8 +266,8 @@ const Navbar = () => {
                       <ShieldCheck className="w-5 h-5" /> Admin
                     </Link>
                   )}
-                  <div className="px-3 py-2 text-sm text-muted-foreground">{profile?.pseudo || "Utilisateur"}</div>
-                  <button onClick={handleSignOut} className="w-full text-left px-3 py-3 rounded-xl hover:bg-muted/60 text-foreground font-medium flex items-center gap-2">
+                  <div className="px-3 py-2 text-sm text-white/65">{profile?.pseudo || "Utilisateur"}</div>
+                  <button onClick={handleSignOut} className="w-full text-left px-3 py-3 rounded-xl hover:bg-white/10 text-white font-medium flex items-center gap-2">
                     <LogOut className="w-5 h-5" /> Déconnexion
                   </button>
                 </>
