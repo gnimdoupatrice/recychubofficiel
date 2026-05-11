@@ -226,7 +226,7 @@
     @apply justify-center;
   }
 
-  /* Titre de section éditorial premium */
+  /* Titre de section éditorial premium — aligné Hero/CTA */
   .wp-section-title {
     @apply font-display text-3xl sm:text-4xl lg:text-5xl font-extrabold text-foreground tracking-tight leading-[1.05] mt-4;
   }
@@ -235,6 +235,28 @@
   }
   .wp-section-header.center .wp-section-subtitle {
     @apply mx-auto;
+  }
+
+  /* Variante dark/immersive (miroir du CTA pré-footer) */
+  .wp-section-dark {
+    @apply relative bg-primary text-primary-foreground border-t-2 border-b-2 border-foreground overflow-hidden;
+  }
+  .wp-section-dark .wp-section-title {
+    @apply text-primary-foreground;
+  }
+  .wp-section-dark .wp-section-subtitle {
+    @apply text-primary-foreground/80;
+  }
+  .wp-grid-pattern {
+    background-image:
+      linear-gradient(hsl(var(--primary-foreground)) 1px, transparent 1px),
+      linear-gradient(90deg, hsl(var(--primary-foreground)) 1px, transparent 1px);
+    background-size: 48px 48px;
+  }
+
+  /* Padding section unifié (aligné CTA: py-20 md:py-28) */
+  .wp-section {
+    @apply py-20 md:py-28;
   }
 
   /* Carte "bloc" : border-2 + hard offset shadow façon Gutenberg */
