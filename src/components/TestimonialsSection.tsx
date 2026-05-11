@@ -22,12 +22,12 @@ const testimonials = [
 ];
 
 const TestimonialsSection = () => (
-  <section className="section-spacing bg-muted/40">
+  <section className="wp-section bg-muted/40">
     <div className="container mx-auto px-4">
       <div className="wp-section-header center">
         <span className="wp-eyebrow">Témoignages</span>
         <h2 className="wp-section-title">
-          La communauté <span className="text-primary">témoigne</span>
+          La communauté <span className="text-secondary">témoigne</span>
         </h2>
         <p className="wp-section-subtitle">
           Des centaines de familles à Kara font déjà confiance à RECYC HUB TOGO.
