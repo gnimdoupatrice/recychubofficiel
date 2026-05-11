@@ -57,51 +57,50 @@ const Navbar = () => {
   const isDiscoverActive = discoverLinks.some(s => location.pathname === s.to);
 
   const accentClasses: Record<string, string> = {
-    primary: "bg-primary/10 text-primary group-hover:bg-primary/20",
-    secondary: "bg-secondary/10 text-secondary group-hover:bg-secondary/20",
-    accent: "bg-accent/10 text-accent group-hover:bg-accent/20",
-    destructive: "bg-destructive/10 text-destructive group-hover:bg-destructive/20",
+    primary: "bg-secondary/15 text-secondary group-hover:bg-secondary/25",
+    secondary: "bg-secondary/15 text-secondary group-hover:bg-secondary/25",
+    accent: "bg-accent/20 text-accent group-hover:bg-accent/30",
+    destructive: "bg-destructive/15 text-destructive group-hover:bg-destructive/25",
   };
 
-  // Style "Bloc utilitaire" : liens en uppercase, tracking large, hover vert primaire
+  // Style "glass pill" — aligné Hero
   const linkClass = (active: boolean) =>
-    `px-3 py-2 text-[12px] font-semibold uppercase tracking-[0.12em] transition-colors flex items-center gap-1.5 whitespace-nowrap border-b-2 ${
+    `px-4 py-2 rounded-full text-[13px] font-semibold transition-all duration-200 flex items-center gap-1.5 whitespace-nowrap ${
       active
-        ? "text-primary border-primary"
-        : "text-foreground border-transparent hover:text-primary hover:border-primary/40"
+        ? "bg-white/15 text-white border border-white/25 backdrop-blur-md shadow-lg"
+        : "text-white/85 border border-transparent hover:text-white hover:bg-white/10 hover:border-white/15"
     }`;
 
   return (
     <>
       <nav
-        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 bg-background border-b-2 border-foreground ${
-          scrolled ? "h-14" : "h-16"
+        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
+          scrolled
+            ? "h-14 bg-black/60 backdrop-blur-xl border-b border-white/10 shadow-2xl shadow-black/30"
+            : "h-16 bg-black/30 backdrop-blur-md border-b border-white/5"
         } flex items-center`}
       >
         <div className="container mx-auto px-4 lg:px-8 flex items-center justify-between gap-6 w-full">
           <Link to="/" className="flex items-center group shrink-0" aria-label="RecycHub Togo — Accueil">
-            <img src={logoImg} alt="RecycHub Togo" className="w-10 h-10 sm:w-11 sm:h-11 object-contain transition-transform group-hover:scale-105" />
+            <img src={logoImg} alt="RecycHub Togo" className="w-10 h-10 sm:w-11 sm:h-11 object-contain transition-transform group-hover:scale-105 drop-shadow-lg" />
           </Link>
 
-          <div className="hidden lg:flex items-center gap-6 xl:gap-8">
-            {/* Accueil */}
+          <div className="hidden lg:flex items-center gap-1.5 xl:gap-2">
             <Link to="/" className={linkClass(location.pathname === "/")}>
               Accueil
             </Link>
 
-            {/* Alerte dépotoir */}
             <Link to="/alerte" className={linkClass(location.pathname === "/alerte")}>
               <AlertTriangle className="w-3.5 h-3.5" />
               Alerte dépotoir
             </Link>
 
-            {/* Service phare 1 : Vendre mes plastiques */}
             <Link to="/vendre" className={linkClass(location.pathname === "/vendre")}>
               <ShoppingBag className="w-3.5 h-3.5" />
               Vendre mes plastiques
             </Link>
 
-            {/* Découvrir dropdown (Academy + Événements) */}
+            {/* Découvrir dropdown */}
             <div ref={discoverRef} className="relative">
               <button
                 onClick={() => setDiscoverOpen(o => !o)}
@@ -118,20 +117,20 @@ const Navbar = () => {
               {discoverOpen && (
                 <div
                   onMouseLeave={() => setDiscoverOpen(false)}
-                  className="absolute top-full left-1/2 -translate-x-1/2 mt-3 w-[360px] bg-background border-2 border-foreground shadow-[6px_6px_0_0_hsl(var(--foreground))] p-2 animate-slide-up"
+                  className="absolute top-full left-1/2 -translate-x-1/2 mt-3 w-[360px] rounded-2xl bg-black/70 backdrop-blur-2xl border border-white/15 shadow-2xl shadow-black/50 p-2 animate-slide-up overflow-hidden"
                 >
                   {discoverLinks.map(s => (
                     <Link
                       key={s.to}
                       to={s.to}
-                      className="group flex items-start gap-3 p-3 hover:bg-primary hover:text-primary-foreground transition-colors"
+                      className="group flex items-start gap-3 p-3 rounded-xl hover:bg-white/10 transition-colors"
                     >
-                      <div className={`w-10 h-10 flex items-center justify-center shrink-0 transition-colors ${accentClasses[s.accent]} group-hover:bg-white/20 group-hover:text-white`}>
+                      <div className={`w-10 h-10 rounded-xl flex items-center justify-center shrink-0 transition-colors ${accentClasses[s.accent]}`}>
                         <s.icon className="w-5 h-5" />
                       </div>
                       <div className="flex-1 min-w-0">
-                        <div className="font-bold text-sm uppercase tracking-wide">{s.label}</div>
-                        <div className="text-xs opacity-80 mt-0.5">{s.desc}</div>
+                        <div className="font-bold text-sm text-white">{s.label}</div>
+                        <div className="text-xs text-white/70 mt-0.5">{s.desc}</div>
                       </div>
                     </Link>
                   ))}
@@ -139,7 +138,6 @@ const Navbar = () => {
               )}
             </div>
 
-            {/* Service phare 2 : Enlèvement */}
             <Link to="/enlevement" className={linkClass(location.pathname === "/enlevement")}>
               <Truck className="w-3.5 h-3.5" />
               Enlèvement de déchets
@@ -152,18 +150,18 @@ const Navbar = () => {
                 {isAdmin && (
                   <Link
                     to="/admin"
-                    className="px-3 py-2 text-xs font-bold uppercase tracking-wider text-primary hover:bg-primary hover:text-primary-foreground border-2 border-primary transition-colors flex items-center gap-1.5"
+                    className="px-4 py-2 rounded-full text-xs font-bold text-white bg-white/10 border border-white/20 hover:bg-white/20 backdrop-blur-md transition-all flex items-center gap-1.5"
                   >
                     <ShieldCheck className="w-4 h-4" /> Admin
                   </Link>
                 )}
-                <span className="text-xs font-semibold uppercase tracking-wider text-foreground/70 flex items-center gap-1.5 px-2">
+                <span className="text-xs font-semibold text-white/75 flex items-center gap-1.5 px-2">
                   <User className="w-4 h-4" />
                   {profile?.pseudo || "Utilisateur"}
                 </span>
                 <button
                   onClick={handleSignOut}
-                  className="px-4 py-2 text-xs font-bold uppercase tracking-wider text-foreground border-2 border-foreground hover:bg-foreground hover:text-background transition-colors flex items-center gap-1.5"
+                  className="px-4 py-2 rounded-full text-xs font-bold text-white bg-white/10 border border-white/20 hover:bg-white/20 backdrop-blur-md transition-all flex items-center gap-1.5"
                 >
                   <LogOut className="w-4 h-4" /> Déconnexion
                 </button>
@@ -171,7 +169,8 @@ const Navbar = () => {
             ) : (
               <Link
                 to="/inscription"
-                className="px-6 py-2.5 bg-primary text-primary-foreground text-xs font-bold uppercase tracking-wider border-2 border-primary hover:bg-secondary hover:text-secondary-foreground hover:border-secondary transition-colors flex items-center gap-1.5"
+                className="px-5 py-2.5 rounded-full text-xs font-bold text-secondary-foreground transition-all flex items-center gap-1.5 shadow-lg shadow-secondary/30 hover:shadow-secondary/50 hover:-translate-y-0.5"
+                style={{ background: "linear-gradient(135deg, hsl(var(--secondary)), hsl(var(--accent)))" }}
               >
                 <UserPlus className="w-4 h-4" /> S'inscrire
               </Link>
@@ -179,7 +178,7 @@ const Navbar = () => {
           </div>
 
           <button
-            className="lg:hidden p-2 text-foreground rounded-lg hover:bg-muted/60 transition-colors"
+            className="lg:hidden p-2 text-white rounded-full hover:bg-white/10 transition-colors"
             onClick={() => setMobileOpen(!mobileOpen)}
             aria-label={mobileOpen ? "Fermer le menu" : "Ouvrir le menu"}
             aria-expanded={mobileOpen}
