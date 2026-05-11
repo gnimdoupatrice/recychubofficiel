@@ -193,8 +193,8 @@ const Navbar = () => {
 
       {/* Mobile menu */}
       <div className={`fixed inset-0 z-40 lg:hidden transition-all duration-500 ${mobileOpen ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none"}`}>
-        <div className="absolute inset-0 bg-background/95 backdrop-blur-2xl" />
-        <div className="relative h-full overflow-y-auto pt-20 pb-10 px-6">
+        <div className="absolute inset-0 bg-gradient-to-br from-black/95 via-black/90 to-primary/40 backdrop-blur-2xl" />
+        <div className="relative h-full overflow-y-auto pt-20 pb-10 px-6 text-white">
           <div className="max-w-md mx-auto space-y-6">
             {/* Services phares en premier sur mobile */}
             <div>
