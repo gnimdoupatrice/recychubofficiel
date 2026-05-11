@@ -16,7 +16,7 @@ const HowItWorks = () => {
   };
 
   return (
-    <section className="wp-section bg-muted/20 relative overflow-hidden">
+    <section className="wp-section wp-section-glow-secondary relative overflow-hidden">
       {/* Subtle background pattern */}
       <div className="absolute inset-0 opacity-[0.03]" style={{
         backgroundImage: "radial-gradient(hsl(var(--primary)) 1px, transparent 1px)",

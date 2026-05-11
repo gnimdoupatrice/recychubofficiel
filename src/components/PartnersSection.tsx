@@ -10,7 +10,7 @@ const partners = [
 ];
 
 const PartnersSection = () => (
-  <section className="wp-section bg-background">
+  <section className="wp-section wp-section-glow-accent">
     <div className="container mx-auto px-4">
       <div className="wp-section-header center">
         <span className="wp-eyebrow">Écosystème</span>
