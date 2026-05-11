@@ -351,7 +351,7 @@ const ServicesSection = () => {
         <div className="wp-section-header center">
           <span className="wp-eyebrow">Nos services</span>
           <h2 className="wp-section-title">
-            Deux parcours, <span className="text-primary">un même engagement</span>
+            Deux parcours, <span className="text-secondary">un même engagement</span>
           </h2>
           <p className="wp-section-subtitle">
             <strong className="text-foreground">Vendez vos plastiques au kg</strong> ou
