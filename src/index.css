@@ -270,37 +270,6 @@
     box-shadow: 10px 10px 0 0 hsl(var(--destructive));
   }
 
-  /* Variantes dark — pour fond sombre (hero) : bordures et ombres claires */
-  .wp-card-dark {
-    @apply bg-background/5 backdrop-blur-sm border-2 border-white text-white transition-all duration-200;
-    box-shadow: 6px 6px 0 0 hsl(0 0% 100%);
-  }
-  .wp-card-dark:hover {
-    transform: translate(-2px, -2px);
-    box-shadow: 10px 10px 0 0 hsl(0 0% 100%);
-  }
-  .wp-card-dark-accent {
-    @apply bg-secondary text-secondary-foreground border-2 border-white transition-all duration-200;
-    box-shadow: 6px 6px 0 0 hsl(0 0% 100%);
-  }
-  .wp-card-dark-accent:hover {
-    transform: translate(-2px, -2px);
-    box-shadow: 10px 10px 0 0 hsl(0 0% 100%);
-  }
-
-  .wp-btn-light {
-    @apply inline-flex items-center justify-center gap-2 px-6 py-3 bg-white text-foreground text-xs font-bold uppercase tracking-[0.12em] border-2 border-white transition-all duration-200;
-  }
-  .wp-btn-light:hover {
-    @apply bg-secondary text-secondary-foreground border-secondary;
-  }
-  .wp-btn-outline-light {
-    @apply inline-flex items-center justify-center gap-2 px-6 py-3 bg-transparent text-white text-xs font-bold uppercase tracking-[0.12em] border-2 border-white transition-all duration-200;
-  }
-  .wp-btn-outline-light:hover {
-    @apply bg-white text-foreground;
-  }
-
   /* CTA bloc rectangulaire — cohérent avec navbar */
   .wp-btn-primary {
     @apply inline-flex items-center justify-center gap-2 px-6 py-3 bg-primary text-primary-foreground text-xs font-bold uppercase tracking-[0.12em] border-2 border-primary transition-all duration-200;
