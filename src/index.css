@@ -182,145 +182,188 @@
   }
 
   /* ──────────────────────────────────────────────
-     WordPress Premium "Gutenberg block" design system
-     Aligné avec la navbar (border-2, hard offset shadow,
-     uppercase eyebrows, typographie structurée).
+     HERO-STYLE PREMIUM SYSTEM
+     Glassmorphism, dark immersive sections,
+     rounded cards, soft shadows, white text + secondary gradient.
+     Replaces the previous WordPress/Gutenberg block system.
      ────────────────────────────────────────────── */
 
-  /* Eyebrow: petit label majuscule avec filet vertical primaire */
-  .wp-eyebrow {
-    @apply inline-flex items-center gap-3 text-[11px] font-bold uppercase tracking-[0.22em] text-primary;
+  /* Dark immersive section (defaults for every wp-section) */
+  .wp-section {
+    @apply relative py-20 md:py-28 overflow-hidden text-primary-foreground;
+    background:
+      radial-gradient(ellipse at top, hsl(var(--primary) / 0.45), transparent 60%),
+      linear-gradient(160deg, hsl(165 35% 6%) 0%, hsl(162 50% 10%) 50%, hsl(165 35% 5%) 100%);
   }
-  .wp-eyebrow::before {
+  .wp-section::after {
     content: "";
-    @apply inline-block w-8 h-[2px] bg-primary;
+    @apply absolute inset-0 pointer-events-none opacity-[0.04];
+    background-image: radial-gradient(hsl(var(--primary-foreground)) 1px, transparent 1px);
+    background-size: 24px 24px;
+  }
+  .wp-section > * { @apply relative z-[1]; }
+
+  /* Glow accents for sections */
+  .wp-section-glow-secondary::before {
+    content: "";
+    @apply absolute -top-32 -right-32 w-[400px] h-[400px] rounded-full pointer-events-none;
+    background: hsl(var(--secondary) / 0.18);
+    filter: blur(100px);
+  }
+  .wp-section-glow-accent::before {
+    content: "";
+    @apply absolute -top-32 -left-32 w-[400px] h-[400px] rounded-full pointer-events-none;
+    background: hsl(var(--accent) / 0.25);
+    filter: blur(100px);
   }
 
+  .wp-grid-pattern { background: none; }
+
+  /* Eyebrow → glass pill (façon Hero) */
+  .wp-eyebrow {
+    @apply inline-flex items-center gap-2 px-4 py-2 rounded-full text-[11px] font-bold uppercase tracking-[0.2em] backdrop-blur-md;
+    background: hsl(var(--primary-foreground) / 0.1);
+    color: hsl(var(--primary-foreground));
+    border: 1px solid hsl(var(--primary-foreground) / 0.22);
+  }
+  .wp-eyebrow::before { content: none; display: none; }
+  .wp-eyebrow-light, .wp-eyebrow-secondary {
+    background: hsl(var(--secondary) / 0.18);
+    color: hsl(var(--secondary));
+    border-color: hsl(var(--secondary) / 0.4);
+  }
   .wp-eyebrow-destructive {
-    @apply text-destructive;
-  }
-  .wp-eyebrow-destructive::before {
-    @apply bg-destructive;
-  }
-  .wp-eyebrow-secondary {
-    @apply text-secondary-foreground/80;
-  }
-  .wp-eyebrow-secondary::before {
-    @apply bg-secondary;
-  }
-  .wp-eyebrow-light {
-    @apply text-primary-foreground;
-  }
-  .wp-eyebrow-light::before {
-    @apply bg-secondary;
+    background: hsl(var(--destructive) / 0.18);
+    color: hsl(var(--destructive));
+    border-color: hsl(var(--destructive) / 0.5);
   }
 
-  /* Header de section uniforme */
-  .wp-section-header {
-    @apply mb-12 md:mb-16;
-  }
-  .wp-section-header.center {
-    @apply text-center;
-  }
-  .wp-section-header.center .wp-eyebrow {
-    @apply justify-center;
-  }
+  /* Section header */
+  .wp-section-header { @apply mb-12 md:mb-16; }
+  .wp-section-header.center { @apply text-center; }
+  .wp-section-header.center .wp-eyebrow { @apply justify-center; }
 
-  /* Titre de section éditorial premium — aligné Hero/CTA */
   .wp-section-title {
-    @apply font-display text-3xl sm:text-4xl lg:text-5xl font-extrabold text-foreground tracking-tight leading-[1.05] mt-4;
+    @apply font-display text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight leading-[1.05] mt-5;
+    color: hsl(var(--primary-foreground));
+  }
+  .wp-section-title .text-secondary,
+  .wp-section-title .text-primary {
+    @apply bg-clip-text text-transparent;
+    background-image: linear-gradient(135deg, hsl(var(--secondary)), hsl(var(--accent)));
   }
   .wp-section-subtitle {
-    @apply text-muted-foreground text-sm sm:text-base leading-relaxed max-w-2xl mt-4;
+    @apply text-sm sm:text-base leading-relaxed max-w-2xl mt-4;
+    color: hsl(var(--primary-foreground) / 0.75);
   }
-  .wp-section-header.center .wp-section-subtitle {
-    @apply mx-auto;
-  }
+  .wp-section-header.center .wp-section-subtitle { @apply mx-auto; }
 
-  /* Variante dark/immersive (miroir du CTA pré-footer) */
-  .wp-section-dark {
-    @apply relative bg-primary text-primary-foreground border-t-2 border-b-2 border-foreground overflow-hidden;
-  }
-  .wp-section-dark .wp-section-title {
-    @apply text-primary-foreground;
-  }
-  .wp-section-dark .wp-section-subtitle {
-    @apply text-primary-foreground/80;
-  }
-  .wp-grid-pattern {
-    background-image:
-      linear-gradient(hsl(var(--primary-foreground)) 1px, transparent 1px),
-      linear-gradient(90deg, hsl(var(--primary-foreground)) 1px, transparent 1px);
-    background-size: 48px 48px;
-  }
+  /* Variante "dark" reste compatible (déjà sombre par défaut) */
+  .wp-section-dark { /* no-op alias */ }
 
-  /* Padding section unifié (aligné CTA: py-20 md:py-28) */
-  .wp-section {
-    @apply py-20 md:py-28;
-  }
-
-  /* Carte "bloc" : border-2 + hard offset shadow façon Gutenberg */
-  .wp-card {
-    @apply bg-card border-2 border-foreground/90 transition-all duration-200;
-    box-shadow: 6px 6px 0 0 hsl(var(--foreground));
-  }
-  .wp-card:hover {
-    transform: translate(-2px, -2px);
-    box-shadow: 10px 10px 0 0 hsl(var(--foreground));
-  }
+  /* Glass cards façon Hero */
+  .wp-card,
   .wp-card-soft {
-    @apply bg-card border-2 border-border transition-all duration-200;
+    @apply relative rounded-3xl backdrop-blur-2xl transition-all duration-300;
+    background: hsl(var(--primary-foreground) / 0.07);
+    border: 1px solid hsl(var(--primary-foreground) / 0.18);
+    box-shadow: 0 25px 60px -15px hsl(0 0% 0% / 0.5);
+    color: hsl(var(--primary-foreground));
   }
+  .wp-card:hover,
   .wp-card-soft:hover {
-    @apply border-primary;
-    box-shadow: 6px 6px 0 0 hsl(var(--primary));
+    background: hsl(var(--primary-foreground) / 0.12);
+    border-color: hsl(var(--secondary) / 0.5);
+    transform: translateY(-3px);
+    box-shadow: 0 35px 70px -15px hsl(0 0% 0% / 0.6);
   }
   .wp-card-primary {
-    @apply bg-card border-2 border-primary transition-all duration-200;
-    box-shadow: 6px 6px 0 0 hsl(var(--primary));
+    @apply relative rounded-3xl backdrop-blur-2xl transition-all duration-300;
+    background: linear-gradient(135deg, hsl(var(--primary-foreground) / 0.12), hsl(var(--secondary) / 0.08));
+    border: 1px solid hsl(var(--secondary) / 0.4);
+    box-shadow: 0 25px 60px -15px hsl(var(--secondary) / 0.3);
+    color: hsl(var(--primary-foreground));
   }
   .wp-card-primary:hover {
-    transform: translate(-2px, -2px);
-    box-shadow: 10px 10px 0 0 hsl(var(--primary));
+    border-color: hsl(var(--secondary) / 0.7);
+    transform: translateY(-3px);
   }
   .wp-card-destructive {
-    @apply bg-card border-2 border-destructive transition-all duration-200;
-    box-shadow: 6px 6px 0 0 hsl(var(--destructive));
+    @apply relative rounded-3xl backdrop-blur-2xl transition-all duration-300;
+    background: linear-gradient(135deg, hsl(var(--primary-foreground) / 0.08), hsl(var(--destructive) / 0.12));
+    border: 1px solid hsl(var(--destructive) / 0.45);
+    box-shadow: 0 25px 60px -15px hsl(var(--destructive) / 0.35);
+    color: hsl(var(--primary-foreground));
   }
   .wp-card-destructive:hover {
-    transform: translate(-2px, -2px);
-    box-shadow: 10px 10px 0 0 hsl(var(--destructive));
+    border-color: hsl(var(--destructive) / 0.7);
+    transform: translateY(-3px);
   }
 
-  /* CTA bloc rectangulaire — cohérent avec navbar */
+  /* Buttons façon Hero — pill + gradient + soft glow */
   .wp-btn-primary {
-    @apply inline-flex items-center justify-center gap-2 px-6 py-3 bg-primary text-primary-foreground text-xs font-bold uppercase tracking-[0.12em] border-2 border-primary transition-all duration-200;
+    @apply inline-flex items-center justify-center gap-2 px-6 py-3 rounded-full text-sm font-bold transition-all duration-200;
+    background: linear-gradient(135deg, hsl(var(--secondary)), hsl(var(--accent)));
+    color: hsl(var(--secondary-foreground));
+    box-shadow: 0 12px 30px -10px hsl(var(--secondary) / 0.55);
   }
   .wp-btn-primary:hover {
-    @apply bg-secondary text-secondary-foreground border-secondary;
+    transform: translateY(-2px);
+    box-shadow: 0 18px 40px -10px hsl(var(--secondary) / 0.7);
   }
   .wp-btn-outline {
-    @apply inline-flex items-center justify-center gap-2 px-6 py-3 bg-transparent text-foreground text-xs font-bold uppercase tracking-[0.12em] border-2 border-foreground transition-all duration-200;
+    @apply inline-flex items-center justify-center gap-2 px-6 py-3 rounded-full text-sm font-bold backdrop-blur-md transition-all duration-200;
+    background: hsl(var(--primary-foreground) / 0.1);
+    color: hsl(var(--primary-foreground));
+    border: 1px solid hsl(var(--primary-foreground) / 0.3);
   }
   .wp-btn-outline:hover {
-    @apply bg-foreground text-background;
+    background: hsl(var(--primary-foreground) / 0.18);
+    border-color: hsl(var(--primary-foreground) / 0.5);
+    transform: translateY(-2px);
   }
   .wp-btn-destructive {
-    @apply inline-flex items-center justify-center gap-2 px-6 py-3 bg-destructive text-destructive-foreground text-xs font-bold uppercase tracking-[0.12em] border-2 border-destructive transition-all duration-200;
+    @apply inline-flex items-center justify-center gap-2 px-6 py-3 rounded-full text-sm font-bold transition-all duration-200;
+    background: linear-gradient(135deg, hsl(var(--destructive)), hsl(16 90% 55%));
+    color: hsl(var(--destructive-foreground));
+    box-shadow: 0 12px 30px -10px hsl(var(--destructive) / 0.55);
   }
   .wp-btn-destructive:hover {
-    @apply bg-foreground border-foreground;
+    transform: translateY(-2px);
+    box-shadow: 0 18px 40px -10px hsl(var(--destructive) / 0.7);
   }
 
-  /* Séparateur de section type WP */
-  .wp-section-divider {
-    @apply relative border-t-2 border-foreground/10;
-  }
-
-  /* Filet vertical décoratif pour numéros / steps */
+  /* Numéro décoratif en mode clair (gardé pour compat) */
   .wp-number {
-    @apply font-display text-5xl font-black text-primary/15 leading-none select-none;
+    @apply font-display text-5xl font-black leading-none select-none;
+    color: hsl(var(--primary-foreground) / 0.15);
   }
+
+  /* ──────────────────────────────────────────────
+     Scoped overrides : neutraliser le langage clair
+     des composants à l'intérieur des wp-section.
+     ────────────────────────────────────────────── */
+  .wp-section .text-foreground { color: hsl(var(--primary-foreground)) !important; }
+  .wp-section .text-muted-foreground { color: hsl(var(--primary-foreground) / 0.7) !important; }
+  .wp-section .text-foreground\/85,
+  .wp-section .text-foreground\/90 { color: hsl(var(--primary-foreground) / 0.9) !important; }
+  .wp-section [class*="border-foreground"] { border-color: hsl(var(--primary-foreground) / 0.2) !important; }
+  .wp-section [class*="divide-foreground"] > * + * { border-color: hsl(var(--primary-foreground) / 0.2) !important; }
+  .wp-section .bg-card {
+    background: hsl(var(--primary-foreground) / 0.07) !important;
+    backdrop-filter: blur(20px);
+  }
+  .wp-section [class*="bg-muted"] { background: hsl(var(--primary-foreground) / 0.05) !important; }
+  .wp-section .bg-background { background: hsl(var(--primary-foreground) / 0.08) !important; }
+  .wp-section .bg-primary {
+    background: linear-gradient(135deg, hsl(var(--secondary)), hsl(var(--accent))) !important;
+    color: hsl(var(--secondary-foreground)) !important;
+  }
+  .wp-section .text-primary { color: hsl(var(--secondary)) !important; }
+  .wp-section .border-primary { border-color: hsl(var(--secondary) / 0.5) !important; }
+  /* Adoucir tous les coins durs hérités */
+  .wp-section [class^="border-2"],
+  .wp-section [class*=" border-2"] { border-width: 1px !important; }
 }
 
 @layer utilities {
