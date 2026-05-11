@@ -336,7 +336,7 @@ const ServiceCard = ({ service }: { service: (typeof otherServices)[0] }) => {
 /* ─── Section principale ─── */
 const ServicesSection = () => {
   return (
-    <section id="services" className="section-spacing-lg bg-muted/30 relative overflow-hidden">
+    <section id="services" className="wp-section bg-muted/30 relative overflow-hidden">
       {/* Background pattern */}
       <div
         className="absolute inset-0 opacity-[0.03]"
