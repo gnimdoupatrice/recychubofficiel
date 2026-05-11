@@ -122,7 +122,7 @@ const AboutSection = () => {
           <div className="wp-section-header center">
             <span className="wp-eyebrow">Notre réponse</span>
             <h3 className="wp-section-title">
-              Transformer les défis en <span className="text-primary">opportunités</span>
+              Transformer les défis en <span className="text-secondary">opportunités</span>
             </h3>
             <p className="wp-section-subtitle">
               Une vision claire, une mission concrète, des objectifs mesurables.
