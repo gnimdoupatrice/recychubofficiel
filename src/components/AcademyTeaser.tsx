@@ -9,7 +9,7 @@ const features = [
 ];
 
 const AcademyTeaser = () => (
-  <section className="wp-section bg-muted/40">
+  <section className="wp-section wp-section-glow-secondary">
     <div className="container mx-auto px-4">
       <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
         {/* Text */}

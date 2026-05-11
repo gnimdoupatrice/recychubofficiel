@@ -44,7 +44,7 @@ const AboutSection = () => {
   const [activeChallenge, setActiveChallenge] = useState(0);
 
   return (
-    <section id="pourquoi" className="wp-section bg-background overflow-hidden">
+    <section id="pourquoi" className="wp-section wp-section-glow-accent overflow-hidden">
       <div className="container mx-auto px-4">
         {/* Section header */}
         <div className="wp-section-header center">
