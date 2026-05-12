@@ -53,7 +53,7 @@ const AboutSection = () => {
             RECYC<span className="text-secondary">HUB</span> TOGO
           </h2>
           <p className="wp-section-subtitle">
-            Trois défis majeurs freinent la gestion des déchets au Togo. Nous les transformons en opportunités.
+            Trois défis majeurs freinent la gestion des déchets au Togo. Nous les transformons en opportunités        .
           </p>
         </div>
 
