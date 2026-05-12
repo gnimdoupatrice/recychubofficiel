@@ -1,9 +1,10 @@
 import SEO from "@/components/SEO";
 import HeroSection from "@/components/HeroSection";
 import AboutSection from "@/components/AboutSection";
-import SolutionsSection from "@/components/SolutionsSection";
+import ServicesSection from "@/components/ServicesSection";
 import HowItWorks from "@/components/HowItWorks";
 import EventsHubSection from "@/components/EventsHubSection";
+import FAQSection from "@/components/FAQSection";
 import TestimonialsSection from "@/components/TestimonialsSection";
 import PartnersSection from "@/components/PartnersSection";
 import CTASection from "@/components/CTASection";
@@ -56,9 +57,10 @@ const Index = () => {
       />
       <HeroSection />
       <AboutSection />
-      <SolutionsSection />
+      <ServicesSection />
       <HowItWorks />
       <EventsHubSection />
+      <FAQSection />
       <TestimonialsSection />
       <PartnersSection />
       <CTASection />
