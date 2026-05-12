@@ -35,7 +35,7 @@ const FAQSection = () => {
   return (
     <section
       id="faq"
-      className="bg-white py-24 md:py-32 px-6 md:px-12 lg:px-24 font-inter"
+      className="bg-[hsl(150_14%_97%)] py-24 md:py-32 px-6 md:px-12 lg:px-24 font-inter"
     >
       <div className="max-w-5xl mx-auto">
         <div className="mb-16 md:mb-20 max-w-3xl">
