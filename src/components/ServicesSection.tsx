@@ -212,7 +212,7 @@ const ServicesSection = () => {
         <span className="text-primary font-semibold tracking-[0.2em] text-xs uppercase">
           Catalogue de rachat
         </span>
-          <h2 className="font-editorial font-bold text-4xl md:text-5xl lg:text-6xl text-foreground leading-[1.05] mb-6">
+        <h2 className="mt-6 font-editorial font-bold text-4xl md:text-5xl lg:text-6xl text-foreground leading-[1.05] mb-6">
             Vos déchets plastiques,{" "}
             <span className="italic text-primary">une vraie monnaie</span>.
           </h2>
