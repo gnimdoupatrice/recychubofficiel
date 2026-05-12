@@ -1,7 +1,11 @@
 import SEO from "@/components/SEO";
 import HeroSection from "@/components/HeroSection";
 import AboutSection from "@/components/AboutSection";
+import SolutionProSection from "@/components/SolutionProSection";
 import ServicesSection from "@/components/ServicesSection";
+import CivicTechSection from "@/components/CivicTechSection";
+import GreenAcademySection from "@/components/GreenAcademySection";
+import ImpactStatsSection from "@/components/ImpactStatsSection";
 import HowItWorks from "@/components/HowItWorks";
 import EventsHubSection from "@/components/EventsHubSection";
 import FAQSection from "@/components/FAQSection";
@@ -57,7 +61,11 @@ const Index = () => {
       />
       <HeroSection />
       <AboutSection />
+      <SolutionProSection />
       <ServicesSection />
+      <CivicTechSection />
+      <GreenAcademySection />
+      <ImpactStatsSection />
       <HowItWorks />
       <EventsHubSection />
       <FAQSection />
