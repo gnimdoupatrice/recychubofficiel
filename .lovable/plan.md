@@ -1,79 +1,93 @@
-# Plan de refonte de la page d'accueil
+## Objectif
 
-Direction visuelle validée : **Editorial Impact Report** (fond clair `#F9FAFB`, Playfair Display + Inter, accents emerald, numérotation 01/02/03, mise en page éditoriale alternée image/texte).
+Mettre Solution Pro (digitalisation B2B) avant le système de rachat, et donner à chacun des trois piliers (Solution Pro, Civic Tech / Alerte dépotoir, Green Academy) une section plein écran dédiée à valeur éditoriale. Compléter ce qui manque à la home pour qu'elle paraisse pleinement professionnelle. Régénérer / réadapter les images de chaque étape (sauf celles du catalogue de rachat).
 
-## 1. Nouvelle section "Pourquoi RECYCHUB TOGO ?"
+## 1. Réorganisation de la home
 
-Remplacer les 4 cartes actuelles par **3 cartes pleine largeur** en mise en page éditoriale alternée (image à droite / texte à gauche, puis inversé).
-
-- **Carte 01 — Systèmes de collecte défaillants**
-  Badge : `DÉFICIT LOGISTIQUE`
-  Les entreprises de pré-collecte opèrent à l'aveugle, sans données précises sur les flux. Tournées sous-optimisées, gaspillage de carburant, temps d'intervention prolongé.
-
-- **Carte 02 — Dépotoirs invisibles**
-  Badge : `CÉCITÉ GÉOGRAPHIQUE`
-  Visibles des citoyens mais absents de toute comptabilité institutionnelle. L'absence de cartographie dynamique empêche la mesure réelle et l'allocation des ressources.
-
-- **Carte 03 — Potentiel économique inexploité**
-  Badge : `VALEUR CACHÉE`
-  Les déchets recyclables ont une valeur marchande réelle. Sans circuit de rachat structuré, cette ressource est perdue alors qu'elle pourrait générer revenus et emplois locaux.
-
-Chaque carte : numéro géant en Playfair `01/02/03`, titre, paragraphe avec mots-clés en gras, badge bas, image éditoriale avec ombre décalée verte.
-
-## 2. Nouvelle section "Notre réponse" (Vision / Mission / Objectifs)
-
-Section **insérée juste après "Pourquoi"**, dans le même esprit éditorial mais plus dense (3 colonnes ou bloc structuré) :
-
-- **Vision** — La phrase de vision actuelle du projet
-- **Mission** — La mission opérationnelle
-- **Objectifs** — 3 à 4 objectifs clés sous forme de liste numérotée ou puces fines
-
-Style : fond contrasté (carte sombre `#0c2419` ou bande claire avec filets verts), typo Playfair pour les libellés, Inter pour le corps.
-
-## 3. Nouvelle section "Nos solutions"
-
-Section dédiée aux 4 piliers fonctionnels (avant "Comment ça marche") :
-
-1. **Système de collecte intelligent** (tournées optimisées, données temps réel)
-2. **Système de rachat** (tel qu'il existe actuellement)
-3. **Alertes dépotoirs** (signalement citoyen + cartographie)
-4. **Green Academy** (formation, sensibilisation)
-
-Format : grille 2x2 ou 4 cartes alignées avec icône, titre, courte description et lien "En savoir plus". Style cohérent avec la nouvelle ligne éditoriale (cartes claires, accent emerald, typo mixte).
-
-## 4. Restructuration de l'ordre des sections
-
-Nouvel ordre de la home :
+Nouvel ordre dans `src/pages/Index.tsx` :
 
 ```text
-1. Hero (inchangé)
-2. Pourquoi RECYCHUB TOGO ?         ← refonte (3 cartes éditoriales)
-3. Notre réponse (Vision/Mission/Objectifs)  ← nouvelle section
-4. Nos solutions (4 piliers)        ← nouvelle section
-5. Comment ça marche                ← conservé, déplacé après "Nos solutions"
-6. Hub événementiel (blog opportunités)  ← nouvelle section (placeholder + lien vers route blog)
-7. Footer / CTA final
+Hero
+AboutSection ("Pourquoi" — état des lieux)
+SolutionProSection      ← NOUVEAU plein écran (avant le rachat)
+ServicesSection         ← Catalogue de rachat (inchangé sur le fond)
+CivicTechSection        ← NOUVEAU plein écran (Alerte dépotoir)
+GreenAcademySection     ← NOUVEAU plein écran (Academy)
+ImpactStatsSection      ← NOUVEAU (chiffres clés)
+HowItWorks
+EventsHubSection
+FAQSection
+TestimonialsSection
+PartnersSection
+CTASection
 ```
 
-Sections actuelles à **supprimer / fusionner** : les anciennes cartes "défis" et tout doublon entre l'ancien bloc "Pourquoi" et la nouvelle structure.
+`SolutionsSection` (la grille 4-cartes) est retiré de la home : ses contenus sont absorbés par les trois sections plein écran. La page `/solutions` est conservée.
 
-## 5. Hub événementiel
+## 2. Trois sections plein écran (style Editorial Impact)
 
-Sur la home : **aperçu** type blog (3 dernières opportunités/événements) avec image, date, titre, extrait, lien "Lire". Bouton "Voir toutes les opportunités" → route dédiée `/opportunites` (ou `/blog`) à créer dans une étape ultérieure (cette étape ne fera que l'aperçu + la route vide prête à recevoir le contenu).
+Chacune occupe `min-h-screen`, fond contrasté, mise en page éditoriale (numéro géant 01/02/03, titre Playfair, image principale large, liste de bénéfices, micro-stats, CTA double).
 
-## Détails techniques
+### `SolutionProSection.tsx` (nouveau, plein écran)
+- Eyebrow : « Solution Pro — B2B »
+- Titre : « La plateforme qui pilote la collecte »
+- Cible : entreprises de pré-collecte, mairies, PME assainissement
+- 4 fonctionnalités : Optimisation des tournées, Suivi temps réel, Tableau de bord & reporting, Gestion abonnements & facturation
+- 3 micro-stats (ex. -35% km parcourus, +60% ménages desservis, 100% traçabilité)
+- CTA : « Découvrir Solution Pro » + « Demander une démo »
+- Visuel : nouvelle image générée (dashboard logistique sur tablette/terrain)
 
-- Ajout des tokens design (couleurs emerald foncé, ombres décalées, fonts Playfair Display + Inter) dans `src/styles.css` — pas de couleurs en dur dans les composants.
-- Nouveaux composants dans `src/components/home/` : `WhySection.tsx`, `OurResponseSection.tsx`, `SolutionsSection.tsx`, `EventsHubSection.tsx`.
-- Mise à jour de `src/routes/index.tsx` pour le nouvel ordre.
-- Création de la route `/opportunites` (page liste vide prête à être alimentée).
-- Images éditoriales : générées via `imagegen` (style documentaire/éditorial Afrique de l'Ouest) ou placeholders en attendant validation visuelle.
-- Responsive : empilement mobile, alternance image/texte uniquement ≥ md.
+### `CivicTechSection.tsx` (nouveau, plein écran)
+- Eyebrow : « Civic Tech »
+- Titre : « Rendre visibles les dépotoirs invisibles »
+- 3 piliers : Signalement géolocalisé en 3 clics, Cartographie dynamique, Notifications d'intervention
+- 3 micro-stats (alertes traitées, sites résolus, communautés actives)
+- CTA : « Signaler un dépotoir » + « Voir la carte »
+- Visuel : nouvelle image (citoyen + smartphone géolocalisation)
 
-## Hors périmètre de ce plan
+### `GreenAcademySection.tsx` (nouveau, plein écran)
+- Eyebrow : « Formation »
+- Titre : « Former la prochaine génération du recyclage »
+- 3 parcours : Tri & recyclage, Économie circulaire, Entrepreneuriat vert
+- Indicateurs : modules, certifiés, taux de complétion
+- CTA : « Explorer les formations » + « Devenir ambassadeur »
+- Visuel : nouvelle image (atelier de formation au Togo)
 
-- Le contenu réel des articles du Hub événementiel (CMS / base de données).
-- Les pages détail de chaque solution (créées séparément si besoin).
-- Refonte du Hero, du Footer ou du header (sauf ajustements mineurs si requis pour cohérence).
+## 3. Éléments ajoutés pour rehausser le niveau pro
 
-Validez ce plan ou indiquez les ajustements à apporter avant que je passe à l'implémentation.
+Analyse du manque actuel : la home enchaîne piliers et opportunités sans preuves chiffrées ni preuves « presse / institutionnel ». Ajouts proposés :
+
+1. `ImpactStatsSection` — bandeau éditorial chiffres clés (kg collectés, ménages desservis, alertes traitées, certifiés Academy) avec une note méthodologique discrète.
+2. Renforcement du bloc presse / partenaires institutionnels dans `PartnersSection` (logos en niveaux de gris, mention « Ils nous accompagnent »).
+3. (Léger) Réécriture du sous-titre Hero pour une promesse plus institutionnelle ; aucun changement structurel du Hero.
+
+Tout reste dans la ligne « Editorial Impact Report » (Playfair Display + Inter, accent emerald, fond `hsl(150 14% 97%)` alterné avec blanc et `bg-foreground` pour les sections sombres).
+
+## 4. Images régénérées / réadaptées
+
+Hors catalogue de rachat (laissé intact). Génération en `imagegen` standard, format paysage, palette éditoriale (vert profond, neige, terracotta léger).
+
+| Emplacement | Asset | Sujet |
+|---|---|---|
+| AboutSection 01 | `challenge-1.jpg` | Tournée de collecte désorganisée à Kara, vue éditoriale |
+| AboutSection 02 | `challenge-2.jpg` | Dépotoir sauvage en bord de route, ambiance documentaire |
+| AboutSection 03 | `challenge-3.jpg` | Mains tenant des bouteilles plastique triées, lumière chaude |
+| SolutionProSection | `solution-pro-hero.jpg` | Agent terrain consultant un dashboard sur tablette |
+| CivicTechSection | `civictech-hero.jpg` | Citoyen photographiant un dépotoir, géolocalisation visible |
+| GreenAcademySection | `academy-hero.jpg` | Atelier de formation au tri, jeunes apprenants togolais |
+| EventsHub (3 cartes) | `event-1/2/3.jpg` | Bénévoles, collecte géante, formation certifiante |
+
+Les illustrations « step-*.png » (HowItWorks) restent telles quelles ; elles servent un autre composant et ne font pas partie des sections refondues.
+
+## 5. Détails techniques
+
+- Pas de toucher à `ServicesSection.tsx` (catalogue de rachat) ni aux images plastiques.
+- Trois nouveaux composants dans `src/components/` : `SolutionProSection.tsx`, `CivicTechSection.tsx`, `GreenAcademySection.tsx`, `ImpactStatsSection.tsx`.
+- Mise à jour de `src/pages/Index.tsx` (ordre + imports).
+- Génération d'assets via `imagegen--generate_image` en `model: standard`, ratio 16:9, sortie `.jpg` dans `src/assets/`.
+- Import direct ES6 des images (pas d'externalisation).
+- Conservation de la page `/solutions` qui agrège `SolutionsSection` (vue récap dédiée).
+
+## Validation
+
+Après build : vérification visuelle des 3 sections plein écran sur viewport 783×586 (mobile-like) et desktop, contraste lisible, cohérence Playfair / Inter, ordre respecté.
