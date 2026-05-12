@@ -7,7 +7,6 @@ import StepContent from "./how-it-works/StepContent";
 const HowItWorks = () => {
   const [activeService, setActiveService] = useState(0);
   const [activeStep, setActiveStep] = useState(0);
-
   const currentService = services[activeService];
 
   const handleServiceChange = (index: number) => {
@@ -16,40 +15,33 @@ const HowItWorks = () => {
   };
 
   return (
-    <section className="wp-section wp-section-glow-secondary relative overflow-hidden">
-      {/* Subtle background pattern */}
-      <div className="absolute inset-0 opacity-[0.03]" style={{
-        backgroundImage: "radial-gradient(hsl(var(--primary)) 1px, transparent 1px)",
-        backgroundSize: "24px 24px",
-      }} />
-
-      <div className="container mx-auto px-4 relative z-10">
-        {/* Header */}
-        <div className="wp-section-header center">
-          <span className="wp-eyebrow">Mode d'emploi</span>
-          <h2 className="wp-section-title">
-            Comment ça <span className="text-secondary">marche</span> ?
+    <section className="bg-[hsl(150_14%_97%)] py-24 md:py-32 px-6 md:px-12 lg:px-24 font-inter">
+      <div className="max-w-7xl mx-auto">
+        <div className="mb-16 md:mb-20 text-center max-w-2xl mx-auto">
+          <span className="text-primary font-semibold tracking-[0.2em] text-xs uppercase">
+            Mode d'emploi
+          </span>
+          <h2 className="mt-6 font-editorial font-bold text-4xl md:text-5xl text-foreground leading-tight">
+            Comment ça{" "}
+            <span className="italic text-primary">marche</span> ?
           </h2>
-          <p className="wp-section-subtitle">
-            Choisissez un service et découvrez son fonctionnement en 4 étapes.
+          <p className="mt-6 text-muted-foreground font-light text-lg italic">
+            Choisissez un service et suivez le parcours en quatre étapes.
           </p>
         </div>
 
-        {/* Service tabs */}
         <ServiceTabs
           services={services}
           activeService={activeService}
           onSelect={handleServiceChange}
         />
 
-        {/* Service intro */}
         <div className="text-center mb-10">
-          <p className="text-muted-foreground max-w-2xl mx-auto text-base md:text-lg italic">
+          <p className="text-muted-foreground max-w-2xl mx-auto text-base md:text-lg italic font-light">
             {currentService.intro}
           </p>
         </div>
 
-        {/* Steps timeline + content */}
         <div className="max-w-6xl mx-auto">
           <StepTimeline
             steps={currentService.steps}
