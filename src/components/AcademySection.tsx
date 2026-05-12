@@ -27,7 +27,7 @@ const AcademySection = () => {
           <p className="text-sm font-semibold text-accent uppercase tracking-wider mb-2">Formation</p>
           <h2 className="text-3xl md:text-4xl font-bold text-foreground">Green Academy</h2>
           <p className="mt-4 text-muted-foreground">
-            Des formations pratiques pour construire un avenir vert.
+            Des formations pratiques pour construire un avenir vert    .
           </p>
         </div>
 
