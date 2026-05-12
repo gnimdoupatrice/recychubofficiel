@@ -209,15 +209,9 @@ const ServicesSection = () => {
     >
       <div className="max-w-7xl mx-auto">
         <div className="mb-16 md:mb-20 max-w-3xl">
-          <div className="flex items-center gap-4 mb-6">
-            <span className="font-editorial font-bold text-7xl text-primary/15 leading-none">
-              02
-            </span>
-            <div className="h-px flex-1 bg-foreground/15 max-w-[80px]" />
-            <span className="text-[10px] font-semibold tracking-[0.22em] uppercase text-primary">
-              Catalogue de rachat
-            </span>
-          </div>
+        <span className="text-primary font-semibold tracking-[0.2em] text-xs uppercase">
+          Catalogue de rachat
+        </span>
           <h2 className="font-editorial font-bold text-4xl md:text-5xl lg:text-6xl text-foreground leading-[1.05] mb-6">
             Vos déchets plastiques,{" "}
             <span className="italic text-primary">une vraie monnaie</span>.
