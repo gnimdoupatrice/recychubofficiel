@@ -5,7 +5,7 @@ import challenge3 from "@/assets/challenge-3.jpg";
 
 const cards = [
   {
-    number: "01",
+    number: "I",
     badge: "DÉFICIT LOGISTIQUE",
     title: "Systèmes de collecte défaillants",
     body: (
@@ -21,7 +21,7 @@ const cards = [
     align: "left" as const,
   },
   {
-    number: "02",
+    number: "II",
     badge: "CÉCITÉ GÉOGRAPHIQUE",
     title: "Dépotoirs invisibles",
     body: (
@@ -39,7 +39,7 @@ const cards = [
     align: "right" as const,
   },
   {
-    number: "03",
+    number: "III",
     badge: "VALEUR CACHÉE",
     title: "Potentiel économique inexploité",
     body: (

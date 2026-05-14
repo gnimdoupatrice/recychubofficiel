@@ -1,5 +1,5 @@
 import { useState, useEffect, useCallback } from "react";
-import { ArrowRight, ShoppingBag, Truck, Phone, MapPin, AlertTriangle, Coins, Sparkles } from "lucide-react";
+import { ArrowRight, ShoppingBag, Truck, Phone, MapPin, AlertTriangle, Coins } from "lucide-react";
 import { Link } from "react-router-dom";
 
 import purWater from "@/assets/hero/pur_water.jpg";
@@ -61,22 +61,24 @@ const HeroSection = () => {
         <div className="max-w-6xl mx-auto">
           
           <div className="flex justify-center mb-6">
-            <span className="inline-flex items-center gap-2 px-4 py-2 rounded-full text-[11px] sm:text-xs font-bold uppercase tracking-[0.2em] bg-white/10 text-white border border-white/20 backdrop-blur-md shadow-lg animate-slide-up">
-              <Sparkles className="w-3.5 h-3.5 text-secondary" />
-              Bienvenue sur RECYC HUB TOGO
+            <span className="inline-flex items-center gap-3 px-4 py-1.5 text-[11px] font-semibold uppercase tracking-[0.28em] text-white/85 animate-slide-up">
+              <span className="w-8 h-px bg-secondary/70" />
+              Plateforme phygitale · Kara
+              <span className="w-8 h-px bg-secondary/70" />
             </span>
           </div>
 
           {/* Titre principal — neutre, double promesse */}
           <h1
-            className="font-display text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold leading-[1.05] tracking-tight text-center text-white mb-5 animate-slide-up"
+            className="font-editorial font-bold text-4xl sm:text-5xl md:text-6xl lg:text-[4.25rem] leading-[1.05] tracking-tight text-center text-white mb-6 animate-slide-up"
             style={{ animationDelay: "0.05s" }}
           >
-            Faites collecter vos déchets ménagers et 
+            Faites collecter vos déchets ménagers et{" "}
             <br className="hidden sm:block" />
-            <span className="bg-clip-text text-transparent bg-gradient-to-r from-secondary via-secondary to-accent">
-              {" "}vendez vos plastiques en quelques clics.
-            </span>
+            <span className="italic bg-clip-text text-transparent bg-gradient-to-r from-secondary via-secondary to-accent">
+              vendez vos plastiques
+            </span>{" "}
+            en quelques clics.
           </h1>
 
           <p

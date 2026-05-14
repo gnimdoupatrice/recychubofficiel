@@ -81,8 +81,11 @@ const Navbar = () => {
         } flex items-center`}
       >
         <div className="container mx-auto px-4 lg:px-8 flex items-center justify-between gap-6 w-full">
-          <Link to="/" className="flex items-center group shrink-0" aria-label="RecycHub Togo — Accueil">
-            <img src={logoImg} alt="RecycHub Togo" className="w-10 h-10 sm:w-11 sm:h-11 object-contain transition-transform group-hover:scale-105 drop-shadow-lg" />
+          <Link to="/" className="flex items-center gap-2.5 group shrink-0" aria-label="RecycHub Togo — Accueil">
+            <img src={logoImg} alt="RecycHub Togo" className="w-9 h-9 sm:w-10 sm:h-10 object-contain transition-transform group-hover:scale-105 drop-shadow-lg" />
+            <span className="hidden sm:inline-block font-editorial font-bold text-[15px] tracking-tight text-white leading-none">
+              RECYC <span className="italic text-secondary">HUB</span>
+            </span>
           </Link>
 
           <div className="hidden lg:flex items-center gap-1.5 xl:gap-2">
