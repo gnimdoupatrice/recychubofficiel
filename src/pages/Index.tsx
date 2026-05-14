@@ -65,12 +65,12 @@ const Index = () => {
       <ServicesSection />
       <CivicTechSection />
       <GreenAcademySection />
-      <ImpactStatsSection />
       <HowItWorks />
-      <EventsHubSection />
-      <FAQSection />
+      <ImpactStatsSection />
       <TestimonialsSection />
       <PartnersSection />
+      <EventsHubSection />
+      <FAQSection />
       <CTASection />
       <WhatsAppButton />
     </div>
