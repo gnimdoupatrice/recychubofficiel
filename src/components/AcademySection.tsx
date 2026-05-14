@@ -44,7 +44,7 @@ const AcademySection = () => {
         </div>
 
         <div className="text-center">
-          <Button variant="default" size="lg">Découvrir la Green Academy</Button>
+          <Button variant="default" size="lg">Découvrir la Green Academy    </Button>
         </div>
       </div>
     </section>
