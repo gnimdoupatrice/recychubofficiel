@@ -14,10 +14,19 @@ export default {
     },
     extend: {
       fontFamily: {
-        display: ['"Outfit"', 'sans-serif'],
-        body: ['"DM Sans"', 'system-ui', 'sans-serif'],
-        editorial: ['"Playfair Display"', 'Georgia', 'serif'],
-        inter: ['"Inter"', 'system-ui', 'sans-serif'],
+        display: ['"Instrument Serif"', 'Georgia', 'serif'],
+        body: ['"Work Sans"', 'system-ui', 'sans-serif'],
+        editorial: ['"Instrument Serif"', 'Georgia', 'serif'],
+        inter: ['"Work Sans"', 'system-ui', 'sans-serif'],
+      },
+      colors: {
+        clay: 'hsl(var(--clay))',
+        'clay-deep': 'hsl(var(--clay-deep))',
+        ink: 'hsl(var(--ink))',
+        cream: 'hsl(var(--cream))',
+        sage: 'hsl(var(--sage))',
+        forest: 'hsl(var(--forest))',
+        ochre: 'hsl(var(--ochre))',
       },
       colors: {
         border: "hsl(var(--border))",
