@@ -14,10 +14,11 @@ export default {
     },
     extend: {
       fontFamily: {
-        display: ['"Outfit"', 'sans-serif'],
-        body: ['"DM Sans"', 'system-ui', 'sans-serif'],
-        editorial: ['"Playfair Display"', 'Georgia', 'serif'],
-        inter: ['"Inter"', 'system-ui', 'sans-serif'],
+        display: ['"Instrument Serif"', '"Playfair Display"', 'Georgia', 'serif'],
+        body: ['"Inter Tight"', 'system-ui', 'sans-serif'],
+        editorial: ['"Instrument Serif"', 'Georgia', 'serif'],
+        inter: ['"Inter Tight"', 'system-ui', 'sans-serif'],
+        mono: ['"JetBrains Mono"', 'ui-monospace', 'monospace'],
       },
       colors: {
         border: "hsl(var(--border))",
