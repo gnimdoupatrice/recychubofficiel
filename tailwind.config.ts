@@ -63,6 +63,12 @@ export default {
         },
         earth: "hsl(var(--earth))",
         sage: "hsl(var(--sage))",
+        clay: "hsl(var(--clay))",
+        "clay-deep": "hsl(var(--clay-deep))",
+        ink: "hsl(var(--ink))",
+        cream: "hsl(var(--cream))",
+        forest: "hsl(var(--forest))",
+        ochre: "hsl(var(--ochre))",
         sidebar: {
           DEFAULT: "hsl(var(--sidebar-background))",
           foreground: "hsl(var(--sidebar-foreground))",
