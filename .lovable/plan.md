@@ -1,79 +1,93 @@
-# Refonte RECYC HUB TOGO — Direction "Émeraude Éditorial"
+## Objectif
 
-Direction artistique choisie en tant qu'expert : un croisement entre la sobriété Apple, la rigueur éditoriale d'un magazine (Kinfolk / National Geographic) et la fierté civique africaine. Premium, crédible, mémorable — loin du look "ONG générique".
+Mettre Solution Pro (digitalisation B2B) avant le système de rachat, et donner à chacun des trois piliers (Solution Pro, Civic Tech / Alerte dépotoir, Green Academy) une section plein écran dédiée à valeur éditoriale. Compléter ce qui manque à la home pour qu'elle paraisse pleinement professionnelle. Régénérer / réadapter les images de chaque étape (sauf celles du catalogue de rachat).
 
-## Identité visuelle
+## 1. Réorganisation de la home
 
-**Palette — Émeraude Prestige + Terre**
-- Fond principal : `#0B1F17` (vert-nuit profond, presque noir)
-- Surface : `#0F2A20` / `#143329`
-- Vert signature : `#1F8A5C` (émeraude vivant)
-- Vert lumière : `#34D399` (highlights, CTAs hover)
-- Or sable : `#D4A24C` (accent rare, pour chiffres-clés et badges premium)
-- Crème papier : `#F5F0E0` (texte sur fond sombre)
-- Terracotta `#C4654A` réservé aux alertes (dépotoir sauvage)
+Nouvel ordre dans `src/pages/Index.tsx` :
 
-**Typographie**
-- Titres : **Instrument Serif** (italique pour les mots emphasés — "plastiques", "Kara")
-- Corps & UI : **Inter Tight** (lisible, moderne, neutre)
-- Mono accent (chiffres-clés, codes prix) : **JetBrains Mono**
-- Installation via `@fontsource` (pas de CDN)
-
-**Principe : éditorial sombre.** Fond sombre par défaut sur le hero et les sections-clés, sections crème pour respiration. Sandwich dark → light → dark.
-
-## Structure de la page d'accueil
-
-```
-1. NAV         minimaliste, transparente, blur au scroll
-2. HERO        éditorial — grand titre serif + photo terrain Kara en split
-3. DUO         deux parcours (Vendre / Enlèvement) — cartes verre dépoli
-4. CHIFFRES    bandeau crème, gros chiffres mono + or — 2500 kg, X foyers
-5. COMMENT     timeline 3 étapes, illustrations vectorielles minimales
-6. ALERTE      bandeau terracotta — signaler un dépotoir (CTA fort)
-7. ACADEMY     teaser éducation — image + texte éditorial
-8. IMPACT      témoignages + carte Kara stylisée
-9. PARTENAIRES logos en niveaux de gris
-10. CTA FINAL  pleine largeur sombre, serif imposant
-11. FOOTER     dense, structuré 4 colonnes
+```text
+Hero
+AboutSection ("Pourquoi" — état des lieux)
+SolutionProSection      ← NOUVEAU plein écran (avant le rachat)
+ServicesSection         ← Catalogue de rachat (inchangé sur le fond)
+CivicTechSection        ← NOUVEAU plein écran (Alerte dépotoir)
+GreenAcademySection     ← NOUVEAU plein écran (Academy)
+ImpactStatsSection      ← NOUVEAU (chiffres clés)
+HowItWorks
+EventsHubSection
+FAQSection
+TestimonialsSection
+PartnersSection
+CTASection
 ```
 
-## Détails de craft
+`SolutionsSection` (la grille 4-cartes) est retiré de la home : ses contenus sont absorbés par les trois sections plein écran. La page `/solutions` est conservée.
 
-- **Grille 12 colonnes**, gutter 24px, marges généreuses (≥ 96px desktop)
-- **Micro-interactions Framer Motion** : fade-up au scroll (16px, 600ms ease-out), parallax léger sur images hero, hover scale 1.02 sur cartes
-- **Photos terrain** : traitement uniforme — léger contraste +, désaturation -10%, overlay vert nuit 20% pour cohésion
-- **Iconographie** : Lucide en stroke 1.5, jamais remplis, dans cercles `bg-emerald-500/10`
-- **Bordures** : `1px solid rgba(212,162,76,0.15)` — l'or comme liseré rare
-- **Radius** : 16px sur cartes, 999px sur badges, 8px sur inputs
-- **Mobile-first** : sticky bar repensée (verre dépoli, 2 CTAs équilibrés)
-- **Accessibilité** : contraste AAA sur tous les textes, focus rings or visibles
+## 2. Trois sections plein écran (style Editorial Impact)
 
-## Ce qui change concrètement
+Chacune occupe `min-h-screen`, fond contrasté, mise en page éditoriale (numéro géant 01/02/03, titre Playfair, image principale large, liste de bénéfices, micro-stats, CTA double).
 
-- Refonte **Hero** : passage à un layout split éditorial avec photo terrain Kara
-- Refonte **Navbar** : minimaliste, logo simplifié, nav typographique
-- Refonte **cartes services** : style "verre dépoli" sur fond éditorial
-- Nouveau **bandeau chiffres** crème avec typo mono géante
-- Refonte **footer** : 4 colonnes structurées, dense, premium
-- **Tokens design** : remplacement complet de `src/index.css` (palette, typo, ombres, gradients)
-- **Tailwind config** : nouvelles familles de fonts, nouveaux tokens couleurs
-- Pages internes (Solutions, Academy, Alerte…) : application des nouveaux tokens — pas de refonte structurelle dans cette première passe
+### `SolutionProSection.tsx` (nouveau, plein écran)
+- Eyebrow : « Solution Pro — B2B »
+- Titre : « La plateforme qui pilote la collecte »
+- Cible : entreprises de pré-collecte, mairies, PME assainissement
+- 4 fonctionnalités : Optimisation des tournées, Suivi temps réel, Tableau de bord & reporting, Gestion abonnements & facturation
+- 3 micro-stats (ex. -35% km parcourus, +60% ménages desservis, 100% traçabilité)
+- CTA : « Découvrir Solution Pro » + « Demander une démo »
+- Visuel : nouvelle image générée (dashboard logistique sur tablette/terrain)
 
-## Détails techniques
+### `CivicTechSection.tsx` (nouveau, plein écran)
+- Eyebrow : « Civic Tech »
+- Titre : « Rendre visibles les dépotoirs invisibles »
+- 3 piliers : Signalement géolocalisé en 3 clics, Cartographie dynamique, Notifications d'intervention
+- 3 micro-stats (alertes traitées, sites résolus, communautés actives)
+- CTA : « Signaler un dépotoir » + « Voir la carte »
+- Visuel : nouvelle image (citoyen + smartphone géolocalisation)
 
-- Installation : `@fontsource/instrument-serif`, `@fontsource/inter-tight`, `@fontsource/jetbrains-mono`
-- Imports dans `src/main.tsx`
-- Mise à jour `tailwind.config.ts` : `fontFamily.serif`, `fontFamily.sans`, `fontFamily.mono`
-- Réécriture des tokens HSL dans `src/index.css` (light + dark — dark devient le mode par défaut)
-- Composants impactés : `Navbar`, `HeroSection`, `MobileStickyBar`, `Footer`, `ImpactStatsSection`, `HowItWorks`, `AlerteTeaser`, `ServicesSection`, `CTASection`
-- Aucune modification de la logique métier ni des routes
-- Aucun ajout de dépendance backend
+### `GreenAcademySection.tsx` (nouveau, plein écran)
+- Eyebrow : « Formation »
+- Titre : « Former la prochaine génération du recyclage »
+- 3 parcours : Tri & recyclage, Économie circulaire, Entrepreneuriat vert
+- Indicateurs : modules, certifiés, taux de complétion
+- CTA : « Explorer les formations » + « Devenir ambassadeur »
+- Visuel : nouvelle image (atelier de formation au Togo)
 
-## Hors scope (pour cette passe)
+## 3. Éléments ajoutés pour rehausser le niveau pro
 
-- Refonte du dashboard admin
-- Nouvelles photos professionnelles (j'utiliserai des placeholders Unsplash cohérents en attendant les vraies photos terrain)
-- Internationalisation EN/FR
-- Animations 3D / WebGL
+Analyse du manque actuel : la home enchaîne piliers et opportunités sans preuves chiffrées ni preuves « presse / institutionnel ». Ajouts proposés :
 
-Une fois ce plan validé, j'implémente d'un trait — palette + typo + hero + navbar + cartes + footer dans la même passe pour garantir la cohérence visuelle.
+1. `ImpactStatsSection` — bandeau éditorial chiffres clés (kg collectés, ménages desservis, alertes traitées, certifiés Academy) avec une note méthodologique discrète.
+2. Renforcement du bloc presse / partenaires institutionnels dans `PartnersSection` (logos en niveaux de gris, mention « Ils nous accompagnent »).
+3. (Léger) Réécriture du sous-titre Hero pour une promesse plus institutionnelle ; aucun changement structurel du Hero.
+
+Tout reste dans la ligne « Editorial Impact Report » (Playfair Display + Inter, accent emerald, fond `hsl(150 14% 97%)` alterné avec blanc et `bg-foreground` pour les sections sombres).
+
+## 4. Images régénérées / réadaptées
+
+Hors catalogue de rachat (laissé intact). Génération en `imagegen` standard, format paysage, palette éditoriale (vert profond, neige, terracotta léger).
+
+| Emplacement | Asset | Sujet |
+|---|---|---|
+| AboutSection 01 | `challenge-1.jpg` | Tournée de collecte désorganisée à Kara, vue éditoriale |
+| AboutSection 02 | `challenge-2.jpg` | Dépotoir sauvage en bord de route, ambiance documentaire |
+| AboutSection 03 | `challenge-3.jpg` | Mains tenant des bouteilles plastique triées, lumière chaude |
+| SolutionProSection | `solution-pro-hero.jpg` | Agent terrain consultant un dashboard sur tablette |
+| CivicTechSection | `civictech-hero.jpg` | Citoyen photographiant un dépotoir, géolocalisation visible |
+| GreenAcademySection | `academy-hero.jpg` | Atelier de formation au tri, jeunes apprenants togolais |
+| EventsHub (3 cartes) | `event-1/2/3.jpg` | Bénévoles, collecte géante, formation certifiante |
+
+Les illustrations « step-*.png » (HowItWorks) restent telles quelles ; elles servent un autre composant et ne font pas partie des sections refondues.
+
+## 5. Détails techniques
+
+- Pas de toucher à `ServicesSection.tsx` (catalogue de rachat) ni aux images plastiques.
+- Trois nouveaux composants dans `src/components/` : `SolutionProSection.tsx`, `CivicTechSection.tsx`, `GreenAcademySection.tsx`, `ImpactStatsSection.tsx`.
+- Mise à jour de `src/pages/Index.tsx` (ordre + imports).
+- Génération d'assets via `imagegen--generate_image` en `model: standard`, ratio 16:9, sortie `.jpg` dans `src/assets/`.
+- Import direct ES6 des images (pas d'externalisation).
+- Conservation de la page `/solutions` qui agrège `SolutionsSection` (vue récap dédiée).
+
+## Validation
+
+Après build : vérification visuelle des 3 sections plein écran sur viewport 783×586 (mobile-like) et desktop, contraste lisible, cohérence Playfair / Inter, ordre respecté.
