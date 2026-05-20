@@ -20,15 +20,6 @@ export default {
         inter: ['"Work Sans"', 'system-ui', 'sans-serif'],
       },
       colors: {
-        clay: 'hsl(var(--clay))',
-        'clay-deep': 'hsl(var(--clay-deep))',
-        ink: 'hsl(var(--ink))',
-        cream: 'hsl(var(--cream))',
-        sage: 'hsl(var(--sage))',
-        forest: 'hsl(var(--forest))',
-        ochre: 'hsl(var(--ochre))',
-      },
-      colors: {
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
         ring: "hsl(var(--ring))",
