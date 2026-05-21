@@ -14,10 +14,10 @@ export default {
     },
     extend: {
       fontFamily: {
-        display: ['"Instrument Serif"', 'Georgia', 'serif'],
-        body: ['"Work Sans"', 'system-ui', 'sans-serif'],
-        editorial: ['"Instrument Serif"', 'Georgia', 'serif'],
-        inter: ['"Work Sans"', 'system-ui', 'sans-serif'],
+        display: ['"Outfit"', 'sans-serif'],
+        body: ['"DM Sans"', 'system-ui', 'sans-serif'],
+        editorial: ['"Playfair Display"', 'Georgia', 'serif'],
+        inter: ['"Inter"', 'system-ui', 'sans-serif'],
       },
       colors: {
         border: "hsl(var(--border))",
@@ -63,12 +63,6 @@ export default {
         },
         earth: "hsl(var(--earth))",
         sage: "hsl(var(--sage))",
-        clay: "hsl(var(--clay))",
-        "clay-deep": "hsl(var(--clay-deep))",
-        ink: "hsl(var(--ink))",
-        cream: "hsl(var(--cream))",
-        forest: "hsl(var(--forest))",
-        ochre: "hsl(var(--ochre))",
         sidebar: {
           DEFAULT: "hsl(var(--sidebar-background))",
           foreground: "hsl(var(--sidebar-foreground))",
