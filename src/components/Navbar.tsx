@@ -63,13 +63,27 @@ const Navbar = () => {
     destructive: "bg-destructive/15 text-destructive group-hover:bg-destructive/25",
   };
 
-  // Style "glass pill" — aligné Hero
+  // Pill premium unifié — h-9, underline animée, icône qui se soulève au hover
   const linkClass = (active: boolean) =>
-    `px-4 py-2 rounded-full text-[13px] font-semibold transition-all duration-200 flex items-center gap-1.5 whitespace-nowrap ${
+    [
+      "group relative inline-flex items-center gap-1.5 h-9 px-3.5 rounded-full",
+      "text-[12.5px] font-semibold tracking-tight whitespace-nowrap",
+      "transition-[background,box-shadow,border-color,color,transform] duration-300 ease-out",
+      "[&_svg]:transition-transform [&_svg]:duration-300 hover:[&_svg]:-translate-y-[1px]",
       active
-        ? "bg-white/15 text-white border border-white/25 backdrop-blur-md shadow-lg"
-        : "text-white/85 border border-transparent hover:text-white hover:bg-white/10 hover:border-white/15"
-    }`;
+        ? "text-white bg-white/[0.14] border border-white/25 shadow-[inset_0_1px_0_rgba(255,255,255,0.18),0_8px_24px_-12px_rgba(0,0,0,0.6)] backdrop-blur-md"
+        : "text-white/85 border border-transparent hover:text-white hover:bg-white/[0.08] hover:border-white/15 hover:shadow-[inset_0_1px_0_rgba(255,255,255,0.08)]",
+    ].join(" ");
+
+  // Underline animée centrée — révélation du centre vers l'extérieur
+  const Underline = ({ active }: { active: boolean }) => (
+    <span
+      aria-hidden
+      className={`pointer-events-none absolute left-1/2 -translate-x-1/2 bottom-1 h-px bg-gradient-to-r from-transparent via-white to-transparent transition-all duration-300 ease-out ${
+        active ? "w-6 opacity-90" : "w-0 opacity-0 group-hover:w-6 group-hover:opacity-80"
+      }`}
+    />
+  );
 
   return (
     <>
@@ -82,25 +96,28 @@ const Navbar = () => {
       >
         <div className="container mx-auto px-4 lg:px-8 flex items-center justify-between gap-6 w-full">
           <Link to="/" className="flex items-center gap-2.5 group shrink-0" aria-label="RecycHub Togo — Accueil">
-            <img src={logoImg} alt="RecycHub Togo" className="w-9 h-9 sm:w-10 sm:h-10 object-contain transition-transform group-hover:scale-105 drop-shadow-lg" />
+            <img src={logoImg} alt="RecycHub Togo" className="w-9 h-9 sm:w-10 sm:h-10 object-contain transition-transform duration-500 group-hover:scale-110 group-hover:rotate-[-4deg] drop-shadow-lg" />
             <span className="hidden sm:inline-block font-editorial font-bold text-[15px] tracking-tight text-white leading-none">
               RECYC <span className="italic text-secondary">HUB</span>
             </span>
           </Link>
 
-          <div className="hidden lg:flex items-center gap-1.5 xl:gap-2">
+          <div className="hidden lg:flex items-center gap-1 xl:gap-1.5">
             <Link to="/" className={linkClass(location.pathname === "/")}>
               Accueil
+              <Underline active={location.pathname === "/"} />
             </Link>
 
             <Link to="/alerte" className={linkClass(location.pathname === "/alerte")}>
               <AlertTriangle className="w-3.5 h-3.5" />
               Alerte dépotoir
+              <Underline active={location.pathname === "/alerte"} />
             </Link>
 
             <Link to="/vendre" className={linkClass(location.pathname === "/vendre")}>
               <ShoppingBag className="w-3.5 h-3.5" />
               Vendre mes plastiques
+              <Underline active={location.pathname === "/vendre"} />
             </Link>
 
             {/* Découvrir dropdown */}
@@ -110,25 +127,29 @@ const Navbar = () => {
                 onMouseEnter={() => setDiscoverOpen(true)}
                 aria-expanded={discoverOpen}
                 aria-haspopup="true"
-                className={linkClass(isDiscoverActive)}
+                className={linkClass(isDiscoverActive || discoverOpen)}
               >
                 <Compass className="w-3.5 h-3.5" />
                 Découvrir
-                <ChevronDown className={`w-3 h-3 transition-transform duration-200 ${discoverOpen ? "rotate-180" : ""}`} />
+                <ChevronDown className={`w-3 h-3 transition-transform duration-300 ${discoverOpen ? "rotate-180" : ""}`} />
+                <Underline active={isDiscoverActive || discoverOpen} />
               </button>
 
               {discoverOpen && (
                 <div
                   onMouseLeave={() => setDiscoverOpen(false)}
-                  className="absolute top-full left-1/2 -translate-x-1/2 mt-3 w-[360px] rounded-2xl bg-black/70 backdrop-blur-2xl border border-white/15 shadow-2xl shadow-black/50 p-2 animate-slide-up overflow-hidden"
+                  className="absolute top-full left-1/2 -translate-x-1/2 mt-3 w-[360px] rounded-2xl bg-black/75 backdrop-blur-2xl border border-white/15 shadow-2xl shadow-black/60 p-2 overflow-hidden origin-top"
+                  style={{ animation: "scale-in .22s cubic-bezier(.2,.9,.3,1.2)" }}
                 >
-                  {discoverLinks.map(s => (
+                  <span aria-hidden className="absolute -top-1 left-1/2 -translate-x-1/2 w-2 h-2 rotate-45 bg-black/75 border-l border-t border-white/15" />
+                  {discoverLinks.map((s, i) => (
                     <Link
                       key={s.to}
                       to={s.to}
-                      className="group flex items-start gap-3 p-3 rounded-xl hover:bg-white/10 transition-colors"
+                      style={{ animation: `fade-in .35s ease-out ${i * 60}ms both` }}
+                      className="group flex items-start gap-3 p-3 rounded-xl hover:bg-white/10 transition-all duration-300 hover:translate-x-0.5"
                     >
-                      <div className={`w-10 h-10 rounded-xl flex items-center justify-center shrink-0 transition-colors ${accentClasses[s.accent]}`}>
+                      <div className={`w-10 h-10 rounded-xl flex items-center justify-center shrink-0 transition-all duration-300 group-hover:scale-110 group-hover:rotate-[-6deg] ${accentClasses[s.accent]}`}>
                         <s.icon className="w-5 h-5" />
                       </div>
                       <div className="flex-1 min-w-0">
@@ -144,6 +165,7 @@ const Navbar = () => {
             <Link to="/enlevement" className={linkClass(location.pathname === "/enlevement")}>
               <Truck className="w-3.5 h-3.5" />
               Enlèvement de déchets
+              <Underline active={location.pathname === "/enlevement"} />
             </Link>
           </div>
 
@@ -153,35 +175,41 @@ const Navbar = () => {
                 {isAdmin && (
                   <Link
                     to="/admin"
-                    className="px-4 py-2 rounded-full text-xs font-bold text-white bg-white/10 border border-white/20 hover:bg-white/20 backdrop-blur-md transition-all flex items-center gap-1.5"
+                    className="group inline-flex items-center gap-1.5 h-9 px-3.5 rounded-full text-[12.5px] font-bold text-white bg-white/[0.08] border border-white/20 hover:bg-white/15 hover:border-white/30 backdrop-blur-md transition-all duration-300 hover:shadow-[0_8px_24px_-10px_rgba(255,255,255,0.25)] [&_svg]:transition-transform hover:[&_svg]:rotate-[-8deg]"
                   >
-                    <ShieldCheck className="w-4 h-4" /> Admin
+                    <ShieldCheck className="w-3.5 h-3.5" /> Admin
                   </Link>
                 )}
-                <span className="text-xs font-semibold text-white/75 flex items-center gap-1.5 px-2">
-                  <User className="w-4 h-4" />
+                <span className="text-[12.5px] font-semibold text-white/75 flex items-center gap-1.5 px-2">
+                  <User className="w-3.5 h-3.5" />
                   {profile?.pseudo || "Utilisateur"}
                 </span>
                 <button
                   onClick={handleSignOut}
-                  className="px-4 py-2 rounded-full text-xs font-bold text-white bg-white/10 border border-white/20 hover:bg-white/20 backdrop-blur-md transition-all flex items-center gap-1.5"
+                  className="group inline-flex items-center gap-1.5 h-9 px-3.5 rounded-full text-[12.5px] font-bold text-white bg-white/[0.08] border border-white/20 hover:bg-white/15 hover:border-white/30 backdrop-blur-md transition-all duration-300 [&_svg]:transition-transform hover:[&_svg]:translate-x-0.5"
                 >
-                  <LogOut className="w-4 h-4" /> Déconnexion
+                  <LogOut className="w-3.5 h-3.5" /> Déconnexion
                 </button>
               </>
             ) : (
               <Link
                 to="/inscription"
-                className="px-5 py-2.5 rounded-full text-xs font-bold text-secondary-foreground transition-all flex items-center gap-1.5 shadow-lg shadow-secondary/30 hover:shadow-secondary/50 hover:-translate-y-0.5"
-                style={{ background: "linear-gradient(135deg, hsl(var(--secondary)), hsl(var(--accent)))" }}
+                aria-label="S'inscrire — créer un compte"
+                className="group relative inline-flex items-center gap-1.5 h-10 px-5 rounded-full text-[12.5px] font-bold text-secondary-foreground overflow-hidden ring-1 ring-secondary/40 shadow-[0_10px_30px_-10px_hsl(var(--secondary)/0.6),inset_0_1px_0_rgba(255,255,255,0.35)] transition-all duration-300 ease-out hover:-translate-y-0.5 hover:scale-[1.03] hover:ring-2 hover:ring-secondary/60 hover:shadow-[0_18px_40px_-12px_hsl(var(--secondary)/0.7),inset_0_1px_0_rgba(255,255,255,0.45)] active:scale-[0.98]"
+                style={{ background: "linear-gradient(135deg, hsl(var(--secondary)) 0%, hsl(var(--accent)) 100%)" }}
               >
-                <UserPlus className="w-4 h-4" /> S'inscrire
+                <span
+                  aria-hidden
+                  className="pointer-events-none absolute inset-y-0 -left-1/2 w-1/2 skew-x-[-20deg] bg-gradient-to-r from-transparent via-white/45 to-transparent translate-x-[-120%] group-hover:translate-x-[320%] transition-transform duration-700 ease-out"
+                />
+                <UserPlus className="w-4 h-4 transition-transform duration-300 group-hover:rotate-12 group-hover:scale-110" />
+                <span className="relative">S'inscrire</span>
               </Link>
             )}
           </div>
 
           <button
-            className="lg:hidden p-2 text-white rounded-full hover:bg-white/10 transition-colors"
+            className="lg:hidden inline-flex items-center justify-center w-9 h-9 text-white rounded-full border border-transparent hover:bg-white/10 hover:border-white/15 transition-all duration-300"
             onClick={() => setMobileOpen(!mobileOpen)}
             aria-label={mobileOpen ? "Fermer le menu" : "Ouvrir le menu"}
             aria-expanded={mobileOpen}
