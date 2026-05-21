@@ -18,10 +18,12 @@ const Navbar = () => {
   const [mobileOpen, setMobileOpen] = useState(false);
   const [discoverOpen, setDiscoverOpen] = useState(false);
   const [isAdmin, setIsAdmin] = useState(false);
+  const [alerteToast, setAlerteToast] = useState(false);
   const discoverRef = useRef<HTMLDivElement>(null);
   const location = useLocation();
   const navigate = useNavigate();
   const { user, profile, signOut } = useAuth();
+
 
   useEffect(() => {
     if (!user) { setIsAdmin(false); return; }
