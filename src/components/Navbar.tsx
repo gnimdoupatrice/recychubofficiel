@@ -74,11 +74,7 @@ const Navbar = () => {
     destructive: "bg-destructive/15 text-destructive group-hover:bg-destructive/25",
   };
 
-  /**
-   * Pill premium adaptatif :
-   * - `tone` colore la version active ET le hover (background, border, glow)
-   *   pour que chaque CTA respire sa fonction métier.
-   */
+  /
   type Tone = "neutral" | "secondary" | "accent" | "sky" | "destructive";
   const toneMap: Record<Tone, { active: string; hover: string; under: string }> = {
     neutral: {
