@@ -442,4 +442,26 @@
   .animate-alerte-color { animation: alerte-color-pulse 2.2s ease-in-out infinite; }
   .animate-alerte-ring { animation: alerte-ring-pulse 2.2s ease-in-out infinite; }
   .animate-alerte-toast { animation: alerte-toast-in .35s cubic-bezier(.2,.9,.3,1.2) both; }
+
+  /* ──── Navbar premium micro-interactions ──── */
+  @keyframes nav-shake {
+    0%, 100% { transform: translateX(0) rotate(0); }
+    20% { transform: translateX(-1.5px) rotate(-4deg); }
+    40% { transform: translateX(1.5px) rotate(4deg); }
+    60% { transform: translateX(-1px) rotate(-2deg); }
+    80% { transform: translateX(1px) rotate(2deg); }
+  }
+  @keyframes nav-bounce {
+    0%, 100% { transform: translateY(0) scale(1); }
+    35% { transform: translateY(-3px) scale(1.08); }
+    70% { transform: translateY(0) scale(0.96); }
+  }
+  @keyframes nav-cta-halo {
+    0%, 100% { box-shadow: 0 10px 30px -10px hsl(var(--secondary)/0.55), inset 0 1px 0 rgba(255,255,255,0.35), 0 0 0 0 hsl(var(--secondary)/0.45); }
+    50% { box-shadow: 0 12px 34px -10px hsl(var(--secondary)/0.7), inset 0 1px 0 rgba(255,255,255,0.4), 0 0 0 8px hsl(var(--secondary)/0); }
+  }
+  @keyframes navbar-accent-slide {
+    0% { transform: translateX(-50%); }
+    100% { transform: translateX(0%); }
+  }
 }
