@@ -18,10 +18,12 @@ const Navbar = () => {
   const [mobileOpen, setMobileOpen] = useState(false);
   const [discoverOpen, setDiscoverOpen] = useState(false);
   const [isAdmin, setIsAdmin] = useState(false);
+  const [alerteToast, setAlerteToast] = useState(false);
   const discoverRef = useRef<HTMLDivElement>(null);
   const location = useLocation();
   const navigate = useNavigate();
   const { user, profile, signOut } = useAuth();
+
 
   useEffect(() => {
     if (!user) { setIsAdmin(false); return; }
@@ -108,11 +110,37 @@ const Navbar = () => {
               <Underline active={location.pathname === "/"} />
             </Link>
 
-            <Link to="/alerte" className={linkClass(location.pathname === "/alerte")}>
-              <AlertTriangle className="w-3.5 h-3.5" />
-              Alerte dépotoir
+            {/* Alerte dépotoir — CTA d'urgence avec pulsation jaune→rouge */}
+            <Link
+              to="/alerte"
+              onClick={() => { setAlerteToast(true); window.setTimeout(() => setAlerteToast(false), 2600); }}
+              aria-label="Alerte dépotoir — signaler un dépotoir sauvage"
+              className={`${linkClass(location.pathname === "/alerte")} relative animate-alerte-ring pr-3.5`}
+            >
+              <span aria-hidden className="relative inline-flex items-center justify-center w-4 h-4">
+                <AlertTriangle className="w-4 h-4 animate-alerte-color [transform:none] group-hover:[transform:none]" strokeWidth={2.5} fill="currentColor" fillOpacity={0.15} />
+              </span>
+              <span className="relative">
+                Alerte dépotoir
+                <span className="ml-1.5 inline-flex items-center align-middle text-[9px] font-black uppercase tracking-[0.14em] px-1.5 py-px rounded-sm bg-destructive/25 text-white/95 ring-1 ring-destructive/50">
+                  Urgence
+                </span>
+              </span>
               <Underline active={location.pathname === "/alerte"} />
+
+              {/* Mini toast premium déclenché après le clic */}
+              <span
+                role="status"
+                aria-live="polite"
+                className={`pointer-events-none absolute left-1/2 top-full mt-3 -translate-x-1/2 whitespace-nowrap rounded-full bg-black/85 backdrop-blur-md border border-destructive/40 px-3 py-1.5 text-[11px] font-semibold text-white shadow-[0_12px_30px_-12px_hsl(0_90%_55%/0.6)] ${
+                  alerteToast ? "opacity-100 animate-alerte-toast" : "opacity-0"
+                }`}
+              >
+                <span className="inline-block w-1.5 h-1.5 rounded-full bg-destructive mr-2 align-middle animate-pulse" />
+                Merci pour votre vigilance 🙏
+              </span>
             </Link>
+
 
             <Link to="/vendre" className={linkClass(location.pathname === "/vendre")}>
               <ShoppingBag className="w-3.5 h-3.5" />
