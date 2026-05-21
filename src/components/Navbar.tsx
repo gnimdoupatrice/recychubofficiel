@@ -74,7 +74,6 @@ const Navbar = () => {
     destructive: "bg-destructive/15 text-destructive group-hover:bg-destructive/25",
   };
 
-  /
   type Tone = "neutral" | "secondary" | "accent" | "sky" | "destructive";
   const toneMap: Record<Tone, { active: string; hover: string; under: string }> = {
     neutral: {
