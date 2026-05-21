@@ -1,93 +1,79 @@
 ## Objectif
 
-Mettre Solution Pro (digitalisation B2B) avant le système de rachat, et donner à chacun des trois piliers (Solution Pro, Civic Tech / Alerte dépotoir, Green Academy) une section plein écran dédiée à valeur éditoriale. Compléter ce qui manque à la home pour qu'elle paraisse pleinement professionnelle. Régénérer / réadapter les images de chaque étape (sauf celles du catalogue de rachat).
+Transformer la navbar actuelle en une navbar **premium, originale et signature** pour RecycHub Togo, avec des micro-interactions adaptées à chaque service (vendre, enlèvement, alerte, découvrir).
 
-## 1. Réorganisation de la home
+---
 
-Nouvel ordre dans `src/pages/Index.tsx` :
+## 1. Corrections demandées (obligatoires)
 
-```text
-Hero
-AboutSection ("Pourquoi" — état des lieux)
-SolutionProSection      ← NOUVEAU plein écran (avant le rachat)
-ServicesSection         ← Catalogue de rachat (inchangé sur le fond)
-CivicTechSection        ← NOUVEAU plein écran (Alerte dépotoir)
-GreenAcademySection     ← NOUVEAU plein écran (Academy)
-ImpactStatsSection      ← NOUVEAU (chiffres clés)
-HowItWorks
-EventsHubSection
-FAQSection
-TestimonialsSection
-PartnersSection
-CTASection
-```
+- **Logo figé** : suppression de toutes les transformations au hover (`group-hover:scale-110`, `group-hover:rotate-[-4deg]`, `transition-transform`). Le logo reste strictement statique au survol et au clic. On garde uniquement le `drop-shadow` pour la lisibilité.
+- **Badge « Urgence »** : suppression du petit chip rouge `Urgence` à côté de « Alerte dépotoir ». L'icône triangle + l'animation de pulsation suffisent à signaler la criticité et cangement du Faites varier les couleurs en passant du jaune à l’alerte rouge, avec une animation de pulsation bien visible .
 
-`SolutionsSection` (la grille 4-cartes) est retiré de la home : ses contenus sont absorbés par les trois sections plein écran. La page `/solutions` est conservée.
+---
 
-## 2. Trois sections plein écran (style Editorial Impact)
+## 2. Effets adaptés à la sémantique de chaque CTA
 
-Chacune occupe `min-h-screen`, fond contrasté, mise en page éditoriale (numéro géant 01/02/03, titre Playfair, image principale large, liste de bénéfices, micro-stats, CTA double).
+Chaque lien reçoit un effet **cohérent avec sa fonction métier**, plus uniforme.
 
-### `SolutionProSection.tsx` (nouveau, plein écran)
-- Eyebrow : « Solution Pro — B2B »
-- Titre : « La plateforme qui pilote la collecte »
-- Cible : entreprises de pré-collecte, mairies, PME assainissement
-- 4 fonctionnalités : Optimisation des tournées, Suivi temps réel, Tableau de bord & reporting, Gestion abonnements & facturation
-- 3 micro-stats (ex. -35% km parcourus, +60% ménages desservis, 100% traçabilité)
-- CTA : « Découvrir Solution Pro » + « Demander une démo »
-- Visuel : nouvelle image générée (dashboard logistique sur tablette/terrain)
 
-### `CivicTechSection.tsx` (nouveau, plein écran)
-- Eyebrow : « Civic Tech »
-- Titre : « Rendre visibles les dépotoirs invisibles »
-- 3 piliers : Signalement géolocalisé en 3 clics, Cartographie dynamique, Notifications d'intervention
-- 3 micro-stats (alertes traitées, sites résolus, communautés actives)
-- CTA : « Signaler un dépotoir » + « Voir la carte »
-- Visuel : nouvelle image (citoyen + smartphone géolocalisation)
+| Lien                      | Couleur d'accent au hover/active | Micro-interaction signature                                                           |
+| ------------------------- | -------------------------------- | ------------------------------------------------------------------------------------- |
+| Accueil                   | Blanc neutre                     | Underline classique + léger glow                                                      |
+| **Alerte dépotoir**       | Rouge → orange (déjà pulsant)    | Halo rouge qui « respire » + icône qui vibre légèrement au hover (shake court)        |
+| **Vendre mes plastiques** | Vert secondary (argent/valeur)   | Icône sac qui « rebondit » + petit indicateur FCFA qui apparaît au hover              |
+| **Découvrir** ▾           | Accent doré                      | Chevron rotatif (déjà OK) + dropdown qui s'ouvre avec effet « pétale » plus organique |
+| **Enlèvement de déchets** | Bleu/teal (logistique)           | Icône camion qui glisse légèrement à droite au hover (translate-x)                    |
+| **S'inscrire**            | Gradient secondary→accent        | Shimmer (déjà OK) + halo qui pulse subtilement au repos pour attirer l'œil            |
 
-### `GreenAcademySection.tsx` (nouveau, plein écran)
-- Eyebrow : « Formation »
-- Titre : « Former la prochaine génération du recyclage »
-- 3 parcours : Tri & recyclage, Économie circulaire, Entrepreneuriat vert
-- Indicateurs : modules, certifiés, taux de complétion
-- CTA : « Explorer les formations » + « Devenir ambassadeur »
-- Visuel : nouvelle image (atelier de formation au Togo)
 
-## 3. Éléments ajoutés pour rehausser le niveau pro
+Chaque pill garde la même hauteur (h-9), même typo, même rythme — seule la couleur d'accent et la micro-interaction changent. Cohérence visuelle, expressivité fonctionnelle.
 
-Analyse du manque actuel : la home enchaîne piliers et opportunités sans preuves chiffrées ni preuves « presse / institutionnel ». Ajouts proposés :
+---
 
-1. `ImpactStatsSection` — bandeau éditorial chiffres clés (kg collectés, ménages desservis, alertes traitées, certifiés Academy) avec une note méthodologique discrète.
-2. Renforcement du bloc presse / partenaires institutionnels dans `PartnersSection` (logos en niveaux de gris, mention « Ils nous accompagnent »).
-3. (Léger) Réécriture du sous-titre Hero pour une promesse plus institutionnelle ; aucun changement structurel du Hero.
+## 3. Évolution couleur au scroll
 
-Tout reste dans la ligne « Editorial Impact Report » (Playfair Display + Inter, accent emerald, fond `hsl(150 14% 97%)` alterné avec blanc et `bg-foreground` pour les sections sombres).
+Actuellement la navbar passe juste de `bg-black/30` → `bg-black/60` au scroll. Proposition :
 
-## 4. Images régénérées / réadaptées
+- **État haut de page** : fond translucide très léger, bordure invisible, links blancs purs. Esprit "flottant".
+- **État scrollé** : fond noir profond + **fine ligne d'accent verte (1px) animée** sous la navbar (gradient horizontal qui se déplace doucement, ~8s loop). Signature "écologie en mouvement".
+- Transition fluide 400ms cubic-bezier.
 
-Hors catalogue de rachat (laissé intact). Génération en `imagegen` standard, format paysage, palette éditoriale (vert profond, neige, terracotta léger).
+---
 
-| Emplacement | Asset | Sujet |
-|---|---|---|
-| AboutSection 01 | `challenge-1.jpg` | Tournée de collecte désorganisée à Kara, vue éditoriale |
-| AboutSection 02 | `challenge-2.jpg` | Dépotoir sauvage en bord de route, ambiance documentaire |
-| AboutSection 03 | `challenge-3.jpg` | Mains tenant des bouteilles plastique triées, lumière chaude |
-| SolutionProSection | `solution-pro-hero.jpg` | Agent terrain consultant un dashboard sur tablette |
-| CivicTechSection | `civictech-hero.jpg` | Citoyen photographiant un dépotoir, géolocalisation visible |
-| GreenAcademySection | `academy-hero.jpg` | Atelier de formation au tri, jeunes apprenants togolais |
-| EventsHub (3 cartes) | `event-1/2/3.jpg` | Bénévoles, collecte géante, formation certifiante |
+## 4. Propositions premium (à valider avant exécution)
 
-Les illustrations « step-*.png » (HowItWorks) restent telles quelles ; elles servent un autre composant et ne font pas partie des sections refondues.
+Idées pour donner une vraie **particularité** à la navbar :
 
-## 5. Détails techniques
+**A. Indicateur de page actif "liquide"**
+Un petit blob/pilule de fond qui **glisse** d'un lien actif à l'autre lors de la navigation (style Framer Motion `layoutId`), au lieu de juste changer le fond. Très premium, signature mémorable.
 
-- Pas de toucher à `ServicesSection.tsx` (catalogue de rachat) ni aux images plastiques.
-- Trois nouveaux composants dans `src/components/` : `SolutionProSection.tsx`, `CivicTechSection.tsx`, `GreenAcademySection.tsx`, `ImpactStatsSection.tsx`.
-- Mise à jour de `src/pages/Index.tsx` (ordre + imports).
-- Génération d'assets via `imagegen--generate_image` en `model: standard`, ratio 16:9, sortie `.jpg` dans `src/assets/`.
-- Import direct ES6 des images (pas d'externalisation).
-- Conservation de la page `/solutions` qui agrège `SolutionsSection` (vue récap dédiée).
+**B. Mini "live indicator" sur Alerte dépotoir**
+Un compteur discret (ex: « 3 signalements aujourd'hui ») qui apparaît au hover du lien — donne de la vie et du sens civique. Connecté plus tard à la vraie data.
 
-## Validation
+**C. Curseur magnétique sur les CTAs principaux**
+Les liens « Vendre » et « S'inscrire » attirent légèrement le curseur quand on passe à proximité (effet magnétique subtil ~6px). Très premium, Awwwards-style.
 
-Après build : vérification visuelle des 3 sections plein écran sur viewport 783×586 (mobile-like) et desktop, contraste lisible, cohérence Playfair / Inter, ordre respecté.
+**D. Logo : micro-respiration au scroll uniquement**
+Puisque tu veux le logo figé au hover, on peut quand même lui donner une vie discrète : très légère opacity breathing (0.95→1) **uniquement** quand la page est scrollée, pour qu'il "vive" sans bouger.
+
+**E. Barre de progression de scroll intégrée**
+Une fine ligne verte (1px) en bas de la navbar qui se remplit à mesure qu'on scrolle la page. Utile + élégant.
+
+**F. Dropdown "Découvrir" enrichi**
+Ajouter une petite preview visuelle (mini thumbnail / icône animée) à chaque item du dropdown, au lieu de juste icône + texte. Plus immersif.
+
+---
+
+## Questions avant d'exécuter
+
+1. Parmi les **6 idées premium (A–F)**, lesquelles veux-tu que j'implémente ? (je recommande **A + C + E** pour un effet signature fort sans surcharge)
+2. Pour l'évolution couleur au scroll, la fine ligne verte animée te parle, ou tu préfères rester sur un changement de fond plus classique ?
+3. Le mini "live indicator" sur Alerte dépotoir (idée B) — on met un nombre fictif joli pour l'instant, ou on attend la vraie data ?
+
+Une fois tes réponses reçues, je passe à l'exécution en une seule itération propre.
+
+&nbsp;
+
+elargire une la navbar longeur comme largeur mais de fason primium et personalité 
+
+&nbsp;
