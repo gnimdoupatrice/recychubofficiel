@@ -1,5 +1,5 @@
-/* Polices allégées : 3 graisses Outfit (display) + 2 DM Sans (body) + Playfair Display (editorial) */
-@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;800&family=DM+Sans:wght@400;500&family=Playfair+Display:ital,wght@0,600;0,700;1,400&family=Inter:wght@300;400;500;600&display=swap');
+/* Green tech minimalist — Inter as single typeface (Stripe/Linear inspired) */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Playfair+Display:ital,wght@0,600;1,400&display=swap');
 
 @tailwind base;
 @tailwind components;
