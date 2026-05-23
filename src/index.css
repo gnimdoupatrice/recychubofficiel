@@ -254,9 +254,7 @@
     @apply font-extrabold text-5xl leading-none select-none text-primary/20;
   }
 
-  /* No-op overrides — sections are already light */
-  .wp-section .text-foreground { color: hsl(var(--foreground)); }
-  .wp-section .text-muted-foreground { color: hsl(var(--muted-foreground)); }
+  /* No overrides needed — sections are already light */
 }
 
 @layer utilities {
