@@ -1,15 +1,14 @@
-import { ArrowUpRight, Phone } from "lucide-react";
+import { ArrowRight, Phone, Truck, ShoppingBag } from "lucide-react";
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 
 const CTASection = () => (
-  <section className="relative bg-foreground text-background py-24 md:py-32 px-6 md:px-12 lg:px-24 font-inter overflow-hidden">
+  <section className="relative bg-primary text-primary-foreground py-24 md:py-32 px-6 md:px-12 lg:px-24 overflow-hidden">
     <div
-      className="absolute inset-0 opacity-[0.05] pointer-events-none"
+      className="absolute inset-0 opacity-[0.08] pointer-events-none"
       style={{
-        backgroundImage:
-          "radial-gradient(hsl(var(--primary)) 1px, transparent 1px)",
-        backgroundSize: "32px 32px",
+        backgroundImage: "radial-gradient(white 1px, transparent 1px)",
+        backgroundSize: "28px 28px",
       }}
     />
 
@@ -17,42 +16,40 @@ const CTASection = () => (
       initial={{ opacity: 0, y: 25 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
-      transition={{ duration: 0.7 }}
+      transition={{ duration: 0.6 }}
       className="relative max-w-4xl mx-auto text-center"
     >
-      <span className="text-primary font-semibold tracking-[0.2em] text-xs uppercase">
+      <span className="inline-block text-xs font-bold uppercase tracking-[0.2em] px-3 py-1.5 rounded-full bg-white/15">
         Passez à l'action
       </span>
-      <h2 className="mt-6 font-editorial font-bold text-4xl md:text-6xl leading-[1.05]">
-        Rejoignez le mouvement{" "}
-        <span className="italic text-primary">pour un Togo plus propre</span>.
+      <h2 className="mt-6 text-4xl md:text-5xl font-extrabold leading-[1.1]">
+        Rejoignez le mouvement pour un Togo plus propre.
       </h2>
-      <p className="mt-8 text-background/70 font-light text-lg leading-relaxed max-w-2xl mx-auto">
-        Ménages, entreprises, collectivités&nbsp;: RECYC HUB TOGO vous donne
-        les outils pour transformer chaque déchet en valeur. Commencez
-        aujourd'hui.
+      <p className="mt-6 text-primary-foreground/80 text-lg leading-relaxed max-w-2xl mx-auto">
+        Ménages, entreprises, collectivités : transformez chaque déchet en valeur.
       </p>
 
-      <div className="mt-12 flex flex-col sm:flex-row items-center justify-center gap-4">
-        <Link
-          to="/vendre"
-          className="inline-flex items-center gap-2 bg-primary text-primary-foreground px-7 py-3.5 rounded-sm font-semibold text-sm hover:opacity-90 transition-opacity"
-        >
-          Vendre mes plastiques
-          <ArrowUpRight className="w-4 h-4" />
-        </Link>
+      <div className="mt-10 flex flex-col sm:flex-row items-center justify-center gap-3">
         <Link
           to="/enlevement"
-          className="inline-flex items-center gap-2 border border-background/30 px-7 py-3.5 rounded-sm font-semibold text-sm hover:bg-background/10 transition-colors"
+          className="inline-flex items-center gap-2 bg-secondary text-secondary-foreground px-7 py-3.5 rounded-full font-bold text-sm hover:translate-y-[-2px] transition-transform shadow-lg"
         >
-          Demander un enlèvement
-          <ArrowUpRight className="w-4 h-4" />
+          <Truck className="w-4 h-4" />
+          Commander un enlèvement
+          <ArrowRight className="w-4 h-4" />
+        </Link>
+        <Link
+          to="/vendre"
+          className="inline-flex items-center gap-2 border-2 border-white/30 text-white px-7 py-3.5 rounded-full font-bold text-sm hover:bg-white/10 transition-colors"
+        >
+          <ShoppingBag className="w-4 h-4" />
+          Vendre mes plastiques
         </Link>
       </div>
 
       <a
         href="tel:+22897684030"
-        className="mt-10 inline-flex items-center gap-2 text-background/60 hover:text-background transition-colors text-sm border-b border-background/20 hover:border-background pb-1"
+        className="mt-8 inline-flex items-center gap-2 text-primary-foreground/70 hover:text-white transition-colors text-sm"
       >
         <Phone className="w-4 h-4" />
         +228 97 68 40 30
