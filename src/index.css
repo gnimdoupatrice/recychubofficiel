@@ -1,5 +1,5 @@
-/* Green tech minimalist — Inter as single typeface (Stripe/Linear inspired) */
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Playfair+Display:ital,wght@0,600;1,400&display=swap');
+/* Waste Heroes inspired — Nunito, light, green + warm orange CTA */
+@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&display=swap');
 
 @tailwind base;
 @tailwind components;
@@ -7,471 +7,276 @@
 
 @layer base {
   :root {
-    /* Calm, premium green tech palette — deep forest green + neutral grays */
     --background: 0 0% 100%;
-    --foreground: 160 25% 10%;
+    --foreground: 220 15% 18%;
 
     --card: 0 0% 100%;
-    --card-foreground: 160 25% 10%;
+    --card-foreground: 220 15% 18%;
 
     --popover: 0 0% 100%;
-    --popover-foreground: 160 25% 10%;
+    --popover-foreground: 220 15% 18%;
 
-    /* Deep forest green — primary brand */
-    --primary: 158 64% 18%;
+    /* Fresh green */
+    --primary: 145 55% 38%;
     --primary-foreground: 0 0% 100%;
 
-    /* Subtle neutral surface as secondary (instead of warm yellow) */
-    --secondary: 150 12% 96%;
-    --secondary-foreground: 160 25% 12%;
+    /* Warm orange CTA (secondary role) */
+    --secondary: 22 92% 56%;
+    --secondary-foreground: 0 0% 100%;
 
-    --muted: 150 10% 96%;
-    --muted-foreground: 160 8% 42%;
+    --muted: 48 20% 96%;
+    --muted-foreground: 220 10% 45%;
 
-    /* Vibrant but refined emerald accent */
-    --accent: 158 58% 38%;
+    --accent: 22 92% 56%;
     --accent-foreground: 0 0% 100%;
 
     --destructive: 0 72% 50%;
     --destructive-foreground: 0 0% 100%;
 
-    --border: 150 12% 92%;
-    --input: 150 12% 92%;
-    --ring: 158 64% 18%;
+    --border: 220 13% 91%;
+    --input: 220 13% 91%;
+    --ring: 145 55% 38%;
 
-    --radius: 0.625rem;
+    --radius: 0.875rem;
 
-    --emerald: 158 64% 18%;
-    --neon: 158 58% 38%;
-    --neon-light: 152 52% 52%;
-    --orange-alert: 0 72% 50%;
+    --emerald: 145 55% 38%;
+    --neon: 145 60% 48%;
+    --neon-light: 145 55% 62%;
+    --orange-alert: 22 92% 56%;
     --glass: 0 0% 100%;
 
-    --warm: 158 58% 38%;
+    --warm: 22 92% 56%;
     --warm-foreground: 0 0% 100%;
     --earth: 28 25% 28%;
-    --sage: 150 18% 88%;
+    --sage: 145 25% 92%;
 
     --sidebar-background: 0 0% 100%;
-    --sidebar-foreground: 160 25% 10%;
-    --sidebar-primary: 158 64% 18%;
+    --sidebar-foreground: 220 15% 18%;
+    --sidebar-primary: 145 55% 38%;
     --sidebar-primary-foreground: 0 0% 100%;
-    --sidebar-accent: 150 12% 96%;
-    --sidebar-accent-foreground: 160 25% 12%;
-    --sidebar-border: 150 12% 92%;
-    --sidebar-ring: 158 64% 18%;
+    --sidebar-accent: 48 20% 96%;
+    --sidebar-accent-foreground: 220 15% 18%;
+    --sidebar-border: 220 13% 91%;
+    --sidebar-ring: 145 55% 38%;
 
-    font-family: 'Inter', system-ui, -apple-system, sans-serif;
-    font-feature-settings: "cv11", "ss01", "ss03";
+    font-family: 'Nunito', system-ui, -apple-system, sans-serif;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
   }
 
   .dark {
-    --background: 165 30% 4%;
-    --foreground: 150 10% 95%;
-
-    --card: 165 25% 7%;
-    --card-foreground: 150 10% 95%;
-
-    --popover: 165 25% 7%;
-    --popover-foreground: 150 10% 95%;
-
-    --primary: 162 65% 36%;
+    --background: 145 30% 6%;
+    --foreground: 0 0% 95%;
+    --card: 145 25% 9%;
+    --card-foreground: 0 0% 95%;
+    --popover: 145 25% 9%;
+    --popover-foreground: 0 0% 95%;
+    --primary: 145 55% 48%;
     --primary-foreground: 0 0% 100%;
-
-    --secondary: 42 80% 50%;
+    --secondary: 22 92% 56%;
     --secondary-foreground: 0 0% 100%;
-
-    --muted: 165 18% 13%;
-    --muted-foreground: 150 10% 60%;
-
-    --accent: 162 65% 36%;
+    --muted: 145 18% 14%;
+    --muted-foreground: 145 10% 65%;
+    --accent: 22 92% 56%;
     --accent-foreground: 0 0% 100%;
-
-    --destructive: 16 85% 50%;
+    --destructive: 0 72% 50%;
     --destructive-foreground: 0 0% 100%;
-
-    --border: 165 18% 16%;
-    --input: 165 18% 16%;
-    --ring: 162 65% 36%;
-
-    --sidebar-background: 165 30% 4%;
-    --sidebar-foreground: 150 10% 95%;
-    --sidebar-primary: 162 65% 36%;
-    --sidebar-primary-foreground: 0 0% 100%;
-    --sidebar-accent: 162 50% 22%;
-    --sidebar-accent-foreground: 0 0% 100%;
-    --sidebar-border: 165 18% 16%;
-    --sidebar-ring: 162 65% 36%;
+    --border: 145 18% 16%;
+    --input: 145 18% 16%;
+    --ring: 145 55% 48%;
   }
 }
 
 @layer base {
-  * {
-    @apply border-border;
-  }
-  body {
-    @apply bg-background text-foreground;
-  }
+  * { @apply border-border; }
+  body { @apply bg-background text-foreground; font-family: 'Nunito', system-ui, sans-serif; }
   h1, h2, h3, h4, h5, h6 {
-    font-family: 'Inter', system-ui, sans-serif;
-    letter-spacing: -0.02em;
-    font-weight: 600;
+    font-family: 'Nunito', system-ui, sans-serif;
+    letter-spacing: -0.015em;
+    font-weight: 800;
   }
 }
 
-
-
-/* ──── Section spacing system ──── */
-.section-spacing {
-  @apply py-12 md:py-16;
-}
-.section-spacing-lg {
-  @apply py-14 md:py-20;
-}
+/* ──── Section spacing ──── */
+.section-spacing { @apply py-14 md:py-20; }
+.section-spacing-lg { @apply py-20 md:py-28; }
 
 @layer components {
-  .glass {
-    @apply bg-white/70 backdrop-blur-xl border border-white/20 shadow-lg;
+  /* Pill CTA — Waste Heroes orange */
+  .btn-cta {
+    @apply inline-flex items-center justify-center gap-2 px-6 py-3 rounded-full text-sm font-bold transition-all duration-200;
+    background: hsl(var(--secondary));
+    color: hsl(var(--secondary-foreground));
+    box-shadow: 0 10px 24px -10px hsl(var(--secondary) / 0.55);
   }
-  .glass-dark {
-    @apply bg-black/30 backdrop-blur-xl border border-white/10;
+  .btn-cta:hover { transform: translateY(-2px); box-shadow: 0 16px 32px -10px hsl(var(--secondary) / 0.7); }
+
+  .btn-outline-green {
+    @apply inline-flex items-center justify-center gap-2 px-6 py-3 rounded-full text-sm font-bold transition-all duration-200;
+    background: transparent;
+    color: hsl(var(--primary));
+    border: 2px solid hsl(var(--primary) / 0.25);
   }
-  .glow-emerald {
-    box-shadow: 0 0 20px hsl(162 65% 36% / 0.3), 0 0 60px hsl(162 65% 36% / 0.1);
-  }
-  .glow-orange {
-    box-shadow: 0 0 20px hsl(16 85% 50% / 0.4), 0 0 60px hsl(16 85% 50% / 0.15);
+  .btn-outline-green:hover { background: hsl(var(--primary) / 0.06); border-color: hsl(var(--primary) / 0.5); }
+
+  .gradient-bio {
+    background: linear-gradient(135deg, hsl(var(--primary)), hsl(145 60% 48%));
   }
   .gradient-emerald {
     @apply bg-gradient-to-r from-primary to-accent;
   }
-  .gradient-bio {
-    background: linear-gradient(135deg, hsl(162 72% 22%), hsl(162 65% 36%), hsl(158 55% 48%));
-  }
   .gradient-warm {
-    background: linear-gradient(135deg, hsl(42 92% 55%), hsl(28 75% 48%));
+    background: linear-gradient(135deg, hsl(var(--secondary)), hsl(14 90% 52%));
   }
   .text-gradient-emerald {
     @apply bg-clip-text text-transparent bg-gradient-to-r from-primary to-accent;
   }
   .text-gradient-warm {
-    @apply bg-clip-text text-transparent;
-    background-image: linear-gradient(135deg, hsl(42 92% 55%), hsl(16 85% 50%));
+    @apply bg-clip-text text-transparent bg-gradient-to-r from-secondary to-accent;
   }
 
-  /* Section divider pattern */
-  .section-divider {
-    @apply relative;
-  }
-  .section-divider::before {
-    content: '';
-    @apply absolute top-0 left-1/2 -translate-x-1/2 w-16 h-1 rounded-full;
-    background: linear-gradient(90deg, hsl(162 72% 22%), hsl(42 92% 55%));
-  }
+  .glass { @apply bg-white/80 backdrop-blur-xl border border-border shadow-sm; }
+  .glass-dark { @apply bg-foreground/5 backdrop-blur-xl border border-border; }
+  .glow-emerald { box-shadow: 0 10px 30px -10px hsl(var(--primary) / 0.35); }
+  .glow-orange { box-shadow: 0 10px 30px -10px hsl(var(--secondary) / 0.45); }
 
-  /* Section header consistent styling */
+  /* Section badges */
   .section-badge {
-    @apply inline-block text-xs font-bold uppercase tracking-[0.2em] mb-4 px-4 py-1.5 rounded-full border;
+    @apply inline-block text-xs font-bold uppercase tracking-[0.18em] mb-4 px-3 py-1.5 rounded-full;
   }
-  .section-badge-primary {
-    @apply section-badge text-primary/80 border-primary/20 bg-primary/5;
-  }
-  .section-badge-warm {
-    @apply section-badge text-secondary border-secondary/20 bg-secondary/5;
-  }
-  .section-badge-destructive {
-    @apply section-badge text-destructive/80 border-destructive/20 bg-destructive/5;
-  }
+  .section-badge-primary { @apply section-badge text-primary bg-primary/10; }
+  .section-badge-warm { @apply section-badge text-secondary bg-secondary/10; }
+  .section-badge-destructive { @apply section-badge text-destructive bg-destructive/10; }
   .section-title {
-    @apply font-display text-2xl sm:text-3xl lg:text-4xl font-extrabold text-foreground tracking-tight;
+    @apply text-3xl sm:text-4xl lg:text-5xl font-extrabold text-foreground tracking-tight leading-tight;
   }
   .section-subtitle {
-    @apply text-muted-foreground text-sm sm:text-base leading-relaxed max-w-2xl mx-auto mt-3;
+    @apply text-muted-foreground text-base leading-relaxed max-w-2xl mx-auto mt-4;
   }
 
-  /* ──────────────────────────────────────────────
-     HERO-STYLE PREMIUM SYSTEM
-     Glassmorphism, dark immersive sections,
-     rounded cards, soft shadows, white text + secondary gradient.
-     Replaces the previous WordPress/Gutenberg block system.
-     ────────────────────────────────────────────── */
-
-  /* Dark immersive section (defaults for every wp-section) */
+  /* ── wp-section system — now LIGHT (Waste Heroes look) ── */
   .wp-section {
-    @apply relative py-20 md:py-28 overflow-hidden text-primary-foreground;
-    background:
-      radial-gradient(ellipse at top, hsl(var(--primary) / 0.45), transparent 60%),
-      linear-gradient(160deg, hsl(165 35% 6%) 0%, hsl(162 50% 10%) 50%, hsl(165 35% 5%) 100%);
+    @apply relative py-20 md:py-28 overflow-hidden text-foreground bg-background;
   }
-  .wp-section::after {
-    content: "";
-    @apply absolute inset-0 pointer-events-none opacity-[0.04];
-    background-image: radial-gradient(hsl(var(--primary-foreground)) 1px, transparent 1px);
-    background-size: 24px 24px;
-  }
+  .wp-section.wp-section-muted { background: hsl(var(--muted)); }
+  .wp-section.wp-section-sage { background: hsl(var(--sage)); }
+  .wp-section::after { content: none; }
   .wp-section > * { @apply relative z-[1]; }
-
-  /* Glow accents for sections */
-  .wp-section-glow-secondary::before {
-    content: "";
-    @apply absolute -top-32 -right-32 w-[400px] h-[400px] rounded-full pointer-events-none;
-    background: hsl(var(--secondary) / 0.18);
-    filter: blur(100px);
-  }
-  .wp-section-glow-accent::before {
-    content: "";
-    @apply absolute -top-32 -left-32 w-[400px] h-[400px] rounded-full pointer-events-none;
-    background: hsl(var(--accent) / 0.25);
-    filter: blur(100px);
-  }
-
+  .wp-section-glow-secondary::before,
+  .wp-section-glow-accent::before { content: none; }
   .wp-grid-pattern { background: none; }
 
-  /* Eyebrow → glass pill (façon Hero) */
   .wp-eyebrow {
-    @apply inline-flex items-center gap-2 px-4 py-2 rounded-full text-[11px] font-bold uppercase tracking-[0.2em] backdrop-blur-md;
-    background: hsl(var(--primary-foreground) / 0.1);
-    color: hsl(var(--primary-foreground));
-    border: 1px solid hsl(var(--primary-foreground) / 0.22);
+    @apply inline-flex items-center gap-2 px-3 py-1.5 rounded-full text-[11px] font-bold uppercase tracking-[0.18em];
+    background: hsl(var(--primary) / 0.1);
+    color: hsl(var(--primary));
   }
-  .wp-eyebrow::before { content: none; display: none; }
   .wp-eyebrow-light, .wp-eyebrow-secondary {
-    background: hsl(var(--secondary) / 0.18);
+    background: hsl(var(--secondary) / 0.12);
     color: hsl(var(--secondary));
-    border-color: hsl(var(--secondary) / 0.4);
   }
   .wp-eyebrow-destructive {
-    background: hsl(var(--destructive) / 0.18);
+    background: hsl(var(--destructive) / 0.12);
     color: hsl(var(--destructive));
-    border-color: hsl(var(--destructive) / 0.5);
   }
 
-  /* Section header */
   .wp-section-header { @apply mb-12 md:mb-16; }
   .wp-section-header.center { @apply text-center; }
   .wp-section-header.center .wp-eyebrow { @apply justify-center; }
 
   .wp-section-title {
-    @apply font-display text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight leading-[1.05] mt-5;
-    color: hsl(var(--primary-foreground));
+    @apply text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight leading-[1.1] mt-4 text-foreground;
   }
   .wp-section-title .text-secondary,
   .wp-section-title .text-primary {
-    @apply bg-clip-text text-transparent;
-    background-image: linear-gradient(135deg, hsl(var(--secondary)), hsl(var(--accent)));
+    color: hsl(var(--primary));
+    background: none;
+    -webkit-background-clip: initial;
+    -webkit-text-fill-color: initial;
   }
   .wp-section-subtitle {
-    @apply text-sm sm:text-base leading-relaxed max-w-2xl mt-4;
-    color: hsl(var(--primary-foreground) / 0.75);
+    @apply text-base leading-relaxed max-w-2xl mt-4 text-muted-foreground;
   }
   .wp-section-header.center .wp-section-subtitle { @apply mx-auto; }
 
-  /* Variante "dark" reste compatible (déjà sombre par défaut) */
-  .wp-section-dark { /* no-op alias */ }
-
-  /* Glass cards façon Hero */
+  /* Cards — clean white with green accent on hover */
   .wp-card,
   .wp-card-soft {
-    @apply relative rounded-3xl backdrop-blur-2xl transition-all duration-300;
-    background: hsl(var(--primary-foreground) / 0.07);
-    border: 1px solid hsl(var(--primary-foreground) / 0.18);
-    box-shadow: 0 25px 60px -15px hsl(0 0% 0% / 0.5);
-    color: hsl(var(--primary-foreground));
+    @apply relative rounded-2xl bg-card border border-border transition-all duration-300 text-foreground;
+    box-shadow: 0 1px 2px hsl(220 13% 91% / 0.5);
   }
   .wp-card:hover,
   .wp-card-soft:hover {
-    background: hsl(var(--primary-foreground) / 0.12);
-    border-color: hsl(var(--secondary) / 0.5);
-    transform: translateY(-3px);
-    box-shadow: 0 35px 70px -15px hsl(0 0% 0% / 0.6);
+    border-color: hsl(var(--primary) / 0.4);
+    box-shadow: 0 12px 30px -12px hsl(var(--primary) / 0.25);
+    transform: translateY(-2px);
   }
   .wp-card-primary {
-    @apply relative rounded-3xl backdrop-blur-2xl transition-all duration-300;
-    background: linear-gradient(135deg, hsl(var(--primary-foreground) / 0.12), hsl(var(--secondary) / 0.08));
-    border: 1px solid hsl(var(--secondary) / 0.4);
-    box-shadow: 0 25px 60px -15px hsl(var(--secondary) / 0.3);
-    color: hsl(var(--primary-foreground));
+    @apply relative rounded-2xl bg-card border-2 border-primary/30 transition-all duration-300 text-foreground;
+    box-shadow: 0 8px 24px -12px hsl(var(--primary) / 0.3);
   }
   .wp-card-primary:hover {
-    border-color: hsl(var(--secondary) / 0.7);
-    transform: translateY(-3px);
+    border-color: hsl(var(--primary) / 0.6);
+    transform: translateY(-2px);
   }
   .wp-card-destructive {
-    @apply relative rounded-3xl backdrop-blur-2xl transition-all duration-300;
-    background: linear-gradient(135deg, hsl(var(--primary-foreground) / 0.08), hsl(var(--destructive) / 0.12));
-    border: 1px solid hsl(var(--destructive) / 0.45);
-    box-shadow: 0 25px 60px -15px hsl(var(--destructive) / 0.35);
-    color: hsl(var(--primary-foreground));
+    @apply relative rounded-2xl bg-card border-2 border-destructive/30 transition-all duration-300 text-foreground;
+    box-shadow: 0 8px 24px -12px hsl(var(--destructive) / 0.3);
   }
-  .wp-card-destructive:hover {
-    border-color: hsl(var(--destructive) / 0.7);
-    transform: translateY(-3px);
-  }
+  .wp-card-destructive:hover { border-color: hsl(var(--destructive) / 0.6); transform: translateY(-2px); }
 
-  /* Buttons façon Hero — pill + gradient + soft glow */
+  /* Buttons */
   .wp-btn-primary {
     @apply inline-flex items-center justify-center gap-2 px-6 py-3 rounded-full text-sm font-bold transition-all duration-200;
-    background: linear-gradient(135deg, hsl(var(--secondary)), hsl(var(--accent)));
+    background: hsl(var(--secondary));
     color: hsl(var(--secondary-foreground));
-    box-shadow: 0 12px 30px -10px hsl(var(--secondary) / 0.55);
+    box-shadow: 0 10px 24px -10px hsl(var(--secondary) / 0.55);
   }
-  .wp-btn-primary:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 18px 40px -10px hsl(var(--secondary) / 0.7);
-  }
+  .wp-btn-primary:hover { transform: translateY(-2px); box-shadow: 0 16px 32px -10px hsl(var(--secondary) / 0.7); }
+
   .wp-btn-outline {
-    @apply inline-flex items-center justify-center gap-2 px-6 py-3 rounded-full text-sm font-bold backdrop-blur-md transition-all duration-200;
-    background: hsl(var(--primary-foreground) / 0.1);
-    color: hsl(var(--primary-foreground));
-    border: 1px solid hsl(var(--primary-foreground) / 0.3);
+    @apply inline-flex items-center justify-center gap-2 px-6 py-3 rounded-full text-sm font-bold transition-all duration-200;
+    background: transparent;
+    color: hsl(var(--primary));
+    border: 2px solid hsl(var(--primary) / 0.25);
   }
-  .wp-btn-outline:hover {
-    background: hsl(var(--primary-foreground) / 0.18);
-    border-color: hsl(var(--primary-foreground) / 0.5);
-    transform: translateY(-2px);
-  }
+  .wp-btn-outline:hover { background: hsl(var(--primary) / 0.06); border-color: hsl(var(--primary) / 0.5); }
+
   .wp-btn-destructive {
     @apply inline-flex items-center justify-center gap-2 px-6 py-3 rounded-full text-sm font-bold transition-all duration-200;
-    background: linear-gradient(135deg, hsl(var(--destructive)), hsl(16 90% 55%));
+    background: hsl(var(--destructive));
     color: hsl(var(--destructive-foreground));
-    box-shadow: 0 12px 30px -10px hsl(var(--destructive) / 0.55);
+    box-shadow: 0 10px 24px -10px hsl(var(--destructive) / 0.5);
   }
-  .wp-btn-destructive:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 18px 40px -10px hsl(var(--destructive) / 0.7);
-  }
+  .wp-btn-destructive:hover { transform: translateY(-2px); }
 
-  /* Numéro décoratif en mode clair (gardé pour compat) */
   .wp-number {
-    @apply font-display text-5xl font-black leading-none select-none;
-    color: hsl(var(--primary-foreground) / 0.15);
+    @apply font-extrabold text-5xl leading-none select-none text-primary/20;
   }
 
-  /* ──────────────────────────────────────────────
-     Scoped overrides : neutraliser le langage clair
-     des composants à l'intérieur des wp-section.
-     ────────────────────────────────────────────── */
-  .wp-section .text-foreground { color: hsl(var(--primary-foreground)) !important; }
-  .wp-section .text-muted-foreground { color: hsl(var(--primary-foreground) / 0.7) !important; }
-  .wp-section .text-foreground\/85,
-  .wp-section .text-foreground\/90 { color: hsl(var(--primary-foreground) / 0.9) !important; }
-  .wp-section [class*="border-foreground"] { border-color: hsl(var(--primary-foreground) / 0.2) !important; }
-  .wp-section [class*="divide-foreground"] > * + * { border-color: hsl(var(--primary-foreground) / 0.2) !important; }
-  .wp-section .bg-card {
-    background: hsl(var(--primary-foreground) / 0.07) !important;
-    backdrop-filter: blur(20px);
-  }
-  .wp-section [class*="bg-muted"] { background: hsl(var(--primary-foreground) / 0.05) !important; }
-  .wp-section .bg-background { background: hsl(var(--primary-foreground) / 0.08) !important; }
-  .wp-section .bg-primary {
-    background: linear-gradient(135deg, hsl(var(--secondary)), hsl(var(--accent))) !important;
-    color: hsl(var(--secondary-foreground)) !important;
-  }
-  .wp-section .text-primary { color: hsl(var(--secondary)) !important; }
-  .wp-section .border-primary { border-color: hsl(var(--secondary) / 0.5) !important; }
-  /* Adoucir tous les coins durs hérités */
-  .wp-section [class^="border-2"],
-  .wp-section [class*=" border-2"] { border-width: 1px !important; }
+  /* No overrides needed — sections are already light */
 }
 
 @layer utilities {
-  .shimmer {
-    position: relative;
-    overflow: hidden;
-  }
-  .shimmer::after {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: -100%;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(
-      120deg,
-      transparent 0%,
-      rgba(255, 255, 255, 0.2) 50%,
-      transparent 100%
-    );
-    animation: shimmer-slide 5s infinite;
-  }
-  @keyframes shimmer-slide {
-    0% { left: -100%; }
-    100% { left: 200%; }
-  }
+  @keyframes float { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-8px); } }
+  @keyframes slide-up { from { opacity:0; transform:translateY(20px); } to { opacity:1; transform:translateY(0); } }
+  @keyframes slide-in-left { from { opacity:0; transform:translateX(-20px); } to { opacity:1; transform:translateX(0); } }
   @keyframes glow-pulse {
-    0%, 100% { filter: drop-shadow(0 0 8px hsl(162 65% 36% / 0.6)); }
-    50% { filter: drop-shadow(0 0 20px hsl(162 65% 36% / 0.9)); }
+    0%, 100% { filter: drop-shadow(0 0 6px hsl(var(--primary) / 0.4)); }
+    50% { filter: drop-shadow(0 0 14px hsl(var(--primary) / 0.7)); }
   }
   @keyframes pulse-orange {
-    0%, 100% { box-shadow: 0 0 8px hsl(16 85% 50% / 0.4); }
-    50% { box-shadow: 0 0 24px hsl(16 85% 50% / 0.7); }
+    0%, 100% { box-shadow: 0 0 8px hsl(var(--secondary) / 0.4); }
+    50% { box-shadow: 0 0 20px hsl(var(--secondary) / 0.7); }
   }
-  @keyframes float {
-    0%, 100% { transform: translateY(0px); }
-    50% { transform: translateY(-10px); }
-  }
-  @keyframes slide-up {
-    from { opacity: 0; transform: translateY(30px); }
-    to { opacity: 1; transform: translateY(0); }
-  }
-  @keyframes slide-in-left {
-    from { opacity: 0; transform: translateX(-30px); }
-    to { opacity: 1; transform: translateX(0); }
-  }
-  .animate-glow-pulse {
-    animation: glow-pulse 2s ease-in-out infinite;
-  }
-  .animate-pulse-orange {
-    animation: pulse-orange 2s ease-in-out infinite;
-  }
-  .animate-float {
-    animation: float 3s ease-in-out infinite;
-  }
-  .animate-slide-up {
-    animation: slide-up 0.6s ease-out forwards;
-  }
-  .animate-slide-in-left {
-    animation: slide-in-left 0.6s ease-out forwards;
-  }
-}
-@layer utilities {
-  @keyframes alerte-color-pulse {
-    0%, 100% { color: hsl(48 100% 60%); filter: drop-shadow(0 0 6px hsl(48 100% 55% / 0.55)); }
-    50% { color: hsl(0 90% 58%); filter: drop-shadow(0 0 10px hsl(0 90% 55% / 0.75)); }
-  }
-  @keyframes alerte-ring-pulse {
-    0%, 100% { box-shadow: 0 0 0 0 hsl(0 90% 55% / 0.45), inset 0 0 0 1px hsl(48 100% 60% / 0.25); }
-    50% { box-shadow: 0 0 0 6px hsl(0 90% 55% / 0), inset 0 0 0 1px hsl(0 90% 60% / 0.45); }
-  }
-  @keyframes alerte-toast-in {
-    0% { opacity: 0; transform: translate(-50%, -4px) scale(.95); }
-    100% { opacity: 1; transform: translate(-50%, 0) scale(1); }
-  }
-  .animate-alerte-color { animation: alerte-color-pulse 2.2s ease-in-out infinite; }
-  .animate-alerte-ring { animation: alerte-ring-pulse 2.2s ease-in-out infinite; }
-  .animate-alerte-toast { animation: alerte-toast-in .35s cubic-bezier(.2,.9,.3,1.2) both; }
+  .animate-float { animation: float 3s ease-in-out infinite; }
+  .animate-slide-up { animation: slide-up 0.6s ease-out forwards; opacity: 0; }
+  .animate-slide-in-left { animation: slide-in-left 0.6s ease-out forwards; opacity: 0; }
+  .animate-glow-pulse { animation: glow-pulse 2.5s ease-in-out infinite; }
+  .animate-pulse-orange { animation: pulse-orange 2s ease-in-out infinite; }
 
-  /* ──── Navbar premium micro-interactions ──── */
-  @keyframes nav-shake {
-    0%, 100% { transform: translateX(0) rotate(0); }
-    20% { transform: translateX(-1.5px) rotate(-4deg); }
-    40% { transform: translateX(1.5px) rotate(4deg); }
-    60% { transform: translateX(-1px) rotate(-2deg); }
-    80% { transform: translateX(1px) rotate(2deg); }
-  }
-  @keyframes nav-bounce {
-    0%, 100% { transform: translateY(0) scale(1); }
-    35% { transform: translateY(-3px) scale(1.08); }
-    70% { transform: translateY(0) scale(0.96); }
-  }
-  @keyframes nav-cta-halo {
-    0%, 100% { box-shadow: 0 10px 30px -10px hsl(var(--secondary)/0.55), inset 0 1px 0 rgba(255,255,255,0.35), 0 0 0 0 hsl(var(--secondary)/0.45); }
-    50% { box-shadow: 0 12px 34px -10px hsl(var(--secondary)/0.7), inset 0 1px 0 rgba(255,255,255,0.4), 0 0 0 8px hsl(var(--secondary)/0); }
-  }
-  @keyframes navbar-accent-slide {
-    0% { transform: translateX(-50%); }
-    100% { transform: translateX(0%); }
+  @media (prefers-reduced-motion: reduce) {
+    .animate-float, .animate-slide-up, .animate-slide-in-left,
+    .animate-glow-pulse, .animate-pulse-orange { animation: none !important; opacity: 1 !important; }
   }
 }
