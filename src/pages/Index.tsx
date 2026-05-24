@@ -1,13 +1,19 @@
 import SEO from "@/components/SEO";
 import HeroSection from "@/components/HeroSection";
+import AboutSection from "@/components/AboutSection";
+import SolutionProSection from "@/components/SolutionProSection";
 import ServicesSection from "@/components/ServicesSection";
+import CivicTechSection from "@/components/CivicTechSection";
+import GreenAcademySection from "@/components/GreenAcademySection";
 import HowItWorks from "@/components/HowItWorks";
 import ImpactStatsSection from "@/components/ImpactStatsSection";
 import WhyUsSection from "@/components/WhyUsSection";
 import TestimonialsSection from "@/components/TestimonialsSection";
-import FAQSection from "@/components/FAQSection";
 import PartnersSection from "@/components/PartnersSection";
+import EventsHubSection from "@/components/EventsHubSection";
+import FAQSection from "@/components/FAQSection";
 import CTASection from "@/components/CTASection";
+
 import WhatsAppButton from "@/components/WhatsAppButton";
 import MobileStickyBar from "@/components/MobileStickyBar";
 
