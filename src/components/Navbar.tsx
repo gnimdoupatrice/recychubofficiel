@@ -131,12 +131,30 @@ const Navbar = () => {
   return (
     <>
       <nav
-        className={`fixed left-1/2 -translate-x-1/2 z-50 transition-all duration-500 ease-out ${
+        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ease-out ${
           scrolled
-            ? "top-2 w-[min(1180px,calc(100%-1rem))] h-14 bg-background/90 backdrop-blur-2xl border border-border shadow-[0_12px_40px_-18px_rgba(0,0,0,0.25)]"
-            : "top-3 w-[min(1240px,calc(100%-1.5rem))] h-16 bg-background/75 backdrop-blur-md border border-border/60 shadow-[0_8px_28px_-18px_rgba(0,0,0,0.18)]"
-        } rounded-full flex items-center overflow-hidden`}
+            ? "h-16 bg-background/85 backdrop-blur-2xl border-b border-border shadow-sm"
+            : "h-20 bg-background/70 backdrop-blur-md"
+        } flex items-center`}
+
       >
+        {/* Ligne d'accent verte animée — visible quand scrollé (signature "écologie en mouvement") */}
+        <span
+          aria-hidden
+          className={`pointer-events-none absolute left-0 right-0 bottom-0 h-px overflow-hidden transition-opacity duration-500 ${
+            scrolled ? "opacity-100" : "opacity-0"
+          }`}
+        >
+          <span
+            className="block h-full w-[200%] -translate-x-1/2"
+            style={{
+              background:
+                "linear-gradient(90deg, transparent 0%, hsl(var(--secondary)/0.0) 20%, hsl(var(--secondary)/0.8) 45%, hsl(var(--accent)/0.9) 55%, hsl(var(--secondary)/0.0) 80%, transparent 100%)",
+              animation: "navbar-accent-slide 8s linear infinite",
+            }}
+          />
+        </span>
+
         {/* Barre de progression scroll — fine ligne verte qui se remplit */}
         <span
           aria-hidden
@@ -144,63 +162,88 @@ const Navbar = () => {
           style={{ width: `${scrollProgress * 100}%`, opacity: scrolled ? 1 : 0.7 }}
         />
 
-        <div className="mx-auto px-3 sm:px-5 flex items-center justify-between gap-4 w-full">
-          {/* LOGO — strictement figé */}
-          <Link to="/" className="flex items-center shrink-0 select-none" aria-label="RecycHub Togo — Accueil">
+        <div className="container max-w-[1440px] mx-auto px-5 lg:px-10 flex items-center justify-between gap-8 w-full">
+          {/* LOGO — strictement figé, aucune transformation au hover ni au clic */}
+          <Link to="/" className="flex items-center gap-3 shrink-0 select-none" aria-label="RecycHub Togo — Accueil">
             <img
               src={logoImg}
               alt="RecycHub Togo"
               draggable={false}
-              className="w-10 h-10 sm:w-11 sm:h-11 object-contain drop-shadow-sm pointer-events-none"
+              className="w-10 h-10 sm:w-11 sm:h-11 object-contain drop-shadow-lg pointer-events-none"
             />
+            <span className="hidden sm:inline-block font-bold text-[16px] tracking-tight text-foreground leading-none">
+              RECYC <span className="text-primary">HUB</span>
+            </span>
+
           </Link>
 
-          <div className="hidden lg:flex items-center gap-1">
-            {/* Accueil — discret, ghost text-only */}
-            <Link
-              to="/"
-              className={`inline-flex items-center gap-1.5 h-9 px-3 rounded-full text-[13px] font-semibold transition-colors duration-200 ${
-                location.pathname === "/"
-                  ? "text-primary"
-                  : "text-foreground/70 hover:text-foreground"
-              }`}
-            >
-              <Home className="w-3.5 h-3.5" />
+          <div className="hidden lg:flex items-center gap-1.5 xl:gap-2">
+            <Link to="/" className={linkClass(location.pathname === "/", "neutral")}>
+              <Home className="w-3.5 h-3.5 group-hover:-translate-y-[1px]" />
               Accueil
+              <Underline active={location.pathname === "/"} tone="neutral" />
             </Link>
 
-            {/* Vendre — pill vert clair tinté, badge prix toujours visible */}
+            {/* Alerte dépotoir — pulsation jaune→rouge + live counter */}
             <Link
-              to="/vendre"
-              className={`inline-flex items-center gap-2 h-9 pl-3 pr-2 rounded-full text-[13px] font-semibold transition-colors duration-200 border ${
-                location.pathname === "/vendre"
-                  ? "bg-primary/15 text-primary border-primary/40"
-                  : "bg-primary/[0.06] text-primary border-primary/15 hover:bg-primary/10 hover:border-primary/30"
-              }`}
+              to="/alerte"
+              onClick={() => { setAlerteToast(true); window.setTimeout(() => setAlerteToast(false), 2600); }}
+              aria-label="Alerte dépotoir — signaler un dépotoir sauvage"
+              className={`${linkClass(location.pathname === "/alerte", "destructive")} animate-alerte-ring`}
             >
-              <ShoppingBag className="w-3.5 h-3.5" />
-              Vendre
-              <span className="text-[10px] font-black uppercase tracking-wider px-2 py-0.5 rounded-full bg-primary text-primary-foreground">
-                +150 F/kg
+              <span aria-hidden className="relative inline-flex items-center justify-center w-4 h-4 group-hover:[animation:nav-shake_.4s_ease-in-out]">
+                <AlertTriangle className="w-4 h-4 animate-alerte-color" strokeWidth={2.5} fill="currentColor" fillOpacity={0.15} />
+              </span>
+              <span className="relative">Alerte dépotoir</span>
+              {/* Mini live indicator — apparaît au hover */}
+              <span
+                aria-label={`${alerteCount} signalements aujourd'hui`}
+                className="ml-0.5 inline-flex items-center gap-1 max-w-0 opacity-0 overflow-hidden group-hover:max-w-[120px] group-hover:opacity-100 transition-all duration-300 ease-out"
+              >
+                <span className="inline-flex items-center gap-1 text-[10px] font-bold uppercase tracking-wider px-1.5 py-px rounded-full bg-destructive/25 text-white ring-1 ring-destructive/50 whitespace-nowrap">
+                  <span className="w-1 h-1 rounded-full bg-destructive animate-pulse" />
+                  {alerteCount} aujourd'hui
+                </span>
+              </span>
+              <Underline active={location.pathname === "/alerte"} tone="destructive" />
+
+              <span
+                role="status"
+                aria-live="polite"
+                className={`pointer-events-none absolute left-1/2 top-full mt-3 -translate-x-1/2 whitespace-nowrap rounded-full bg-black/85 backdrop-blur-md border border-destructive/40 px-3 py-1.5 text-[11px] font-semibold text-white shadow-[0_12px_30px_-12px_hsl(0_90%_55%/0.6)] ${
+                  alerteToast ? "opacity-100 animate-alerte-toast" : "opacity-0"
+                }`}
+              >
+                <span className="inline-block w-1.5 h-1.5 rounded-full bg-destructive mr-2 align-middle animate-pulse" />
+                Merci pour votre vigilance 🙏
               </span>
             </Link>
 
-            {/* Découvrir — dropdown, style chip neutre avec chevron */}
+            {/* Vendre — vert secondary, icône qui rebondit + badge FCFA au hover */}
+            <Link to="/vendre" className={linkClass(location.pathname === "/vendre", "secondary")}>
+              <ShoppingBag className="w-3.5 h-3.5 group-hover:[animation:nav-bounce_.5s_ease-out]" />
+              Vendre mes plastiques
+              <span className="ml-0.5 inline-flex items-center max-w-0 opacity-0 overflow-hidden group-hover:max-w-[80px] group-hover:opacity-100 transition-all duration-300 ease-out">
+                <span className="text-[10px] font-black uppercase tracking-wider px-1.5 py-px rounded-full bg-secondary/25 text-secondary ring-1 ring-secondary/40 whitespace-nowrap">
+                  +150 F/kg
+                </span>
+              </span>
+              <Underline active={location.pathname === "/vendre"} tone="secondary" />
+            </Link>
+
+            {/* Découvrir dropdown — accent doré */}
             <div ref={discoverRef} className="relative">
               <button
                 onClick={() => setDiscoverOpen(o => !o)}
                 onMouseEnter={() => setDiscoverOpen(true)}
                 aria-expanded={discoverOpen}
                 aria-haspopup="true"
-                className={`inline-flex items-center gap-1.5 h-9 px-3 rounded-full text-[13px] font-semibold transition-colors duration-200 ${
-                  isDiscoverActive || discoverOpen
-                    ? "bg-muted text-foreground"
-                    : "text-foreground/70 hover:bg-muted hover:text-foreground"
-                }`}
+                className={linkClass(isDiscoverActive || discoverOpen, "accent")}
               >
-                <Compass className="w-3.5 h-3.5" />
+                <Compass className="w-3.5 h-3.5 group-hover:rotate-[20deg]" />
                 Découvrir
                 <ChevronDown className={`w-3 h-3 transition-transform duration-300 ${discoverOpen ? "rotate-180" : ""}`} />
+                <Underline active={isDiscoverActive || discoverOpen} tone="accent" />
               </button>
 
               {discoverOpen && (
@@ -215,9 +258,9 @@ const Navbar = () => {
                       key={s.to}
                       to={s.to}
                       style={{ animation: `fade-in .35s ease-out ${i * 60}ms both` }}
-                      className="group flex items-start gap-3 p-3 rounded-xl hover:bg-muted transition-colors duration-200"
+                      className="group flex items-start gap-3 p-3 rounded-xl hover:bg-muted transition-all duration-300 hover:translate-x-0.5"
                     >
-                      <div className={`w-10 h-10 rounded-xl flex items-center justify-center shrink-0 ${accentClasses[s.accent]}`}>
+                      <div className={`w-10 h-10 rounded-xl flex items-center justify-center shrink-0 transition-all duration-300 group-hover:scale-110 group-hover:rotate-[-6deg] ${accentClasses[s.accent]}`}>
                         <s.icon className="w-5 h-5" />
                       </div>
                       <div className="flex-1 min-w-0">
@@ -228,40 +271,16 @@ const Navbar = () => {
                   ))}
                 </div>
               )}
+
             </div>
 
-            {/* Enlèvement — outline orange "service à la demande", look bouton */}
-            <Link
-              to="/enlevement"
-              className={`inline-flex items-center gap-1.5 h-9 px-3 rounded-full text-[13px] font-semibold transition-colors duration-200 border ${
-                location.pathname === "/enlevement"
-                  ? "bg-secondary/15 text-secondary border-secondary/40"
-                  : "bg-transparent text-secondary border-secondary/30 hover:bg-secondary/10 hover:border-secondary/50"
-              }`}
-            >
-              <Truck className="w-3.5 h-3.5" />
-              Enlèvement
-            </Link>
-
-            {/* Alerte dépotoir — intrinsèquement URGENT : pill rouge plein, point pulsant permanent */}
-            <Link
-              to="/alerte"
-              aria-label={`Alerte dépotoir — ${alerteCount} signalements aujourd'hui`}
-              className="relative inline-flex items-center gap-2 h-9 pl-2.5 pr-3 rounded-full text-[13px] font-bold text-destructive-foreground bg-destructive shadow-[0_6px_18px_-8px_hsl(var(--destructive)/0.7)] transition-shadow duration-200 hover:shadow-[0_10px_24px_-8px_hsl(var(--destructive)/0.85)]"
-            >
-              <span aria-hidden className="relative inline-flex items-center justify-center w-5 h-5">
-                <span className="absolute inset-0 rounded-full bg-destructive-foreground/30 animate-ping" />
-                <AlertTriangle className="relative w-3.5 h-3.5" strokeWidth={2.75} fill="currentColor" fillOpacity={0.2} />
-              </span>
-              Alerte
-              <span className="inline-flex items-center gap-1 text-[10px] font-black uppercase tracking-wider px-1.5 py-0.5 rounded-full bg-destructive-foreground/20 ring-1 ring-destructive-foreground/40">
-                <span className="w-1 h-1 rounded-full bg-destructive-foreground animate-pulse" />
-                {alerteCount}
-              </span>
+            {/* Enlèvement — bleu/teal logistique, camion qui roule à droite */}
+            <Link to="/enlevement" className={linkClass(location.pathname === "/enlevement", "sky")}>
+              <Truck className="w-3.5 h-3.5 group-hover:translate-x-[3px]" />
+              Enlèvement de déchets
+              <Underline active={location.pathname === "/enlevement"} tone="sky" />
             </Link>
           </div>
-
-
 
           <div className="hidden lg:flex items-center gap-2">
             {user ? (
