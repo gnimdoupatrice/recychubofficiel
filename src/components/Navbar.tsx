@@ -323,7 +323,8 @@ const Navbar = () => {
           </div>
 
           <button
-            className="lg:hidden inline-flex items-center justify-center w-10 h-10 text-white rounded-full border border-transparent hover:bg-white/10 hover:border-white/15 transition-all duration-300"
+            className="lg:hidden inline-flex items-center justify-center w-10 h-10 text-foreground rounded-full border border-transparent hover:bg-muted hover:border-border transition-all duration-300"
+
             onClick={() => setMobileOpen(!mobileOpen)}
             aria-label={mobileOpen ? "Fermer le menu" : "Ouvrir le menu"}
             aria-expanded={mobileOpen}
