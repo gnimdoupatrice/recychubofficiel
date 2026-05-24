@@ -249,28 +249,29 @@ const Navbar = () => {
               {discoverOpen && (
                 <div
                   onMouseLeave={() => setDiscoverOpen(false)}
-                  className="absolute top-full left-1/2 -translate-x-1/2 mt-3 w-[380px] rounded-2xl bg-black/80 backdrop-blur-2xl border border-white/15 shadow-2xl shadow-black/60 p-2 overflow-hidden origin-top"
+                  className="absolute top-full left-1/2 -translate-x-1/2 mt-3 w-[380px] rounded-2xl bg-background/95 backdrop-blur-2xl border border-border shadow-xl p-2 overflow-hidden origin-top"
                   style={{ animation: "scale-in .22s cubic-bezier(.2,.9,.3,1.2)" }}
                 >
-                  <span aria-hidden className="absolute -top-1 left-1/2 -translate-x-1/2 w-2 h-2 rotate-45 bg-black/80 border-l border-t border-white/15" />
+                  <span aria-hidden className="absolute -top-1 left-1/2 -translate-x-1/2 w-2 h-2 rotate-45 bg-background border-l border-t border-border" />
                   {discoverLinks.map((s, i) => (
                     <Link
                       key={s.to}
                       to={s.to}
                       style={{ animation: `fade-in .35s ease-out ${i * 60}ms both` }}
-                      className="group flex items-start gap-3 p-3 rounded-xl hover:bg-white/10 transition-all duration-300 hover:translate-x-0.5"
+                      className="group flex items-start gap-3 p-3 rounded-xl hover:bg-muted transition-all duration-300 hover:translate-x-0.5"
                     >
                       <div className={`w-10 h-10 rounded-xl flex items-center justify-center shrink-0 transition-all duration-300 group-hover:scale-110 group-hover:rotate-[-6deg] ${accentClasses[s.accent]}`}>
                         <s.icon className="w-5 h-5" />
                       </div>
                       <div className="flex-1 min-w-0">
-                        <div className="font-bold text-sm text-white">{s.label}</div>
-                        <div className="text-xs text-white/70 mt-0.5">{s.desc}</div>
+                        <div className="font-bold text-sm text-foreground">{s.label}</div>
+                        <div className="text-xs text-muted-foreground mt-0.5">{s.desc}</div>
                       </div>
                     </Link>
                   ))}
                 </div>
               )}
+
             </div>
 
             {/* Enlèvement — bleu/teal logistique, camion qui roule à droite */}
