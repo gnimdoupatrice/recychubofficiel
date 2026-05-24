@@ -288,21 +288,22 @@ const Navbar = () => {
                 {isAdmin && (
                   <Link
                     to="/admin"
-                    className="group inline-flex items-center gap-1.5 h-10 px-4 rounded-full text-[13px] font-bold text-white bg-white/[0.08] border border-white/20 hover:bg-white/15 hover:border-white/30 backdrop-blur-md transition-all duration-300 hover:shadow-[0_8px_24px_-10px_rgba(255,255,255,0.25)] [&_svg]:transition-transform hover:[&_svg]:rotate-[-8deg]"
+                    className="group inline-flex items-center gap-1.5 h-10 px-4 rounded-full text-[13px] font-bold text-foreground bg-muted border border-border hover:bg-muted/70 hover:border-primary/30 transition-all duration-300 [&_svg]:transition-transform hover:[&_svg]:rotate-[-8deg]"
                   >
                     <ShieldCheck className="w-3.5 h-3.5" /> Admin
                   </Link>
                 )}
-                <span className="text-[12.5px] font-semibold text-white/75 flex items-center gap-1.5 px-2">
+                <span className="text-[12.5px] font-semibold text-muted-foreground flex items-center gap-1.5 px-2">
                   <User className="w-3.5 h-3.5" />
                   {profile?.pseudo || "Utilisateur"}
                 </span>
                 <button
                   onClick={handleSignOut}
-                  className="group inline-flex items-center gap-1.5 h-10 px-4 rounded-full text-[13px] font-bold text-white bg-white/[0.08] border border-white/20 hover:bg-white/15 hover:border-white/30 backdrop-blur-md transition-all duration-300 [&_svg]:transition-transform hover:[&_svg]:translate-x-0.5"
+                  className="group inline-flex items-center gap-1.5 h-10 px-4 rounded-full text-[13px] font-bold text-foreground bg-muted border border-border hover:bg-muted/70 hover:border-primary/30 transition-all duration-300 [&_svg]:transition-transform hover:[&_svg]:translate-x-0.5"
                 >
                   <LogOut className="w-3.5 h-3.5" /> Déconnexion
                 </button>
+
               </>
             ) : (
               <Link
