@@ -59,14 +59,20 @@ const Index = () => {
         jsonLd={jsonLd}
       />
       <HeroSection />
+      <AboutSection />
+      <SolutionProSection />
       <ServicesSection />
+      <CivicTechSection />
+      <GreenAcademySection />
       <HowItWorks />
       <ImpactStatsSection />
       <WhyUsSection />
       <TestimonialsSection />
       <PartnersSection />
+      <EventsHubSection />
       <FAQSection />
       <CTASection />
+
       <WhatsAppButton />
       <MobileStickyBar />
     </div>
