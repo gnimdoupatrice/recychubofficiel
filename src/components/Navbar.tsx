@@ -77,10 +77,11 @@ const Navbar = () => {
   type Tone = "neutral" | "secondary" | "accent" | "sky" | "destructive";
   const toneMap: Record<Tone, { active: string; hover: string; under: string }> = {
     neutral: {
-      active: "text-white bg-white/[0.14] border-white/25 shadow-[inset_0_1px_0_rgba(255,255,255,0.18),0_8px_24px_-12px_rgba(0,0,0,0.6)]",
-      hover: "hover:text-white hover:bg-white/[0.08] hover:border-white/15",
-      under: "via-white",
+      active: "text-primary bg-primary/10 border-primary/30 shadow-[0_8px_24px_-12px_hsl(var(--primary)/0.35)]",
+      hover: "hover:text-primary hover:bg-primary/[0.06] hover:border-primary/20",
+      under: "via-primary",
     },
+
     secondary: {
       active: "text-secondary bg-secondary/15 border-secondary/40 shadow-[inset_0_1px_0_rgba(255,255,255,0.18),0_8px_24px_-12px_hsl(var(--secondary)/0.6)]",
       hover: "hover:text-secondary hover:bg-secondary/10 hover:border-secondary/30",
