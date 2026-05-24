@@ -114,7 +114,8 @@ const Navbar = () => {
       "border backdrop-blur-md",
       active
         ? t.active
-        : `text-white/85 border-transparent ${t.hover} hover:border-white/10 hover:shadow-[inset_0_1px_0_rgba(255,255,255,0.06)]`,
+        : `text-foreground/75 border-transparent ${t.hover} hover:border-border`,
+
     ].join(" ");
   };
 
