@@ -6,7 +6,6 @@ import {
   Activity,
   BarChart3,
   CreditCard,
-  CheckCircle2,
 } from "lucide-react";
 import heroImg from "@/assets/solution-pro-hero.jpg";
 
@@ -26,117 +25,109 @@ const stats = [
 const SolutionProSection = () => (
   <section
     id="solution-pro"
-    className="relative min-h-screen bg-foreground text-background flex items-center py-24 md:py-32 px-6 md:px-12 lg:px-24 font-inter overflow-hidden"
+    className="relative bg-background py-24 md:py-32 px-6 md:px-12 lg:px-24 overflow-hidden"
   >
-    <div
-      className="absolute inset-0 opacity-[0.05] pointer-events-none"
-      style={{
-        backgroundImage:
-          "radial-gradient(hsl(var(--primary)) 1px, transparent 1px)",
-        backgroundSize: "32px 32px",
-      }}
-    />
-
-    <div className="max-w-7xl mx-auto relative z-10 grid lg:grid-cols-12 gap-12 lg:gap-20 items-center">
-      <motion.div
-        initial={{ opacity: 0, y: 30 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true }}
-        transition={{ duration: 0.7 }}
-        className="lg:col-span-6"
-      >
-        <div className="flex items-center gap-4 mb-8">
-          <span className="font-editorial font-bold text-7xl text-primary leading-none">
+    <div className="max-w-7xl mx-auto relative">
+      {/* Header */}
+      <div className="max-w-3xl mb-16">
+        <div className="inline-flex items-center gap-3 mb-6">
+          <span className="inline-flex items-center justify-center w-12 h-12 rounded-full bg-primary text-primary-foreground font-black text-sm">
             01
           </span>
-          <div className="h-px flex-1 bg-background/20" />
-          <span className="text-[10px] font-semibold tracking-[0.22em] uppercase text-background/70">
-            Solution Pro — B2B
+          <span className="text-xs font-bold tracking-[0.22em] uppercase text-primary">
+            Solution Pro · B2B
           </span>
         </div>
-
-        <h2 className="font-editorial font-bold text-4xl md:text-5xl lg:text-6xl leading-[1.05] mb-6">
+        <h2 className="font-black text-4xl md:text-5xl lg:text-6xl text-foreground leading-[1.05] tracking-tight mb-6">
           La plateforme qui pilote{" "}
-          <span className="italic text-primary">la collecte</span>.
+          <span className="text-primary">la collecte</span>.
         </h2>
-
-        <p className="text-background/75 font-light text-lg leading-relaxed max-w-xl mb-10">
+        <p className="text-muted-foreground text-lg leading-relaxed">
           Un outil de gestion phygital pensé pour les entreprises de
           pré-collecte, mairies et PME de l'assainissement. Coordination des
           équipes, optimisation des itinéraires, suivi terrain en temps réel et
           reporting d'impact — fini la collecte à l'aveugle.
         </p>
+      </div>
 
-        <ul className="space-y-4 mb-10 max-w-xl">
-          {features.map((f) => (
-            <li key={f.label} className="flex items-start gap-4">
-              <div className="w-10 h-10 rounded-sm bg-primary/15 text-primary flex items-center justify-center shrink-0">
-                <f.icon className="w-5 h-5" />
-              </div>
-              <span className="text-base text-background/90 leading-snug pt-2">
-                {f.label}
-              </span>
-            </li>
-          ))}
-        </ul>
-
-        <div className="grid grid-cols-3 gap-6 mb-10 max-w-xl border-y border-background/15 py-6">
-          {stats.map((s) => (
-            <div key={s.label}>
-              <div className="font-editorial font-bold text-3xl md:text-4xl text-primary">
-                {s.value}
-              </div>
-              <div className="text-xs text-background/60 mt-1 leading-snug">
-                {s.label}
-              </div>
-            </div>
-          ))}
-        </div>
-
-        <div className="flex flex-wrap gap-4">
-          <Link
-            to="/solution-pro"
-            className="inline-flex items-center gap-2 bg-primary text-primary-foreground px-6 py-3 rounded-sm font-semibold text-sm hover:opacity-90 transition-opacity"
-          >
-            Découvrir Solution Pro
-            <ArrowUpRight className="w-4 h-4" />
-          </Link>
-          <Link
-            to="/solution-pro#demo"
-            className="inline-flex items-center gap-2 border border-background/30 px-6 py-3 rounded-sm font-semibold text-sm hover:bg-background/10 transition-colors"
-          >
-            Demander une démo
-            <ArrowUpRight className="w-4 h-4" />
-          </Link>
-        </div>
-      </motion.div>
-
-      <motion.div
-        initial={{ opacity: 0, x: 30 }}
-        whileInView={{ opacity: 1, x: 0 }}
-        viewport={{ once: true }}
-        transition={{ duration: 0.7, delay: 0.1 }}
-        className="lg:col-span-6"
-      >
-        <div className="relative shadow-[20px_20px_0_0_hsl(var(--primary)/0.25)] rounded-sm overflow-hidden">
-          <img
-            src={heroImg}
-            alt="Agent terrain consultant le tableau de bord Solution Pro"
-            loading="lazy"
-            width={1600}
-            height={1024}
-            className="w-full h-[420px] md:h-[560px] object-cover"
-          />
-          <div className="absolute bottom-6 left-6 bg-background text-foreground px-5 py-3 rounded-sm shadow-lg">
-            <div className="flex items-center gap-2">
-              <CheckCircle2 className="w-4 h-4 text-primary" />
-              <span className="text-xs font-semibold tracking-[0.15em] uppercase">
-                Pilote opérationnel à Kara
-              </span>
+      {/* Visual + floating stats */}
+      <div className="grid lg:grid-cols-12 gap-10 lg:gap-14 items-stretch mb-14">
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6 }}
+          className="lg:col-span-7 relative"
+        >
+          <div className="relative rounded-[2rem] overflow-hidden">
+            <img
+              src={heroImg}
+              alt="Agent terrain consultant le tableau de bord Solution Pro"
+              loading="lazy"
+              width={1600}
+              height={1024}
+              className="w-full h-[360px] md:h-[520px] object-cover"
+            />
+          </div>
+          {/* Floating stat chip */}
+          <div className="absolute -bottom-8 left-6 right-6 md:left-10 md:right-auto md:max-w-md bg-background rounded-2xl shadow-[0_24px_60px_-24px_hsl(var(--foreground)/0.25)] p-5 md:p-6 border border-border">
+            <div className="grid grid-cols-3 gap-4">
+              {stats.map((s) => (
+                <div key={s.label} className="text-center">
+                  <div className="font-black text-2xl md:text-3xl text-primary leading-none">
+                    {s.value}
+                  </div>
+                  <div className="text-[11px] text-muted-foreground mt-1.5 leading-tight">
+                    {s.label}
+                  </div>
+                </div>
+              ))}
             </div>
           </div>
-        </div>
-      </motion.div>
+        </motion.div>
+
+        {/* Features list */}
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6, delay: 0.1 }}
+          className="lg:col-span-5 flex flex-col justify-center pt-10 lg:pt-0"
+        >
+          <div className="space-y-3">
+            {features.map((f, i) => (
+              <div
+                key={f.label}
+                className="group flex items-center gap-4 p-4 rounded-2xl bg-muted/60 hover:bg-primary/8 transition-colors"
+              >
+                <div className="w-11 h-11 rounded-xl bg-background text-primary flex items-center justify-center shrink-0 shadow-sm">
+                  <f.icon className="w-5 h-5" />
+                </div>
+                <span className="font-bold text-foreground text-[15px] leading-snug">
+                  {f.label}
+                </span>
+                <span className="ml-auto text-[11px] font-bold text-muted-foreground tracking-widest">
+                  0{i + 1}
+                </span>
+              </div>
+            ))}
+          </div>
+
+          <div className="flex flex-wrap gap-3 mt-8">
+            <Link to="/solution-pro" className="btn-cta px-6 py-3">
+              Découvrir Solution Pro
+              <ArrowUpRight className="w-4 h-4" />
+            </Link>
+            <Link
+              to="/solution-pro#demo"
+              className="inline-flex items-center gap-2 px-6 py-3 rounded-full font-bold text-sm border-2 border-foreground/15 text-foreground hover:border-foreground/40 transition-colors"
+            >
+              Demander une démo
+              <ArrowUpRight className="w-4 h-4" />
+            </Link>
+          </div>
+        </motion.div>
+      </div>
     </div>
   </section>
 );
