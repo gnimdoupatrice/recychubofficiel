@@ -10,82 +10,86 @@ interface StepContentProps {
   ctaLink: string;
 }
 
-const StepContent = ({ steps, activeStep, setActiveStep, ctaLabel, ctaLink }: StepContentProps) => {
+const StepContent = ({
+  steps,
+  activeStep,
+  setActiveStep,
+  ctaLabel,
+  ctaLink,
+}: StepContentProps) => {
   const current = steps[activeStep];
   const Icon = current.icon;
+  const isLast = activeStep === steps.length - 1;
 
   return (
-    <div className="bg-card rounded-3xl border border-border shadow-xl overflow-hidden">
-      <div className="grid md:grid-cols-2">
-        {/* Left: Image */}
-        <div className="relative bg-gradient-to-br from-muted/50 to-muted flex items-center justify-center p-8 md:p-12 min-h-[300px]">
-          <div className="absolute top-4 left-4 md:top-6 md:left-6">
-            <span className="text-6xl md:text-8xl font-display font-black text-primary/10">
-              {current.step}
-            </span>
-          </div>
+    <div className="bg-background rounded-[2rem] overflow-hidden border border-border shadow-[0_30px_70px_-40px_hsl(var(--foreground)/0.25)]">
+      <div className="grid md:grid-cols-5">
+        {/* Visual side */}
+        <div className="md:col-span-2 relative bg-primary/8 flex items-center justify-center p-10 md:p-12 min-h-[280px] overflow-hidden">
+          <span className="absolute top-6 left-6 font-black text-[7rem] md:text-[9rem] text-primary/10 leading-none select-none">
+            {current.step}
+          </span>
           <img
             src={current.image}
             alt={current.title}
             loading="lazy"
             width={512}
             height={512}
-            className="w-48 h-48 md:w-64 md:h-64 object-contain relative z-10 transition-all duration-500"
+            className="relative w-44 h-44 md:w-60 md:h-60 object-contain transition-all duration-500"
           />
         </div>
 
-        {/* Right: Content */}
-        <div className="p-8 md:p-12 flex flex-col justify-center">
+        {/* Content side */}
+        <div className="md:col-span-3 p-8 md:p-12 flex flex-col justify-center">
           <div className="flex items-center gap-3 mb-4">
-            <div className={`w-10 h-10 rounded-xl bg-gradient-to-br ${current.color} flex items-center justify-center`}>
-              <Icon className="w-5 h-5 text-primary-foreground" />
+            <div className="w-10 h-10 rounded-xl bg-primary text-primary-foreground flex items-center justify-center">
+              <Icon className="w-5 h-5" />
             </div>
-            <span className="text-sm font-semibold text-primary uppercase tracking-wider">
+            <span className="text-xs font-bold uppercase tracking-[0.2em] text-primary">
               Étape {current.step}
             </span>
           </div>
 
-          <h3 className="font-display text-2xl md:text-3xl font-bold text-foreground mb-3">
+          <h3 className="font-black text-2xl md:text-3xl text-foreground mb-3 leading-tight">
             {current.title}
           </h3>
-          <p className="text-muted-foreground text-lg mb-6">
+          <p className="text-muted-foreground text-base md:text-lg mb-6">
             {current.shortDesc}
           </p>
 
           <ul className="space-y-3 mb-8">
             {current.details.map((detail, i) => (
               <li key={i} className="flex items-start gap-3">
-                <CheckCircle2 className="w-5 h-5 text-accent mt-0.5 shrink-0" />
-                <span className="text-foreground/80">{detail}</span>
+                <CheckCircle2 className="w-5 h-5 text-primary mt-0.5 shrink-0" />
+                <span className="text-foreground/85 text-[15px] leading-relaxed">
+                  {detail}
+                </span>
               </li>
             ))}
           </ul>
 
-          {/* Mobile step dots */}
+          {/* Mobile dots */}
           <div className="flex md:hidden gap-2 mb-6">
             {steps.map((_, i) => (
               <button
                 key={i}
                 onClick={() => setActiveStep(i)}
-                className={`flex-1 h-2 rounded-full transition-all ${
+                className={`flex-1 h-1.5 rounded-full transition-all ${
                   i === activeStep ? "bg-primary" : "bg-border"
                 }`}
               />
             ))}
           </div>
 
-          {activeStep === steps.length - 1 ? (
-            <Link
-              to={ctaLink}
-              className="inline-flex items-center justify-center gap-2 px-8 py-3.5 rounded-xl bg-gradient-to-r from-primary to-accent text-primary-foreground font-semibold transition-all hover:shadow-lg hover:shadow-primary/25 hover:scale-[1.02] w-full sm:w-auto"
-            >
+          {isLast ? (
+            <Link to={ctaLink} className="btn-cta px-7 py-3.5 self-start">
               {ctaLabel}
               <ArrowRight className="w-4 h-4" />
             </Link>
           ) : (
             <button
               onClick={() => setActiveStep(activeStep + 1)}
-              className="inline-flex items-center justify-center gap-2 px-8 py-3.5 rounded-xl bg-gradient-to-r from-primary to-accent text-primary-foreground font-semibold transition-all hover:shadow-lg hover:shadow-primary/25 hover:scale-[1.02] w-full sm:w-auto"
+              className="btn-cta px-7 py-3.5 self-start"
             >
               Étape suivante
               <ArrowRight className="w-4 h-4" />
