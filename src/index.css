@@ -1,5 +1,5 @@
-/* Waste Heroes inspired — Nunito, light, green + warm orange CTA */
-@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&display=swap');
+/* RecycHub Togo — Syne (titres) + Plus Jakarta Sans (corps) */
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Syne:wght@600;700;800&display=swap');
 
 @tailwind base;
 @tailwind components;
@@ -60,7 +60,7 @@
     --sidebar-border: 216 16% 90%;
     --sidebar-ring: 158 64% 43%;
 
-    font-family: 'Nunito', system-ui, -apple-system, sans-serif;
+    font-family: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
   }
@@ -90,10 +90,10 @@
 
 @layer base {
   * { @apply border-border; }
-  body { @apply bg-background text-foreground; font-family: 'Nunito', system-ui, sans-serif; }
+  body { @apply bg-background text-foreground; font-family: 'Plus Jakarta Sans', system-ui, sans-serif; }
   h1, h2, h3, h4, h5, h6 {
-    font-family: 'Nunito', system-ui, sans-serif;
-    letter-spacing: -0.015em;
+    font-family: 'Syne', system-ui, sans-serif;
+    letter-spacing: -0.02em;
     font-weight: 800;
   }
 }
