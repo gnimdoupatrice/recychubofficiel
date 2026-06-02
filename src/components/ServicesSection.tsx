@@ -104,7 +104,7 @@ const PlasticImageSwap = ({ images, alt }: { images: string[]; alt: string }) =>
   const [hovered, setHovered] = useState(false);
   return (
     <div
-      className="relative w-full h-full overflow-hidden"
+      className="relative w-full h-full overflow-hidden bg-muted"
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
     >
@@ -114,9 +114,10 @@ const PlasticImageSwap = ({ images, alt }: { images: string[]; alt: string }) =>
           src={src}
           alt={`${alt} - exemple ${i + 1}`}
           loading="lazy"
+          decoding="async"
           width={800}
           height={600}
-          className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-700 ${
+          className={`absolute inset-0 w-full h-full object-contain p-6 transition-opacity duration-700 ${
             (i === 0 && !hovered) || (i === 1 && hovered) ? "opacity-100" : "opacity-0"
           }`}
         />
@@ -134,13 +135,13 @@ const PlasticRow = ({
 }) => {
   const isEven = index % 2 === 0;
   return (
-    <div className="bg-white border border-foreground/10 overflow-hidden rounded-sm shadow-[0_2px_30px_-12px_hsl(var(--foreground)/0.1)] hover:shadow-[0_8px_40px_-12px_hsl(var(--primary)/0.18)] transition-shadow">
+    <div className="bg-card border border-border overflow-hidden rounded-2xl shadow-[0_2px_30px_-12px_hsl(var(--foreground)/0.1)] hover:shadow-[0_8px_40px_-12px_hsl(var(--primary)/0.18)] transition-shadow">
       <div
         className={`flex flex-col md:flex-row ${
           !isEven ? "md:flex-row-reverse" : ""
         } min-h-[320px]`}
       >
-        <div className="w-full md:w-[45%] aspect-[4/3] md:aspect-auto bg-[hsl(150_14%_97%)]">
+        <div className="w-full md:w-[45%] aspect-[4/3] md:aspect-auto md:min-h-[380px] bg-muted">
           <PlasticImageSwap images={plastic.images} alt={`${plastic.code} - ${plastic.name}`} />
         </div>
 
