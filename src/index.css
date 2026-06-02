@@ -276,8 +276,54 @@
   .animate-glow-pulse { animation: glow-pulse 2.5s ease-in-out infinite; }
   .animate-pulse-orange { animation: pulse-orange 2s ease-in-out infinite; }
 
+  /* ===== Navbar — refonte UX/UI ===== */
+  @keyframes navbar-accent-slide {
+    0% { transform: translateX(-50%); }
+    100% { transform: translateX(0%); }
+  }
+  @keyframes alerte-ring {
+    0%, 100% {
+      box-shadow: 0 0 0 0 hsl(var(--destructive) / 0.35), 0 0 14px -2px hsl(25 95% 55% / 0.25);
+      background-color: hsl(var(--destructive) / 0.04);
+    }
+    50% {
+      box-shadow: 0 0 0 6px hsl(var(--destructive) / 0), 0 0 22px 2px hsl(25 95% 55% / 0.45);
+      background-color: hsl(var(--destructive) / 0.10);
+    }
+  }
+  .animate-alerte-ring { animation: alerte-ring 2.6s ease-in-out infinite; }
+
+  @keyframes alerte-color {
+    0%, 100% { color: hsl(25 95% 55%); filter: drop-shadow(0 0 4px hsl(25 95% 55% / 0.4)); }
+    50% { color: hsl(var(--destructive)); filter: drop-shadow(0 0 8px hsl(var(--destructive) / 0.65)); }
+  }
+  .animate-alerte-color { animation: alerte-color 2.6s ease-in-out infinite; }
+
+  @keyframes alerte-toast {
+    0% { opacity: 0; transform: translate(-50%, -4px); }
+    15%, 85% { opacity: 1; transform: translate(-50%, 0); }
+    100% { opacity: 0; transform: translate(-50%, -4px); }
+  }
+  .animate-alerte-toast { animation: alerte-toast 2.6s ease-out forwards; }
+
+  @keyframes nav-bounce {
+    0%, 100% { transform: translateY(0) scale(1); }
+    40% { transform: translateY(-3px) scale(1.08); }
+    70% { transform: translateY(0) scale(1.04); }
+  }
+  @keyframes nav-shake {
+    0%, 100% { transform: rotate(0deg); }
+    25% { transform: rotate(-8deg); }
+    75% { transform: rotate(8deg); }
+  }
+  @keyframes nav-cta-halo {
+    0%, 100% { box-shadow: 0 10px 30px -10px hsl(var(--secondary) / 0.55), inset 0 1px 0 rgba(255,255,255,0.35); }
+    50% { box-shadow: 0 14px 38px -10px hsl(var(--secondary) / 0.85), 0 0 0 4px hsl(var(--secondary) / 0.12), inset 0 1px 0 rgba(255,255,255,0.45); }
+  }
+
   @media (prefers-reduced-motion: reduce) {
     .animate-float, .animate-slide-up, .animate-slide-in-left,
-    .animate-glow-pulse, .animate-pulse-orange { animation: none !important; opacity: 1 !important; }
+    .animate-glow-pulse, .animate-pulse-orange,
+    .animate-alerte-ring, .animate-alerte-color, .animate-alerte-toast { animation: none !important; opacity: 1 !important; }
   }
 }
