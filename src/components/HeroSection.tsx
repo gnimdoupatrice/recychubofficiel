@@ -52,7 +52,7 @@ const HeroSection = () => {
           className="text-center text-muted-foreground text-base md:text-lg max-w-2xl mx-auto mb-14 animate-slide-up"
           style={{ animationDelay: "0.15s" }}
         >
-          Une plateforme phygitale, locale et engagée pour un Kara plus propre — paiement immédiat en Mobile Money ou cash.
+          Choisissez votre parcours : vendez vos plastiques au kg ou faites enlever vos déchets ménagers en quelques clics.
         </p>
 
         {/* Two action cards */}
@@ -67,7 +67,7 @@ const HeroSection = () => {
           >
             <div className="flex items-start justify-between mb-5">
               <span className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-secondary/15 text-secondary text-[10px] font-bold uppercase tracking-[0.2em]">
-                Catalogue & prix au kg
+                Déchet plastiques
               </span>
               <div className="w-11 h-11 rounded-xl bg-secondary/10 flex items-center justify-center text-secondary">
                 <ShoppingBag className="w-5 h-5" />
@@ -79,15 +79,11 @@ const HeroSection = () => {
             <p className="text-muted-foreground text-sm leading-relaxed mb-3">
               Transformez vos PET, PEHD, PP et sachets Pure Water en revenus.
             </p>
-            <p className="text-secondary text-sm font-semibold mb-6">
-              Jusqu'à 150 FCFA/kg — Mobile Money ou cash.
-            </p>
+            
             <div className="flex items-center justify-between pt-5 border-t border-border">
-              <span className="text-[11px] font-bold uppercase tracking-[0.18em] text-muted-foreground">
-                Catalogue & prix au kg
-              </span>
+              
               <span className="inline-flex items-center gap-2 text-foreground font-bold text-sm group-hover:text-secondary transition-colors">
-                Vendre maintenant <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                 Voir la Catalogue & prix au kg<ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
               </span>
             </div>
           </Link>
@@ -99,7 +95,7 @@ const HeroSection = () => {
           >
             <div className="flex items-start justify-between mb-5">
               <span className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary/15 text-primary text-[10px] font-bold uppercase tracking-[0.2em]">
-                Domicile · Kara
+                Déchets ménagers
               </span>
               <div className="w-11 h-11 rounded-xl bg-primary/10 flex items-center justify-center text-primary">
                 <Truck className="w-5 h-5" />
@@ -109,17 +105,13 @@ const HeroSection = () => {
               Faire enlever mes déchets
             </h2>
             <p className="text-muted-foreground text-sm leading-relaxed mb-3">
-              Service d'enlèvement à domicile pour vos déchets ménagers, organiques et encombrants.
+              Service d'enlèvement des déchets ménagers, organiques et encombrants à domicile.
             </p>
-            <p className="text-primary text-sm font-semibold mb-6">
-              Réservation rapide, équipe locale, paiement à la collecte.
-            </p>
+          
             <div className="flex items-center justify-between pt-5 border-t border-border">
-              <span className="text-[11px] font-bold uppercase tracking-[0.18em] text-muted-foreground">
-                Domicile · Kara
-              </span>
+              
               <span className="inline-flex items-center gap-2 text-foreground font-bold text-sm group-hover:text-primary transition-colors">
-                Demander <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                Demander un enlèvement<ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
               </span>
             </div>
           </Link>
