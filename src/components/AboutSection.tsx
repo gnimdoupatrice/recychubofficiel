@@ -1,4 +1,5 @@
 import { motion } from "framer-motion";
+import { Eye, Target, Trophy } from "lucide-react";
 import challenge1 from "@/assets/challenge-1.jpg";
 import challenge2 from "@/assets/challenge-2.jpg";
 import challenge3 from "@/assets/challenge-3.jpg";
