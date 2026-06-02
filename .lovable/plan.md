@@ -1,82 +1,53 @@
-# Refonte visuelle inspirée du template "Waste Heroes" (Weblium)
+# Refonte visuelle harmonisée
 
-## Ce que la référence impose (et qui contredit la version actuelle)
+## 1. Restaurer la section Hero (HeroSection.tsx)
 
-| Axe | Référence Waste Heroes | Site actuel |
-|---|---|---|
-| Ambiance hero | Clair, lumineux, photo nature feuillage | Sombre, immersif, overlay noir 85% |
-| Palette | Vert frais + **orange chaud CTA** + blanc | Vert profond + ambre + glassmorphisme |
-| Typo | Sans-serif friendly (type Nunito / Mulish) | Playfair Display italique + Inter |
-| Hauteur hero | ~80vh, respirable | 92–95vh, dense, deux cartes glass |
-| Navbar | Blanche, minimaliste, 1 CTA orange pill "Order a pickup" | 5 items + sélecteur "Découvrir" + pulse alerte |
-| Ton | Approchable, civique, rassurant | Premium / SaaS Stripe-vert |
-| Densité | Sections aérées, beaucoup de blanc | 13 sections, brochure |
+Revenir au hero sombre et dramatique visible sur la capture jointe :
+- Fond image sombre (dépotoir) avec voile noir dégradé bas → haut (et non blanc).
+- Badge centré « ✨ BIENVENUE SUR RECYC HUB TOGO » sur pilule sombre translucide.
+- Grand titre éditorial blanc en deux lignes : « Faites collecter vos déchets ménagers et **vendez vos plastiques** en quelques clics » avec « vendez vos plastiques » en accent doré/jaune.
+- Deux cartes côte à côte sous le titre :
+  - « Vendre mes plastiques » + sous-texte + ligne dorée « Jusqu'à 150 FCFA/kg — Mobile Money ou cash » + footer « CATALOGUE & PRIX AU KG » → bouton « Vendre maintenant ».
+  - « Faire enlever mes déchets » + sous-texte + footer « DOMICILE · KARA » → bouton « Demander ».
+- Pilule large « ⚠ Signaler un dépotoir sauvage — ponts, caniveaux, terrains » centrée sous les cartes.
+- Ligne d'infos : « 2 500+ kg de plastiques collectés · +228 97 68 40 30 · Kara, Togo ».
+- Garder le contenu textuel actuel (commander un enlèvement, vendre, téléphone, etc.) en l'intégrant à cette structure.
 
-C'est une direction **clair + nature + friendly civic**, à l'opposé du parti actuel.
+## 2. Harmoniser la direction visuelle de toute la page
 
-## Plan d'exécution
+Adopter UNE seule direction sur Index.tsx : éditoriale, sombre/clair alternés mais avec un système cohérent.
 
-### 1. Design tokens (`src/index.css` + `tailwind.config.ts`)
-- `--background`: blanc cassé `0 0% 100%` / `48 30% 98%`
-- `--primary` (vert frais): `145 55% 38%` (au lieu du vert profond `158 64% 18%`)
-- `--accent` (orange chaud CTA — nouveau rôle clé): `22 92% 56%`
-- `--foreground`: `220 15% 18%`
-- Retirer ambre/glass tokens devenus inutiles
-- Typo : remplacer Playfair Display par **Nunito** (display + body) — friendly, rond, lisible. Garder Inter en fallback éventuel.
-- Retirer `font-editorial` italic des titres
+- **Palette unique** : fond crème `hsl(40 30% 97%)` pour sections claires, fond charbon `hsl(160 15% 10%)` pour sections sombres, accent vert primaire + accent doré (déjà dans le hero). Plus de bleus/violets/dégradés exotiques résiduels.
+- **Typo unique** : `font-editorial` (display serif) pour tous les titres H2/H3, `font-inter` pour le corps. Plus de `font-black` sans-serif mélangé avec serif.
+- **Rythme** : chaque section utilise la même grille `max-w-6xl mx-auto px-6 md:px-12`, même padding vertical `py-24 md:py-32`, mêmes eyebrow `uppercase tracking-[0.2em] text-xs text-primary`.
+- **Alternance** : sections claires (AboutSection, GreenAcademy, FAQ) ↔ sombres (SolutionPro, CivicTech, CTA) pour créer un rythme sans casser l'unité.
+- Refactor des sections qui dépareillent : `SolutionProSection`, `CivicTechSection`, `GreenAcademySection`, `HowItWorks`, `ImpactStatsSection`, `WhyUsSection`, `TestimonialsSection`, `EventsHubSection` → mêmes tokens, mêmes eyebrows, mêmes boutons (`btn-cta` / `btn-outline-green`).
 
-### 2. Hero (`HeroSection.tsx`) — réécriture
-- Fond : photo nature/feuillage **claire** (pas d'overlay noir, voile blanc 40% max)
-- Hauteur ~80vh
-- Titre H1 sans-serif gras, vert sur fond clair, **pas d'italique**, 2 lignes max
-- Sous-titre court (1 phrase)
-- **Un seul CTA orange pill** "Commander un enlèvement" + lien texte secondaire "Vendre mes plastiques"
-- Supprimer les 2 cartes glassmorphism, le badge "Plateforme phygitale", le pulse alerte, le carrousel 5 slides → 1 image fixe ou 2 max
-- Indicateurs téléphone/lieu en bas, discrets
+## 3. Corriger « État des lieux » (AboutSection.tsx)
 
-### 3. Navbar (`Navbar.tsx`)
-- Fond blanc, ombre légère au scroll
-- Logo gauche, 4 liens centraux max, 1 CTA pill orange à droite
-- Retirer le sélecteur "Découvrir", retirer le pulse "trash alert"
+Problèmes signalés : couleurs pas jolies, numérotation « I — » avec long trait pas esthétique, disposition des images.
 
-### 4. Sections — alléger
-Réduire de 13 à 8 sections, ordre revu :
-1. Hero  2. Services (3 cartes claires : Vendre / Enlèvement / Alerte)  3. Comment ça marche  4. Impact (stats sur fond vert clair, plus sur foreground noir)  5. Témoignages  6. FAQ  7. Partenaires  8. CTA + Footer
+- Remplacer le fond vert pâle `hsl(150 14% 97%)` par le crème harmonisé.
+- Supprimer le grand chiffre romain + trait horizontal. Le remplacer par un eyebrow propre « 01 · DÉFICIT LOGISTIQUE » aligné sur l'image.
+- Nouvelle structure : grille 12 colonnes asymétrique. Image plus petite (5 col) avec ratio 4/5 portrait, cadre épuré sans ombre offset colorée. Texte (6 col) avec titre éditorial, paragraphe, badge thématique en bas.
+- Alterner gauche/droite mais en gardant la même hauteur de carte pour un rendu rythmé.
+- Ombres remplacées par une fine bordure `border border-foreground/8` + léger rayon `rounded-2xl`.
 
-Supprimer/fusionner : AboutSection, SolutionProSection, CivicTechSection, GreenAcademySection, EventsHubSection (déplacer vers pages dédiées).
+## 4. Corriger les images zoomées du catalogue
 
-### 5. Composants à mettre au même langage
-- `WhyUsSection`, `ImpactStatsSection`, `CTASection`, `MobileStickyBar` : passer du fond sombre au fond clair, CTA orange uniforme, retirer gradients bio.
+`ServicesSection.tsx` ligne 119 et autres cartes utilisent `object-cover` sur des hauteurs fixes → images recadrées.
+- Pour les cartes catalogue produits (PET, PEHD, PP, Pure Water) : passer en ratio `aspect-[4/3]` + `object-contain` sur fond neutre `bg-muted` afin de voir le produit entier.
+- Pour les images éditoriales contextuelles (hero secondaire, illustrations de section) : garder `object-cover` mais avec `object-position` adapté.
 
-### 6. Animations
-- Subtiles, `prefers-reduced-motion` respecté
-- Fade-up doux à l'apparition, pas de pulse permanent
+## 5. Optimisation web des images
+
+- Convertir les `.jpg` / `.png` lourds de `src/assets/` en `.webp` (qualité 80), garder `.jpg` en fallback uniquement si nécessaire.
+- Ajouter `loading="lazy"`, `decoding="async"`, `width` / `height` explicites sur toutes les `<img>` hors hero.
+- Hero : conserver `fetchPriority="high"` + `loading="eager"`.
+- Réduire la résolution source des assets > 1600px de large à 1600px max.
 
 ## Détails techniques
 
-```text
-Tokens HSL clés (light only) :
---background       0 0% 100%
---foreground     220 15% 18%
---primary        145 55% 38%   (vert frais)
---primary-foreground  0 0% 100%
---accent          22 92% 56%   (orange CTA)
---accent-foreground   0 0% 100%
---muted           48 20% 96%
---border         220 13% 91%
---radius        14px (pill: 9999px sur CTA)
-
-Fonts:
-display, body, sans → "Nunito", system-ui, sans-serif (weights 400/600/700/800)
-```
-
-Fichiers modifiés : `src/index.css`, `tailwind.config.ts`, `src/components/HeroSection.tsx`, `src/components/Navbar.tsx`, `src/components/MobileStickyBar.tsx`, `src/components/ImpactStatsSection.tsx`, `src/components/WhyUsSection.tsx`, `src/components/CTASection.tsx`, `src/pages/Index.tsx` (ordre + suppressions).
-
-## Ce que je ne touche pas
-- Logique métier, routes, AuthContext, intégration Supabase, contenus textuels métier (FAQ, services, prix).
-- Pages internes `/vendre`, `/enlevement`, `/alerte` (style hérité des tokens, pas de refonte structurelle).
-
-## Question avant d'attaquer
-Pour le hero, tu préfères :
-- **A** — Photo nature feuillage type Waste Heroes (urbain + verdure)
-- **B** — Photo d'action terrain Kara (collecte, tri) plus locale et authentique
+- Fichiers modifiés : `src/components/HeroSection.tsx`, `src/components/AboutSection.tsx`, `src/components/ServicesSection.tsx`, `src/components/SolutionProSection.tsx`, `src/components/CivicTechSection.tsx`, `src/components/GreenAcademySection.tsx`, `src/components/HowItWorks.tsx`, `src/components/ImpactStatsSection.tsx`, `src/components/WhyUsSection.tsx`, `src/components/TestimonialsSection.tsx`, `src/components/EventsHubSection.tsx`, `src/components/CTASection.tsx`, `src/index.css` (tokens harmonisés), `tailwind.config.ts` si besoin.
+- Conversion images : script `cwebp` sur les `.jpg/.png` de `src/assets/` > 200 KB.
+- Aucun changement de logique métier ni de routes.
