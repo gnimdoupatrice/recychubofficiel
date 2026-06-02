@@ -7,57 +7,58 @@
 
 @layer base {
   :root {
-    --background: 0 0% 100%;
-    --foreground: 220 15% 18%;
+    /* Brand palette — Blanc / Glace / Carotte / Prairie / Chypre */
+    --background: 0 0% 100%;            /* #FFFFFF */
+    --foreground: 216 16% 19%;          /* #292F38 Chypre */
 
     --card: 0 0% 100%;
-    --card-foreground: 220 15% 18%;
+    --card-foreground: 216 16% 19%;
 
     --popover: 0 0% 100%;
-    --popover-foreground: 220 15% 18%;
+    --popover-foreground: 216 16% 19%;
 
-    /* Fresh green */
-    --primary: 145 55% 38%;
+    /* Prairie de montagne — eco green main brand */
+    --primary: 158 64% 43%;             /* #28B381 */
     --primary-foreground: 0 0% 100%;
 
-    /* Warm orange CTA (secondary role) */
-    --secondary: 22 92% 56%;
+    /* Carotte Orange — warm CTA / accent */
+    --secondary: 30 94% 60%;            /* #F9A03B */
     --secondary-foreground: 0 0% 100%;
 
-    --muted: 48 20% 96%;
-    --muted-foreground: 220 10% 45%;
+    --muted: 204 20% 97%;               /* #F7F9FA Glace blanche */
+    --muted-foreground: 216 10% 45%;
 
-    --accent: 22 92% 56%;
+    --accent: 30 94% 60%;
     --accent-foreground: 0 0% 100%;
 
     --destructive: 0 72% 50%;
     --destructive-foreground: 0 0% 100%;
 
-    --border: 220 13% 91%;
-    --input: 220 13% 91%;
-    --ring: 145 55% 38%;
+    --border: 216 16% 90%;
+    --input: 216 16% 90%;
+    --ring: 30 94% 60%;
 
     --radius: 0.875rem;
 
-    --emerald: 145 55% 38%;
-    --neon: 145 60% 48%;
-    --neon-light: 145 55% 62%;
-    --orange-alert: 22 92% 56%;
+    --emerald: 158 64% 43%;
+    --neon: 158 64% 50%;
+    --neon-light: 158 55% 65%;
+    --orange-alert: 30 94% 60%;
     --glass: 0 0% 100%;
 
-    --warm: 22 92% 56%;
+    --warm: 30 94% 60%;
     --warm-foreground: 0 0% 100%;
-    --earth: 28 25% 28%;
-    --sage: 145 25% 92%;
+    --earth: 216 16% 19%;
+    --sage: 158 40% 94%;
 
     --sidebar-background: 0 0% 100%;
-    --sidebar-foreground: 220 15% 18%;
-    --sidebar-primary: 145 55% 38%;
+    --sidebar-foreground: 216 16% 19%;
+    --sidebar-primary: 158 64% 43%;
     --sidebar-primary-foreground: 0 0% 100%;
-    --sidebar-accent: 48 20% 96%;
-    --sidebar-accent-foreground: 220 15% 18%;
-    --sidebar-border: 220 13% 91%;
-    --sidebar-ring: 145 55% 38%;
+    --sidebar-accent: 204 20% 97%;
+    --sidebar-accent-foreground: 216 16% 19%;
+    --sidebar-border: 216 16% 90%;
+    --sidebar-ring: 158 64% 43%;
 
     font-family: 'Nunito', system-ui, -apple-system, sans-serif;
     -webkit-font-smoothing: antialiased;
@@ -65,25 +66,25 @@
   }
 
   .dark {
-    --background: 145 30% 6%;
-    --foreground: 0 0% 95%;
-    --card: 145 25% 9%;
-    --card-foreground: 0 0% 95%;
-    --popover: 145 25% 9%;
-    --popover-foreground: 0 0% 95%;
-    --primary: 145 55% 48%;
+    --background: 216 16% 12%;
+    --foreground: 0 0% 98%;
+    --card: 216 16% 15%;
+    --card-foreground: 0 0% 98%;
+    --popover: 216 16% 15%;
+    --popover-foreground: 0 0% 98%;
+    --primary: 158 64% 48%;
     --primary-foreground: 0 0% 100%;
-    --secondary: 22 92% 56%;
-    --secondary-foreground: 0 0% 100%;
-    --muted: 145 18% 14%;
-    --muted-foreground: 145 10% 65%;
-    --accent: 22 92% 56%;
-    --accent-foreground: 0 0% 100%;
+    --secondary: 30 94% 60%;
+    --secondary-foreground: 216 16% 12%;
+    --muted: 216 16% 18%;
+    --muted-foreground: 216 10% 70%;
+    --accent: 30 94% 60%;
+    --accent-foreground: 216 16% 12%;
     --destructive: 0 72% 50%;
     --destructive-foreground: 0 0% 100%;
-    --border: 145 18% 16%;
-    --input: 145 18% 16%;
-    --ring: 145 55% 48%;
+    --border: 216 16% 22%;
+    --input: 216 16% 22%;
+    --ring: 30 94% 60%;
   }
 }
 
