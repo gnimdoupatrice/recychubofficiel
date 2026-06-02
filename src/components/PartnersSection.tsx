@@ -10,7 +10,7 @@ const partners = [
 ];
 
 const PartnersSection = () => (
-  <section className="bg-[hsl(150_14%_97%)] py-24 md:py-32 px-6 md:px-12 lg:px-24 font-inter">
+  <section className="bg-muted py-24 md:py-32 px-6 md:px-12 lg:px-24 font-inter">
     <div className="max-w-6xl mx-auto">
       <div className="mb-16 md:mb-20 text-center max-w-2xl mx-auto">
         <span className="text-primary font-semibold tracking-[0.2em] text-xs uppercase">
@@ -30,7 +30,7 @@ const PartnersSection = () => (
         {partners.map((name) => (
           <div
             key={name}
-            className="bg-[hsl(150_14%_97%)] hover:bg-white transition-colors flex flex-col items-center justify-center p-6 min-h-[130px] grayscale hover:grayscale-0"
+            className="bg-muted hover:bg-white transition-colors flex flex-col items-center justify-center p-6 min-h-[130px] grayscale hover:grayscale-0"
           >
             <Building2 className="w-7 h-7 text-foreground/40 mb-3" strokeWidth={1.5} />
             <span className="text-[11px] font-semibold uppercase tracking-[0.12em] text-foreground/70 text-center leading-tight">
