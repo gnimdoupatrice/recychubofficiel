@@ -9,7 +9,7 @@ const steps = [
 ];
 
 const AlerteTeaser = () => (
-  <section className="section-spacing bg-background">
+  <section className="wp-section wp-section-glow-accent">
     <div className="container mx-auto px-4">
       <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
         {/* Left — visual block */}

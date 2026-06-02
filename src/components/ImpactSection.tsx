@@ -33,17 +33,26 @@ const impacts = [
 ];
 
 const ImpactSection = () => (
-  <section className="section-spacing bg-background">
-    <div className="container mx-auto px-4">
-      <div className="wp-section-header center">
-        <span className="wp-eyebrow">Notre impact</span>
+  <section className="wp-section wp-section-dark">
+    {/* Pattern grille subtile — miroir CTA */}
+    <div className="absolute inset-0 opacity-[0.08] wp-grid-pattern" />
+
+    <div className="relative container mx-auto px-4">
+      <motion.div
+        initial={{ opacity: 0, y: 25 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true }}
+        transition={{ duration: 0.6 }}
+        className="wp-section-header center"
+      >
+        <span className="wp-eyebrow wp-eyebrow-light">Notre impact</span>
         <h2 className="wp-section-title">
-          Un impact <span className="text-primary">mesurable</span> à Kara
+          Un impact <span className="text-secondary">mesurable</span> à Kara
         </h2>
         <p className="wp-section-subtitle">
           Chaque kilo de plastique vendu contribue à rendre Kara plus propre et à créer des emplois verts.
         </p>
-      </div>
+      </motion.div>
 
       <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6 max-w-6xl mx-auto">
         {impacts.map((item, i) => (
@@ -53,19 +62,22 @@ const ImpactSection = () => (
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ delay: i * 0.08, duration: 0.5 }}
-            className="wp-card p-6 relative"
+            className="relative bg-primary-foreground/5 border-2 border-primary-foreground/30 backdrop-blur-sm p-6 transition-all duration-200 hover:bg-primary-foreground/10 hover:border-secondary"
+            style={{ boxShadow: "6px 6px 0 0 hsl(var(--secondary))" }}
           >
-            <span className="absolute top-3 right-4 wp-number">{item.number}</span>
-            <div className="w-12 h-12 bg-primary text-primary-foreground flex items-center justify-center mb-5 border-2 border-foreground">
+            <span className="absolute top-3 right-4 font-display text-5xl font-black text-primary-foreground/15 leading-none select-none">
+              {item.number}
+            </span>
+            <div className="w-12 h-12 bg-secondary text-secondary-foreground flex items-center justify-center mb-5 border-2 border-primary-foreground">
               <item.icon className="w-6 h-6" />
             </div>
-            <div className="font-display text-4xl font-extrabold text-foreground mb-1 leading-none">
+            <div className="font-display text-4xl font-extrabold text-primary-foreground mb-1 leading-none">
               {item.value}
             </div>
-            <div className="text-[11px] uppercase tracking-[0.18em] font-bold text-primary mt-3 mb-2">
+            <div className="text-[11px] uppercase tracking-[0.18em] font-bold text-secondary mt-3 mb-2">
               {item.label}
             </div>
-            <p className="text-xs text-muted-foreground leading-relaxed">{item.desc}</p>
+            <p className="text-xs text-primary-foreground/75 leading-relaxed">{item.desc}</p>
           </motion.div>
         ))}
       </div>

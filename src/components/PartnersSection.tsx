@@ -1,55 +1,66 @@
-import { Building2, Handshake, ArrowRight } from "lucide-react";
+import { Building2, Handshake, ArrowUpRight } from "lucide-react";
 
 const partners = [
   "Mairie de Kara",
   "Préfecture de Kozah",
-  "JVE Branche locale Kara",
-  "AJACK KARA",
-  "Rotaract Club Université de Kara",
+  "JVE Branche Kara",
+  "AJACK Kara",
+  "Rotaract Université de Kara",
   "JCI Kara Elite",
 ];
 
 const PartnersSection = () => (
-  <section className="section-spacing bg-background">
-    <div className="container mx-auto px-4">
-      <div className="wp-section-header center">
-        <span className="wp-eyebrow">Écosystème</span>
-        <h2 className="wp-section-title">
-          Ils nous font <span className="text-primary">confiance</span>
+  <section className="bg-muted py-24 md:py-32 px-6 md:px-12 lg:px-24 font-inter">
+    <div className="max-w-6xl mx-auto">
+      <div className="mb-16 md:mb-20 text-center max-w-2xl mx-auto">
+        <span className="text-primary font-semibold tracking-[0.2em] text-xs uppercase">
+          Écosystème
+        </span>
+        <h2 className="mt-6 font-editorial font-bold text-4xl md:text-5xl text-foreground leading-tight">
+          Ils nous{" "}
+          <span className="italic text-primary">accompagnent</span>.
         </h2>
-        <p className="wp-section-subtitle">
-          RECYC HUB TOGO collabore avec les institutions locales, ONG et partenaires du développement pour un impact durable.
+        <p className="mt-6 text-muted-foreground font-light text-lg italic">
+          Institutions, ONG et collectifs engagés à nos côtés pour un Togo plus
+          propre.
         </p>
       </div>
 
-      <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 max-w-5xl mx-auto mb-14 border-2 border-foreground/90 divide-x-2 divide-y-2 divide-foreground/10 [&>*:nth-child(-n+3)]:border-t-0 sm:[&>*:nth-child(-n+3)]:border-t-0 [&>*:nth-child(3n+1)]:border-l-0 sm:[&>*:nth-child(3n+1)]:border-l-0 lg:[&>*:nth-child(-n+6)]:border-t-0 lg:[&>*:nth-child(6n+1)]:border-l-0">
+      <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-px bg-foreground/10 border-y border-foreground/10 mb-16">
         {partners.map((name) => (
           <div
             key={name}
-            className="flex flex-col items-center justify-center p-5 bg-card hover:bg-primary hover:text-primary-foreground transition-colors min-h-[120px] group"
+            className="bg-muted hover:bg-white transition-colors flex flex-col items-center justify-center p-6 min-h-[130px] grayscale hover:grayscale-0"
           >
-            <Building2 className="w-8 h-8 text-primary/50 mb-2 group-hover:text-primary-foreground" />
-            <span className="text-[11px] font-bold uppercase tracking-wider text-center leading-tight">
+            <Building2 className="w-7 h-7 text-foreground/40 mb-3" strokeWidth={1.5} />
+            <span className="text-[11px] font-semibold uppercase tracking-[0.12em] text-foreground/70 text-center leading-tight">
               {name}
             </span>
           </div>
         ))}
       </div>
 
-      <div className="max-w-2xl mx-auto wp-card-primary p-7 flex items-start gap-5">
-        <div className="w-14 h-14 bg-primary text-primary-foreground flex items-center justify-center shrink-0 border-2 border-foreground">
-          <Handshake className="w-7 h-7" />
+      <div className="max-w-3xl mx-auto bg-white border border-foreground/10 p-8 md:p-10 rounded-sm flex flex-col md:flex-row items-start gap-6">
+        <div className="w-14 h-14 rounded-sm bg-primary/10 text-primary flex items-center justify-center shrink-0">
+          <Handshake className="w-6 h-6" />
         </div>
         <div className="flex-1">
-          <p className="wp-eyebrow mb-2">Partenariat</p>
-          <h3 className="font-display font-extrabold text-foreground text-lg mb-2">
-            Vous êtes une institution ou une ONG ?
+          <span className="text-[10px] font-semibold tracking-[0.22em] uppercase text-primary">
+            Partenariat institutionnel
+          </span>
+          <h3 className="mt-3 font-editorial font-bold text-2xl text-foreground leading-snug">
+            Vous représentez une institution ou une ONG&nbsp;?
           </h3>
-          <p className="text-sm text-muted-foreground mb-4 leading-relaxed">
-            Collaborons ensemble pour un avenir plus propre. Contactez-nous pour un partenariat institutionnel.
+          <p className="mt-3 text-muted-foreground font-light leading-relaxed">
+            Bâtissons ensemble la prochaine étape de l'économie circulaire au
+            Togo. Écrivez-nous pour ouvrir le dialogue.
           </p>
-          <a href="mailto:recychubtogo@gmail.com" className="wp-btn-primary text-[11px]">
-            Devenir partenaire <ArrowRight className="w-4 h-4" />
+          <a
+            href="mailto:recychubtogo@gmail.com"
+            className="mt-6 inline-flex items-center gap-2 bg-primary text-primary-foreground px-6 py-3 rounded-sm font-semibold text-sm hover:opacity-90 transition-opacity"
+          >
+            Devenir partenaire
+            <ArrowUpRight className="w-4 h-4" />
           </a>
         </div>
       </div>

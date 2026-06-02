@@ -8,43 +8,48 @@ interface StepTimelineProps {
 
 const StepTimeline = ({ steps, activeStep, onSelect }: StepTimelineProps) => {
   return (
-    <div className="hidden md:flex items-center justify-between mb-12 px-8">
-      {steps.map((s, i) => (
-        <div key={s.step} className="flex items-center flex-1 last:flex-none">
+    <div className="hidden md:grid grid-cols-4 gap-3 mb-6">
+      {steps.map((s, i) => {
+        const isActive = i === activeStep;
+        const isPast = i < activeStep;
+        return (
           <button
+            key={s.step}
             onClick={() => onSelect(i)}
-            className={`relative flex flex-col items-center group cursor-pointer transition-all duration-300 ${
-              activeStep === i ? "scale-110" : "opacity-60 hover:opacity-100"
+            className={`group text-left p-5 rounded-2xl border-2 transition-all duration-300 ${
+              isActive
+                ? "bg-background border-primary shadow-[0_18px_40px_-18px_hsl(var(--primary)/0.4)]"
+                : "bg-background/60 border-transparent hover:border-border"
             }`}
           >
-            <div
-              className={`w-14 h-14 rounded-2xl flex items-center justify-center shadow-lg transition-all duration-300 ${
-                activeStep === i
-                  ? "bg-gradient-to-br " + s.color + " text-primary-foreground shadow-primary/30"
-                  : "bg-card border border-border text-muted-foreground group-hover:border-primary/50"
-              }`}
-            >
-              <s.icon className="w-6 h-6" />
-            </div>
-            <span
-              className={`mt-2 text-xs font-bold transition-colors ${
-                activeStep === i ? "text-primary" : "text-muted-foreground"
-              }`}
-            >
-              Étape {s.step}
-            </span>
-          </button>
-          {i < steps.length - 1 && (
-            <div className="flex-1 mx-4 h-0.5 relative">
-              <div className="absolute inset-0 bg-border rounded-full" />
-              <div
-                className="absolute inset-y-0 left-0 bg-gradient-to-r from-primary to-accent rounded-full transition-all duration-500"
-                style={{ width: i < activeStep ? "100%" : "0%" }}
+            <div className="flex items-center justify-between mb-3">
+              <span
+                className={`inline-flex items-center justify-center w-9 h-9 rounded-full font-black text-xs transition-colors ${
+                  isActive
+                    ? "bg-primary text-primary-foreground"
+                    : isPast
+                    ? "bg-primary/15 text-primary"
+                    : "bg-muted text-muted-foreground"
+                }`}
+              >
+                {s.step}
+              </span>
+              <s.icon
+                className={`w-5 h-5 ${
+                  isActive ? "text-primary" : "text-muted-foreground"
+                }`}
               />
             </div>
-          )}
-        </div>
-      ))}
+            <div
+              className={`text-sm font-bold leading-snug ${
+                isActive ? "text-foreground" : "text-muted-foreground"
+              }`}
+            >
+              {s.title}
+            </div>
+          </button>
+        );
+      })}
     </div>
   );
 };

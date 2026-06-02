@@ -1,17 +1,21 @@
 import SEO from "@/components/SEO";
 import HeroSection from "@/components/HeroSection";
-import WhyUsSection from "@/components/WhyUsSection";
-import ServicesSection from "@/components/ServicesSection";
-import HowItWorks from "@/components/HowItWorks";
-import ImpactSection from "@/components/ImpactSection";
 import AboutSection from "@/components/AboutSection";
-import AcademyTeaser from "@/components/AcademyTeaser";
-import AlerteTeaser from "@/components/AlerteTeaser";
-import EventsTeaser from "@/components/EventsTeaser";
+import SolutionProSection from "@/components/SolutionProSection";
+import ServicesSection from "@/components/ServicesSection";
+import CivicTechSection from "@/components/CivicTechSection";
+import GreenAcademySection from "@/components/GreenAcademySection";
+import HowItWorks from "@/components/HowItWorks";
+import ImpactStatsSection from "@/components/ImpactStatsSection";
+import WhyUsSection from "@/components/WhyUsSection";
 import TestimonialsSection from "@/components/TestimonialsSection";
 import PartnersSection from "@/components/PartnersSection";
+import EventsHubSection from "@/components/EventsHubSection";
+import FAQSection from "@/components/FAQSection";
 import CTASection from "@/components/CTASection";
+
 import WhatsAppButton from "@/components/WhatsAppButton";
+import MobileStickyBar from "@/components/MobileStickyBar";
 
 const Index = () => {
   const jsonLd = {
@@ -22,11 +26,7 @@ const Index = () => {
         "@id": "https://recychubtogo.com/#org",
         name: "RECYC HUB TOGO",
         description: "Plateforme phygitale de collecte et recyclage de déchets à Kara, Togo : rachat de plastiques au kg, enlèvement de déchets ménagers et alerte dépotoir.",
-        address: {
-          "@type": "PostalAddress",
-          addressLocality: "Kara",
-          addressCountry: "TG",
-        },
+        address: { "@type": "PostalAddress", addressLocality: "Kara", addressCountry: "TG" },
         telephone: "+22897684030",
         areaServed: "Kara, Togo",
         url: "https://recychubtogo.com",
@@ -60,16 +60,21 @@ const Index = () => {
       />
       <HeroSection />
       <AboutSection />
+      <SolutionProSection />
       <ServicesSection />
+      <CivicTechSection />
+      <GreenAcademySection />
       <HowItWorks />
-      <ImpactSection />
-      <AcademyTeaser />
-      <AlerteTeaser />
-      <EventsTeaser />
+      <ImpactStatsSection />
+      <WhyUsSection />
       <TestimonialsSection />
       <PartnersSection />
+      <EventsHubSection />
+      <FAQSection />
       <CTASection />
+
       <WhatsAppButton />
+      <MobileStickyBar />
     </div>
   );
 };
