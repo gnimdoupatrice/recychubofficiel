@@ -195,16 +195,6 @@ const Navbar = () => {
                 <AlertTriangle className="w-4 h-4 animate-alerte-color" strokeWidth={2.5} fill="currentColor" fillOpacity={0.15} />
               </span>
               <span className="relative">Alerte dépotoir</span>
-              {/* Mini live indicator — apparaît au hover */}
-              <span
-                aria-label={`${alerteCount} signalements aujourd'hui`}
-                className="ml-0.5 inline-flex items-center gap-1 max-w-0 opacity-0 overflow-hidden group-hover:max-w-[120px] group-hover:opacity-100 transition-all duration-300 ease-out"
-              >
-                <span className="inline-flex items-center gap-1 text-[10px] font-bold uppercase tracking-wider px-1.5 py-px rounded-full bg-destructive/25 text-white ring-1 ring-destructive/50 whitespace-nowrap">
-                  <span className="w-1 h-1 rounded-full bg-destructive animate-pulse" />
-                  {alerteCount} aujourd'hui
-                </span>
-              </span>
               <Underline active={location.pathname === "/alerte"} tone="destructive" />
 
               <span
@@ -223,11 +213,6 @@ const Navbar = () => {
             <Link to="/vendre" className={linkClass(location.pathname === "/vendre", "secondary")}>
               <ShoppingBag className="w-3.5 h-3.5 group-hover:[animation:nav-bounce_.5s_ease-out]" />
               Vendre mes plastiques
-              <span className="ml-0.5 inline-flex items-center max-w-0 opacity-0 overflow-hidden group-hover:max-w-[80px] group-hover:opacity-100 transition-all duration-300 ease-out">
-                <span className="text-[10px] font-black uppercase tracking-wider px-1.5 py-px rounded-full bg-secondary/25 text-secondary ring-1 ring-secondary/40 whitespace-nowrap">
-                  +150 F/kg
-                </span>
-              </span>
               <Underline active={location.pathname === "/vendre"} tone="secondary" />
             </Link>
 
@@ -275,10 +260,10 @@ const Navbar = () => {
             </div>
 
             {/* Enlèvement — bleu/teal logistique, camion qui roule à droite */}
-            <Link to="/enlevement" className={linkClass(location.pathname === "/enlevement", "sky")}>
+            <Link to="/enlevement" className={linkClass(location.pathname === "/enlevement", "accent")}>
               <Truck className="w-3.5 h-3.5 group-hover:translate-x-[3px]" />
               Enlèvement de déchets
-              <Underline active={location.pathname === "/enlevement"} tone="sky" />
+              <Underline active={location.pathname === "/enlevement"} tone="accent" />
             </Link>
           </div>
 
