@@ -50,7 +50,7 @@ const panels: Panel[] = [
     title: (<>Un potentiel <span className="text-primary">inexploité</span></>),
     body:
       "Les déchets recyclables ont une valeur marchande réelle. Sans circuit de rachat structuré, cette ressource est perdue alors qu'elle pourrait nourrir des familles et créer des emplois verts durables.",
-    stat: { value: "+150 F", label: "par kg de plastique racheté" },
+    stat: { value: "+50 F", label: "par kg de plastique racheté" },
     image: challenge3,
     cta: { label: "Vendre mes plastiques", to: "/vendre", icon: Coins },
     theme: "light",
