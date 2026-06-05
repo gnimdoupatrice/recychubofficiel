@@ -14,11 +14,11 @@ export default {
     },
     extend: {
       fontFamily: {
-        display: ['"Nunito"', 'system-ui', 'sans-serif'],
-        body: ['"Nunito"', 'system-ui', 'sans-serif'],
-        editorial: ['"Nunito"', 'system-ui', 'sans-serif'],
-        inter: ['"Nunito"', 'system-ui', 'sans-serif'],
-        sans: ['"Nunito"', 'system-ui', 'sans-serif'],
+        display: ['"Space Grotesk"', 'system-ui', 'sans-serif'],
+        body: ['"DM Sans"', 'system-ui', 'sans-serif'],
+        editorial: ['"Space Grotesk"', 'system-ui', 'sans-serif'],
+        inter: ['"DM Sans"', 'system-ui', 'sans-serif'],
+        sans: ['"DM Sans"', 'system-ui', 'sans-serif'],
       },
       colors: {
         border: "hsl(var(--border))",

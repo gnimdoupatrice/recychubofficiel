@@ -1,7 +1,7 @@
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
 import { ArrowUpRight, Camera, Map, BellRing, AlertTriangle } from "lucide-react";
-import heroImg from "@/assets/civictech-hero.jpg";
+import heroImg from "@/assets/civictech-hero.webp";
 
 const pillars = [
   {

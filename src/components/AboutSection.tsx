@@ -1,181 +1,168 @@
 import { motion } from "framer-motion";
-import { Link } from "react-router-dom";
-import { ArrowRight, AlertTriangle, MapPin, Coins } from "lucide-react";
-import challenge1 from "@/assets/challenge-1.jpg";
-import challenge2 from "@/assets/challenge-2.jpg";
-import challenge3 from "@/assets/challenge-3.jpg";
+import { Eye, Target, Trophy } from "lucide-react";
+import challenge1 from "@/assets/challenge-1.webp";
+import challenge2 from "@/assets/challenge-2.webp";
+import challenge3 from "@/assets/challenge-3.webp";
 
-type Panel = {
-  index: string;
-  eyebrow: string;
-  title: React.ReactNode;
-  body: string;
-  stat: { value: string; label: string };
-  image: string;
-  cta: { label: string; to: string; icon: React.ComponentType<{ className?: string }> };
-  theme: "light" | "dark" | "ice";
-  accent: "primary" | "secondary";
-  reverse?: boolean;
-};
-
-const panels: Panel[] = [
+const cards = [
   {
-    index: "01",
-    eyebrow: "État des lieux — Logistique",
-    title: (<>Une collecte <span className="text-primary">défaillante</span></>),
-    body:
-      "Les pré-collecteurs opèrent à l'aveugle, sans données sur les flux de déchets. Les tournées sont sous-optimisées, le carburant gaspillé, et des milliers de ménages restent sans service régulier.",
-    stat: { value: "60%", label: "des foyers sans ramassage régulier" },
+    number: "01",
+    badge: "Déficit logistique",
+    title: "Systèmes de collecte défaillants",
+    body: (
+      <>
+        Les entreprises de pré-collecte opèrent aujourd'hui{" "}
+        <span className="text-foreground font-semibold">à l'aveugle</span>. Sans
+        données précises sur les flux de déchets, les tournées sont
+        sous-optimisées, générant un gaspillage critique de carburant et un
+        temps d'intervention prolongé pour chaque ménage desservi.
+      </>
+    ),
     image: challenge1,
-    cta: { label: "Demander un enlèvement", to: "/enlevement", icon: ArrowRight },
-    theme: "ice",
-    accent: "primary",
   },
   {
-    index: "02",
-    eyebrow: "État des lieux — Territoire",
-    title: (<>Le dépotoir <span className="text-secondary">invisible</span></>),
-    body:
-      "Visibles au quotidien par les citoyens, ces points noirs échappent à toute comptabilité institutionnelle. L'absence de cartographie dynamique empêche d'agir là où ça brûle vraiment.",
-    stat: { value: "0", label: "registre national des dépotoirs sauvages" },
+    number: "02",
+    badge: "Cécité géographique",
+    title: "Dépotoirs invisibles",
+    body: (
+      <>
+        Visibles au quotidien par les citoyens, ces points noirs échappent à
+        toute comptabilité institutionnelle.{" "}
+        <span className="text-foreground font-semibold">
+          L'absence de cartographie dynamique
+        </span>{" "}
+        empêche les autorités de mesurer l'ampleur réelle du défi et d'allouer
+        les ressources nécessaires.
+      </>
+    ),
     image: challenge2,
-    cta: { label: "Signaler un dépotoir", to: "/alerte", icon: AlertTriangle },
-    theme: "dark",
-    accent: "secondary",
-    reverse: true,
   },
   {
+<<<<<<< HEAD
     index: "03",
     eyebrow: "État des lieux — Économie",
     title: (<>Un potentiel <span className="text-primary">inexploité</span></>),
     body:
       "Les déchets recyclables ont une valeur marchande réelle. Sans circuit de rachat structuré, cette ressource est perdue alors qu'elle pourrait nourrir des familles et créer des emplois verts durables.",
     stat: { value: "+50 F", label: "par kg de plastique racheté" },
+=======
+    number: "03",
+    badge: "Valeur cachée",
+    title: "Potentiel économique inexploité",
+    body: (
+      <>
+        Les déchets recyclables ont une{" "}
+        <span className="text-foreground font-semibold">
+          valeur marchande réelle
+        </span>
+        . Sans circuit de rachat structuré, cette ressource est perdue alors
+        qu'elle pourrait générer des revenus pour les ménages et créer des
+        emplois verts durables sur tout le territoire.
+      </>
+    ),
+>>>>>>> 4f86fc285f9332e8b6e5cbb47efa1e327457f578
     image: challenge3,
-    cta: { label: "Vendre mes plastiques", to: "/vendre", icon: Coins },
-    theme: "light",
-    accent: "primary",
   },
 ];
 
-const themeMap: Record<Panel["theme"], { bg: string; text: string; subtext: string; card: string; border: string }> = {
-  light: { bg: "bg-background", text: "text-foreground", subtext: "text-muted-foreground", card: "bg-muted", border: "border-border" },
-  ice:   { bg: "bg-muted",       text: "text-foreground", subtext: "text-muted-foreground", card: "bg-background", border: "border-border" },
-  dark:  { bg: "bg-foreground",  text: "text-background", subtext: "text-background/70",   card: "bg-white/5",   border: "border-white/10" },
-};
+const pillars = [
+  {
+    icon: Eye,
+    pilier: "Pilier 01",
+    title: "Notre Vision",
+    desc: "Un Togo où chaque déchet plastique est valorisé, chaque citoyen est acteur du changement et chaque quartier est propre et durable.",
+    points: ["Valorisation universelle des déchets", "Citoyenneté active et responsable", "Quartiers propres et durables"],
+    featured: false,
+  },
+  {
+    icon: Target,
+    pilier: "Pilier 02",
+    title: "Notre Mission",
+    desc: "Connecter ménages, collecteurs et recycleurs via une plateforme numérique qui transforme les déchets en revenus, en digitalisant toute la chaîne.",
+    points: ["Connexion ménages ↔ recycleurs", "Digitalisation de la chaîne de valeur", "Revenus pour tous les acteurs", "Économie circulaire inclusive"],
+    featured: true,
+  },
+  {
+    icon: Trophy,
+    pilier: "Pilier 03",
+    title: "Nos Objectifs",
+    desc: "Des résultats concrets et mesurables pour un impact durable sur l'environnement et l'économie togolaise.",
+    points: ["Démocratiser l'accès au recyclage", "Créer des emplois verts durables", "Digitaliser la collecte nationale"],
+    featured: false,
+  },
+];
 
 const AboutSection = () => {
   return (
-    <section id="pourquoi" aria-label="État des lieux — pourquoi RecycHub Togo">
-      {/* Intro — pleine page */}
-      <div className="relative min-h-screen flex items-center bg-background overflow-hidden">
-        <div className="absolute -top-32 -left-32 w-[36rem] h-[36rem] rounded-full bg-primary/10 blur-3xl pointer-events-none" />
-        <div className="absolute -bottom-32 -right-32 w-[36rem] h-[36rem] rounded-full bg-secondary/10 blur-3xl pointer-events-none" />
-        <div className="relative z-10 max-w-5xl mx-auto px-6 md:px-12 py-24">
+    <section
+      id="pourquoi"
+      className="bg-background py-24 md:py-32 px-6 md:px-12"
+    >
+      <div className="max-w-6xl mx-auto">
+        {/* Header */}
+        <div className="mb-20 md:mb-24 max-w-2xl">
           <span className="inline-flex items-center gap-2 text-primary font-bold tracking-[0.22em] text-[11px] uppercase">
             <span className="w-8 h-px bg-primary" />
-            L'état des lieux
+            L'État des Lieux
           </span>
-          <h2 className="mt-6 font-extrabold text-5xl md:text-7xl lg:text-8xl text-foreground leading-[0.95] tracking-tight">
-            Pourquoi <br className="hidden md:block" />
-            RECYC<span className="text-primary">HUB</span> TOGO ?
+          <h2 className="mt-5 font-extrabold text-4xl md:text-5xl lg:text-6xl text-foreground leading-[1.05]">
+            Pourquoi RECYC<span className="text-primary">HUB</span> TOGO ?
           </h2>
-          <p className="mt-8 text-muted-foreground text-lg md:text-xl leading-relaxed max-w-2xl">
-            Trois constats. Trois urgences. Trois leviers. Faites défiler pour comprendre comment nous transformons chaque déchet en opportunité.
+          <p className="mt-6 text-muted-foreground text-lg leading-relaxed">
+            Analyse systémique des défis environnementaux au Togo — trois
+            constats qui structurent toute notre démarche.
           </p>
-          <div className="mt-12 flex items-center gap-3 text-sm font-semibold text-foreground/60">
-            <span className="w-10 h-px bg-foreground/30" />
-            Défilez pour découvrir
-          </div>
         </div>
+
+        <div className="flex flex-col gap-16 md:gap-24">
+          {cards.map((c, i) => (
+            <motion.article
+              key={c.number}
+              initial={{ opacity: 0, y: 24 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-80px" }}
+              transition={{ duration: 0.6, ease: "easeOut" }}
+              className={`group grid md:grid-cols-2 gap-8 md:gap-12 items-center ${
+                i % 2 === 1 ? "md:[&>*:first-child]:order-2" : ""
+              }`}
+            >
+              {/* Image */}
+              <div className="relative aspect-[4/3] overflow-hidden rounded-3xl bg-muted border border-border">
+                <img
+                  src={c.image}
+                  alt={c.title}
+                  loading="lazy"
+                  decoding="async"
+                  width={1200}
+                  height={900}
+                  className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent" />
+                <span className="absolute top-5 left-5 inline-flex items-center px-3 py-1.5 rounded-full bg-background/90 backdrop-blur-md text-primary text-[10px] font-bold uppercase tracking-[0.22em]">
+                  {c.badge}
+                </span>
+              </div>
+
+              {/* Content */}
+              <div className="flex flex-col">
+                <span
+                  aria-hidden="true"
+                  className="font-extrabold text-7xl md:text-8xl lg:text-9xl leading-none tracking-tight text-primary/15 mb-4"
+                >
+                  {c.number}
+                </span>
+                <h3 className="font-extrabold text-2xl md:text-3xl lg:text-4xl text-foreground leading-tight mb-5">
+                  {c.title}
+                </h3>
+                <p className="text-base md:text-lg text-muted-foreground leading-relaxed max-w-xl">
+                  {c.body}
+                </p>
+              </div>
+            </motion.article>
+          ))}
+        </div>
+
       </div>
-
-      {/* Trois panneaux plein écran */}
-      {panels.map((p) => {
-        const t = themeMap[p.theme];
-        const accentText = p.accent === "primary" ? "text-primary" : "text-secondary";
-        const accentBg = p.accent === "primary" ? "bg-primary" : "bg-secondary";
-        const accentFg = p.accent === "primary" ? "text-primary-foreground" : "text-secondary-foreground";
-
-        return (
-          <div
-            key={p.index}
-            className={`relative min-h-screen w-full ${t.bg} ${t.text} overflow-hidden`}
-          >
-            <div className={`min-h-screen grid lg:grid-cols-2 ${p.reverse ? "lg:[&>*:first-child]:order-2" : ""}`}>
-              {/* Texte */}
-              <div className="flex items-center px-6 md:px-12 lg:px-20 py-20">
-                <motion.div
-                  initial={{ opacity: 0, y: 30 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true, margin: "-100px" }}
-                  transition={{ duration: 0.7, ease: "easeOut" }}
-                  className="max-w-xl"
-                >
-                  <span
-                    className={`font-extrabold text-[8rem] md:text-[12rem] leading-none block ${accentText} opacity-10 select-none`}
-                  >
-                    {p.index}
-                  </span>
-                  <span className={`mt-[-2rem] inline-flex items-center gap-2 ${accentText} font-bold tracking-[0.22em] text-[11px] uppercase`}>
-                    <span className={`w-8 h-px ${accentBg}`} />
-                    {p.eyebrow}
-                  </span>
-                  <h3 className="mt-6 font-extrabold text-4xl md:text-6xl leading-[1.05] tracking-tight">
-                    {p.title}
-                  </h3>
-                  <p className={`mt-6 text-lg md:text-xl leading-relaxed ${t.subtext}`}>
-                    {p.body}
-                  </p>
-                  <Link
-                    to={p.cta.to}
-                    className={`mt-10 inline-flex items-center gap-3 px-6 py-3.5 rounded-full ${accentBg} ${accentFg} font-bold text-sm shadow-lg hover:scale-[1.03] hover:shadow-xl transition-all duration-300`}
-                  >
-                    <p.cta.icon className="w-4 h-4" />
-                    {p.cta.label}
-                  </Link>
-                </motion.div>
-              </div>
-
-              {/* Visuel + stat */}
-              <div className="relative flex items-center justify-center p-6 md:p-12 lg:p-16">
-                <motion.div
-                  initial={{ opacity: 0, scale: 0.95 }}
-                  whileInView={{ opacity: 1, scale: 1 }}
-                  viewport={{ once: true, margin: "-100px" }}
-                  transition={{ duration: 0.8, ease: "easeOut" }}
-                  className="relative w-full max-w-xl aspect-[4/5]"
-                >
-                  <div className={`absolute inset-0 rounded-[3rem] overflow-hidden ${t.border} border shadow-2xl`}>
-                    <img
-                      src={p.image}
-                      alt=""
-                      className="w-full h-full object-cover"
-                      loading="lazy"
-                      decoding="async"
-                    />
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/10 to-transparent" />
-                  </div>
-
-                  {/* Carte stat flottante */}
-                  <div className={`absolute -bottom-6 -left-6 md:-bottom-8 md:-left-8 ${t.card} ${t.border} border rounded-2xl p-5 md:p-6 shadow-2xl backdrop-blur-sm max-w-[260px]`}>
-                    <div className={`flex items-center gap-2 mb-2 ${accentText}`}>
-                      <MapPin className="w-3.5 h-3.5" />
-                      <span className="text-[10px] font-bold uppercase tracking-[0.2em]">Kara, Togo</span>
-                    </div>
-                    <div className={`font-extrabold text-4xl md:text-5xl leading-none ${accentText}`}>
-                      {p.stat.value}
-                    </div>
-                    <div className={`mt-2 text-xs md:text-sm ${t.subtext} leading-snug`}>
-                      {p.stat.label}
-                    </div>
-                  </div>
-                </motion.div>
-              </div>
-            </div>
-          </div>
-        );
-      })}
     </section>
   );
 };
