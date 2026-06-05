@@ -105,48 +105,54 @@ const AboutSection = () => {
           </p>
         </div>
 
-        <div className="grid md:grid-cols-3 gap-6 lg:gap-8">
+        <div className="flex flex-col gap-16 md:gap-24">
           {cards.map((c, i) => (
             <motion.article
               key={c.number}
               initial={{ opacity: 0, y: 24 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-80px" }}
-              transition={{ duration: 0.6, delay: i * 0.1, ease: "easeOut" }}
-              className="group relative flex flex-col bg-card rounded-3xl overflow-hidden border border-border hover:border-primary/40 transition-all duration-300 hover:shadow-[0_24px_60px_-30px_hsl(var(--primary)/0.35)]"
+              transition={{ duration: 0.6, ease: "easeOut" }}
+              className={`group grid md:grid-cols-2 gap-8 md:gap-12 items-center ${
+                i % 2 === 1 ? "md:[&>*:first-child]:order-2" : ""
+              }`}
             >
               {/* Image */}
-              <div className="relative aspect-[4/3] overflow-hidden bg-muted">
+              <div className="relative aspect-[4/3] overflow-hidden rounded-3xl bg-muted border border-border">
                 <img
                   src={c.image}
                   alt={c.title}
                   loading="lazy"
                   decoding="async"
-                  width={800}
-                  height={600}
+                  width={1200}
+                  height={900}
                   className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent" />
                 <span className="absolute top-5 left-5 inline-flex items-center px-3 py-1.5 rounded-full bg-background/90 backdrop-blur-md text-primary text-[10px] font-bold uppercase tracking-[0.22em]">
                   {c.badge}
                 </span>
-                <span className="absolute bottom-4 right-5 font-extrabold text-5xl text-white/90 leading-none tracking-tight">
-                  {c.number}
-                </span>
               </div>
 
               {/* Content */}
-              <div className="p-7 md:p-8 flex flex-col flex-1">
-                <h3 className="font-extrabold text-xl md:text-2xl text-foreground leading-snug mb-3">
+              <div className="flex flex-col">
+                <span
+                  aria-hidden="true"
+                  className="font-extrabold text-7xl md:text-8xl lg:text-9xl leading-none tracking-tight text-primary/15 mb-4"
+                >
+                  {c.number}
+                </span>
+                <h3 className="font-extrabold text-2xl md:text-3xl lg:text-4xl text-foreground leading-tight mb-5">
                   {c.title}
                 </h3>
-                <p className="text-[15px] text-muted-foreground leading-relaxed">
+                <p className="text-base md:text-lg text-muted-foreground leading-relaxed max-w-xl">
                   {c.body}
                 </p>
               </div>
             </motion.article>
           ))}
         </div>
+
       </div>
     </section>
   );
