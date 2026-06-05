@@ -107,7 +107,8 @@ const Navbar = () => {
   const linkClass = (active: boolean, tone: Tone = "neutral") => {
     const t = toneMap[tone];
     return [
-      "group relative inline-flex items-center gap-1.5 h-10 px-4 rounded-full",
+      "group relative inline-flex items-center justify-center gap-1.5 h-10 px-4 rounded-full",
+      "flex-1 min-w-[150px] xl:min-w-[170px]",
       "text-[13px] font-semibold tracking-tight whitespace-nowrap",
       "transition-[background,box-shadow,border-color,color,transform] duration-300 ease-out",
       "[&_svg]:transition-transform [&_svg]:duration-300",
