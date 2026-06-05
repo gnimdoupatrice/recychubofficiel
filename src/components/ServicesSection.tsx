@@ -2,21 +2,21 @@ import { useState } from "react";
 import { Recycle, ArrowRight, CheckCircle2 } from "lucide-react";
 import { Link } from "react-router-dom";
 
-import petBottles1 from "@/assets/pet-bottles-1.jpg";
-import petPlastique from "@/assets/hero/pet_plastique.png";
-import petBottles2 from "@/assets/pet-bottles-2.jpg";
-import pehdContainers1 from "@/assets/pehd-containers-1.jpg";
-import pehdContainers2 from "@/assets/pehd-containers-2.jpg";
-import ppItems1 from "@/assets/pp-items-1.jpg";
-import ppItems2 from "@/assets/pp-items-2.jpg";
-import pvcTuyaux from "@/assets/hero/pvc_tuyaux.jpg";
-import pvcPipes2 from "@/assets/pvc-pipes-2.jpg";
-import chaisesPlastique from "@/assets/hero/chaises_plastique.jpg";
-import mobilier2 from "@/assets/mobilier-2.jpg";
-import purWater from "@/assets/hero/pur_water.jpg";
-import pureWater2 from "@/assets/pure-water-2.jpg";
-import hdpe from "@/assets/hdpe.png";
-import ppPlastique from "@/assets/hero/pp_plastique.png";
+import petBottles1 from "@/assets/pet-bottles-1.webp";
+import petPlastique from "@/assets/hero/pet_plastique.webp";
+import petBottles2 from "@/assets/pet-bottles-2.webp";
+import pehdContainers1 from "@/assets/pehd-containers-1.webp";
+import pehdContainers2 from "@/assets/pehd-containers-2.webp";
+import ppItems1 from "@/assets/pp-items-1.webp";
+import ppItems2 from "@/assets/pp-items-2.webp";
+import pvcTuyaux from "@/assets/hero/pvc_tuyaux.webp";
+import pvcPipes2 from "@/assets/pvc-pipes-2.webp";
+import chaisesPlastique from "@/assets/hero/chaises_plastique.webp";
+import mobilier2 from "@/assets/mobilier-2.webp";
+import purWater from "@/assets/hero/pur_water.webp";
+import pureWater2 from "@/assets/pure-water-2.webp";
+import hdpe from "@/assets/hdpe.webp";
+import ppPlastique from "@/assets/hero/pp_plastique.webp";
 
 const plasticRows = [
   {

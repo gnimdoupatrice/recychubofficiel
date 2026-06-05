@@ -7,7 +7,7 @@ import {
   BarChart3,
   CreditCard,
 } from "lucide-react";
-import heroImg from "@/assets/solution-pro-hero.jpg";
+import heroImg from "@/assets/solution-pro-hero.webp";
 
 const features = [
   { icon: RouteIcon, label: "Optimisation intelligente des tournées" },

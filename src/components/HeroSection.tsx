@@ -1,6 +1,6 @@
 import { ArrowRight, Sparkles, Phone, MapPin, ShoppingBag, Truck, AlertTriangle } from "lucide-react";
 import { Link } from "react-router-dom";
-import heroImg from "@/assets/hero/hero_dark.jpg";
+import heroImg from "@/assets/hero/hero_dark.webp";
 
 const HeroSection = () => {
   return (
