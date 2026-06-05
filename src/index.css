@@ -60,10 +60,11 @@
     --sidebar-border: 216 16% 90%;
     --sidebar-ring: 158 64% 43%;
 
-    font-family: 'Nunito', system-ui, -apple-system, sans-serif;
+    font-family: 'DM Sans', system-ui, -apple-system, sans-serif;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
   }
+
 
   .dark {
     --background: 216 16% 12%;
