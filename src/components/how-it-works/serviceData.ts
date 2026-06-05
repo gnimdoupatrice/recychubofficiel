@@ -6,25 +6,25 @@ import {
   AlertTriangle, Eye, Wrench, ThumbsUp,
 } from "lucide-react";
 
-import stepRegister from "@/assets/step-register.png";
-import stepCollect from "@/assets/step-collect.png";
-import stepPayment from "@/assets/step-payment.png";
-import stepImpact from "@/assets/step-impact.png";
-import stepSchedulePickup from "@/assets/step-schedule-pickup.png";
-import stepTracking from "@/assets/step-tracking.png";
-import stepValidation from "@/assets/step-validation.png";
-import stepReport from "@/assets/step-report.png";
-import stepLocate from "@/assets/step-locate.png";
-import stepCleanup from "@/assets/step-cleanup.png";
-import stepResolved from "@/assets/step-resolved.png";
-import stepBrowseEvents from "@/assets/step-browse-events.png";
-import stepRegisterEvent from "@/assets/step-register-event.png";
-import stepParticipate from "@/assets/step-participate.png";
-import stepCertificate from "@/assets/step-certificate.png";
-import stepBrowseCourses from "@/assets/step-browse-courses.png";
-import stepLearn from "@/assets/step-learn.png";
-import stepQuiz from "@/assets/step-quiz.png";
-import stepAmbassador from "@/assets/step-ambassador.png";
+import stepRegister from "@/assets/step-register.webp";
+import stepCollect from "@/assets/step-collect.webp";
+import stepPayment from "@/assets/step-payment.webp";
+import stepImpact from "@/assets/step-impact.webp";
+import stepSchedulePickup from "@/assets/step-schedule-pickup.webp";
+import stepTracking from "@/assets/step-tracking.webp";
+import stepValidation from "@/assets/step-validation.webp";
+import stepReport from "@/assets/step-report.webp";
+import stepLocate from "@/assets/step-locate.webp";
+import stepCleanup from "@/assets/step-cleanup.webp";
+import stepResolved from "@/assets/step-resolved.webp";
+import stepBrowseEvents from "@/assets/step-browse-events.webp";
+import stepRegisterEvent from "@/assets/step-register-event.webp";
+import stepParticipate from "@/assets/step-participate.webp";
+import stepCertificate from "@/assets/step-certificate.webp";
+import stepBrowseCourses from "@/assets/step-browse-courses.webp";
+import stepLearn from "@/assets/step-learn.webp";
+import stepQuiz from "@/assets/step-quiz.webp";
+import stepAmbassador from "@/assets/step-ambassador.webp";
 
 import type { LucideIcon } from "lucide-react";
 

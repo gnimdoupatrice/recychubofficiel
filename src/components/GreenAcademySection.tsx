@@ -1,7 +1,7 @@
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
 import { ArrowUpRight, BookOpen, Recycle, Sprout, Award } from "lucide-react";
-import heroImg from "@/assets/academy-hero.jpg";
+import heroImg from "@/assets/academy-hero.webp";
 
 const tracks = [
   {
