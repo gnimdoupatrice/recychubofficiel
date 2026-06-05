@@ -1,5 +1,5 @@
-/* Waste Heroes inspired — Nunito, light, green + warm orange CTA */
-@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&display=swap');
+/* Recyc Hub Togo — Space Grotesk (display) + DM Sans (body) */
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap');
 
 @tailwind base;
 @tailwind components;
@@ -60,10 +60,11 @@
     --sidebar-border: 216 16% 90%;
     --sidebar-ring: 158 64% 43%;
 
-    font-family: 'Nunito', system-ui, -apple-system, sans-serif;
+    font-family: 'DM Sans', system-ui, -apple-system, sans-serif;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
   }
+
 
   .dark {
     --background: 216 16% 12%;
@@ -90,11 +91,11 @@
 
 @layer base {
   * { @apply border-border; }
-  body { @apply bg-background text-foreground; font-family: 'Nunito', system-ui, sans-serif; }
+  body { @apply bg-background text-foreground; font-family: 'DM Sans', system-ui, sans-serif; }
   h1, h2, h3, h4, h5, h6 {
-    font-family: 'Nunito', system-ui, sans-serif;
-    letter-spacing: -0.015em;
-    font-weight: 800;
+    font-family: 'Space Grotesk', system-ui, sans-serif;
+    letter-spacing: -0.02em;
+    font-weight: 700;
   }
 }
 
