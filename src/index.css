@@ -91,11 +91,11 @@
 
 @layer base {
   * { @apply border-border; }
-  body { @apply bg-background text-foreground; font-family: 'Nunito', system-ui, sans-serif; }
+  body { @apply bg-background text-foreground; font-family: 'DM Sans', system-ui, sans-serif; }
   h1, h2, h3, h4, h5, h6 {
-    font-family: 'Nunito', system-ui, sans-serif;
-    letter-spacing: -0.015em;
-    font-weight: 800;
+    font-family: 'Space Grotesk', system-ui, sans-serif;
+    letter-spacing: -0.02em;
+    font-weight: 700;
   }
 }
 
