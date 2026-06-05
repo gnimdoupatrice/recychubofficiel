@@ -38,29 +38,12 @@ const cards = [
     image: challenge2,
   },
   {
-<<<<<<< HEAD
     index: "03",
     eyebrow: "État des lieux — Économie",
     title: (<>Un potentiel <span className="text-primary">inexploité</span></>),
     body:
       "Les déchets recyclables ont une valeur marchande réelle. Sans circuit de rachat structuré, cette ressource est perdue alors qu'elle pourrait nourrir des familles et créer des emplois verts durables.",
     stat: { value: "+50 F", label: "par kg de plastique racheté" },
-=======
-    number: "03",
-    badge: "Valeur cachée",
-    title: "Potentiel économique inexploité",
-    body: (
-      <>
-        Les déchets recyclables ont une{" "}
-        <span className="text-foreground font-semibold">
-          valeur marchande réelle
-        </span>
-        . Sans circuit de rachat structuré, cette ressource est perdue alors
-        qu'elle pourrait générer des revenus pour les ménages et créer des
-        emplois verts durables sur tout le territoire.
-      </>
-    ),
->>>>>>> 4f86fc285f9332e8b6e5cbb47efa1e327457f578
     image: challenge3,
   },
 ];
