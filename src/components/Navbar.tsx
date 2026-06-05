@@ -178,7 +178,7 @@ const Navbar = () => {
 
           </Link>
 
-          <div className="hidden lg:flex items-center gap-1.5 xl:gap-2">
+          <div className="hidden lg:flex flex-1 items-stretch justify-center gap-1.5 xl:gap-2 max-w-3xl">
             <Link to="/" className={linkClass(location.pathname === "/", "neutral")}>
               <Home className="w-3.5 h-3.5 group-hover:-translate-y-[1px]" />
               Accueil
