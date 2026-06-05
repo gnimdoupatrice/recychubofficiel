@@ -218,7 +218,7 @@ const Navbar = () => {
             </Link>
 
             {/* Découvrir dropdown — accent doré */}
-            <div ref={discoverRef} className="relative">
+            <div ref={discoverRef} className="relative flex flex-1 min-w-[150px] xl:min-w-[170px]">
               <button
                 onClick={() => setDiscoverOpen(o => !o)}
                 onMouseEnter={() => setDiscoverOpen(true)}
