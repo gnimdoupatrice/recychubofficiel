@@ -1,5 +1,6 @@
 import { motion } from "framer-motion";
-import { Eye, Target, Trophy, TrendingUp, MapPinOff, Coins, LucideIcon } from "lucide-react";
+import { Link } from "react-router-dom";
+import { Eye, Target, Trophy, MapPin, ArrowRight } from "lucide-react";
 import challenge1 from "@/assets/challenge-1.webp";
 import challenge2 from "@/assets/challenge-2.webp";
 import challenge3 from "@/assets/challenge-3.webp";
@@ -10,7 +11,8 @@ type Card = {
   title: string;
   body: React.ReactNode;
   image: string;
-  stat: { icon: LucideIcon; value: string; label: string };
+  stat: { location: string; value: string; label: string };
+  cta: { label: string; href: string };
 };
 
 const cards: Card[] = [
@@ -28,7 +30,12 @@ const cards: Card[] = [
       </>
     ),
     image: challenge1,
-    stat: { icon: TrendingUp, value: "+70%", label: "carburant gaspillé" },
+    stat: {
+      location: "Kara, Togo",
+      value: "60%",
+      label: "des foyers sans ramassage régulier",
+    },
+    cta: { label: "Demander un enlèvement", href: "/demander-enlevement" },
   },
   {
     number: "02",
@@ -46,7 +53,12 @@ const cards: Card[] = [
       </>
     ),
     image: challenge2,
-    stat: { icon: MapPinOff, value: "0", label: "cartographie officielle" },
+    stat: {
+      location: "Kara, Togo",
+      value: "0",
+      label: "registre national des dépotoirs sauvages",
+    },
+    cta: { label: "Signaler un dépotoir", href: "/alerte-depotoir" },
   },
   {
     number: "03",
@@ -64,7 +76,12 @@ const cards: Card[] = [
       </>
     ),
     image: challenge3,
-    stat: { icon: Coins, value: "+50%", label: "valeur perdue" },
+    stat: {
+      location: "Kara, Togo",
+      value: "0 FCFA",
+      label: "par kilo de plastique racheté",
+    },
+    cta: { label: "Vendre mes plastiques", href: "/vendre-plastiques" },
   },
 ];
 
