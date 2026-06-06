@@ -130,21 +130,43 @@ const AboutSection = () => {
               }`}
             >
               {/* Image */}
-              <div className="relative aspect-[4/3] overflow-hidden rounded-3xl bg-muted border border-border">
-                <img
-                  src={c.image}
-                  alt={c.title}
-                  loading="lazy"
-                  decoding="async"
-                  width={1200}
-                  height={900}
-                  className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent" />
-                <span className="absolute top-5 left-5 inline-flex items-center px-3 py-1.5 rounded-full bg-background/90 backdrop-blur-md text-primary text-[10px] font-bold uppercase tracking-[0.22em]">
-                  {c.badge}
-                </span>
+              <div className="relative">
+                <div className="relative aspect-[4/3] overflow-hidden rounded-3xl bg-muted border border-border">
+                  <img
+                    src={c.image}
+                    alt={c.title}
+                    loading="lazy"
+                    decoding="async"
+                    width={1200}
+                    height={900}
+                    className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent" />
+                  <span className="absolute top-5 left-5 inline-flex items-center px-3 py-1.5 rounded-full bg-background/90 backdrop-blur-md text-primary text-[10px] font-bold uppercase tracking-[0.22em]">
+                    {c.badge}
+                  </span>
+                </div>
+
+                {/* Floating stat badge */}
+                <motion.div
+                  initial={{ opacity: 0, scale: 0.8 }}
+                  whileInView={{ opacity: 1, scale: 1 }}
+                  viewport={{ once: true, margin: "-80px" }}
+                  transition={{ duration: 0.3, delay: 0.2, ease: "easeOut" }}
+                  className="absolute -top-4 -right-4 md:-top-6 md:-right-6 z-10 flex items-center gap-3 rounded-2xl bg-primary text-primary-foreground px-4 py-3 shadow-[0_12px_30px_-8px_hsl(var(--primary)/0.5)] ring-4 ring-background"
+                >
+                  <c.stat.icon className="w-6 h-6 shrink-0" strokeWidth={2.5} />
+                  <div className="flex flex-col leading-tight">
+                    <span className="font-[Space_Grotesk] font-bold text-xl md:text-2xl">
+                      {c.stat.value}
+                    </span>
+                    <span className="text-[10px] md:text-[11px] font-medium opacity-90 uppercase tracking-wide">
+                      {c.stat.label}
+                    </span>
+                  </div>
+                </motion.div>
               </div>
+
 
               {/* Content */}
               <div className="flex flex-col">
