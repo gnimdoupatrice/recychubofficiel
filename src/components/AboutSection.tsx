@@ -1,5 +1,6 @@
 import { motion } from "framer-motion";
-import { Eye, Target, Trophy, TrendingUp, MapPinOff, Coins, LucideIcon } from "lucide-react";
+import { Link } from "react-router-dom";
+import { Eye, Target, Trophy, MapPin, ArrowRight } from "lucide-react";
 import challenge1 from "@/assets/challenge-1.webp";
 import challenge2 from "@/assets/challenge-2.webp";
 import challenge3 from "@/assets/challenge-3.webp";
@@ -10,7 +11,8 @@ type Card = {
   title: string;
   body: React.ReactNode;
   image: string;
-  stat: { icon: LucideIcon; value: string; label: string };
+  stat: { location: string; value: string; label: string };
+  cta: { label: string; href: string };
 };
 
 const cards: Card[] = [
@@ -28,7 +30,12 @@ const cards: Card[] = [
       </>
     ),
     image: challenge1,
-    stat: { icon: TrendingUp, value: "+70%", label: "carburant gaspillé" },
+    stat: {
+      location: "Kara, Togo",
+      value: "60%",
+      label: "des foyers sans ramassage régulier",
+    },
+    cta: { label: "Demander un enlèvement", href: "/demander-enlevement" },
   },
   {
     number: "02",
@@ -46,7 +53,12 @@ const cards: Card[] = [
       </>
     ),
     image: challenge2,
-    stat: { icon: MapPinOff, value: "0", label: "cartographie officielle" },
+    stat: {
+      location: "Kara, Togo",
+      value: "0",
+      label: "registre national des dépotoirs sauvages",
+    },
+    cta: { label: "Signaler un dépotoir", href: "/alerte-depotoir" },
   },
   {
     number: "03",
@@ -64,7 +76,12 @@ const cards: Card[] = [
       </>
     ),
     image: challenge3,
-    stat: { icon: Coins, value: "+50%", label: "valeur perdue" },
+    stat: {
+      location: "Kara, Togo",
+      value: "0 FCFA",
+      label: "par kilo de plastique racheté",
+    },
+    cta: { label: "Vendre mes plastiques", href: "/vendre-plastiques" },
   },
 ];
 
@@ -147,22 +164,23 @@ const AboutSection = () => {
                   </span>
                 </div>
 
-                {/* Floating stat badge */}
+                {/* Floating stat card */}
                 <motion.div
-                  initial={{ opacity: 0, scale: 0.8 }}
-                  whileInView={{ opacity: 1, scale: 1 }}
+                  initial={{ opacity: 0, scale: 0.85, y: 10 }}
+                  whileInView={{ opacity: 1, scale: 1, y: 0 }}
                   viewport={{ once: true, margin: "-80px" }}
-                  transition={{ duration: 0.3, delay: 0.2, ease: "easeOut" }}
-                  className="absolute -top-4 -right-4 md:-top-6 md:-right-6 z-10 flex items-center gap-3 rounded-2xl bg-primary text-primary-foreground px-4 py-3 shadow-[0_12px_30px_-8px_hsl(var(--primary)/0.5)] ring-4 ring-background"
+                  transition={{ duration: 0.35, delay: 0.2, ease: "easeOut" }}
+                  className="absolute -top-5 -right-4 md:-top-6 md:-right-6 z-10 w-[180px] md:w-[200px] rounded-2xl bg-card border border-border px-4 py-3 shadow-[0_18px_40px_-12px_hsl(var(--primary)/0.35)] ring-1 ring-primary/10"
                 >
-                  <c.stat.icon className="w-6 h-6 shrink-0" strokeWidth={2.5} />
-                  <div className="flex flex-col leading-tight">
-                    <span className="font-[Space_Grotesk] font-bold text-xl md:text-2xl">
-                      {c.stat.value}
-                    </span>
-                    <span className="text-[10px] md:text-[11px] font-medium opacity-90 uppercase tracking-wide">
-                      {c.stat.label}
-                    </span>
+                  <div className="flex items-center gap-1.5 text-[10px] font-bold uppercase tracking-[0.12em] text-primary">
+                    <MapPin className="w-3 h-3" strokeWidth={2.5} />
+                    {c.stat.location}
+                  </div>
+                  <div className="mt-1 font-[Space_Grotesk] font-bold text-2xl md:text-3xl text-foreground leading-tight">
+                    {c.stat.value}
+                  </div>
+                  <div className="mt-1 text-[11px] md:text-xs text-muted-foreground leading-snug">
+                    {c.stat.label}
                   </div>
                 </motion.div>
               </div>
@@ -182,6 +200,13 @@ const AboutSection = () => {
                 <p className="text-base md:text-lg text-muted-foreground leading-relaxed max-w-xl">
                   {c.body}
                 </p>
+                <Link
+                  to={c.cta.href}
+                  className="group/cta inline-flex items-center gap-2 mt-6 text-primary font-bold text-sm hover:gap-3 transition-all duration-300 self-start border-b-2 border-primary/30 hover:border-primary pb-1"
+                >
+                  {c.cta.label}
+                  <ArrowRight className="w-4 h-4 transition-transform duration-300 group-hover/cta:translate-x-1" strokeWidth={2.5} />
+                </Link>
               </div>
             </motion.article>
           ))}
