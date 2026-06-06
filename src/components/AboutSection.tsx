@@ -1,10 +1,19 @@
 import { motion } from "framer-motion";
-import { Eye, Target, Trophy } from "lucide-react";
+import { Eye, Target, Trophy, TrendingUp, MapPinOff, Coins, LucideIcon } from "lucide-react";
 import challenge1 from "@/assets/challenge-1.webp";
 import challenge2 from "@/assets/challenge-2.webp";
 import challenge3 from "@/assets/challenge-3.webp";
 
-const cards = [
+type Card = {
+  number: string;
+  badge: string;
+  title: string;
+  body: React.ReactNode;
+  image: string;
+  stat: { icon: LucideIcon; value: string; label: string };
+};
+
+const cards: Card[] = [
   {
     number: "01",
     badge: "Déficit logistique",
@@ -19,6 +28,7 @@ const cards = [
       </>
     ),
     image: challenge1,
+    stat: { icon: TrendingUp, value: "+70%", label: "carburant gaspillé" },
   },
   {
     number: "02",
@@ -36,6 +46,7 @@ const cards = [
       </>
     ),
     image: challenge2,
+    stat: { icon: MapPinOff, value: "0", label: "cartographie officielle" },
   },
   {
     number: "03",
@@ -53,6 +64,7 @@ const cards = [
       </>
     ),
     image: challenge3,
+    stat: { icon: Coins, value: "+50%", label: "valeur perdue" },
   },
 ];
 
