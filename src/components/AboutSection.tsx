@@ -1,10 +1,21 @@
 import { motion } from "framer-motion";
-import { Eye, Target, Trophy } from "lucide-react";
+import { Link } from "react-router-dom";
+import { Eye, Target, Trophy, MapPin, ArrowRight } from "lucide-react";
 import challenge1 from "@/assets/challenge-1.webp";
 import challenge2 from "@/assets/challenge-2.webp";
 import challenge3 from "@/assets/challenge-3.webp";
 
-const cards = [
+type Card = {
+  number: string;
+  badge: string;
+  title: string;
+  body: React.ReactNode;
+  image: string;
+  stat: { location: string; value: string; label: string };
+  cta: { label: string; href: string };
+};
+
+const cards: Card[] = [
   {
     number: "01",
     badge: "Déficit logistique",
@@ -19,6 +30,12 @@ const cards = [
       </>
     ),
     image: challenge1,
+    stat: {
+      location: "Kara, Togo",
+      value: "60%",
+      label: "des foyers sans ramassage régulier",
+    },
+    cta: { label: "Demander un enlèvement", href: "/demander-enlevement" },
   },
   {
     number: "02",
@@ -36,6 +53,12 @@ const cards = [
       </>
     ),
     image: challenge2,
+    stat: {
+      location: "Kara, Togo",
+      value: "0",
+      label: "registre national des dépotoirs sauvages",
+    },
+    cta: { label: "Signaler un dépotoir", href: "/alerte-depotoir" },
   },
   {
     index: "03",
@@ -45,6 +68,12 @@ const cards = [
       "Les déchets recyclables ont une valeur marchande réelle. Sans circuit de rachat structuré, cette ressource est perdue alors qu'elle pourrait nourrir des familles et créer des emplois verts durables.",
     stat: { value: "+50 F", label: "par kg de plastique racheté" },
     image: challenge3,
+    stat: {
+      location: "Kara, Togo",
+      value: "0 FCFA",
+      label: "par kilo de plastique racheté",
+    },
+    cta: { label: "Vendre mes plastiques", href: "/vendre-plastiques" },
   },
 ];
 
@@ -110,21 +139,44 @@ const AboutSection = () => {
               }`}
             >
               {/* Image */}
-              <div className="relative aspect-[4/3] overflow-hidden rounded-3xl bg-muted border border-border">
-                <img
-                  src={c.image}
-                  alt={c.title}
-                  loading="lazy"
-                  decoding="async"
-                  width={1200}
-                  height={900}
-                  className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent" />
-                <span className="absolute top-5 left-5 inline-flex items-center px-3 py-1.5 rounded-full bg-background/90 backdrop-blur-md text-primary text-[10px] font-bold uppercase tracking-[0.22em]">
-                  {c.badge}
-                </span>
+              <div className="relative">
+                <div className="relative aspect-[4/3] overflow-hidden rounded-3xl bg-muted border border-border">
+                  <img
+                    src={c.image}
+                    alt={c.title}
+                    loading="lazy"
+                    decoding="async"
+                    width={1200}
+                    height={900}
+                    className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent" />
+                  <span className="absolute top-5 left-5 inline-flex items-center px-3 py-1.5 rounded-full bg-background/90 backdrop-blur-md text-primary text-[10px] font-bold uppercase tracking-[0.22em]">
+                    {c.badge}
+                  </span>
+                </div>
+
+                {/* Floating stat card */}
+                <motion.div
+                  initial={{ opacity: 0, scale: 0.85, y: 10 }}
+                  whileInView={{ opacity: 1, scale: 1, y: 0 }}
+                  viewport={{ once: true, margin: "-80px" }}
+                  transition={{ duration: 0.35, delay: 0.2, ease: "easeOut" }}
+                  className="absolute -top-5 -right-4 md:-top-6 md:-right-6 z-10 w-[180px] md:w-[200px] rounded-2xl bg-card border border-border px-4 py-3 shadow-[0_18px_40px_-12px_hsl(var(--primary)/0.35)] ring-1 ring-primary/10"
+                >
+                  <div className="flex items-center gap-1.5 text-[10px] font-bold uppercase tracking-[0.12em] text-primary">
+                    <MapPin className="w-3 h-3" strokeWidth={2.5} />
+                    {c.stat.location}
+                  </div>
+                  <div className="mt-1 font-[Space_Grotesk] font-bold text-2xl md:text-3xl text-foreground leading-tight">
+                    {c.stat.value}
+                  </div>
+                  <div className="mt-1 text-[11px] md:text-xs text-muted-foreground leading-snug">
+                    {c.stat.label}
+                  </div>
+                </motion.div>
               </div>
+
 
               {/* Content */}
               <div className="flex flex-col">
@@ -140,6 +192,13 @@ const AboutSection = () => {
                 <p className="text-base md:text-lg text-muted-foreground leading-relaxed max-w-xl">
                   {c.body}
                 </p>
+                <Link
+                  to={c.cta.href}
+                  className="group/cta inline-flex items-center gap-2 mt-6 text-primary font-bold text-sm hover:gap-3 transition-all duration-300 self-start border-b-2 border-primary/30 hover:border-primary pb-1"
+                >
+                  {c.cta.label}
+                  <ArrowRight className="w-4 h-4 transition-transform duration-300 group-hover/cta:translate-x-1" strokeWidth={2.5} />
+                </Link>
               </div>
             </motion.article>
           ))}
