@@ -33,7 +33,7 @@ const cards: Card[] = [
     stat: {
       location: "Kara, Togo",
       value: "60%",
-      label: "des foyers sans ramassage régulier",
+      label: "de collette non optimisé",
     },
     cta: { label: "Demander un enlèvement", href: "/demander-enlevement" },
   },
@@ -56,7 +56,7 @@ const cards: Card[] = [
     stat: {
       location: "Kara, Togo",
       value: "0",
-      label: "registre national des dépotoirs sauvages",
+      label: "registre  des dépotoirs sauvages",
     },
     cta: { label: "Signaler un dépotoir", href: "/alerte-depotoir" },
   },
@@ -70,7 +70,7 @@ const cards: Card[] = [
     image: challenge3,
     stat: {
       location: "Kara, Togo",
-      value: "0 FCFA",
+      value: "50 FCFA",
       label: "par kilo de plastique racheté",
     },
     cta: { label: "Vendre mes plastiques", href: "/vendre-plastiques" },
