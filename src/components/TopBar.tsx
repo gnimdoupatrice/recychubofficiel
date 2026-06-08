@@ -8,7 +8,7 @@ import { Phone, Mail, MapPin, Clock, Facebook, Instagram } from "lucide-react";
 const TopBar = () => {
   return (
     <div
-      className="hidden md:block w-full bg-gradient-to-r from-primary via-primary to-secondary text-primary-foreground text-[12.5px] font-medium"
+      className="hidden md:block fixed top-0 left-0 right-0 z-[60] w-full bg-gradient-to-r from-primary via-primary to-secondary text-primary-foreground text-[12.5px] font-medium"
       role="complementary"
       aria-label="Coordonnées RECYC HUB TOGO"
     >
