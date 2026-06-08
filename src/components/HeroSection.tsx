@@ -50,10 +50,10 @@ const HeroSection = () => {
   return (
     <section
       aria-label="RECYC HUB TOGO — Vendez vos plastiques ou faites enlever vos déchets ménagers"
-      className="relative min-h-[92vh] md:min-h-[95vh] overflow-hidden pt-16 md:pt-20"
+      className="relative min-h-[92vh] md:min-h-[95vh] overflow-hidden pt-16 md:pt-32"
     >
       {/* Background carousel */}
-      <div className="absolute left-0 right-0 bottom-0 top-16 md:top-20" aria-hidden="true">
+      <div className="absolute left-0 right-0 bottom-0 top-16 md:top-[120px]" aria-hidden="true">
         {SLIDES.map((src, i) => (
           <img
             key={src}

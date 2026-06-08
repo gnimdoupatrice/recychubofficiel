@@ -132,11 +132,12 @@ const Navbar = () => {
   return (
     <>
       <nav
-        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ease-out ${
+        className={`fixed left-0 right-0 z-50 top-0 md:top-10 transition-all duration-500 ease-out ${
           scrolled
             ? "h-16 bg-background/85 backdrop-blur-2xl border-b border-border shadow-sm"
             : "h-20 bg-background/70 backdrop-blur-md"
         } flex items-center`}
+
 
       >
         {/* Ligne d'accent verte animée — visible quand scrollé (signature "écologie en mouvement") */}
