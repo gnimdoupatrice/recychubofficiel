@@ -72,11 +72,11 @@ const HeroSection = () => {
 
       {/* Overlays */}
       <div
-        className="absolute inset-0 z-[2] bg-gradient-to-br from-black/85 via-black/65 to-primary/40"
+        className="absolute inset-0 z-[2] bg-gradient-to-br from-primary/70 via-primary/40 to-accent/50"
         aria-hidden="true"
       />
       <div
-        className="absolute inset-0 z-[2] bg-gradient-to-t from-black/90 via-transparent to-black/40"
+        className="absolute inset-0 z-[2] bg-gradient-to-t from-primary/60 via-transparent to-primary/20"
         aria-hidden="true"
       />
 
