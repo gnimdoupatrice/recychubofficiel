@@ -6,6 +6,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { lazy, Suspense } from "react";
 import { AuthProvider } from "@/contexts/AuthContext";
 import Navbar from "./components/Navbar";
+import TopBar from "./components/TopBar";
 import Footer from "./components/Footer";
 import MobileStickyBar from "./components/MobileStickyBar";
 import Index from "./pages/Index";
@@ -37,6 +38,7 @@ const App = () => (
       <Sonner />
       <BrowserRouter>
         <AuthProvider>
+          <TopBar />
           <Navbar />
           <Suspense fallback={<RouteFallback />}>
             <Routes>
