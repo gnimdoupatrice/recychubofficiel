@@ -59,13 +59,13 @@ const Index = () => {
         jsonLd={jsonLd}
       />
       <HeroSection />
+      <ImpactStatsSection />
       <AboutSection />
       <SolutionProSection />
       <ServicesSection />
       <CivicTechSection />
       <GreenAcademySection />
       <HowItWorks />
-      <ImpactStatsSection />
       <WhyUsSection />
       <TestimonialsSection />
       <PartnersSection />
