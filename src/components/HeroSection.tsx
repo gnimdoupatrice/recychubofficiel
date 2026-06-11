@@ -2,13 +2,11 @@ import { useCallback, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import {
   ArrowRight,
-  ShoppingBag,
-  Truck,
-  Phone,
-  MapPin,
-  AlertTriangle,
-  Coins,
-  Sparkles,
+  Play,
+  Activity,
+  ShieldCheck,
+  Globe2,
+  TrendingUp,
 } from "lucide-react";
 
 import slide1 from "@/assets/hero/hero-1-sorting.jpg";
@@ -18,7 +16,12 @@ import slide4 from "@/assets/hero/hero-4-depot.jpg";
 import slide5 from "@/assets/hero/hero-5-cleanup.jpg";
 
 const SLIDES = [slide1, slide2, slide3, slide4, slide5];
-const BRAND = "RECYC HUB TOGO";
+
+const LIVE_STATS = [
+  { icon: TrendingUp, value: "2 540 t", label: "déchets valorisés" },
+  { icon: Activity, value: "850+", label: "ménages actifs" },
+  { icon: Globe2, value: "12", label: "communes couvertes" },
+];
 
 const HeroSection = () => {
   const [current, setCurrent] = useState(0);
@@ -30,13 +33,11 @@ const HeroSection = () => {
 
   useEffect(() => {
     const motionMql = window.matchMedia("(prefers-reduced-motion: reduce)");
-    const mobileMql = window.matchMedia("(max-width: 767px)");
-
     const update = () => setReduceMotion(motionMql.matches);
     update();
     motionMql.addEventListener("change", update);
 
-    if (motionMql.matches || mobileMql.matches) {
+    if (motionMql.matches) {
       return () => motionMql.removeEventListener("change", update);
     }
 
@@ -49,11 +50,11 @@ const HeroSection = () => {
 
   return (
     <section
-      aria-label="RECYC HUB TOGO — Vendez vos plastiques ou faites enlever vos déchets ménagers"
-      className="relative min-h-[92vh] md:min-h-[95vh] overflow-hidden pt-16 md:pt-32"
+      aria-label="RECYHUB — Infrastructure numérique de gestion intelligente des déchets"
+      className="relative min-h-[94vh] overflow-hidden pt-16"
     >
       {/* Background carousel */}
-      <div className="absolute left-0 right-0 bottom-0 top-16 md:top-[120px]" aria-hidden="true">
+      <div className="absolute inset-0" aria-hidden="true">
         {SLIDES.map((src, i) => (
           <img
             key={src}
@@ -63,175 +64,117 @@ const HeroSection = () => {
             fetchPriority={i === 0 ? "high" : "low"}
             decoding="async"
             className={
-              "absolute inset-0 w-full h-full object-cover transition-opacity duration-1000 " +
+              "absolute inset-0 w-full h-full object-cover transition-opacity duration-[1200ms] " +
               (i === current ? "opacity-100" : "opacity-0")
             }
           />
         ))}
       </div>
 
-      {/* Overlays */}
+      {/* Institutional overlay */}
       <div
-        className="absolute inset-0 z-[2] bg-gradient-to-br from-primary/70 via-primary/40 to-accent/50"
+        className="absolute inset-0 z-[2]"
         aria-hidden="true"
-      />
-      <div
-        className="absolute inset-0 z-[2] bg-gradient-to-t from-primary/60 via-transparent to-primary/20"
-        aria-hidden="true"
+        style={{
+          background:
+            "linear-gradient(115deg, hsl(222 47% 11% / 0.92) 0%, hsl(152 70% 15% / 0.82) 45%, hsl(142 71% 30% / 0.55) 100%)",
+        }}
       />
 
       {/* Content */}
-      <div className="relative z-[3] container mx-auto px-6 max-w-6xl py-12 md:py-20">
-        {/* Welcome badge */}
-        <div className="flex justify-center mb-7 animate-slide-up">
-          <span className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-white/10 border border-white/20 backdrop-blur-md text-white text-[11px] sm:text-xs font-bold uppercase tracking-[0.2em]">
-            <Sparkles className="w-3.5 h-3.5 text-secondary" />
-            Bienvenue sur {BRAND}
-          </span>
-        </div>
+      <div className="relative z-[3] container mx-auto px-6 max-w-7xl py-14 md:py-24">
+        <div className="grid lg:grid-cols-12 gap-12 items-center">
+          {/* Left column */}
+          <div className="lg:col-span-7">
+            <span className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/10 border border-white/20 backdrop-blur-md text-white/90 text-[11px] font-bold uppercase tracking-[0.2em] reveal-up">
+              <ShieldCheck className="w-3.5 h-3.5 text-secondary" />
+              ClimateTech · GovTech · Smart City
+            </span>
 
-        {/* Headline */}
-        <h1
-          className="text-center font-display font-extrabold leading-[1.05] tracking-tight text-white text-3xl sm:text-4xl md:text-5xl lg:text-6xl max-w-5xl mx-auto mb-6 animate-slide-up"
-          style={{ animationDelay: "0.05s" }}
-        >
-          Faites collecter vos déchets ménagers
-          <br className="hidden sm:block" />{" "}
-          <span className="bg-clip-text text-transparent bg-gradient-to-r from-secondary via-secondary to-accent">
-            et vendez vos plastiques
-          </span>
-        </h1>
-
-        {/* Subtitle */}
-        <p
-          className="text-center text-white/85 text-sm sm:text-base md:text-lg max-w-2xl mx-auto mb-10 animate-slide-up"
-          style={{ animationDelay: "0.15s" }}
-        >
-          Choisissez votre parcours : <strong className="text-white">vendez vos plastiques au kg</strong>{" "}
-          ou <strong className="text-white">demandez un enlèvement</strong> de vos déchets ménagers en quelques clics.
-        </p>
-
-        {/* Two glass cards */}
-        <div
-          className="grid grid-cols-1 md:grid-cols-5 gap-4 md:gap-5 max-w-5xl mx-auto mb-8 animate-slide-up"
-          style={{ animationDelay: "0.25s" }}
-        >
-          {/* Primary card */}
-          <Link
-            to="/vendre"
-            aria-label="Vendre mes plastiques au kg"
-            className="group relative md:col-span-3 overflow-hidden rounded-3xl bg-white/12 backdrop-blur-2xl border border-white/25 p-6 md:p-7 shadow-2xl shadow-black/40 transition-all duration-300 hover:bg-white/20 hover:border-secondary/50 hover:scale-[1.015] active:scale-[0.99] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-secondary focus-visible:ring-offset-2"
-          >
-            <div
-              aria-hidden="true"
-              className="absolute -top-12 -right-12 w-40 h-40 rounded-full bg-secondary/30 blur-3xl transition-colors duration-300 group-hover:bg-secondary/50"
-            />
-            <div className="relative flex items-start justify-between mb-5">
-              <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-secondary/90 text-secondary-foreground text-[10px] font-bold uppercase tracking-[0.2em]">
-                <Coins className="w-3 h-3" />
-                Service phare
+            <h1
+              className="mt-6 font-display font-black text-white leading-[1.04] tracking-tight text-4xl sm:text-5xl lg:text-6xl reveal-up"
+              style={{ animationDelay: "0.05s" }}
+            >
+              L'infrastructure numérique africaine de{" "}
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-secondary to-[hsl(48_95%_60%)]">
+                gestion intelligente des déchets
               </span>
-              <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-secondary to-accent flex items-center justify-center text-white shadow-lg">
-                <ShoppingBag className="w-5 h-5" />
-              </div>
-            </div>
-            <div className="relative">
-              <h2 className="font-display font-extrabold text-xl md:text-2xl text-white mb-2 leading-tight">
-                Vendre mes plastiques
-              </h2>
-              <p className="text-white/80 text-sm leading-relaxed mb-6">
-                PET, PEHD, PP, sachets Pure Water — transformez vos déchets en{" "}
-                <span className="bg-clip-text text-transparent bg-gradient-to-r from-secondary to-accent font-semibold">
-                  revenus immédiats
-                </span>
-                .
-              </p>
-              <div className="flex items-center justify-between pt-5 border-t border-white/15">
-                <span className="text-[10px] uppercase tracking-[0.2em] text-white/60 font-bold">
-                  Catalogue & prix au kg
-                </span>
-                <span className="inline-flex items-center gap-2 text-white font-bold text-sm">
-                  Vendre maintenant
-                  <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
-                </span>
-              </div>
-            </div>
-          </Link>
+            </h1>
 
-          {/* Secondary card */}
-          <Link
-            to="/enlevement"
-            aria-label="Demander un enlèvement de déchets ménagers"
-            className="group relative md:col-span-2 overflow-hidden rounded-3xl bg-white/[0.08] backdrop-blur-2xl border border-white/20 p-6 md:p-7 shadow-2xl shadow-black/40 transition-all duration-300 hover:bg-white/15 hover:border-accent/50 hover:scale-[1.015] active:scale-[0.99] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2"
-          >
+            <p
+              className="mt-6 text-white/85 text-base md:text-lg max-w-2xl leading-relaxed reveal-up"
+              style={{ animationDelay: "0.12s" }}
+            >
+              Optimisation des tournées, valorisation des déchets, données territoriales,
+              engagement citoyen et compétences vertes — une plateforme unique pour des
+              villes plus propres et plus intelligentes.
+            </p>
+
             <div
-              aria-hidden="true"
-              className="absolute -top-12 -left-12 w-40 h-40 rounded-full bg-accent/25 blur-3xl transition-colors duration-300 group-hover:bg-accent/40"
-            />
-            <div className="relative flex items-start justify-between mb-5">
-              <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-white/15 backdrop-blur-md text-white text-[10px] font-bold uppercase tracking-[0.2em] border border-white/10">
-                Déchets ménagers
-              </span>
-              <div className="w-12 h-12 rounded-2xl bg-white/15 flex items-center justify-center text-white">
-                <Truck className="w-5 h-5" />
+              className="mt-9 flex flex-wrap items-center gap-4 reveal-up"
+              style={{ animationDelay: "0.2s" }}
+            >
+              <Link
+                to="/vendre"
+                className="group inline-flex items-center gap-2 px-7 py-3.5 rounded-full bg-primary text-primary-foreground font-bold text-sm shadow-premium transition-all hover:-translate-y-0.5 hover:bg-primary/90"
+              >
+                Découvrir la plateforme
+                <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
+              </Link>
+              <Link
+                to="/solution-pro#demo"
+                className="inline-flex items-center gap-2 px-7 py-3.5 rounded-full bg-white/10 border border-white/25 backdrop-blur-md text-white font-bold text-sm transition-all hover:bg-white/20"
+              >
+                <Play className="w-4 h-4 text-secondary" />
+                Demander une démo
+              </Link>
+            </div>
+          </div>
+
+          {/* Right column — live stats panel */}
+          <div
+            className="lg:col-span-5 reveal-up"
+            style={{ animationDelay: "0.28s" }}
+          >
+            <div className="rounded-3xl bg-white/[0.08] backdrop-blur-2xl border border-white/20 p-6 md:p-7 shadow-premium">
+              <div className="flex items-center gap-2 mb-5">
+                <span className="relative flex h-2.5 w-2.5">
+                  <span className="absolute inline-flex h-full w-full rounded-full bg-secondary opacity-75 animate-ping" />
+                  <span className="relative inline-flex h-2.5 w-2.5 rounded-full bg-secondary" />
+                </span>
+                <span className="text-white/70 text-[11px] font-bold uppercase tracking-[0.2em]">
+                  Données temps réel
+                </span>
+              </div>
+
+              <div className="space-y-3">
+                {LIVE_STATS.map((s) => (
+                  <div
+                    key={s.label}
+                    className="flex items-center gap-4 rounded-2xl bg-white/[0.06] border border-white/10 p-4"
+                  >
+                    <div className="w-11 h-11 rounded-xl bg-primary/25 flex items-center justify-center text-white shrink-0">
+                      <s.icon className="w-5 h-5" />
+                    </div>
+                    <div>
+                      <div className="text-white font-display font-black text-2xl leading-none">
+                        {s.value}
+                      </div>
+                      <div className="text-white/60 text-xs mt-1">{s.label}</div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+
+              <div className="mt-5 pt-5 border-t border-white/10 flex items-center justify-between text-[11px] text-white/60">
+                <span>Kara · Togo</span>
+                <span className="inline-flex items-center gap-1.5">
+                  <span className="w-1.5 h-1.5 rounded-full bg-primary animate-pulse" />
+                  Indicateurs consolidés
+                </span>
               </div>
             </div>
-            <div className="relative">
-              <h2 className="font-display font-extrabold text-xl md:text-2xl text-white mb-2 leading-tight">
-                Faire enlever mes déchets
-              </h2>
-              <p className="text-white/80 text-sm leading-relaxed mb-6">
-                Enlèvement à domicile : ménagers, organiques, encombrants.
-              </p>
-              <div className="flex items-center justify-between pt-5 border-t border-white/15">
-                <span className="text-[10px] uppercase tracking-[0.2em] text-white/60 font-bold">
-                  À partir de 2 000 FCFA
-                </span>
-                <span className="inline-flex items-center gap-2 text-white font-bold text-sm">
-                  Demander
-                  <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
-                </span>
-              </div>
-            </div>
-          </Link>
-        </div>
-
-        {/* Alert pill */}
-        <div className="flex justify-center mb-8 animate-slide-up" style={{ animationDelay: "0.3s" }}>
-          <Link
-            to="/alerte"
-            aria-label="Signaler un dépotoir sauvage"
-            className="group inline-flex items-center gap-3 px-5 py-3 rounded-full bg-destructive/15 border border-destructive/40 backdrop-blur-md transition-all hover:bg-destructive/25 hover:border-destructive/60 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-destructive focus-visible:ring-offset-2"
-          >
-            <AlertTriangle className="w-4 h-4 text-destructive animate-pulse" />
-            <span className="text-white font-bold text-sm">Signaler un dépotoir sauvage</span>
-            <span className="hidden sm:inline text-white/60 text-xs">— ponts, caniveaux, terrains</span>
-            <ArrowRight className="w-4 h-4 text-white/70 transition-transform group-hover:translate-x-1" />
-          </Link>
-        </div>
-
-        {/* Meta indicators */}
-        <div
-          className="flex flex-wrap items-center justify-center gap-x-6 gap-y-2 text-xs text-white/65 animate-slide-up"
-          style={{ animationDelay: "0.4s" }}
-        >
-          <span className="inline-flex items-center gap-2">
-            <span className="w-1.5 h-1.5 rounded-full bg-accent animate-pulse" />
-            2 500+ kg de plastiques collectés
-          </span>
-          <span className="hidden sm:inline text-white/30">·</span>
-          <a
-            href="tel:+22897684030"
-            className="inline-flex items-center gap-1.5 hover:text-white transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/40 rounded"
-          >
-            <Phone className="w-3.5 h-3.5" />
-            +228 97 68 40 30
-          </a>
-          <span className="hidden sm:inline text-white/30">·</span>
-          <span className="inline-flex items-center gap-1.5">
-            <MapPin className="w-3.5 h-3.5" />
-            Kara, Togo
-          </span>
+          </div>
         </div>
 
         {/* Slide indicators */}
@@ -239,8 +182,7 @@ const HeroSection = () => {
           <div
             role="tablist"
             aria-label="Visuels d'arrière-plan"
-            className="flex items-center justify-center gap-2 mt-8 animate-slide-up"
-            style={{ animationDelay: "0.5s" }}
+            className="flex items-center gap-2 mt-12"
           >
             {SLIDES.map((_, i) => {
               const active = i === current;
@@ -253,7 +195,7 @@ const HeroSection = () => {
                   aria-label={"Visuel " + (i + 1) + " sur " + SLIDES.length}
                   onClick={() => setCurrent(i)}
                   className={
-                    "h-1.5 rounded-full transition-all duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-secondary focus-visible:ring-offset-2 " +
+                    "h-1.5 rounded-full transition-all duration-300 " +
                     (active ? "w-8 bg-secondary" : "w-2 bg-white/40 hover:bg-white/60")
                   }
                 />
