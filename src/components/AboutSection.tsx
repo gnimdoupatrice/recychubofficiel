@@ -35,7 +35,7 @@ const cards: Card[] = [
       value: "60%",
       label: "de collette non optimisé",
     },
-    cta: { label: "Demander un enlèvement", href: "/demander-enlevement" },
+    cta: { label: "Demander un enlèvement", href: "/enlevement" },
   },
   {
     number: "02",
@@ -58,7 +58,7 @@ const cards: Card[] = [
       value: "0",
       label: "registre  des dépotoirs sauvages",
     },
-    cta: { label: "Signaler un dépotoir", href: "/alerte-depotoir" },
+    cta: { label: "Signaler un dépotoir", href: "/alerte" },
   },
   {
     number: "03",
@@ -78,7 +78,7 @@ const cards: Card[] = [
       value: "50 FCFA",
       label: "par kilo de plastique racheté",
     },
-    cta: { label: "Vendre mes plastiques", href: "/vendre-plastiques" },
+    cta: { label: "Vendre mes plastiques", href: "/vendre" },
   },
 ];
 

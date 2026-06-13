@@ -14,11 +14,11 @@ export default {
     },
     extend: {
       fontFamily: {
-        display: ['"Space Grotesk"', 'system-ui', 'sans-serif'],
-        body: ['"DM Sans"', 'system-ui', 'sans-serif'],
-        editorial: ['"Space Grotesk"', 'system-ui', 'sans-serif'],
-        inter: ['"DM Sans"', 'system-ui', 'sans-serif'],
-        sans: ['"DM Sans"', 'system-ui', 'sans-serif'],
+        display: ['"Libre Baskerville"', 'Georgia', 'serif'],
+        body: ['"IBM Plex Sans"', 'system-ui', 'sans-serif'],
+        editorial: ['"Libre Baskerville"', 'Georgia', 'serif'],
+        inter: ['"IBM Plex Sans"', 'system-ui', 'sans-serif'],
+        sans: ['"IBM Plex Sans"', 'system-ui', 'sans-serif'],
       },
       colors: {
         border: "hsl(var(--border))",
