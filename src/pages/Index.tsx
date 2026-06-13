@@ -60,13 +60,12 @@ const Index = () => {
       />
       <HeroSection />
       <AboutSection />
-      <SolutionProSection />
       <ServicesSection />
       <CivicTechSection />
       <GreenAcademySection />
+      <SolutionProSection />
       <HowItWorks />
       <ImpactStatsSection />
-      <WhyUsSection />
       <TestimonialsSection />
       <PartnersSection />
       <EventsHubSection />
