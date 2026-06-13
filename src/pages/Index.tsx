@@ -7,7 +7,7 @@ import CivicTechSection from "@/components/CivicTechSection";
 import GreenAcademySection from "@/components/GreenAcademySection";
 import HowItWorks from "@/components/HowItWorks";
 import ImpactStatsSection from "@/components/ImpactStatsSection";
-import WhyUsSection from "@/components/WhyUsSection";
+
 import TestimonialsSection from "@/components/TestimonialsSection";
 import PartnersSection from "@/components/PartnersSection";
 import EventsHubSection from "@/components/EventsHubSection";
@@ -60,13 +60,12 @@ const Index = () => {
       />
       <HeroSection />
       <AboutSection />
-      <SolutionProSection />
       <ServicesSection />
       <CivicTechSection />
       <GreenAcademySection />
+      <SolutionProSection />
       <HowItWorks />
       <ImpactStatsSection />
-      <WhyUsSection />
       <TestimonialsSection />
       <PartnersSection />
       <EventsHubSection />

@@ -86,9 +86,9 @@ const Footer = () => {
                 <Phone className="w-4 h-4 text-primary mt-0.5 shrink-0" aria-hidden="true" />
                 +228 97 68 40 30
               </a>
-              <a href="mailto:recychubtogo@gmail.com" className="flex items-start gap-3 text-background/75 hover:text-background transition-colors">
+              <a href="mailto:contact@recychubtogo.com" className="flex items-start gap-3 text-background/75 hover:text-background transition-colors">
                 <Mail className="w-4 h-4 text-primary mt-0.5 shrink-0" aria-hidden="true" />
-                recychubtogo@gmail.com
+                contact@recychubtogo.com
               </a>
             </address>
           </div>

@@ -1,5 +1,5 @@
-/* Recyc Hub Togo — Space Grotesk (display) + DM Sans (body) */
-@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap');
+/* Recyc Hub Togo — Libre Baskerville (display) + IBM Plex Sans (body) */
+@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap');
 
 @tailwind base;
 @tailwind components;
@@ -60,7 +60,7 @@
     --sidebar-border: 216 16% 90%;
     --sidebar-ring: 158 64% 43%;
 
-    font-family: 'DM Sans', system-ui, -apple-system, sans-serif;
+    font-family: 'IBM Plex Sans', system-ui, -apple-system, sans-serif;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
   }
@@ -91,10 +91,10 @@
 
 @layer base {
   * { @apply border-border; }
-  body { @apply bg-background text-foreground; font-family: 'DM Sans', system-ui, sans-serif; }
+  body { @apply bg-background text-foreground; font-family: 'IBM Plex Sans', system-ui, sans-serif; }
   h1, h2, h3, h4, h5, h6 {
-    font-family: 'Space Grotesk', system-ui, sans-serif;
-    letter-spacing: -0.02em;
+    font-family: 'Libre Baskerville', Georgia, serif;
+    letter-spacing: -0.015em;
     font-weight: 700;
   }
 }
@@ -347,7 +347,7 @@
   html, body { overflow-x: hidden; }
   body { font-size: 1rem; line-height: 1.6; }
   p { font-size: 1.0625rem; line-height: 1.65; }
-  h1, h2, h3 { letter-spacing: -0.025em; }
+  h1, h2, h3 { letter-spacing: -0.02em; }
 
   /* Scrollbar fine themed */
   ::-webkit-scrollbar { width: 6px; height: 6px; }
