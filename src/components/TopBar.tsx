@@ -46,7 +46,7 @@ const TopBar = () => {
           <span className="opacity-40" aria-hidden="true">|</span>
           <div className="flex items-center gap-2">
             <a
-              href="https://facebook.com"
+              href="https://facebook.com/recychubtogo"
               target="_blank"
               rel="noopener noreferrer"
               aria-label="Facebook RECYC HUB TOGO"
@@ -55,7 +55,7 @@ const TopBar = () => {
               <Facebook className="w-3.5 h-3.5" />
             </a>
             <a
-              href="https://instagram.com"
+              href="https://instagram.com/recychubtogo"
               target="_blank"
               rel="noopener noreferrer"
               aria-label="Instagram RECYC HUB TOGO"
