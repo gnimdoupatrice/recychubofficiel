@@ -107,8 +107,7 @@ const Navbar = () => {
   const linkClass = (active: boolean, tone: Tone = "neutral") => {
     const t = toneMap[tone];
     return [
-      "group relative inline-flex items-center justify-center gap-1.5 h-10 px-4 rounded-full",
-      "flex-1 min-w-[150px] xl:min-w-[170px]",
+      "group relative inline-flex items-center justify-center gap-1.5 h-10 px-3 xl:px-4 rounded-full",
       "text-[13px] font-semibold tracking-tight whitespace-nowrap",
       "transition-[background,box-shadow,border-color,color,transform] duration-300 ease-out",
       "[&_svg]:transition-transform [&_svg]:duration-300",
@@ -179,7 +178,7 @@ const Navbar = () => {
 
           </Link>
 
-          <div className="hidden lg:flex flex-1 items-stretch justify-center gap-1.5 xl:gap-2 max-w-3xl">
+          <div className="hidden lg:flex flex-1 items-center justify-center gap-0.5 xl:gap-1.5 max-w-3xl">
             <Link to="/" className={linkClass(location.pathname === "/", "neutral")}>
               <Home className="w-3.5 h-3.5 group-hover:-translate-y-[1px]" />
               Accueil
@@ -214,12 +213,13 @@ const Navbar = () => {
             {/* Vendre — vert secondary, icône qui rebondit + badge FCFA au hover */}
             <Link to="/vendre" className={linkClass(location.pathname === "/vendre", "secondary")}>
               <ShoppingBag className="w-3.5 h-3.5 group-hover:[animation:nav-bounce_.5s_ease-out]" />
-              Vendre mes plastiques
+              Vendre
+
               <Underline active={location.pathname === "/vendre"} tone="secondary" />
             </Link>
 
             {/* Découvrir dropdown — accent doré */}
-            <div ref={discoverRef} className="relative flex flex-1 min-w-[150px] xl:min-w-[170px]">
+            <div ref={discoverRef} className="relative flex">
               <button
                 onClick={() => setDiscoverOpen(o => !o)}
                 onMouseEnter={() => setDiscoverOpen(true)}
@@ -264,7 +264,8 @@ const Navbar = () => {
             {/* Enlèvement — bleu/teal logistique, camion qui roule à droite */}
             <Link to="/enlevement" className={linkClass(location.pathname === "/enlevement", "accent")}>
               <Truck className="w-3.5 h-3.5 group-hover:translate-x-[3px]" />
-              Enlèvement de déchets
+              Enlèvement
+
               <Underline active={location.pathname === "/enlevement"} tone="accent" />
             </Link>
           </div>
