@@ -103,6 +103,14 @@
 .section-spacing { @apply py-14 md:py-20; }
 .section-spacing-lg { @apply py-20 md:py-28; }
 
+/* ──── Alternating section bands (built from brand tokens only) ──── */
+/* Soft green-glass tint: white → faint prairie green → white */
+.band-mint { background: linear-gradient(180deg, hsl(var(--background)) 0%, hsl(var(--primary) / 0.06) 55%, hsl(var(--background)) 100%); }
+/* Cool ice band: glace → faint green */
+.band-ice  { background: linear-gradient(180deg, hsl(var(--muted)) 0%, hsl(var(--primary) / 0.04) 100%); }
+/* Warm glass band: white → faint carrot tint */
+.band-warm { background: linear-gradient(180deg, hsl(var(--background)) 0%, hsl(var(--secondary) / 0.05) 100%); }
+
 @layer components {
   /* Pill CTA — Waste Heroes orange */
   .btn-cta {
