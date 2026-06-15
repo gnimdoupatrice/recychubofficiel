@@ -103,13 +103,45 @@
 .section-spacing { @apply py-14 md:py-20; }
 .section-spacing-lg { @apply py-20 md:py-28; }
 
-/* ──── Alternating section bands (built from brand tokens only) ──── */
-/* Soft green-glass tint: white → faint prairie green → white */
-.band-mint { background: linear-gradient(180deg, hsl(var(--background)) 0%, hsl(var(--primary) / 0.06) 55%, hsl(var(--background)) 100%); }
-/* Cool ice band: glace → faint green */
-.band-ice  { background: linear-gradient(180deg, hsl(var(--muted)) 0%, hsl(var(--primary) / 0.04) 100%); }
-/* Warm glass band: white → faint carrot tint */
-.band-warm { background: linear-gradient(180deg, hsl(var(--background)) 0%, hsl(var(--secondary) / 0.05) 100%); }
+/* ──── Alternating section bands — premium gradient rhythm (brand tokens only) ──── */
+/* Each band layers soft radial brand glows over a directional wash so the page
+   reads as a curated sequence of colour planes (Stripe / institutional feel). */
+
+/* Fresh prairie band — green dominant with a warm whisper */
+.band-mint {
+  background:
+    radial-gradient(120% 90% at 100% 0%, hsl(var(--primary) / 0.14), transparent 58%),
+    radial-gradient(110% 80% at 0% 100%, hsl(var(--secondary) / 0.07), transparent 55%),
+    linear-gradient(170deg, hsl(var(--muted)) 0%, hsl(var(--background)) 45%, hsl(var(--primary) / 0.05) 100%);
+}
+/* Cool glacial band — calm, technical, civic */
+.band-ice {
+  background:
+    radial-gradient(120% 85% at 0% 0%, hsl(var(--primary) / 0.16), transparent 56%),
+    radial-gradient(130% 90% at 100% 100%, hsl(var(--primary) / 0.06), transparent 60%),
+    linear-gradient(180deg, hsl(var(--muted)) 0%, hsl(var(--sage)) 55%, hsl(var(--primary) / 0.04) 100%);
+}
+/* Warm carrot band — energetic, commercial */
+.band-warm {
+  background:
+    radial-gradient(120% 90% at 100% 0%, hsl(var(--secondary) / 0.18), transparent 58%),
+    radial-gradient(110% 80% at 0% 100%, hsl(var(--primary) / 0.08), transparent 55%),
+    linear-gradient(170deg, hsl(var(--background)) 0%, hsl(var(--secondary) / 0.04) 50%, hsl(var(--secondary) / 0.10) 100%);
+}
+/* Quiet white band — keeps rhythm breathing with a single corner glow */
+.band-plain {
+  background:
+    radial-gradient(90% 60% at 100% 0%, hsl(var(--primary) / 0.06), transparent 55%),
+    radial-gradient(80% 60% at 0% 100%, hsl(var(--secondary) / 0.04), transparent 55%),
+    hsl(var(--background));
+}
+/* Deep institutional band — dramatic dark plane built from the Chypre ink token */
+.band-ink {
+  background:
+    radial-gradient(120% 90% at 0% 0%, hsl(var(--primary) / 0.30), transparent 55%),
+    radial-gradient(120% 90% at 100% 100%, hsl(var(--secondary) / 0.22), transparent 55%),
+    linear-gradient(165deg, hsl(216 18% 14%) 0%, hsl(216 18% 11%) 100%);
+}
 
 @layer components {
   /* Pill CTA — Waste Heroes orange */
@@ -131,6 +163,13 @@
 
   .gradient-bio {
     background: linear-gradient(135deg, hsl(var(--primary)), hsl(145 60% 48%));
+  }
+  /* Premium CTA mesh — deep prairie green with a living gradient */
+  .gradient-cta {
+    background:
+      radial-gradient(120% 120% at 0% 0%, hsl(158 64% 38%) 0%, transparent 55%),
+      radial-gradient(120% 120% at 100% 100%, hsl(168 60% 30%) 0%, transparent 55%),
+      linear-gradient(135deg, hsl(158 64% 40%) 0%, hsl(168 62% 28%) 100%);
   }
   .gradient-emerald {
     @apply bg-gradient-to-r from-primary to-accent;
@@ -213,27 +252,28 @@
   .wp-card,
   .wp-card-soft {
     @apply relative rounded-2xl bg-card border border-border transition-all duration-300 text-foreground;
-    box-shadow: 0 1px 2px hsl(220 13% 91% / 0.5);
+    box-shadow: 0 1px 2px hsl(216 16% 19% / 0.04), 0 10px 26px -18px hsl(216 16% 19% / 0.18);
   }
   .wp-card:hover,
   .wp-card-soft:hover {
     border-color: hsl(var(--primary) / 0.4);
-    box-shadow: 0 12px 30px -12px hsl(var(--primary) / 0.25);
-    transform: translateY(-2px);
+    box-shadow: 0 18px 44px -20px hsl(var(--primary) / 0.35), 0 2px 6px hsl(216 16% 19% / 0.05);
+    transform: translateY(-4px);
   }
   .wp-card-primary {
     @apply relative rounded-2xl bg-card border-2 border-primary/30 transition-all duration-300 text-foreground;
-    box-shadow: 0 8px 24px -12px hsl(var(--primary) / 0.3);
+    box-shadow: 0 14px 40px -18px hsl(var(--primary) / 0.4);
   }
   .wp-card-primary:hover {
     border-color: hsl(var(--primary) / 0.6);
-    transform: translateY(-2px);
+    box-shadow: 0 22px 52px -20px hsl(var(--primary) / 0.5);
+    transform: translateY(-4px);
   }
   .wp-card-destructive {
     @apply relative rounded-2xl bg-card border-2 border-destructive/30 transition-all duration-300 text-foreground;
-    box-shadow: 0 8px 24px -12px hsl(var(--destructive) / 0.3);
+    box-shadow: 0 14px 40px -18px hsl(var(--destructive) / 0.35);
   }
-  .wp-card-destructive:hover { border-color: hsl(var(--destructive) / 0.6); transform: translateY(-2px); }
+  .wp-card-destructive:hover { border-color: hsl(var(--destructive) / 0.6); box-shadow: 0 22px 52px -20px hsl(var(--destructive) / 0.45); transform: translateY(-4px); }
 
   /* Buttons */
   .wp-btn-primary {

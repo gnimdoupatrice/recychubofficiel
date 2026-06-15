@@ -30,7 +30,7 @@ const stats = [
 const GreenAcademySection = () => (
   <section
     id="green-academy"
-    className="relative bg-background py-24 md:py-32 px-6 md:px-12 lg:px-24 overflow-hidden"
+    className="relative band-plain py-24 md:py-32 px-6 md:px-12 lg:px-24 overflow-hidden"
   >
     <div className="max-w-7xl mx-auto relative grid lg:grid-cols-12 gap-12 lg:gap-16 items-center">
       {/* Visual column */}
