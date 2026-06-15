@@ -25,7 +25,7 @@ const stats = [
 const SolutionProSection = () => (
   <section
     id="solution-pro"
-    className="relative bg-background py-24 md:py-32 px-6 md:px-12 lg:px-24 overflow-hidden"
+    className="relative band-warm py-24 md:py-32 px-6 md:px-12 lg:px-24 overflow-hidden"
   >
     <div className="max-w-7xl mx-auto relative">
       {/* Header */}

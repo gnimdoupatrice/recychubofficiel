@@ -15,7 +15,7 @@ const HowItWorks = () => {
   };
 
   return (
-    <section className="relative bg-muted/40 py-24 md:py-32 px-6 md:px-12 lg:px-24 overflow-hidden">
+    <section className="relative band-ice py-24 md:py-32 px-6 md:px-12 lg:px-24 overflow-hidden">
       <div className="max-w-7xl mx-auto">
         {/* Header */}
         <div className="max-w-3xl mb-12 md:mb-14">
