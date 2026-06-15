@@ -23,7 +23,7 @@ const testimonials = [
 ];
 
 const TestimonialsSection = () => (
-  <section className="bg-white py-24 md:py-32 px-6 md:px-12 lg:px-24 font-inter">
+  <section className="band-plain py-24 md:py-32 px-6 md:px-12 lg:px-24 font-inter">
     <div className="max-w-6xl mx-auto">
       <div className="mb-16 md:mb-20 max-w-2xl">
         <span className="text-primary font-semibold tracking-[0.2em] text-xs uppercase">

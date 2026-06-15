@@ -113,7 +113,7 @@ const AboutSection = () => {
   return (
     <section
       id="pourquoi"
-      className="bg-background py-24 md:py-32 px-6 md:px-12"
+      className="band-plain py-24 md:py-32 px-6 md:px-12"
     >
       <div className="max-w-6xl mx-auto">
         {/* Header */}
