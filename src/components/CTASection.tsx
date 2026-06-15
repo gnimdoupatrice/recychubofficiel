@@ -3,7 +3,9 @@ import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 
 const CTASection = () => (
-  <section className="relative bg-primary text-primary-foreground py-24 md:py-32 px-6 md:px-12 lg:px-24 overflow-hidden">
+  <section className="gradient-cta relative text-primary-foreground py-24 md:py-32 px-6 md:px-12 lg:px-24 overflow-hidden">
+    <div className="absolute -top-1/3 -left-20 w-[40rem] h-[40rem] rounded-full bg-secondary/25 blur-[120px] pointer-events-none" />
+    <div className="absolute -bottom-1/3 -right-20 w-[36rem] h-[36rem] rounded-full bg-primary/40 blur-[120px] pointer-events-none" />
     <div
       className="absolute inset-0 opacity-[0.08] pointer-events-none"
       style={{
