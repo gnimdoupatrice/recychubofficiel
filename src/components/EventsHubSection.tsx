@@ -41,7 +41,7 @@ const posts = [
 const EventsHubSection = () => (
   <section
     id="hub"
-    className="bg-white py-24 md:py-32 px-6 md:px-12 lg:px-24 font-inter"
+    className="band-mint py-24 md:py-32 px-6 md:px-12 lg:px-24 font-inter"
   >
     <div className="max-w-6xl mx-auto">
       <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-8 mb-14 md:mb-20">

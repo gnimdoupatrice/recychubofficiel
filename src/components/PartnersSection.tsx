@@ -10,7 +10,7 @@ const partners = [
 ];
 
 const PartnersSection = () => (
-  <section className="bg-muted py-24 md:py-32 px-6 md:px-12 lg:px-24 font-inter">
+  <section className="band-ice py-24 md:py-32 px-6 md:px-12 lg:px-24 font-inter">
     <div className="max-w-6xl mx-auto">
       <div className="mb-16 md:mb-20 text-center max-w-2xl mx-auto">
         <span className="text-primary font-semibold tracking-[0.2em] text-xs uppercase">
