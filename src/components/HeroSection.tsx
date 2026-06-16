@@ -50,7 +50,7 @@ const HeroSection = () => {
   return (
     <section
       aria-label="RECYC HUB TOGO — Vendez vos plastiques ou faites enlever vos déchets ménagers"
-      className="relative min-h-[92vh] md:min-h-[95vh] overflow-hidden pt-16 md:pt-32"
+      className="relative min-h-[92vh] md:min-h-[95vh] overflow-hidden pt-16 md:pt-32 bg-background"
     >
       {/* Background carousel */}
       <div className="absolute left-0 right-0 bottom-0 top-16 md:top-[120px]" aria-hidden="true">
@@ -70,13 +70,13 @@ const HeroSection = () => {
         ))}
       </div>
 
-      {/* Overlays */}
+      {/* Light overlays — airy, Waste Heroes feel */}
       <div
-        className="absolute inset-0 z-[2] bg-gradient-to-br from-primary/70 via-primary/40 to-accent/50"
+        className="absolute inset-0 z-[2] bg-gradient-to-b from-background/85 via-background/55 to-background/85"
         aria-hidden="true"
       />
       <div
-        className="absolute inset-0 z-[2] bg-gradient-to-t from-primary/60 via-transparent to-primary/20"
+        className="absolute inset-0 z-[2] bg-gradient-to-br from-primary/10 via-transparent to-secondary/10"
         aria-hidden="true"
       />
 
@@ -84,7 +84,7 @@ const HeroSection = () => {
       <div className="relative z-[3] container mx-auto px-6 max-w-6xl py-12 md:py-20">
         {/* Welcome badge */}
         <div className="flex justify-center mb-7 animate-slide-up">
-          <span className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-white/10 border border-white/20 backdrop-blur-md text-white text-[11px] sm:text-xs font-bold uppercase tracking-[0.2em]">
+          <span className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-primary/10 border border-primary/20 backdrop-blur-md text-primary text-[11px] sm:text-xs font-bold uppercase tracking-[0.2em]">
             <Sparkles className="w-3.5 h-3.5 text-secondary" />
             Bienvenue sur {BRAND}
           </span>
@@ -92,15 +92,16 @@ const HeroSection = () => {
 
         {/* Headline */}
         <h1
-          className="text-center font-display font-extrabold leading-[1.05] tracking-tight text-white text-3xl sm:text-4xl md:text-5xl lg:text-6xl max-w-5xl mx-auto mb-6 animate-slide-up"
+          className="text-center font-display font-extrabold leading-[1.05] tracking-tight text-foreground text-3xl sm:text-4xl md:text-5xl lg:text-6xl max-w-5xl mx-auto mb-6 animate-slide-up"
           style={{ animationDelay: "0.05s" }}
         >
           Faites collecter vos déchets ménagers
           <br className="hidden sm:block" />{" "}
-          <span className="bg-clip-text text-transparent bg-gradient-to-r from-secondary via-secondary to-accent">
+          <span className="text-primary">
             et vendez vos plastiques
           </span>
         </h1>
+
 
         {/* Subtitle */}
         <p
