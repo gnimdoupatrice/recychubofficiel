@@ -1,9 +1,9 @@
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import { ArrowUpRight, CalendarDays, MapPin } from "lucide-react";
-import challenge1 from "@/assets/challenge-1.webp";
-import challenge2 from "@/assets/challenge-2.webp";
-import challenge3 from "@/assets/challenge-3.webp";
+import event1 from "@/assets/event-1.webp";
+import event2 from "@/assets/event-2.webp";
+import event3 from "@/assets/event-3.webp";
 
 const posts = [
   {
