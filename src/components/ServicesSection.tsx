@@ -12,9 +12,8 @@ import ppItems2 from "@/assets/pp-items-2.webp";
 import pvcTuyaux from "@/assets/hero/pvc_tuyaux.webp";
 import pvcPipes2 from "@/assets/pvc-pipes-2.webp";
 import chaisesPlastique from "@/assets/hero/chaises_plastique.webp";
-import mobilier2 from "@/assets/mobilier-2.webp";
+import chaisesPlastique from "@/assets/hero/chaises_plastique.webp";
 import purWater from "@/assets/hero/pur_water.webp";
-import pureWater2 from "@/assets/pure-water-2.webp";
 import hdpe from "@/assets/hdpe.webp";
 import ppPlastique from "@/assets/hero/pp_plastique.webp";
 
