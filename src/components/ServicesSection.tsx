@@ -102,26 +102,30 @@ const plasticRows = [
 
 const PlasticImageSwap = ({ images, alt }: { images: string[]; alt: string }) => {
   const [hovered, setHovered] = useState(false);
+  const single = images.length === 1;
   return (
     <div
-      className="relative w-full h-full overflow-hidden bg-muted"
+      className="group/img relative w-full h-full overflow-hidden bg-muted"
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
     >
-      {images.map((src, i) => (
-        <img
-          key={i}
-          src={src}
-          alt={`${alt} - exemple ${i + 1}`}
-          loading="lazy"
-          decoding="async"
-          width={800}
-          height={600}
-          className={`absolute inset-0 w-full h-full object-contain p-6 transition-opacity duration-700 ${
-            (i === 0 && !hovered) || (i === 1 && hovered) ? "opacity-100" : "opacity-0"
-          }`}
-        />
-      ))}
+      {images.map((src, i) => {
+        const visible = single || (i === 0 && !hovered) || (i === 1 && hovered);
+        return (
+          <img
+            key={i}
+            src={src}
+            alt={`${alt}${single ? "" : ` - exemple ${i + 1}`}`}
+            loading="lazy"
+            decoding="async"
+            width={800}
+            height={600}
+            className={`absolute inset-0 w-full h-full object-contain p-6 transition-all duration-700 ease-out ${
+              visible ? "opacity-100" : "opacity-0"
+            } ${hovered && visible ? "scale-110" : "scale-100"}`}
+          />
+        );
+      })}
     </div>
   );
 };
