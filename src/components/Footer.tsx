@@ -8,8 +8,8 @@ const Footer = () => {
     <footer className="bg-foreground text-background/80 pt-20 pb-10 font-inter">
       <div className="max-w-6xl mx-auto px-6 md:px-12 lg:px-24">
         {/* Editorial top band */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-12 gap-10 lg:gap-12 pb-12 lg:pb-14 border-b border-background/10">
-          <div className="sm:col-span-2 lg:col-span-5">
+        <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-12 gap-10 lg:gap-12 pb-12 lg:pb-14 border-b border-background/10">
+          <div className="col-span-2 sm:col-span-2 lg:col-span-5">
             <Link to="/" className="inline-flex items-center gap-3 mb-6 group">
               <img src={logoImg} alt="" className="w-10 h-10 object-contain" />
               <span className="font-editorial font-bold text-xl text-background tracking-tight">
@@ -66,7 +66,7 @@ const Footer = () => {
             </ul>
           </div>
 
-          <div className="lg:col-span-2">
+          <div className="text-right sm:text-left lg:col-span-2">
             <h4 className="text-[10px] font-semibold uppercase tracking-[0.22em] text-primary mb-5">Découvrir</h4>
             <ul className="space-y-3 text-sm font-light">
               <li><Link to="/evenements" className="text-background/75 hover:text-background transition-colors">Événements</Link></li>
@@ -75,7 +75,7 @@ const Footer = () => {
             </ul>
           </div>
 
-          <div className="lg:col-span-3">
+          <div className="col-span-2 sm:col-span-2 lg:col-span-3">
             <h4 className="text-[10px] font-semibold uppercase tracking-[0.22em] text-primary mb-5">Contact</h4>
             <address className="not-italic space-y-3 text-sm font-light">
               <div className="flex items-start gap-3 text-background/75">
