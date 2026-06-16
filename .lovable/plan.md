@@ -1,62 +1,54 @@
-# Plan : accessibilité mobile, réorganisation et images
+# Plan : storytelling solutions, image Solution Pro, footer mobile
 
-## 1. Réorganisation des sections (src/pages/Index.tsx)
+## 1. Nouveau bloc d'intro « Nos solutions face aux défis »
 
-Nouvel ordre après Hero :
+Créer `src/components/SolutionsIntro.tsx` — bloc court inséré dans `src/pages/Index.tsx` **entre `AboutSection` et `SolutionProSection**`.
 
-1. HeroSection
-2. AboutSection (« Pourquoi RECYC HUB » — les défis)
-3. **SolutionProSection** (remontée — réponse directe aux défis)
-4. ServicesSection (catalogue plastiques — inchangé)
-5. CivicTechSection
-6. GreenAcademySection
-7. HowItWorks
-8. ImpactStatsSection
-9. TestimonialsSection
-10. PartnersSection
-11. EventsHubSection
-12. FAQSection
-13. CTASection
+Contenu :
 
-## 2. Accessibilité & performance mobile
+- Petit eyebrow : `NOS SOLUTIONS` (uppercase, tracking, couleur primaire)
+- Grand titre H2 : **« Nos solutions face aux défis. »** (font-black, 4xl→6xl, tracking-tight)
+- Sous-texte court (1 phrase) : « Quatre leviers complémentaires pour transformer la gestion des déchets à Kara — du terrain à la donnée, de la collecte à l'éducation. »
+- Sous-ligne : 4 puces numérotées **01 Solution Pro · 02 Achat de plastiques · 03 CivicTech · 04 Green Academy** (rappel des 4 services qui suivent → cohérence storytelling)
+- Bande `band-cool` ou fond neutre court (~py-20), pas d'image, pour servir de **transition narrative**.
 
-- Audit complet via le skill accessibility : `alt`, `aria-label` sur boutons-icônes (Navbar, MobileStickyBar, WhatsAppButton, sliders du Hero), un seul `<main>`, un seul `<h1>` par page, contraste tokens, `h-screen` → `h-dvh`, tap targets ≥ 44×44.
-- Vérifier que toutes les images ont `loading="lazy"` + `decoding="async"` + `width`/`height` (sauf LCP du Hero qui reste `eager` + `fetchpriority="high"`).
-- Tailles de police mobile : revoir `text-4xl`/`text-5xl` sur petits écrans, garantir lisibilité (line-height, letter-spacing, padding latéral 6 → confortable).
-- Navigation mobile : vérifier le menu (Sheet shadcn), z-index, espace pour `MobileStickyBar` (déjà `pb-16 lg:pb-0`).
-- Footer : revoir grille mobile (colonnes empilées, espacement, hiérarchie typographique, alignement, séparateurs).
+Ainsi l'utilisateur comprend qu'il entre dans la zone « Solutions » et que les 4 sections suivantes en font partie.
 
-## 3. Catalogue plastiques (ServicesSection.tsx)
+## 2. Solution Pro B2B — nouvelle image
 
-- **Effet zoom au hover** sur les images : remplacer le swap d'opacité par un `scale-110` doux sur l'image active (transition 500ms), tout en gardant le crossfade entre les 2 visuels.
-- **Suppressions d'images** :
-  - Mobilier (chaises & tables) : supprimer `mobilier-2.webp` (chaises propres non cassées) → garder uniquement `chaises_plastique.webp`.
-  - PEBD (sachets pure water) : supprimer `pure-water-2.webp` (main avec films) → garder uniquement `purWater`.
-- Quand une seule image reste, désactiver le swap et conserver l'effet zoom au hover.
+L'image actuelle (`src/assets/solution-pro-hero.webp`) coupe la personne tenant le smartphone.
 
-## 4. Remplacement d'images dans « Pourquoi RECYC HUB » (AboutSection)
+Régénérer via imagegen :
 
-À régénérer via imagegen (format `.webp`, dimensions optimisées) :
+- **Sujet** : agent terrain africain en gilet, **vue plus large**, **smartphone entièrement visible** dans la main, montrant un tableau de bord/itinéraire.
+- **Cadrage** : plan poitrine, sujet centré, marge généreuse en haut et bas, format paysage 3:2 (1600×1067).
+- **Ambiance** : extérieur urbain Kara, lumière douce, photoréaliste.
+- Écraser `src/assets/solution-pro-hero.webp` (qualité 78, max 1600px).
 
-- **Déficit logistique** → camion-benne de collecte de déchets sur une route togolaise (style photoréaliste, lumière naturelle).
-- **Potentiel inexploité** → tas de sachets plastiques accumulés dans un caniveau à côté d'un pont en milieu urbain africain.
-- **Hub événementiel** (EventsHubSection) → 2-3 nouvelles images : ateliers de sensibilisation / collecte communautaire / formation terrain à Kara.
+## 3. Footer — disposition mobile en zigzag (gauche / droite)
 
-## 5. Vérifications finales
+Sur mobile, les 4 colonnes (Logo, Services, Découvrir, Contact) sont actuellement empilées toutes à gauche → trop long.
 
-- `browser--view_preview` en 390×586 pour valider l'affichage mobile, le nouvel ordre, le footer et le zoom hover.
-- `browser--performance_profile` pour confirmer LCP < 2.5s et CLS stable.
-- Pas de modification de contenu textuel.
+Refonte `src/components/Footer.tsx` :
+
+- Mobile (`grid-cols-2`) : 
+  - Ligne 1 : bloc **Logo + description + social** (col-span-2, pleine largeur).
+  - Ligne 2 : **Services** (gauche, `text-left`) | **Découvrir** (droite, `text-right items-end`).
+  - Ligne 3 : **Contact** (gauche) | bloc vide ou réutilisé (droite).
+  - Pour la colonne droite (`Découvrir`), aligner titre + liens à droite (`text-right`) et icônes Contact en miroir si besoin.
+- ≥ `sm` : revenir à la grille actuelle `sm:grid-cols-2`.
+- ≥ `lg` : grille 12 colonnes inchangée.
+
+Résultat : hauteur du footer mobile divisée par ~2, lecture zigzag plus dynamique.
+
+## 4. Vérifications
+
+- `browser--view_preview` 390×586 → vérifier ordre About → Intro solutions → Solution Pro, image lisible, footer compact en 2 colonnes alternées.
+- Pas d'autres modifications de contenu.
 
 ## Détails techniques
 
-- `ServicesSection.PlasticImageSwap` : ajouter `transform transition-transform duration-500 group-hover:scale-110`, wrapper en `group`. Si `images.length === 1`, ne rendre qu'une seule `<img>`.
-- Images générées en 1280×960 max, qualité 78, exportées en `.webp` dans `src/assets/hero/` ou `src/assets/about/`.
-- Aucune modification du `ServicesSection` autre que les 2 suppressions de tableau + le hover-zoom.
-- Aucune modification des textes des sections.
-
-&nbsp;
-
-&nbsp;
-
-Il faut comprendre que la section service en réalité commence à partir de la solution pro. La solution pro fait partie des services. Donc nos services sont en réalité la solution pro, la catalogue des plastiques, le Civil Tech, la Green Academy. Donc c'est en réalité les quatre là qui constituent nos services. Il faut prendre en compte cet aspect et voir comment est-ce que tu vas refaire les choses.
+- `SolutionsIntro.tsx` : `<section id="nos-solutions" className="py-16 md:py-20 bg-muted/40">`, conteneur `max-w-5xl`, H2 distinctive, liste inline horizontale des 4 services (badges arrondis bordés).
+- Index.tsx : importer et placer `<SolutionsIntro />` juste avant `<SolutionProSection />`.
+- Footer mobile : utiliser `grid-cols-2 sm:grid-cols-2 lg:grid-cols-12` et `text-right` conditionnel via classe utilitaire sur les colonnes paires (`[&>div:nth-child(3)]:text-right` ou explicite par bloc).
+- Image Solution Pro : conserver le nom de fichier pour éviter de toucher l'import.

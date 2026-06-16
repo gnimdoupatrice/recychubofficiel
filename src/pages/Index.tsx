@@ -1,6 +1,7 @@
 import SEO from "@/components/SEO";
 import HeroSection from "@/components/HeroSection";
 import AboutSection from "@/components/AboutSection";
+import SolutionsIntro from "@/components/SolutionsIntro";
 import SolutionProSection from "@/components/SolutionProSection";
 import ServicesSection from "@/components/ServicesSection";
 import CivicTechSection from "@/components/CivicTechSection";
@@ -60,7 +61,8 @@ const Index = () => {
       />
       <HeroSection />
       <AboutSection />
-      {/* Nos Services : Solution Pro → Catalogue → CivicTech → Green Academy */}
+      {/* Nos Services : intro → Solution Pro → Catalogue → CivicTech → Green Academy */}
+      <SolutionsIntro />
       <SolutionProSection />
       <ServicesSection />
       <CivicTechSection />
