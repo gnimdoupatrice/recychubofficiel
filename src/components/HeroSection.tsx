@@ -11,11 +11,11 @@ import {
   Sparkles,
 } from "lucide-react";
 
-import slide1 from "@/assets/hero/hero-1-sorting.jpg";
-import slide2 from "@/assets/hero/hero-2-pickup.jpg";
-import slide3 from "@/assets/hero/hero-3-payment.jpg";
-import slide4 from "@/assets/hero/hero-4-depot.jpg";
-import slide5 from "@/assets/hero/hero-5-cleanup.jpg";
+import slide1 from "@/assets/hero/hero-1-sorting.webp";
+import slide2 from "@/assets/hero/hero-2-pickup.webp";
+import slide3 from "@/assets/hero/hero-3-payment.webp";
+import slide4 from "@/assets/hero/hero-4-depot.webp";
+import slide5 from "@/assets/hero/hero-5-cleanup.webp";
 
 const SLIDES = [slide1, slide2, slide3, slide4, slide5];
 const BRAND = "RECYC HUB TOGO";

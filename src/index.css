@@ -1,5 +1,5 @@
-/* Recyc Hub Togo — Libre Baskerville (display) + IBM Plex Sans (body) */
-@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap');
+/* Recyc Hub Togo — Plus Jakarta Sans (titres + corps), pairé avec Inter pour le texte long */
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700&display=swap');
 
 @tailwind base;
 @tailwind components;
@@ -60,7 +60,7 @@
     --sidebar-border: 216 16% 90%;
     --sidebar-ring: 158 64% 43%;
 
-    font-family: 'IBM Plex Sans', system-ui, -apple-system, sans-serif;
+    font-family: 'Inter', 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
   }
@@ -91,11 +91,16 @@
 
 @layer base {
   * { @apply border-border; }
-  body { @apply bg-background text-foreground; font-family: 'IBM Plex Sans', system-ui, sans-serif; }
+  body {
+    @apply bg-background text-foreground;
+    font-family: 'Inter', 'Plus Jakarta Sans', system-ui, sans-serif;
+    font-feature-settings: 'cv11', 'ss01', 'ss03';
+  }
   h1, h2, h3, h4, h5, h6 {
-    font-family: 'Libre Baskerville', Georgia, serif;
-    letter-spacing: -0.015em;
-    font-weight: 700;
+    font-family: 'Plus Jakarta Sans', 'Inter', system-ui, sans-serif;
+    letter-spacing: -0.022em;
+    font-weight: 800;
+    line-height: 1.1;
   }
 }
 

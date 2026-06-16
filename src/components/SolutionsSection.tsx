@@ -4,7 +4,7 @@ import { motion } from "framer-motion";
 
 const heroSolution = {
   icon: LayoutDashboard,
-  badge: "Solution Pro — B2B",
+  badge: "Solution Pro B2B",
   name: "La plateforme qui pilote les tournées de collecte",
   desc: "Un outil de gestion phygital pensé pour les entreprises de pré-collecte : coordination des équipes, optimisation des itinéraires, suivi en temps réel des ménages desservis et reporting d'impact. Fini la collecte à l'aveugle.",
   bullets: [

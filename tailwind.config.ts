@@ -14,11 +14,11 @@ export default {
     },
     extend: {
       fontFamily: {
-        display: ['"Libre Baskerville"', 'Georgia', 'serif'],
-        body: ['"IBM Plex Sans"', 'system-ui', 'sans-serif'],
-        editorial: ['"Libre Baskerville"', 'Georgia', 'serif'],
-        inter: ['"IBM Plex Sans"', 'system-ui', 'sans-serif'],
-        sans: ['"IBM Plex Sans"', 'system-ui', 'sans-serif'],
+        display: ['"Plus Jakarta Sans"', '"Inter"', 'system-ui', 'sans-serif'],
+        body: ['"Inter"', '"Plus Jakarta Sans"', 'system-ui', 'sans-serif'],
+        editorial: ['"Plus Jakarta Sans"', '"Inter"', 'system-ui', 'sans-serif'],
+        inter: ['"Inter"', 'system-ui', 'sans-serif'],
+        sans: ['"Inter"', '"Plus Jakarta Sans"', 'system-ui', 'sans-serif'],
       },
       colors: {
         border: "hsl(var(--border))",
