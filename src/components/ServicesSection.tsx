@@ -12,9 +12,7 @@ import ppItems2 from "@/assets/pp-items-2.webp";
 import pvcTuyaux from "@/assets/hero/pvc_tuyaux.webp";
 import pvcPipes2 from "@/assets/pvc-pipes-2.webp";
 import chaisesPlastique from "@/assets/hero/chaises_plastique.webp";
-import mobilier2 from "@/assets/mobilier-2.webp";
 import purWater from "@/assets/hero/pur_water.webp";
-import pureWater2 from "@/assets/pure-water-2.webp";
 import hdpe from "@/assets/hdpe.webp";
 import ppPlastique from "@/assets/hero/pp_plastique.webp";
 
@@ -74,7 +72,7 @@ const plasticRows = [
   {
     code: "Mobilier",
     name: "Chaises & tables cassées",
-    images: [chaisesPlastique, mobilier2],
+    images: [chaisesPlastique],
     identifiers: [
       "Chaises et tables en plastique",
       "Souvent fissurées, décolorées par le soleil ou cassées",
@@ -87,7 +85,7 @@ const plasticRows = [
   {
     code: "PEBD",
     name: "Sachets Pure Water & films plastiques",
-    images: [purWater, pureWater2],
+    images: [purWater],
     identifiers: [
       "Code de recyclage : chiffre 04 dans un triangle de recyclage",
       "Aspect physique : sachets souples, fins et transparents",
@@ -102,26 +100,30 @@ const plasticRows = [
 
 const PlasticImageSwap = ({ images, alt }: { images: string[]; alt: string }) => {
   const [hovered, setHovered] = useState(false);
+  const single = images.length === 1;
   return (
     <div
-      className="relative w-full h-full overflow-hidden bg-muted"
+      className="group/img relative w-full h-full overflow-hidden bg-muted"
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
     >
-      {images.map((src, i) => (
-        <img
-          key={i}
-          src={src}
-          alt={`${alt} - exemple ${i + 1}`}
-          loading="lazy"
-          decoding="async"
-          width={800}
-          height={600}
-          className={`absolute inset-0 w-full h-full object-contain p-6 transition-opacity duration-700 ${
-            (i === 0 && !hovered) || (i === 1 && hovered) ? "opacity-100" : "opacity-0"
-          }`}
-        />
-      ))}
+      {images.map((src, i) => {
+        const visible = single || (i === 0 && !hovered) || (i === 1 && hovered);
+        return (
+          <img
+            key={i}
+            src={src}
+            alt={`${alt}${single ? "" : ` - exemple ${i + 1}`}`}
+            loading="lazy"
+            decoding="async"
+            width={800}
+            height={600}
+            className={`absolute inset-0 w-full h-full object-contain p-6 transition-all duration-700 ease-out ${
+              visible ? "opacity-100" : "opacity-0"
+            } ${hovered && visible ? "scale-110" : "scale-100"}`}
+          />
+        );
+      })}
     </div>
   );
 };

@@ -8,8 +8,8 @@ const Footer = () => {
     <footer className="bg-foreground text-background/80 pt-20 pb-10 font-inter">
       <div className="max-w-6xl mx-auto px-6 md:px-12 lg:px-24">
         {/* Editorial top band */}
-        <div className="grid lg:grid-cols-12 gap-12 pb-14 border-b border-background/10">
-          <div className="lg:col-span-5">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-12 gap-10 lg:gap-12 pb-12 lg:pb-14 border-b border-background/10">
+          <div className="sm:col-span-2 lg:col-span-5">
             <Link to="/" className="inline-flex items-center gap-3 mb-6 group">
               <img src={logoImg} alt="" className="w-10 h-10 object-contain" />
               <span className="font-editorial font-bold text-xl text-background tracking-tight">

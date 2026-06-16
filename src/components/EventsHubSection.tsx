@@ -1,9 +1,9 @@
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import { ArrowUpRight, CalendarDays, MapPin } from "lucide-react";
-import challenge1 from "@/assets/challenge-1.webp";
-import challenge2 from "@/assets/challenge-2.webp";
-import challenge3 from "@/assets/challenge-3.webp";
+import event1 from "@/assets/event-1.webp";
+import event2 from "@/assets/event-2.webp";
+import event3 from "@/assets/event-3.webp";
 
 const posts = [
   {
@@ -13,7 +13,7 @@ const posts = [
     title: "Journée Mondiale du Recyclage : appel à bénévoles",
     excerpt:
       "Rejoignez 200 collecteurs et citoyens pour une journée d'action dans les quartiers de Kara. Inscriptions ouvertes.",
-    image: challenge1,
+    image: event1,
     href: "/evenements",
   },
   {
@@ -23,7 +23,7 @@ const posts = [
     title: "Collecte géante de plastiques — partenaires recherchés",
     excerpt:
       "Nous recrutons entreprises locales, écoles et associations pour co-organiser la plus grande collecte de l'année.",
-    image: challenge2,
+    image: event2,
     href: "/evenements",
   },
   {
@@ -33,7 +33,7 @@ const posts = [
     title: "Tri sélectif : session intensive certifiante",
     excerpt:
       "Trois jours pour maîtriser les standards de tri et obtenir la certification RECYC HUB TOGO.",
-    image: challenge3,
+    image: event3,
     href: "/academy",
   },
 ];
