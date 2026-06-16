@@ -60,10 +60,11 @@ const Index = () => {
       />
       <HeroSection />
       <AboutSection />
+      {/* Nos Services : Solution Pro → Catalogue → CivicTech → Green Academy */}
+      <SolutionProSection />
       <ServicesSection />
       <CivicTechSection />
       <GreenAcademySection />
-      <SolutionProSection />
       <HowItWorks />
       <ImpactStatsSection />
       <TestimonialsSection />
