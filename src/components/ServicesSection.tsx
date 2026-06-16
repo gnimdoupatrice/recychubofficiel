@@ -74,7 +74,7 @@ const plasticRows = [
   {
     code: "Mobilier",
     name: "Chaises & tables cassées",
-    images: [chaisesPlastique, mobilier2],
+    images: [chaisesPlastique],
     identifiers: [
       "Chaises et tables en plastique",
       "Souvent fissurées, décolorées par le soleil ou cassées",
@@ -87,7 +87,7 @@ const plasticRows = [
   {
     code: "PEBD",
     name: "Sachets Pure Water & films plastiques",
-    images: [purWater, pureWater2],
+    images: [purWater],
     identifiers: [
       "Code de recyclage : chiffre 04 dans un triangle de recyclage",
       "Aspect physique : sachets souples, fins et transparents",
