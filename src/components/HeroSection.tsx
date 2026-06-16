@@ -255,9 +255,10 @@ const HeroSection = () => {
                   aria-label={"Visuel " + (i + 1) + " sur " + SLIDES.length}
                   onClick={() => setCurrent(i)}
                   className={
-                    "h-1.5 rounded-full transition-all duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-secondary focus-visible:ring-offset-2 " +
-                    (active ? "w-8 bg-secondary" : "w-2 bg-white/40 hover:bg-white/60")
+                    "h-1.5 rounded-full transition-all duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 " +
+                    (active ? "w-8 bg-primary" : "w-2 bg-foreground/20 hover:bg-foreground/40")
                   }
+
                 />
               );
             })}
