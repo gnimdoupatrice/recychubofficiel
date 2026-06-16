@@ -22,11 +22,11 @@ const cards: Card[] = [
     title: "Systèmes de collecte défaillants",
     body: (
       <>
-        Les entreprises      de pré-collecte opèrent aujourd'hui{" "}
+        Les entreprises de pré-collecte opèrent aujourd'hui{" "}
         <span className="text-foreground font-semibold">à l'aveugle</span>. Sans
         données précises sur les flux de déchets, les tournées sont
         sous-optimisées, générant un gaspillage critique de carburant et un
-        temps d'intervention prolongé pour chaque ménage desservi            .
+        temps d'intervention prolongé pour chaque ménage desservi.
       </>
     ),
     image: challenge1,
@@ -44,7 +44,7 @@ const cards: Card[] = [
     body: (
       <>
         Visibles au quotidien par les citoyens, ces points noirs échappent à
-        toute comptabilité institutionnelle.{" "}
+        toute comptabilité institutionnelle .{" "}
         <span className="text-foreground font-semibold">
           L'absence de cartographie dynamique
         </span>{" "}
