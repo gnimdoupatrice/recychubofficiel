@@ -1,32 +1,66 @@
-## Constat
-
-La première capture est le site actuel — la palette (vert prairie #28B381, orange carotte #F9A03B), la typographie (Space Grotesk titres + DM Sans corps) et le style sont déjà appliqués. Aucun changement global de design system requis.
-
-Dans la section **Pourquoi RECYCHUB TOGO ?** (`src/components/AboutSection.tsx`), les badges chiffrés flottants en haut-droite des images sont déjà en place (+70%, 0, +50%). **Ce qui manque** par rapport à la 2ᵉ capture : un **lien d'action** au bas du bloc texte de chaque constat, qui redirige vers la page d'action correspondante.           
-
-En vrai, quand tu prends par exemple chaque élément au niveau de pourquoi RECYP Up Togo, ce n'est pas seulement le pourcentage qu'il y a. En fait, le pourcentage se trouve dans un petit carré. Il faut bien analyser le texte. Tu vas voir que le pourcentage se trouve dans un petit carré où, par exemple, au niveau de l'état des lieux, au niveau des dépotoirs invisibles, il y a en haut, on a écrit Kara Togo et après ça, on a mis zéro. Et après tout, on a écrit Registre national des dépotoirs sauvages. Quand tu vas prendre celui d'un potentiel inexploité, on a mis le signe de la localisation Kara Togo plus zéro franc par kilo de plastique racheté. Et maintenant, quand tu vas prendre l'autre, on a toujours mis le logo de la localisation. On a mis Kara Togo, 60 % des foyers sans ramassage régulier. C'est un peu ça.
+# Refonte visuelle inspirée de Waste Heroes
 
 ## Ce qui change
 
-Pour chaque carte des 3 constats, ajout sous le paragraphe d'un lien CTA stylisé (flèche + libellé) dans le ton vert primary, avec hover (translation x + soulignement).
+**Uniquement le design visuel** — couleurs, typographie, traitement des sections, overlays, ombres, boutons. Aucun texte, aucune fonctionnalité, aucune restructuration de contenu.
 
+## Direction visuelle (inspirée de la référence)
 
-| #   | Constat              | Lien CTA               | Destination            |
-| --- | -------------------- | ---------------------- | ---------------------- |
-| 01  | Collecte défaillante | Demander un enlèvement | `/demander-enlevement` |
-| 02  | Dépotoirs invisibles | Signaler un dépotoir   | `/alerte-depotoir`     |
-| 03  | Potentiel inexploité | Vendre mes plastiques  | `/vendre-plastiques`   |
+- **Ambiance** : claire, aérée, lumineuse — fond blanc/crème dominant au lieu du dark glassmorphism actuel
+- **Palette** :
+  - Primaire vert frais : `hsl(158 64% 45%)` (vert émeraude type "Waste Heroes")
+  - Accent orange chaud : `hsl(24 95% 58%)` (CTA, badges importants)
+  - Fond : blanc cassé `hsl(0 0% 100%)` / sections alternées en `hsl(150 20% 97%)`
+  - Texte : gris-noir profond `hsl(220 15% 15%)`
+- **Typographie** : conserver Libre Baskerville pour l'editorial, mais alléger ; corps en IBM Plex Sans
+- **Boutons** : pleins arrondis (orange pour CTA principal, vert pour secondaire), bordure fine pour outline
+- **Ombres** : douces et diffuses, pas dramatiques
 
+## Sections touchées
 
-**Aucune autre modification** : la disposition zigzag, les images, les badges flottants, le numéro géant 01/02/03 et la typographie restent strictement identiques.
+### 1. `src/index.css` (tokens globaux)
+
+Redéfinir les variables HSL : `--background`, `--foreground`, `--primary`, `--secondary`, `--accent`, gradients et ombres. Tout le reste hérite automatiquement.
+
+### 2. `HeroSection.tsx`
+
+- Retirer les overlays sombres `from-primary/70 via-primary/40` → overlay blanc/vert très léger sur photo
+- Cartes glassmorphism sombres → cartes blanches avec ombre douce et bordure verte subtile
+- Badge "Bienvenue" : pilule verte claire au lieu de glass sombre
+- Titre : texte vert foncé + accent orange (au lieu de blanc sur sombre)
+- Indicateurs slide : points verts
+
+### 3. `Navbar.tsx` / `TopBar.tsx`
+
+- Barre supérieure verte (comme la référence)
+- Nav blanche avec logo bien visible, CTA orange "Demander un enlèvement"
+
+### 4. Sections intermédiaires (About, Services, HowItWorks, Impact, Testimonials, FAQ, CTA, Footer)
+
+- Alterner fond blanc / fond crème vert très pâle
+- Cartes : fond blanc, bordure légère, ombre douce, accents verts
+- Icônes dans cercles verts pâles avec icône verte
+- Boutons CTA orange pleins
+
+### 5. `Solutions.tsx` (header éditorial sombre)
+
+- Passer en fond clair avec accent vert/orange
+
+## Hors-scope (non modifié)
+
+- Tous les textes, titres, FAQ, témoignages, prix, numéros
+- Structure des composants et ordre des sections
+- Routes, logique métier, données Supabase
+- Images du carousel hero
 
 ## Détails techniques
 
-- Ajout de champs `cta: { label: string; href: string }` dans le tableau `cards`
-- Ajout d'un `<Link>` (react-router-dom, déjà utilisé dans le projet) sous le paragraphe `<p>`, classes : `inline-flex items-center gap-2 mt-6 text-primary font-bold text-sm group/cta hover:gap-3 transition-all` + icône `ArrowRight` Lucide avec `group-hover/cta:translate-x-1`
-- Import de `Link` depuis `react-router-dom` et `ArrowRight` depuis `lucide-react`
-- Respect du système de design (tokens sémantiques uniquement)
+Travail concentré dans :
 
-## Fichier touché
+- `src/index.css` (refonte des tokens — impact global)
+- `tailwind.config.ts` (ajustement si besoin de nouveaux tokens sémantiques)
+- Composants listés ci-dessus : remplacer les classes hardcodées (`text-white`, `bg-white/12`, `from-primary/70`) par des classes basées sur tokens (`text-foreground`, `bg-card`, `border-border`)
 
-- `src/components/AboutSection.tsx`
+Une fois les tokens redéfinis, ~70% du rendu change automatiquement. Les 30% restants concernent les overlays sombres et le glassmorphism du Hero/Navbar à réécrire en version claire.     IL NE FAUT PAS PAS CHANGER LE CONTENUE DU SITE 
+
+&nbsp;
