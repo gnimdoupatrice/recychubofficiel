@@ -113,13 +113,16 @@ const AboutSection = () => {
   return (
     <section
       id="pourquoi"
-      className="band-plain py-24 md:py-32 px-6 md:px-12"
+      className="relative band-plain py-24 md:py-32 px-6 md:px-12 overflow-hidden"
     >
-      <div className="max-w-6xl mx-auto">
+      {/* Soft gradient transitions between sections */}
+      <div aria-hidden className="pointer-events-none absolute inset-x-0 top-0 h-32 bg-gradient-to-b from-primary/10 via-primary/[0.04] to-transparent" />
+      <div aria-hidden className="pointer-events-none absolute inset-x-0 bottom-0 h-32 bg-gradient-to-t from-secondary/10 via-secondary/[0.04] to-transparent" />
+
+      <div className="relative max-w-6xl mx-auto">
         {/* Header */}
         <div className="mb-20 md:mb-24 max-w-2xl">
-          <span className="inline-flex items-center gap-2 text-primary font-bold tracking-[0.22em] text-[11px] uppercase">
-            <span className="w-8 h-px bg-primary" />
+          <span className="inline-flex items-center text-primary font-bold tracking-[0.22em] text-[11px] uppercase">
             L'État des Lieux
           </span>
           <h2 className="mt-5 font-extrabold text-4xl md:text-5xl lg:text-6xl text-foreground leading-[1.05]">
