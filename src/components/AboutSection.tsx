@@ -62,7 +62,7 @@ const cards: Card[] = [
   },
   {
     number: "03",
-    badge: "État des lieux — Économie",
+    badge: "État des lieux Économie",
     title: "Un potentiel inexploité",
     body: (
       <>
