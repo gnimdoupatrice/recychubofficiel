@@ -57,6 +57,10 @@ const App = () => (
           </Suspense>
           <Footer />
           <MobileStickyBar />
+          {/* SEO — variantes orthographiques de la marque (invisible à l'œil, lue par les crawlers et lecteurs d'écran) */}
+          <p className="sr-only">
+            Recyc Hub Togo · Recyc-Hub Togo · Recycl'Hub Togo · RecyclHub Togo · Recyc Hub Kara · RECYC HUB TOGO — plateforme de recyclage et de collecte des déchets à Kara, Togo.
+          </p>
         </AuthProvider>
       </BrowserRouter>
     </TooltipProvider>
