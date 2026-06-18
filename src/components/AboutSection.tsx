@@ -124,8 +124,8 @@ const AboutSection = () => {
             Pourquoi RECYC HUB TOGO ?
           </span>
           <p className="mt-6 text-muted-foreground text-lg leading-relaxed">
-            RECYC HUB TOGO est née d'une analyse systémique des défis environnementaux au Togo et trois
-            constats  structurent toute notre démarche.
+            <strong className="text-foreground font-semibold">RECYC HUB TOGO</strong> (Recyc Hub Togo) est née
+            d'une analyse systémique des défis environnementaux au Togo, et trois constats structurent toute notre démarche.
           </p>
         </div>
 

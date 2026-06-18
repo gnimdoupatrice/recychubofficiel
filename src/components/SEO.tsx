@@ -15,7 +15,7 @@ const DEFAULT_IMAGE = "/og-default.jpg";
 const SEO = ({ title, description, path = "/", image, type = "website", jsonLd }: SEOProps) => {
   const url = `${SITE_URL}${path}`;
   const ogImage = image || DEFAULT_IMAGE;
-  const fullTitle = title.includes("RecycHub") ? title : `${title} | RecycHub Togo`;
+  const fullTitle = /recyc\s*hub/i.test(title) ? title : `${title} | RECYC HUB TOGO`;
 
   return (
     <Helmet>

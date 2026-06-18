@@ -19,19 +19,19 @@ const CTASection = () => (
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
       transition={{ duration: 0.6 }}
-      className="relative max-w-4xl mx-auto text-center"
+      className="relative max-w-5xl mx-auto text-left"
     >
       <span className="inline-block text-xs font-bold uppercase tracking-[0.2em] px-3 py-1.5 rounded-full bg-white/15">
         Passez à l'action
       </span>
-      <h2 className="mt-6 text-4xl md:text-5xl font-extrabold leading-[1.1]">
+      <h2 className="mt-6 text-4xl md:text-5xl lg:text-6xl font-extrabold leading-[1.05] max-w-3xl">
         Rejoignez le mouvement pour un Togo plus propre.
       </h2>
-      <p className="mt-6 text-primary-foreground/80 text-lg leading-relaxed max-w-2xl mx-auto">
-        Ménages, entreprises, collectivités : transformez chaque déchet en valeur.
+      <p className="mt-6 text-primary-foreground/80 text-lg leading-relaxed max-w-2xl">
+        Ménages, entreprises, collectivités : transformez chaque déchet en valeur avec RECYC HUB TOGO.
       </p>
 
-      <div className="mt-10 flex flex-col sm:flex-row items-center justify-center gap-3">
+      <div className="mt-10 flex flex-col sm:flex-row items-start sm:items-center gap-3">
         <Link
           to="/enlevement"
           className="inline-flex items-center gap-2 bg-secondary text-secondary-foreground px-7 py-3.5 rounded-full font-bold text-sm hover:translate-y-[-2px] transition-transform shadow-lg"

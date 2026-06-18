@@ -1,62 +1,111 @@
-# Plan : Hero vert, suppression des tirets, accessibilité mobile
 
-## 1. Hero — réduire le voile blanc, virer au vert
+## Objectif
 
-Dans `src/components/HeroSection.tsx`, remplacer les deux overlays actuels (qui empilent `background/85 → background/55 → background/85` + `primary/10 via-transparent to-secondary/10`) par un dégradé **plus discret et teinté vert** :
+1. **Refonte typographique** : alignement à gauche éditorial (style ONU, PNUD, OMS, grandes startups) au lieu du centrage actuel — plus institutionnel, plus lisible.
+2. **Découvrabilité Google** : optimiser le site pour qu'une recherche "recyc hub" ou "recyc hub togo" fasse apparaître le site dans les résultats Google une fois publié.
+3. **Lancer un audit SEO** automatisé en fin de chantier.
 
-- Overlay 1 (base) : `bg-gradient-to-b from-primary/25 via-primary/15 to-primary/30` — au lieu du voile blanc dominant. Le sujet de la photo reste lisible, l'ambiance devient « verte » signature RECYC.
-- Overlay 2 (lisibilité du texte) : un dégradé local *derrière le contenu uniquement*, par ex. un radial doux `bg-[radial-gradient(ellipse_at_center,hsl(var(--background)/0.55),transparent_70%)]` pour préserver le contraste du H1 sans noyer toute l'image.
+---
 
-Vérification du contraste WCAG AA sur le H1 après changement (≥ 4.5:1) — si insuffisant, ajuster l'opacité du voile vert (≤ 0.35) ou augmenter le radial central.
+## Partie 1 — Alignement typographique style ONU/PNUD
 
-## 2. Suppression des tirets visibles (em-dash & en-dash)
+Les sites de référence (un.org, undp.org, who.int, Stripe, Linear, Notion) partagent ces principes :
+- **Texte aligné à gauche** (jamais centré pour les paragraphes longs)
+- **Titres alignés à gauche** sur grille éditoriale
+- **Eyebrow / kicker** (petit label majuscule au-dessus du titre)
+- **Sous-titres en regard du titre** (max 60-70 caractères par ligne)
+- **Conteneurs larges mais contenu contraint** (`max-w-3xl` à `max-w-4xl` pour le texte)
 
-Cibler **uniquement les chaînes affichées à l'utilisateur** (ignorer les commentaires JSX et les `aria-label` techniques) :
+### Sections à refondre (passer de `text-center` → `text-left`)
 
+| Composant | État actuel | Cible |
+|---|---|---|
+| `HeroSection.tsx` | Tout centré (badge, h1, sous-titre, meta) | Bloc texte aligné à gauche, badge en eyebrow, h1 + sous-titre sur grille gauche. Cartes services à droite/dessous |
+| `SolutionsIntro.tsx` | À vérifier | Eyebrow + h2 + paragraphe alignés à gauche |
+| `AboutSection.tsx` | À vérifier | Format éditorial gauche |
+| `ImpactStatsSection.tsx` | Probablement centré | Titre à gauche, chiffres en grille |
+| `ServicesSection.tsx`, `CivicTechSection.tsx`, `GreenAcademySection.tsx` | À auditer | Headers à gauche, contenu en grille |
+| `EventsHubSection.tsx`, `TestimonialsSection.tsx`, `FAQSection.tsx`, `CTASection.tsx` | À auditer | Idem |
 
-| Fichier                                             | Remplacement                                                      |
-| --------------------------------------------------- | ----------------------------------------------------------------- |
-| `HeroSection.tsx` L209                              | `« ponts, caniveaux, terrains »` (parenthèses ou retirer le span) |
-| `Footer.tsx` L99                                    | `© {year} RECYC HUB TOGO · Tous droits réservés.`                 |
-| `ImpactStatsSection.tsx` L40                        | virgule à la place du tiret                                       |
-| `GreenAcademy.tsx` L158                             | virgule                                                           |
-| `serviceData.ts` L58 & L247                         | virgule ou point                                                  |
-| `TopBar.tsx` L44                                    | `Lun‑Sam · 7h‑18h` → `Lun au Sam · 7h à 18h`                      |
-| `AdminDashboard.tsx` L314                           | placeholder `—` → `«—»` retiré, afficher « N/A »                  |
-| Titres `<title>` SEO (Index/Solutions/GreenAcademy) | remplacer `—` par `·` ou virgule                                  |
+### Pattern type appliqué partout
 
+```text
+[EYEBROW MAJUSCULE — 11px, primary, tracking large]
+[Titre H2 — font-display, 3xl→5xl, leading-tight, text-left]
+[Sous-titre — max-w-2xl, text-muted-foreground, text-left]
+                                                   [→ contenu]
+```
 
-Les `aria-label` et commentaires conservent leurs tirets (invisibles à l'écran, lisibles par lecteurs d'écran sans gêne).
+- Ne **pas** toucher aux cartes/grilles (`grid`, `flex` items) qui peuvent rester centrées visuellement
+- Garder uniquement le centrage pour : badges isolés, CTA finaux, indicateurs de carrousel
 
-## 3. Accessibilité & responsivité mobile (standards type ONU/PNUD/OMS)
+---
 
-Audit ciblé sur petits écrans (<640px) :
+## Partie 2 — Découvrabilité Google ("recyc hub", "recyc hub togo")
 
-- **Hero** : 
-  - `min-h-[92vh]` → `min-h-[88dvh]` pour respecter la barre d'URL iOS.
-  - H1 : `text-3xl sm:text-4xl md:text-5xl lg:text-6xl` → `text-[28px] sm:text-4xl md:text-5xl lg:text-6xl` (28 px lisible, jamais sur 4 lignes).
-  - Cartes (Vendre / Enlèvement) : padding interne `p-6` → `p-5` mobile, titres `text-xl` → `text-lg`, retirer les `blur-3xl` lourds sur mobile (`md:` only) pour CLS/INP.
-  - Pill « Signaler un dépotoir » : autoriser `flex-wrap` sur mobile pour ne plus déborder.
-  - Meta indicators (téléphone, lieu) : `gap-y-2` + texte 13px min.
-- **AboutSection** L188 : `text-7xl md:text-8xl lg:text-9xl` (numéros décoratifs) → `text-5xl md:text-7xl lg:text-9xl` pour éviter le débordement mobile.
-- **Titres de section** unifiés : tous les `text-4xl md:text-5xl lg:text-6xl` deviennent `text-[30px] sm:text-4xl md:text-5xl lg:text-6xl` + `break-words` quand le contenu peut casser.
-- **Container global** : vérifier que toutes les sections ont `px-6` mobile (pas `px-12`). Patcher celles qui n'en ont pas.
-- **Tap targets** ≥ 44×44 : audit Navbar mobile, MobileStickyBar, indicators du Hero (déjà 1.5 h, agrandir la zone cliquable via `before:absolute before:inset-[-12px]`).
-- `**h-screen**` → `h-dvh` partout (audit global, remplacement).
-- **Images** : confirmer `loading="lazy"` + `decoding="async"` + `width`/`height` sur les `<img>` hors LCP.
-- `**<html lang="fr">**` : vérifier dans `index.html`.
+### 2.1 — `index.html` (tags sitewide)
 
-## 4. Vérifications finales
+- **Title** : déjà bon (`RECYC HUB TOGO — Vendez vos plastiques...`) → garder, c'est le signal #1 pour "recyc hub togo"
+- **Meta description** : enrichir avec "RECYC HUB TOGO" en début pour matcher la requête de marque
+- **Ajouter `<meta name="keywords">`** (utile pour Bing, ignoré par Google mais sans coût)
+- **Ajouter JSON-LD `Organization`** sitewide avec :
+  - `name: "RECYC HUB TOGO"`
+  - `alternateName: ["RecycHub Togo", "Recyc Hub", "Recyc Hub Togo"]` ← **clé pour matcher toutes les variantes orthographiques**
+  - `url`, `logo`, `sameAs` (réseaux sociaux si dispo), `address`, `contactPoint`
+- **Ajouter JSON-LD `WebSite`** avec `SearchAction` (sitelinks searchbox Google)
 
-- `browser--view_preview` à 390×844 puis 375×812 → lecture sans débordement horizontal, contraste H1 conservé, tirets disparus, pas de scroll horizontal.
-- Lighthouse mobile mental check : contraste, taille de cibles, taille de texte ≥ 14px.
+### 2.2 — `SEO.tsx` (par route)
 
-## Détails techniques
+- Vérifier que chaque page inclut "RECYC HUB TOGO" dans le `<title>` (déjà le cas via le suffixe `| RecycHub Togo` — **harmoniser** en `| RECYC HUB TOGO`)
+- Mettre à jour `SITE_URL` quand le domaine sera connu (laisser relatif sinon)
 
-- Tokens couleur : ne pas hardcoder, utiliser `hsl(var(--primary))` via les utilitaires `bg-primary/XX`.
-- Aucune logique métier modifiée, aucun contenu textuel autre que les tirets.
-- Pas d'ajout de dépendances.
+### 2.3 — `public/robots.txt`
 
-&nbsp;
+- Déjà ouvert à tous les bots ✓
+- **Ajouter `Sitemap:` directive** une fois le domaine connu (sinon laisser tel quel)
 
-COURRIGER TOUT LES FAUT D'orthographe de conjugaison ou de grammaire 
+### 2.4 — `public/sitemap.xml` (à créer via script)
+
+- Créer `scripts/generate-sitemap.ts` + hooks `predev` / `prebuild`
+- Entrées : `/`, `/vendre`, `/enlevement`, `/alerte`, `/solutions`, `/evenements`, `/green-academy`, `/connexion`, `/inscription`
+- `BASE_URL = ""` avec TODO (pas de domaine encore)
+
+### 2.5 — Densité du mot-clé "RECYC HUB TOGO"
+
+- Hero h1 : déjà bon (le titre contient déjà le contexte)
+- Footer : vérifier que "RECYC HUB TOGO" apparaît en clair (déjà OK)
+- About : s'assurer que "RECYC HUB TOGO" apparaît au moins 1 fois dans le 1er paragraphe
+- Ajouter une mention "RECYC HUB TOGO (Recyc Hub Togo)" dans About pour capter les deux orthographes
+
+### 2.6 — Réalité à expliquer à l'utilisateur
+
+Google ne classera le site sur "recyc hub togo" qu'**après publication** + **indexation** (généralement 3 à 14 jours). Étapes côté utilisateur après publication :
+1. **Publier** le site (bouton Publish)
+2. **Connecter Google Search Console** (je peux automatiser via le connecteur) et soumettre le sitemap
+3. **Demander l'indexation** de la home dans Search Console
+4. Patienter quelques jours
+
+---
+
+## Partie 3 — Audit SEO automatisé
+
+À la fin, lancer `seo--trigger_scan` pour obtenir un rapport actionnable (titres, meta, alt, headings, performance) et corriger les éventuelles alertes restantes.
+
+---
+
+## Détail technique
+
+- **Fichiers modifiés** : `index.html`, `src/components/SEO.tsx`, `src/components/HeroSection.tsx`, `src/components/SolutionsIntro.tsx`, `src/components/AboutSection.tsx`, `src/components/ImpactStatsSection.tsx`, `src/components/ServicesSection.tsx`, `src/components/CivicTechSection.tsx`, `src/components/GreenAcademySection.tsx`, `src/components/EventsHubSection.tsx`, `src/components/TestimonialsSection.tsx`, `src/components/FAQSection.tsx`, `src/components/CTASection.tsx`
+- **Fichiers créés** : `scripts/generate-sitemap.ts`, `public/sitemap.xml` (généré)
+- **package.json** : ajout `predev` / `prebuild`
+- **Pas de changement de business logic ni de base de données**
+
+---
+
+## Question
+
+Veux-tu que je :
+- **(A)** Refonte typographique sur **toutes les sections** d'un coup (cohérent mais gros diff), ou
+- **(B)** Commencer par le **Hero + intro Solutions + About** (sections vues en premier) puis itérer ?
+
+Par défaut je pars sur **(A)** pour une cohérence éditoriale immédiate, et je lance le scan SEO en clôture.
