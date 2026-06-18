@@ -42,7 +42,7 @@ const VendrePlastiques = () => {
   };
 
   return (
-    <div className="pt-24 pb-16 min-h-screen">
+    <div className="pt-24 pb-16 min-h-dvh">
       <SEO title="Vendre mes plastiques au kg" description="Vendez vos plastiques (PET, PEHD, PP, PVC, sachets pure water) au meilleur prix à Kara. Calcul instantané, paiement rapide." path="/vendre" />
       <div className="container mx-auto px-4">
         <div className="text-center mb-12">

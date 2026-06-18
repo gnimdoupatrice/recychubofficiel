@@ -26,7 +26,7 @@ const Connexion = () => {
   };
 
   return (
-    <div className="pt-24 pb-16 min-h-screen flex items-center">
+    <div className="pt-24 pb-16 min-h-dvh flex items-center">
       <SEO title="Connexion" description="Connectez-vous à votre compte RecycHub Togo pour vendre vos plastiques et suivre vos enlèvements." path="/connexion" />
       <div className="container mx-auto px-4">
         <div className="max-w-sm mx-auto">

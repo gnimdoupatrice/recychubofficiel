@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import { ArrowUpRight } from "lucide-react";
 
 const Solutions = () => (
-  <div className="min-h-screen bg-white">
+  <div className="min-h-dvh bg-white">
     <SEO
       title="Nos solutions · RECYC HUB TOGO"
       description="Découvrez l'écosystème RECYC HUB TOGO : Solution Pro pour les entreprises de pré-collecte, système de rachat des plastiques, alerte dépotoirs et Green Academy."

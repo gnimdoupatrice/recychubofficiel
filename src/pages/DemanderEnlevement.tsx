@@ -29,7 +29,7 @@ const DemanderEnlevement = () => {
   };
 
   return (
-    <div className="pt-24 pb-16 min-h-screen">
+    <div className="pt-24 pb-16 min-h-dvh">
       <SEO title="Demander un enlèvement de déchets à Kara" description="Faites enlever vos déchets ménagers à domicile à Kara. Service simple, rapide et abordable. Réservation en ligne ou par WhatsApp." path="/enlevement" />
       <div className="container mx-auto px-4">
         <div className="text-center mb-12">

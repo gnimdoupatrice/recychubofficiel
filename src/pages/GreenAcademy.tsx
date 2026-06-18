@@ -43,7 +43,7 @@ const stats = [
 
 const GreenAcademy = () => {
   return (
-    <div className="min-h-screen bg-white font-inter">
+    <div className="min-h-dvh bg-white font-inter">
       <SEO
         title="Green Academy · Formations économie circulaire au Togo"
         description="Apprenez le tri, le compostage, les métiers verts et l'entrepreneuriat durable au Togo. Modules vidéo, ateliers terrain et certifications via la Green Academy de RECYC HUB TOGO."
