@@ -75,19 +75,19 @@ const Footer = () => {
             </ul>
           </div>
 
-          <div className="col-span-2 sm:col-span-2 lg:col-span-3">
+          <div className="col-span-2 sm:col-span-2 lg:col-span-3 text-center">
             <h4 className="text-[10px] font-semibold uppercase tracking-[0.22em] text-primary mb-5">Contact</h4>
             <address className="not-italic space-y-3 text-sm font-light">
-              <div className="flex items-start gap-3 text-background/75">
-                <MapPin className="w-4 h-4 text-primary mt-0.5 shrink-0" aria-hidden="true" />
+              <div className="flex items-center justify-center gap-3 text-background/75">
+                <MapPin className="w-4 h-4 text-primary shrink-0" aria-hidden="true" />
                 Kara, Préfecture de Kozah
               </div>
-              <a href="tel:+22897684030" className="flex items-start gap-3 text-background/75 hover:text-background transition-colors">
-                <Phone className="w-4 h-4 text-primary mt-0.5 shrink-0" aria-hidden="true" />
+              <a href="tel:+22897684030" className="flex items-center justify-center gap-3 text-background/75 hover:text-background transition-colors">
+                <Phone className="w-4 h-4 text-primary shrink-0" aria-hidden="true" />
                 +228 97 68 40 30
               </a>
-              <a href="mailto:contact@recychubtogo.com" className="flex items-start gap-3 text-background/75 hover:text-background transition-colors">
-                <Mail className="w-4 h-4 text-primary mt-0.5 shrink-0" aria-hidden="true" />
+              <a href="mailto:contact@recychubtogo.com" className="flex items-center justify-center gap-3 text-background/75 hover:text-background transition-colors">
+                <Mail className="w-4 h-4 text-primary shrink-0" aria-hidden="true" />
                 contact@recychubtogo.com
               </a>
             </address>

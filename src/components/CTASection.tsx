@@ -24,7 +24,7 @@ const CTASection = () => (
       <span className="inline-block text-xs font-bold uppercase tracking-[0.2em] px-3 py-1.5 rounded-full bg-white/15">
         Passez à l'action
       </span>
-      <h2 className="mt-6 text-4xl md:text-5xl lg:text-6xl font-extrabold leading-[1.05] max-w-3xl">
+      <h2 className="mt-6 text-4xl md:text-5xl lg:text-6xl font-extrabold leading-[1.05] max-w-3xl text-justify hyphens-auto">
         Rejoignez le mouvement pour un Togo plus propre.
       </h2>
       <p className="mt-6 text-primary-foreground/80 text-lg leading-relaxed max-w-2xl">
