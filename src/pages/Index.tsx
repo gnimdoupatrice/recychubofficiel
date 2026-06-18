@@ -26,7 +26,7 @@ const Index = () => {
         "@type": "LocalBusiness",
         "@id": "https://recychubtogo.com/#org",
         name: "RECYC HUB TOGO",
-        description: "Plateforme phygitale de collecte et recyclage de déchets à Kara, Togo : rachat de plastiques au kg, enlèvement de déchets ménagers et alerte dépotoir.",
+        description: "Plateforme phygitale de gestion de déchets à Kara, Togo : rachat de plastiques au kg, enlèvement de déchets ménagers et alerte dépotoir formation et opportunité.",
         address: { "@type": "PostalAddress", addressLocality: "Kara", addressCountry: "TG" },
         telephone: "+22897684030",
         areaServed: "Kara, Togo",

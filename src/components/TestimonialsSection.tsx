@@ -6,7 +6,7 @@ const testimonials = [
     name: "Afia K.",
     commune: "Kozah 2",
     role: "Ménagère",
-    text: "Grâce à RECYC HUB TOGO, je vends mes bouteilles plastiques chaque semaine. C'est un vrai complément de revenu pour ma famille — le paiement est immédiat.",
+    text: "Grâce à RECYC HUB TOGO, je vends mes bouteilles plastiques chaque semaine. C'est un vrai complément de revenu pour ma famille le paiement est immédiat.",
   },
   {
     name: "Koffi M.",

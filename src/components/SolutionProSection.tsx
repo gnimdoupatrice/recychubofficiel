@@ -46,7 +46,7 @@ const SolutionProSection = () => (
           Un outil de gestion phygital pensé pour les entreprises de
           pré-collecte, mairies et PME de l'assainissement. Coordination des
           équipes, optimisation des itinéraires, suivi terrain en temps réel et
-          reporting d'impact — fini la collecte à l'aveugle.
+          reporting d'impact fini la collecte à l'aveugle.
         </p>
       </div>
 

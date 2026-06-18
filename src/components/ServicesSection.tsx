@@ -221,7 +221,7 @@ const ServicesSection = () => {
           </h2>
           <p className="text-muted-foreground font-light text-lg leading-relaxed max-w-2xl">
             Six familles de plastiques rachetées à prix transparent. Identifiez,
-            apportez ou faites enlever — paiement immédiat en cash ou Mobile
+            apportez ou faites enlever paiement immédiat en cash ou Mobile
             Money, dès le premier kilo.
           </p>
         </div>

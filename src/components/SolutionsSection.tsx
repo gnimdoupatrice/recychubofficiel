@@ -22,7 +22,7 @@ const solutions = [
     icon: Recycle,
     number: "01",
     name: "Système de rachat",
-    desc: "Vendez vos plastiques au kilo (PET, PEHD, PP, PVC) à des tarifs transparents — paiement immédiat ou à l'enlèvement.",
+    desc: "Vendez vos plastiques au kilo (PET, PEHD, PP, PVC) à des tarifs transparents paiement immédiat ou à l'enlèvement.",
     href: "/vendre",
     cta: "Voir les tarifs",
   },

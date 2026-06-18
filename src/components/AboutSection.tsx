@@ -22,11 +22,11 @@ const cards: Card[] = [
     title: "Systèmes de collecte défaillants",
     body: (
       <>
-        Les entreprises de pré-collecte opèrent aujourd'hui{" "}
-        <span className="text-foreground font-semibold">à l'aveugle</span>. Sans
-        données précises sur les flux de déchets, les tournées sont
-        sous-optimisées, générant un gaspillage critique de carburant et un
-        temps d'intervention prolongé pour chaque ménage desservi.
+        Les entreprises de pré-collecte et de collecte opèrent aujourd'hui{" "}
+        <span className="text-foreground font-semibold">à l'aveugle</span> sans
+        données précises sur les flux de déchets, par consequent les tournées sont
+        sous-optimisées, générant un gaspillage critique en carburant et en
+        temps d'intervention pour chaque ménage desservi.
       </>
     ),
     image: challenge1,
@@ -43,8 +43,7 @@ const cards: Card[] = [
     title: "Dépotoirs invisibles",
     body: (
       <>
-        Visibles au quotidien par les citoyens, ces points noirs échappent à
-        toute comptabilité institutionnelle .{" "}
+        La prolifération des dépotires sauvages aujourd'hui est un phénomen de plus en plus galopent de la salubrité publique, malgré les efforts du gouvernement forces est de constater avec amertueme qu'aujourd'hui la bonne volonté  dans la gestion des déchets par les ménages est de plus en plus au  recule au pont ou  les ménagers au lieu de payer un  abonnement de 500Fcfa à 2000fcfa par maison pour l'enlèvement de leurs déchets préfere créer, jetter leurs déhets ménager au enlantour des ponts, dans la rivière ou creer des dépotoire à ciel ouvert. Mais le problème le plus inquitant est la visibilité de ces dépotoire par les autorités et acteurs de la societé civile. On crie de gauche et à droit que la ville est pliene de dépotires mais ou sont situés ces dépotoires il sont combien dans une municipalités aucune reponse{" "}
         <span className="text-foreground font-semibold">
           L'absence de cartographie dynamique
         </span>{" "}
@@ -66,9 +65,8 @@ const cards: Card[] = [
     title: "Un potentiel inexploité",
     body: (
       <>
-        Les déchets recyclables ont une{" "}
-        <span className="text-foreground font-semibold">valeur marchande réelle</span>.
-        Sans circuit de rachat structuré, cette ressource est perdue alors qu'elle
+        Le déchets plastique aujourd'hui est apercu comme  l'énémie numéro un de la salubrité publique alors meme qu'il est apercus comme une mine d'or par les entreprise de recyclge {" "}
+        <span className="text-foreground font-semibold"> En realité le plastique à une valeur marchande réelle</span>mais sans circuit de rachat structuré, cette ressource est perdue alors qu'elle
         pourrait nourrir des familles et créer des emplois verts durables.
       </>
     ),
@@ -123,14 +121,11 @@ const AboutSection = () => {
         {/* Header */}
         <div className="mb-20 md:mb-24 max-w-2xl">
           <span className="inline-flex items-center text-primary font-bold tracking-[0.22em] text-[11px] uppercase">
-            L'État des Lieux
+            Pourquoi RECYC HUB TOGO ?
           </span>
-          <h2 className="mt-5 font-extrabold text-4xl md:text-5xl lg:text-6xl text-foreground leading-[1.05]">
-            Pourquoi RECYC<span className="text-primary">HUB</span> TOGO ?
-          </h2>
           <p className="mt-6 text-muted-foreground text-lg leading-relaxed">
-            Analyse systémique des défis environnementaux au Togo — trois
-            constats qui structurent toute notre démarche.
+            RECYC HUB TOGO est née d'une analyse systémique des défis environnementaux au Togo et trois
+            constats  structurent toute notre démarche.
           </p>
         </div>
 

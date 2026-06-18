@@ -31,7 +31,7 @@ const HowItWorks = () => {
             Comment ça <span className="text-primary">marche</span> ?
           </h2>
           <p className="text-muted-foreground text-lg leading-relaxed">
-            Choisissez un service et suivez le parcours en quatre étapes —
+            Choisissez un service et suivez le parcours en quatre étapes 
             simple, traçable, conçu pour le terrain togolais.
           </p>
         </div>

@@ -141,7 +141,7 @@ const HeroSection = () => {
                 Vendre mes plastiques
               </h2>
               <p className="text-foreground/70 text-sm leading-relaxed mb-6">
-                PET, PEHD, PP, sachets Pure Water — transformez vos déchets en{" "}
+                PET, PEHD, PP, sachets Pure Water transformez vos déchets en{" "}
                 <span className="text-secondary font-semibold">
                   revenus immédiats
                 </span>
@@ -182,11 +182,11 @@ const HeroSection = () => {
                 Faire enlever mes déchets
               </h2>
               <p className="text-foreground/70 text-sm leading-relaxed mb-6">
-                Enlèvement à domicile : ménagers, organiques, encombrants.
+                Enlèvement à domicile : Déchets ménagers, organiques, encombrants.
               </p>
               <div className="flex items-center justify-between pt-5 border-t border-border">
                 <span className="text-[10px] uppercase tracking-[0.2em] text-muted-foreground font-bold">
-                  À partir de 2 000 FCFA
+                  Faites enlever vos déchets
                 </span>
                 <span className="inline-flex items-center gap-2 text-secondary font-bold text-sm">
                   Demander

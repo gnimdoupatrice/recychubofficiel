@@ -31,7 +31,7 @@ const SolutionsIntro = () => (
         </h2>
         <p className="text-muted-foreground text-lg md:text-xl leading-relaxed max-w-3xl">
           Quatre leviers complémentaires pour transformer la gestion des
-          déchets à Kara — du terrain à la donnée, de la collecte à
+          déchets à Kara du terrain à la donnée, de la collecte à
           l'éducation.
         </p>
 

@@ -20,7 +20,7 @@ const posts = [
     category: "Appel à projets",
     date: "05 Avril 2026",
     location: "Tomdè",
-    title: "Collecte géante de plastiques — partenaires recherchés",
+    title: "Collecte géante de plastiques partenaires recherchés",
     excerpt:
       "Nous recrutons entreprises locales, écoles et associations pour co-organiser la plus grande collecte de l'année.",
     image: event2,
