@@ -567,3 +567,29 @@
   }
 }
 
+
+/* =========================================================================
+   Justification éditoriale type ONU / PNUD
+   Cible automatiquement les paragraphes de corps marqués `leading-relaxed`
+   (paragraphes éditoriaux longs). Les titres, listes, badges, labels et
+   paragraphes courts ne sont pas concernés.
+   ========================================================================= */
+@layer utilities {
+  p.leading-relaxed,
+  .prose-justify {
+    text-align: justify;
+    text-justify: inter-word;
+    -webkit-hyphens: auto;
+    hyphens: auto;
+    hyphenate-limit-chars: 6 3 3;
+    text-wrap: pretty;
+  }
+  /* Garde-fou : sur très petits écrans, conserver la justification mais
+     éviter les rivières blanches en autorisant les césures plus tôt. */
+  @media (max-width: 480px) {
+    p.leading-relaxed,
+    .prose-justify {
+      hyphenate-limit-chars: 5 2 2;
+    }
+  }
+}

@@ -1,111 +1,124 @@
-
 ## Objectif
 
-1. **Refonte typographique** : alignement à gauche éditorial (style ONU, PNUD, OMS, grandes startups) au lieu du centrage actuel — plus institutionnel, plus lisible.
-2. **Découvrabilité Google** : optimiser le site pour qu'une recherche "recyc hub" ou "recyc hub togo" fasse apparaître le site dans les résultats Google une fois publié.
-3. **Lancer un audit SEO** automatisé en fin de chantier.
+1. Appliquer une justification éditoriale (text-justify, césure, ligature) aux paragraphes de toutes les pages — sans toucher aux titres, listes, badges, ni CTA.
+2. Optimiser le SEO pour que **Recyc-Hub**, **Recycl'Hub Togo**, **Recyc Hub Togo** déclenchent l'apparition du site dans Google — sans modifier l'UI visible (la marque affichée reste CMEP).
 
 ---
 
-## Partie 1 — Alignement typographique style ONU/PNUD
+## Partie 1 — Texte justifié éditorial
 
-Les sites de référence (un.org, undp.org, who.int, Stripe, Linear, Notion) partagent ces principes :
-- **Texte aligné à gauche** (jamais centré pour les paragraphes longs)
-- **Titres alignés à gauche** sur grille éditoriale
-- **Eyebrow / kicker** (petit label majuscule au-dessus du titre)
-- **Sous-titres en regard du titre** (max 60-70 caractères par ligne)
-- **Conteneurs larges mais contenu contraint** (`max-w-3xl` à `max-w-4xl` pour le texte)
+### Approche
 
-### Sections à refondre (passer de `text-center` → `text-left`)
+Créer une classe utilitaire `prose-justify` dans `src/styles.css` :
 
-| Composant | État actuel | Cible |
-|---|---|---|
-| `HeroSection.tsx` | Tout centré (badge, h1, sous-titre, meta) | Bloc texte aligné à gauche, badge en eyebrow, h1 + sous-titre sur grille gauche. Cartes services à droite/dessous |
-| `SolutionsIntro.tsx` | À vérifier | Eyebrow + h2 + paragraphe alignés à gauche |
-| `AboutSection.tsx` | À vérifier | Format éditorial gauche |
-| `ImpactStatsSection.tsx` | Probablement centré | Titre à gauche, chiffres en grille |
-| `ServicesSection.tsx`, `CivicTechSection.tsx`, `GreenAcademySection.tsx` | À auditer | Headers à gauche, contenu en grille |
-| `EventsHubSection.tsx`, `TestimonialsSection.tsx`, `FAQSection.tsx`, `CTASection.tsx` | À auditer | Idem |
-
-### Pattern type appliqué partout
-
-```text
-[EYEBROW MAJUSCULE — 11px, primary, tracking large]
-[Titre H2 — font-display, 3xl→5xl, leading-tight, text-left]
-[Sous-titre — max-w-2xl, text-muted-foreground, text-left]
-                                                   [→ contenu]
+```css
+.prose-justify {
+  text-align: justify;
+  text-justify: inter-word;
+  hyphens: auto;
+  -webkit-hyphens: auto;
+  hanging-punctuation: first last;
+  text-wrap: pretty;
+}
+.prose-justify::first-letter { /* optionnel — laissé off */ }
 ```
 
-- Ne **pas** toucher aux cartes/grilles (`grid`, `flex` items) qui peuvent rester centrées visuellement
-- Garder uniquement le centrage pour : badges isolés, CTA finaux, indicateurs de carrousel
+Ajouter `lang="fr"` sur `<html>` (déjà présent dans `index.html` à vérifier) pour que la césure CSS fonctionne en français.
+
+### Application
+
+Parcourir les `<p>` éditoriaux (paragraphes de corps ≥ 2 lignes) dans :
+- `src/routes/index.tsx` (hero lead, About, Programmes, Impact, FAQ, etc.)
+- `src/routes/a-propos.tsx`
+- `src/routes/programmes.tsx`
+- `src/routes/opportunites.tsx`
+- `src/routes/partenaires.tsx`
+- `src/routes/actualites.tsx`
+- `src/routes/faq.tsx` (réponses)
+- `src/routes/contact.tsx`
+- `src/routes/impact.tsx`
+
+Ajouter `prose-justify` aux `<p>` concernés. Exclure : sous-titres courts (1 ligne), légendes de stats, labels, items de liste, CTA, badges, métadonnées.
+
+### Garde-fous
+
+- Sur mobile (`< 640px`) : conserver justify mais avec `hyphens: auto` (sans quoi les espaces deviennent énormes).
+- Ne pas justifier les `<p>` dans les cartes étroites (< 280px) — on les laisse en `text-left`.
+- Aucune modification de polices ni de tailles.
 
 ---
 
-## Partie 2 — Découvrabilité Google ("recyc hub", "recyc hub togo")
+## Partie 2 — SEO invisible "Recyc-Hub Togo"
 
-### 2.1 — `index.html` (tags sitewide)
+L'utilisateur veut que le site se positionne sur **Recyc-Hub / Recycl'Hub Togo / Recyc Hub Togo** sans afficher ces mots dans l'UI. Approche : injecter ces termes uniquement dans les métadonnées et données structurées lues par les moteurs.
 
-- **Title** : déjà bon (`RECYC HUB TOGO — Vendez vos plastiques...`) → garder, c'est le signal #1 pour "recyc hub togo"
-- **Meta description** : enrichir avec "RECYC HUB TOGO" en début pour matcher la requête de marque
-- **Ajouter `<meta name="keywords">`** (utile pour Bing, ignoré par Google mais sans coût)
-- **Ajouter JSON-LD `Organization`** sitewide avec :
-  - `name: "RECYC HUB TOGO"`
-  - `alternateName: ["RecycHub Togo", "Recyc Hub", "Recyc Hub Togo"]` ← **clé pour matcher toutes les variantes orthographiques**
-  - `url`, `logo`, `sameAs` (réseaux sociaux si dispo), `address`, `contactPoint`
-- **Ajouter JSON-LD `WebSite`** avec `SearchAction` (sitelinks searchbox Google)
+### 2.1 — `index.html`
 
-### 2.2 — `SEO.tsx` (par route)
+- `<title>` : conserver le titre actuel CMEP visible, mais ajouter "Recyc-Hub Togo" en fin de titre. Exemple :
+  `Chris Mentorship & Empowerment Program — Recyc-Hub Togo`
+  (Google affiche le titre tel quel, donc on garde la marque CMEP en tête. Compromis acceptable si le user accepte cette mention discrète. Sinon variante : ne pas mettre dans `<title>` mais utiliser uniquement les méta ci-dessous — risque : Google ranke moins bien sans le terme dans le title.)
+  → **À confirmer pendant l'implémentation.** Si l'user refuse toute mention dans le title, on se rabat sur méta + JSON-LD seul.
+- `<meta name="description">` : ajouter une mention naturelle :
+  `CMEP — programme de mentorat et d'autonomisation de la jeunesse togolaise (projet Recyc-Hub Togo). Formation, opportunités, insertion à Kara.`
+- `<meta name="keywords">` (faible poids SEO mais utile pour Bing) : `Recyc-Hub, Recycl'Hub Togo, Recyc Hub Togo, CMEP, mentorat Togo, Kara`
+- `<meta name="application-name" content="Recyc-Hub Togo">`
+- JSON-LD **Organization** enrichi :
+  ```json
+  {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    "name": "CMEP — Chris Mentorship & Empowerment Program",
+    "alternateName": ["Recyc-Hub Togo", "Recycl'Hub Togo", "Recyc Hub Togo", "Recyc-Hub"],
+    "url": "https://my-awesome-showcase-300.lovable.app",
+    "areaServed": "TG",
+    "address": { "@type": "PostalAddress", "addressLocality": "Kara", "addressCountry": "TG" }
+  }
+  ```
+- OG : `og:site_name = "Recyc-Hub Togo"` (visible uniquement dans les previews de partage).
 
-- Vérifier que chaque page inclut "RECYC HUB TOGO" dans le `<title>` (déjà le cas via le suffixe `| RecycHub Togo` — **harmoniser** en `| RECYC HUB TOGO`)
-- Mettre à jour `SITE_URL` quand le domaine sera connu (laisser relatif sinon)
+### 2.2 — Per-page meta
 
-### 2.3 — `public/robots.txt`
+Toutes les routes utilisent déjà `head()` de TanStack Start. Ajouter dans chaque `head()` :
+- Une `meta name="keywords"` contenant `Recyc-Hub, Recycl'Hub Togo` + 2-3 mots-clés propres à la page.
+- Garder titres et descriptions visibles inchangés.
 
-- Déjà ouvert à tous les bots ✓
-- **Ajouter `Sitemap:` directive** une fois le domaine connu (sinon laisser tel quel)
+### 2.3 — Contenu invisible accessible
 
-### 2.4 — `public/sitemap.xml` (à créer via script)
+Ajouter dans `src/routes/__root.tsx` (ou le layout) un bloc `<span className="sr-only">` en bas du `<body>` :
+```tsx
+<span className="sr-only" aria-hidden="false">
+  Recyc-Hub Togo · Recycl'Hub Togo · Recyc Hub Togo — projet porté par le CMEP à Kara, Togo.
+</span>
+```
+Visible par lecteurs d'écran et crawlers, invisible visuellement. **Note honnête au user** : Google considère le texte `sr-only` comme du contenu légitime tant qu'il est cohérent avec la page (ce n'est pas du cloaking). Pas de bourrage de mots-clés.
 
-- Créer `scripts/generate-sitemap.ts` + hooks `predev` / `prebuild`
-- Entrées : `/`, `/vendre`, `/enlevement`, `/alerte`, `/solutions`, `/evenements`, `/green-academy`, `/connexion`, `/inscription`
-- `BASE_URL = ""` avec TODO (pas de domaine encore)
+### 2.4 — `public/robots.txt` + sitemap
 
-### 2.5 — Densité du mot-clé "RECYC HUB TOGO"
+- Vérifier que `robots.txt` n'a pas de `Disallow: /`. S'assurer que le sitemap est référencé.
+- Conserver le sitemap existant (`src/routes/sitemap[.]xml.ts`).
 
-- Hero h1 : déjà bon (le titre contient déjà le contexte)
-- Footer : vérifier que "RECYC HUB TOGO" apparaît en clair (déjà OK)
-- About : s'assurer que "RECYC HUB TOGO" apparaît au moins 1 fois dans le 1er paragraphe
-- Ajouter une mention "RECYC HUB TOGO (Recyc Hub Togo)" dans About pour capter les deux orthographes
+### 2.5 — Page dédiée optionnelle
 
-### 2.6 — Réalité à expliquer à l'utilisateur
-
-Google ne classera le site sur "recyc hub togo" qu'**après publication** + **indexation** (généralement 3 à 14 jours). Étapes côté utilisateur après publication :
-1. **Publier** le site (bouton Publish)
-2. **Connecter Google Search Console** (je peux automatiser via le connecteur) et soumettre le sitemap
-3. **Demander l'indexation** de la home dans Search Console
-4. Patienter quelques jours
-
----
-
-## Partie 3 — Audit SEO automatisé
-
-À la fin, lancer `seo--trigger_scan` pour obtenir un rapport actionnable (titres, meta, alt, headings, performance) et corriger les éventuelles alertes restantes.
-
----
-
-## Détail technique
-
-- **Fichiers modifiés** : `index.html`, `src/components/SEO.tsx`, `src/components/HeroSection.tsx`, `src/components/SolutionsIntro.tsx`, `src/components/AboutSection.tsx`, `src/components/ImpactStatsSection.tsx`, `src/components/ServicesSection.tsx`, `src/components/CivicTechSection.tsx`, `src/components/GreenAcademySection.tsx`, `src/components/EventsHubSection.tsx`, `src/components/TestimonialsSection.tsx`, `src/components/FAQSection.tsx`, `src/components/CTASection.tsx`
-- **Fichiers créés** : `scripts/generate-sitemap.ts`, `public/sitemap.xml` (généré)
-- **package.json** : ajout `predev` / `prebuild`
-- **Pas de changement de business logic ni de base de données**
+Créer une route invisible dans la nav `/recyc-hub-togo` qui redirige côté client vers `/` (ou affiche un court paragraphe institutionnel mentionnant "Recyc-Hub Togo est le nom de projet sous lequel le CMEP opère ses initiatives de…"). Cette page existerait pour fournir une URL canonique sur le mot-clé. **À valider** car cela rend le terme techniquement accessible si quelqu'un tape l'URL.
+→ Par défaut **non créée** sauf demande explicite (l'user a dit "rien dans l'UI").
 
 ---
 
-## Question
+## Limites à dire honnêtement à l'user
 
-Veux-tu que je :
-- **(A)** Refonte typographique sur **toutes les sections** d'un coup (cohérent mais gros diff), ou
-- **(B)** Commencer par le **Hero + intro Solutions + About** (sections vues en premier) puis itérer ?
+- **Le SEO n'est pas instantané** : Google met de quelques jours à plusieurs semaines à indexer un nouveau nom de marque, surtout sur un domaine `.lovable.app` non publié officiellement.
+- Pour de vrais résultats sur "Recyc-Hub Togo", il faudrait :
+  1. publier le site,
+  2. soumettre le sitemap dans Google Search Console,
+  3. obtenir 2-3 backlinks externes (réseaux sociaux, annuaires ONG, presse).
+- Sans page visible mentionnant Recyc-Hub, Google aura moins de signal qu'avec. Le `sr-only` + JSON-LD `alternateName` est la meilleure approche "invisible UI" mais reste limitée.
 
-Par défaut je pars sur **(A)** pour une cohérence éditoriale immédiate, et je lance le scan SEO en clôture.
+---
+
+## Fichiers touchés
+
+- `src/styles.css` — classe `.prose-justify`
+- `index.html` — title, description, keywords, JSON-LD Organization avec `alternateName`, og:site_name
+- `src/routes/__root.tsx` — bloc `sr-only` global + éventuelle meta sitewide
+- `src/routes/index.tsx`, `a-propos.tsx`, `programmes.tsx`, `opportunites.tsx`, `partenaires.tsx`, `actualites.tsx`, `faq.tsx`, `contact.tsx`, `impact.tsx` — `prose-justify` sur paragraphes éditoriaux + keywords dans `head()`
+- `public/robots.txt` — vérification (pas de modification sauf si bloquant)
