@@ -55,7 +55,7 @@ export const services: ServiceFlow[] = [
     label: "Vendre ses plastiques",
     icon: Smartphone,
     subtitle: "Vente de plastiques",
-    intro: "De vos déchets à votre portefeuille en 4 étapes simples. Pas besoin d'internet haut débit — WhatsApp suffit.",
+    intro: "De vos déchets à votre portefeuille en 4 étapes simples. Pas besoin d'internet haut débit, WhatsApp suffit.",
     ctaLabel: "Commencer à vendre",
     ctaLink: "/vendre-plastiques",
     steps: [
@@ -244,7 +244,7 @@ export const services: ServiceFlow[] = [
     label: "Événementiel",
     icon: Users,
     subtitle: "Événements écocitoyens",
-    intro: "Participez ou organisez des événements écocitoyens en quelques clics. Nettoyages collectifs, ateliers, conférences — tout est à portée de main.",
+    intro: "Participez ou organisez des événements écocitoyens en quelques clics. Nettoyages collectifs, ateliers, conférences : tout est à portée de main.",
     ctaLabel: "Voir les événements",
     ctaLink: "/evenements",
     steps: [

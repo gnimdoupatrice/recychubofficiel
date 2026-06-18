@@ -311,7 +311,7 @@ const AdminDashboard = () => {
                           <TableCell>
                             {r.photo_url ? (
                               <a href={r.photo_url} target="_blank" rel="noopener noreferrer" className="text-primary underline text-sm">Voir</a>
-                            ) : <span className="text-muted-foreground text-sm">—</span>}
+                            ) : <span className="text-muted-foreground text-sm">N/A</span>}
                           </TableCell>
                           <TableCell>
                             <Badge variant="outline" className={statusColors[r.status] ?? ""}>

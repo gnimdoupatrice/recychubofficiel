@@ -45,7 +45,7 @@ const GreenAcademy = () => {
   return (
     <div className="min-h-screen bg-white font-inter">
       <SEO
-        title="Green Academy — Formations économie circulaire au Togo"
+        title="Green Academy · Formations économie circulaire au Togo"
         description="Apprenez le tri, le compostage, les métiers verts et l'entrepreneuriat durable au Togo. Modules vidéo, ateliers terrain et certifications via la Green Academy de RECYC HUB TOGO."
         path="/academy"
       />
@@ -155,7 +155,7 @@ const GreenAcademy = () => {
               Modules disponibles
             </h2>
             <p className="mt-6 text-muted-foreground font-light text-lg">
-              Vidéos, ateliers et cours certifiants — accessibles depuis
+              Vidéos, ateliers et cours certifiants, accessibles depuis
               n'importe quel téléphone, même en zone à faible débit.
             </p>
           </div>
