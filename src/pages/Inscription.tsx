@@ -45,7 +45,7 @@ const Inscription = () => {
   };
 
   return (
-    <div className="pt-24 pb-16 min-h-screen flex items-center">
+    <div className="pt-24 pb-16 min-h-dvh flex items-center">
       <SEO title="Inscription" description="Créez votre compte RecycHub Togo en 1 minute pour vendre vos plastiques et bénéficier de l'enlèvement à domicile à Kara." path="/inscription" />
       <div className="container mx-auto px-4">
         <div className="max-w-sm mx-auto">

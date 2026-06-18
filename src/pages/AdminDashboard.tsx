@@ -131,7 +131,7 @@ const AdminDashboard = () => {
 
   if (authLoading || checking) {
     return (
-      <div className="min-h-screen flex items-center justify-center">
+      <div className="min-h-dvh flex items-center justify-center">
         <Loader2 className="h-8 w-8 animate-spin text-primary" />
       </div>
     );
@@ -142,7 +142,7 @@ const AdminDashboard = () => {
   const pendingAlerts = alerts.filter((r) => r.status === "reported").length;
 
   return (
-    <main className="min-h-screen bg-background pt-24 pb-16 px-4">
+    <main className="min-h-dvh bg-background pt-24 pb-16 px-4">
       <div className="max-w-7xl mx-auto">
         <h1 className="text-3xl font-bold mb-8 font-['Space_Grotesk']">
           Tableau de bord <span className="text-gradient-emerald">Admin</span>
@@ -311,7 +311,7 @@ const AdminDashboard = () => {
                           <TableCell>
                             {r.photo_url ? (
                               <a href={r.photo_url} target="_blank" rel="noopener noreferrer" className="text-primary underline text-sm">Voir</a>
-                            ) : <span className="text-muted-foreground text-sm">—</span>}
+                            ) : <span className="text-muted-foreground text-sm">N/A</span>}
                           </TableCell>
                           <TableCell>
                             <Badge variant="outline" className={statusColors[r.status] ?? ""}>

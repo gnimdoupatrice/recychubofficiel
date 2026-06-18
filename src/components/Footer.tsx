@@ -96,7 +96,7 @@ const Footer = () => {
 
         {/* Bottom bar */}
         <div className="pt-8 flex flex-col md:flex-row items-center justify-between gap-4 text-xs text-background/45 font-light">
-          <div>© {year} RECYC HUB TOGO — Tous droits réservés.</div>
+          <div>© {year} RECYC HUB TOGO · Tous droits réservés.</div>
           <div className="flex items-center gap-6">
             <Link to="/" className="hover:text-background/80 transition-colors">Mentions légales</Link>
             <Link to="/" className="hover:text-background/80 transition-colors">Confidentialité</Link>

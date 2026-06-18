@@ -49,8 +49,8 @@ const HeroSection = () => {
 
   return (
     <section
-      aria-label="RECYC HUB TOGO — Vendez vos plastiques ou faites enlever vos déchets ménagers"
-      className="relative min-h-[92vh] md:min-h-[95vh] overflow-hidden pt-16 md:pt-32 bg-background"
+      aria-label="RECYC HUB TOGO. Vendez vos plastiques ou faites enlever vos déchets ménagers"
+      className="relative min-h-[88dvh] md:min-h-[95vh] overflow-hidden pt-16 md:pt-32 bg-background"
     >
       {/* Background carousel */}
       <div className="absolute left-0 right-0 bottom-0 top-16 md:top-[120px]" aria-hidden="true">
@@ -70,21 +70,22 @@ const HeroSection = () => {
         ))}
       </div>
 
-      {/* Light overlays — airy, Waste Heroes feel */}
+      {/* Voile vert signature — moins blanc, lisibilité préservée */}
       <div
-        className="absolute inset-0 z-[2] bg-gradient-to-b from-background/85 via-background/55 to-background/85"
+        className="absolute inset-0 z-[2] bg-gradient-to-b from-primary/30 via-primary/15 to-primary/35"
         aria-hidden="true"
       />
+      {/* Halo central pour le contraste du texte */}
       <div
-        className="absolute inset-0 z-[2] bg-gradient-to-br from-primary/10 via-transparent to-secondary/10"
+        className="absolute inset-0 z-[2] bg-[radial-gradient(ellipse_at_center,hsl(var(--background)/0.55),transparent_70%)]"
         aria-hidden="true"
       />
 
       {/* Content */}
-      <div className="relative z-[3] container mx-auto px-6 max-w-6xl py-12 md:py-20">
+      <div className="relative z-[3] container mx-auto px-5 sm:px-6 max-w-6xl py-10 sm:py-12 md:py-20">
         {/* Welcome badge */}
-        <div className="flex justify-center mb-7 animate-slide-up">
-          <span className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-primary/10 border border-primary/20 backdrop-blur-md text-primary text-[11px] sm:text-xs font-bold uppercase tracking-[0.2em]">
+        <div className="flex justify-center mb-6 sm:mb-7 animate-slide-up">
+          <span className="inline-flex items-center gap-2 px-4 py-2 sm:px-5 sm:py-2.5 rounded-full bg-primary/10 border border-primary/20 backdrop-blur-md text-primary text-[10px] sm:text-xs font-bold uppercase tracking-[0.18em] sm:tracking-[0.2em]">
             <Sparkles className="w-3.5 h-3.5 text-secondary" />
             Bienvenue sur {BRAND}
           </span>
@@ -92,7 +93,7 @@ const HeroSection = () => {
 
         {/* Headline */}
         <h1
-          className="text-center font-display font-extrabold leading-[1.05] tracking-tight text-foreground text-3xl sm:text-4xl md:text-5xl lg:text-6xl max-w-5xl mx-auto mb-6 animate-slide-up"
+          className="text-center font-display font-extrabold leading-[1.08] tracking-tight text-foreground text-[28px] sm:text-4xl md:text-5xl lg:text-6xl max-w-5xl mx-auto mb-5 sm:mb-6 animate-slide-up break-words"
           style={{ animationDelay: "0.05s" }}
         >
           Faites collecter vos déchets ménagers
@@ -206,7 +207,7 @@ const HeroSection = () => {
           >
             <AlertTriangle className="w-4 h-4 text-destructive animate-pulse" />
             <span className="text-foreground font-bold text-sm">Signaler un dépotoir sauvage</span>
-            <span className="hidden sm:inline text-muted-foreground text-xs">— ponts, caniveaux, terrains</span>
+            <span className="hidden sm:inline text-muted-foreground text-xs">(ponts, caniveaux, terrains)</span>
             <ArrowRight className="w-4 h-4 text-foreground/60 transition-transform group-hover:translate-x-1" />
           </Link>
         </div>

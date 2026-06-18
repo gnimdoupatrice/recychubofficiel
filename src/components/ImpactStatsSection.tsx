@@ -37,7 +37,7 @@ const ImpactStatsSection = () => (
       </div>
 
       <p className="mt-8 text-xs text-muted-foreground">
-        Indicateurs consolidés au 1er trimestre 2026 — données opérationnelles RECYC HUB TOGO.
+        Indicateurs consolidés au 1er trimestre 2026, données opérationnelles RECYC HUB TOGO.
       </p>
     </div>
   </section>

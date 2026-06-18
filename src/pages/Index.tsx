@@ -54,7 +54,7 @@ const Index = () => {
   return (
     <div className="pb-16 lg:pb-0">
       <SEO
-        title="RECYC HUB TOGO — Vendez vos plastiques ou faites enlever vos déchets à Kara"
+        title="RECYC HUB TOGO · Vendez vos plastiques ou faites enlever vos déchets à Kara"
         description="Plateforme phygitale à Kara : vendez vos plastiques au kg (jusqu'à 150 FCFA/kg), demandez un enlèvement de déchets ménagers, signalez les dépotoirs sauvages."
         path="/"
         jsonLd={jsonLd}

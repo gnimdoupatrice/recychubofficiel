@@ -185,7 +185,7 @@ const AboutSection = () => {
               <div className="flex flex-col">
                 <span
                   aria-hidden="true"
-                  className="font-extrabold text-7xl md:text-8xl lg:text-9xl leading-none tracking-tight text-primary/15 mb-4"
+                  className="font-extrabold text-5xl sm:text-6xl md:text-8xl lg:text-9xl leading-none tracking-tight text-primary/15 mb-4"
                 >
                   {c.number}
                 </span>
