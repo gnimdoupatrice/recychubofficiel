@@ -29,7 +29,7 @@ const stats = [
 
 const GreenAcademySection = () => (
   <section
-    id="green-academy "
+    id="green-academy  "
     className="relative band-plain py-24 md:py-32 px-6 md:px-12 lg:px-24 overflow-hidden"
   >
     <div className="max-w-7xl mx-auto relative grid lg:grid-cols-12 gap-12 lg:gap-16 items-center">
@@ -52,7 +52,7 @@ const GreenAcademySection = () => (
           />
         </div>
 
-        {/* Floating certification badge             */}
+        {/* Floating certification badge */}
         <div className="absolute -bottom-6 -right-2 md:-right-6 bg-primary text-primary-foreground rounded-2xl px-5 py-4 shadow-[0_20px_50px_-20px_hsl(var(--primary)/0.6)] max-w-[200px]">
           <div className="flex items-center gap-2 mb-1">
             <Award className="w-4 h-4" />

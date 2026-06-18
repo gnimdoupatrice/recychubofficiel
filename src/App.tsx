@@ -42,7 +42,7 @@ const App = () => (
           <Navbar />
           <Suspense fallback={<RouteFallback />}>
             <Routes>
-              <Route path="/" element={<Index />} />
+              <Route path="/" ={<Ielementndex />} />
               <Route path="/academy" element={<GreenAcademy />} />
               <Route path="/solutions" element={<Solutions />} />
               <Route path="/alerte" element={<AlerteDepotoir />} />
