@@ -81,41 +81,42 @@ const HeroSection = () => {
         aria-hidden="true"
       />
 
-      {/* Content */}
+      {/* Content — alignement gauche éditorial (style ONU / PNUD) */}
       <div className="relative z-[3] container mx-auto px-5 sm:px-6 max-w-6xl py-10 sm:py-12 md:py-20">
-        {/* Welcome badge */}
-        <div className="flex justify-center mb-6 sm:mb-7 animate-slide-up">
+        {/* Eyebrow */}
+        <div className="mb-5 sm:mb-6 animate-slide-up">
           <span className="inline-flex items-center gap-2 px-4 py-2 sm:px-5 sm:py-2.5 rounded-full bg-primary/10 border border-primary/20 backdrop-blur-md text-primary text-[10px] sm:text-xs font-bold uppercase tracking-[0.18em] sm:tracking-[0.2em]">
             <Sparkles className="w-3.5 h-3.5 text-secondary" />
             Bienvenue sur {BRAND}
           </span>
         </div>
 
-        {/* Headline */}
+        {/* Headline — left aligned */}
         <h1
-          className="text-center font-display font-extrabold leading-[1.08] tracking-tight text-foreground text-[28px] sm:text-4xl md:text-5xl lg:text-6xl max-w-5xl mx-auto mb-5 sm:mb-6 animate-slide-up break-words"
+          className="text-left font-display font-extrabold leading-[1.08] tracking-tight text-foreground text-[28px] sm:text-4xl md:text-5xl lg:text-6xl max-w-4xl mb-5 sm:mb-6 animate-slide-up break-words"
           style={{ animationDelay: "0.05s" }}
         >
-          Faites collecter vos déchets ménagers
-          <br className="hidden sm:block" />{" "}
+          Faites collecter vos déchets ménagers{" "}
           <span className="text-primary">
             et vendez vos plastiques
           </span>
         </h1>
 
 
-        {/* Subtitle */}
+        {/* Subtitle — left aligned */}
         <p
-          className="text-center text-foreground/75 text-sm sm:text-base md:text-lg max-w-2xl mx-auto mb-10 animate-slide-up"
+          className="text-left text-foreground/75 text-sm sm:text-base md:text-lg max-w-2xl mb-10 animate-slide-up"
           style={{ animationDelay: "0.15s" }}
         >
           Choisissez votre parcours : <strong className="text-foreground">vendez vos plastiques au kg</strong>{" "}
           ou <strong className="text-foreground">demandez un enlèvement</strong> de vos déchets ménagers en quelques clics.
         </p>
 
+
+        {/* Two cards — light Waste Heroes style */}
         {/* Two cards — light Waste Heroes style */}
         <div
-          className="grid grid-cols-1 md:grid-cols-5 gap-4 md:gap-5 max-w-5xl mx-auto mb-8 animate-slide-up"
+          className="grid grid-cols-1 md:grid-cols-5 gap-4 md:gap-5 mb-8 animate-slide-up"
           style={{ animationDelay: "0.25s" }}
         >
           {/* Primary card */}
@@ -198,8 +199,8 @@ const HeroSection = () => {
           </Link>
         </div>
 
-        {/* Alert pill */}
-        <div className="flex justify-center mb-8 animate-slide-up" style={{ animationDelay: "0.3s" }}>
+        {/* Alert pill — left aligned */}
+        <div className="mb-8 animate-slide-up" style={{ animationDelay: "0.3s" }}>
           <Link
             to="/alerte"
             aria-label="Signaler un dépotoir sauvage"
@@ -212,9 +213,9 @@ const HeroSection = () => {
           </Link>
         </div>
 
-        {/* Meta indicators */}
+        {/* Meta indicators — left aligned */}
         <div
-          className="flex flex-wrap items-center justify-center gap-x-6 gap-y-2 text-xs text-foreground/65 animate-slide-up"
+          className="flex flex-wrap items-center gap-x-6 gap-y-2 text-xs text-foreground/65 animate-slide-up"
           style={{ animationDelay: "0.4s" }}
         >
           <span className="inline-flex items-center gap-2">
@@ -235,6 +236,7 @@ const HeroSection = () => {
             Kara, Togo
           </span>
         </div>
+
 
 
         {/* Slide indicators */}
