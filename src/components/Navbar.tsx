@@ -213,7 +213,7 @@ const Navbar = () => {
             {/* Vendre — vert secondary, icône qui rebondit + badge FCFA au hover */}
             <Link to="/vendre" className={linkClass(location.pathname === "/vendre", "secondary")}>
               <ShoppingBag className="w-3.5 h-3.5 group-hover:[animation:nav-bounce_.5s_ease-out]" />
-              Vendre
+              Vendre mes plastiques
 
               <Underline active={location.pathname === "/vendre"} tone="secondary" />
             </Link>
@@ -264,7 +264,7 @@ const Navbar = () => {
             {/* Enlèvement — bleu/teal logistique, camion qui roule à droite */}
             <Link to="/enlevement" className={linkClass(location.pathname === "/enlevement", "accent")}>
               <Truck className="w-3.5 h-3.5 group-hover:translate-x-[3px]" />
-              Enlèvement
+              Enlèvement de déchets
 
               <Underline active={location.pathname === "/enlevement"} tone="accent" />
             </Link>
