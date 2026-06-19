@@ -46,7 +46,7 @@ const TestimonialsSection = () => (
             className="bg-white p-8 md:p-10 flex flex-col"
           >
             <Quote className="w-8 h-8 text-primary/30 mb-6" strokeWidth={1.5} />
-            <p className="font-editorial text-xl md:text-[1.4rem] text-foreground leading-snug mb-8 flex-1 italic text-justify hyphens-auto">
+            <p className="editorial-body font-editorial text-xl md:text-[1.4rem] text-foreground leading-snug mb-8 flex-1 italic">
               « {t.text} »
             </p>
             <div className="flex items-center gap-4 pt-6 border-t border-foreground/10">

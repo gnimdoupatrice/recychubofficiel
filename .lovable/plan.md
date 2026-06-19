@@ -1,124 +1,99 @@
 ## Objectif
 
-1. Appliquer une justification éditoriale (text-justify, césure, ligature) aux paragraphes de toutes les pages — sans toucher aux titres, listes, badges, ni CTA.
-2. Optimiser le SEO pour que **Recyc-Hub**, **Recycl'Hub Togo**, **Recyc Hub Togo** déclenchent l'apparition du site dans Google — sans modifier l'UI visible (la marque affichée reste CMEP).
+Centraliser les règles d'alignement typographique (center / justify) dans `src/index.css` via des classes sémantiques réutilisables, pour que toute nouvelle section hérite automatiquement du bon comportement et éviter d'avoir à patcher composant par composant.
 
----
+## Principe
 
-## Partie 1 — Texte justifié éditorial
+On définit **3 classes sémantiques** (intention, pas style) dans `@layer components` de `src/index.css`, plus des règles automatiques pour les éléments qui doivent toujours avoir le même alignement. Le code des composants utilisera ces classes au lieu d'utilitaires Tailwind bruts (`text-justify`, `text-center`, `hyphens-auto`).
 
-### Approche
+### Les classes
 
-Créer une classe utilitaire `prose-justify` dans `src/styles.css` :
+| Classe | Usage | Effet |
+|---|---|---|
+| `.editorial-body` | Paragraphes éditoriaux longs (≥ 2 lignes) — intros de section, excerpts, descriptions | `text-align: justify` + `hyphens: auto` + `text-wrap: pretty` + garde-fou mobile |
+| `.editorial-center` | Titres centrés, baselines de hero, blocs contact compacts | `text-align: center` |
+| `.editorial-lead` | Headlines / H1 / H2 multi-lignes qui doivent rester lisibles | `text-align: justify` + `text-wrap: balance` (équilibre les fins de ligne sans rivières) |
+
+### Règles automatiques (sans toucher au markup)
+
+Pour limiter les régressions futures, ajout de sélecteurs automatiques :
+
+- `p.leading-relaxed` → justify (déjà en place, conservé)
+- `footer address`, `footer address *` → center (les contacts du footer)
+- `section[data-align="center"] h1, h2, p` → center (opt-in par data-attribute)
+- `section[data-align="justify"] p` → justify
+
+Ainsi une nouvelle section peut écrire `<section data-align="center">` et tous ses textes hériteront du bon alignement sans toucher au CSS.
+
+## Migration des composants existants
+
+Remplacement des classes Tailwind brutes par les classes sémantiques sur :
+
+- `HeroSection.tsx` — H1 : `text-center` → `editorial-center` (sur le H1)
+- `Footer.tsx` — bloc Contact : déjà couvert par la règle auto `footer address`, on peut retirer `text-center` redondant
+- `TestimonialsSection.tsx` — `<p>` témoignage : `text-justify hyphens-auto` → `editorial-body`
+- `EventsHubSection.tsx` — intro + excerpts : `text-justify hyphens-auto` → `editorial-body`
+- `CTASection.tsx` — H2 : `text-justify hyphens-auto` → `editorial-lead`
+
+## Détails techniques
+
+Ajout dans `src/index.css`, juste après le bloc justify existant (ligne 595) :
 
 ```css
-.prose-justify {
-  text-align: justify;
-  text-justify: inter-word;
-  hyphens: auto;
-  -webkit-hyphens: auto;
-  hanging-punctuation: first last;
-  text-wrap: pretty;
-}
-.prose-justify::first-letter { /* optionnel — laissé off */ }
-```
-
-Ajouter `lang="fr"` sur `<html>` (déjà présent dans `index.html` à vérifier) pour que la césure CSS fonctionne en français.
-
-### Application
-
-Parcourir les `<p>` éditoriaux (paragraphes de corps ≥ 2 lignes) dans :
-- `src/routes/index.tsx` (hero lead, About, Programmes, Impact, FAQ, etc.)
-- `src/routes/a-propos.tsx`
-- `src/routes/programmes.tsx`
-- `src/routes/opportunites.tsx`
-- `src/routes/partenaires.tsx`
-- `src/routes/actualites.tsx`
-- `src/routes/faq.tsx` (réponses)
-- `src/routes/contact.tsx`
-- `src/routes/impact.tsx`
-
-Ajouter `prose-justify` aux `<p>` concernés. Exclure : sous-titres courts (1 ligne), légendes de stats, labels, items de liste, CTA, badges, métadonnées.
-
-### Garde-fous
-
-- Sur mobile (`< 640px`) : conserver justify mais avec `hyphens: auto` (sans quoi les espaces deviennent énormes).
-- Ne pas justifier les `<p>` dans les cartes étroites (< 280px) — on les laisse en `text-left`.
-- Aucune modification de polices ni de tailles.
-
----
-
-## Partie 2 — SEO invisible "Recyc-Hub Togo"
-
-L'utilisateur veut que le site se positionne sur **Recyc-Hub / Recycl'Hub Togo / Recyc Hub Togo** sans afficher ces mots dans l'UI. Approche : injecter ces termes uniquement dans les métadonnées et données structurées lues par les moteurs.
-
-### 2.1 — `index.html`
-
-- `<title>` : conserver le titre actuel CMEP visible, mais ajouter "Recyc-Hub Togo" en fin de titre. Exemple :
-  `Chris Mentorship & Empowerment Program — Recyc-Hub Togo`
-  (Google affiche le titre tel quel, donc on garde la marque CMEP en tête. Compromis acceptable si le user accepte cette mention discrète. Sinon variante : ne pas mettre dans `<title>` mais utiliser uniquement les méta ci-dessous — risque : Google ranke moins bien sans le terme dans le title.)
-  → **À confirmer pendant l'implémentation.** Si l'user refuse toute mention dans le title, on se rabat sur méta + JSON-LD seul.
-- `<meta name="description">` : ajouter une mention naturelle :
-  `CMEP — programme de mentorat et d'autonomisation de la jeunesse togolaise (projet Recyc-Hub Togo). Formation, opportunités, insertion à Kara.`
-- `<meta name="keywords">` (faible poids SEO mais utile pour Bing) : `Recyc-Hub, Recycl'Hub Togo, Recyc Hub Togo, CMEP, mentorat Togo, Kara`
-- `<meta name="application-name" content="Recyc-Hub Togo">`
-- JSON-LD **Organization** enrichi :
-  ```json
-  {
-    "@context": "https://schema.org",
-    "@type": "Organization",
-    "name": "CMEP — Chris Mentorship & Empowerment Program",
-    "alternateName": ["Recyc-Hub Togo", "Recycl'Hub Togo", "Recyc Hub Togo", "Recyc-Hub"],
-    "url": "https://my-awesome-showcase-300.lovable.app",
-    "areaServed": "TG",
-    "address": { "@type": "PostalAddress", "addressLocality": "Kara", "addressCountry": "TG" }
+@layer components {
+  .editorial-body {
+    text-align: justify;
+    text-justify: inter-word;
+    hyphens: auto;
+    -webkit-hyphens: auto;
+    hyphenate-limit-chars: 6 3 3;
+    text-wrap: pretty;
   }
-  ```
-- OG : `og:site_name = "Recyc-Hub Togo"` (visible uniquement dans les previews de partage).
+  .editorial-center {
+    text-align: center;
+    text-wrap: balance;
+  }
+  .editorial-lead {
+    text-align: justify;
+    text-justify: inter-word;
+    hyphens: auto;
+    text-wrap: balance;
+  }
 
-### 2.2 — Per-page meta
+  /* Règles automatiques (opt-in via data-attribute ou structure) */
+  footer address,
+  footer address > * {
+    text-align: center;
+  }
+  section[data-align="center"] :where(h1, h2, h3, p) {
+    text-align: center;
+  }
+  section[data-align="justify"] :where(p) {
+    text-align: justify;
+    hyphens: auto;
+  }
 
-Toutes les routes utilisent déjà `head()` de TanStack Start. Ajouter dans chaque `head()` :
-- Une `meta name="keywords"` contenant `Recyc-Hub, Recycl'Hub Togo` + 2-3 mots-clés propres à la page.
-- Garder titres et descriptions visibles inchangés.
-
-### 2.3 — Contenu invisible accessible
-
-Ajouter dans `src/routes/__root.tsx` (ou le layout) un bloc `<span className="sr-only">` en bas du `<body>` :
-```tsx
-<span className="sr-only" aria-hidden="false">
-  Recyc-Hub Togo · Recycl'Hub Togo · Recyc Hub Togo — projet porté par le CMEP à Kara, Togo.
-</span>
+  @media (max-width: 480px) {
+    .editorial-body { hyphenate-limit-chars: 5 2 2; }
+  }
+}
 ```
-Visible par lecteurs d'écran et crawlers, invisible visuellement. **Note honnête au user** : Google considère le texte `sr-only` comme du contenu légitime tant qu'il est cohérent avec la page (ce n'est pas du cloaking). Pas de bourrage de mots-clés.
 
-### 2.4 — `public/robots.txt` + sitemap
+`:where(...)` garde la spécificité à 0 pour qu'une classe Tailwind locale puisse toujours surcharger en cas de besoin exceptionnel.
 
-- Vérifier que `robots.txt` n'a pas de `Disallow: /`. S'assurer que le sitemap est référencé.
-- Conserver le sitemap existant (`src/routes/sitemap[.]xml.ts`).
+## Fichiers modifiés
 
-### 2.5 — Page dédiée optionnelle
+- `src/index.css` — ajout du bloc `@layer components` (≈30 lignes)
+- `src/components/HeroSection.tsx` — 1 classe
+- `src/components/Footer.tsx` — nettoyage redondance
+- `src/components/TestimonialsSection.tsx` — 1 classe
+- `src/components/EventsHubSection.tsx` — 2 classes
+- `src/components/CTASection.tsx` — 1 classe
 
-Créer une route invisible dans la nav `/recyc-hub-togo` qui redirige côté client vers `/` (ou affiche un court paragraphe institutionnel mentionnant "Recyc-Hub Togo est le nom de projet sous lequel le CMEP opère ses initiatives de…"). Cette page existerait pour fournir une URL canonique sur le mot-clé. **À valider** car cela rend le terme techniquement accessible si quelqu'un tape l'URL.
-→ Par défaut **non créée** sauf demande explicite (l'user a dit "rien dans l'UI").
+## Bénéfice
 
----
+Toute nouvelle section ajoutée plus tard n'a qu'à :
+- utiliser `<p className="editorial-body">` pour un paragraphe long, **ou**
+- envelopper la section avec `<section data-align="center">` / `data-align="justify"`
 
-## Limites à dire honnêtement à l'user
-
-- **Le SEO n'est pas instantané** : Google met de quelques jours à plusieurs semaines à indexer un nouveau nom de marque, surtout sur un domaine `.lovable.app` non publié officiellement.
-- Pour de vrais résultats sur "Recyc-Hub Togo", il faudrait :
-  1. publier le site,
-  2. soumettre le sitemap dans Google Search Console,
-  3. obtenir 2-3 backlinks externes (réseaux sociaux, annuaires ONG, presse).
-- Sans page visible mentionnant Recyc-Hub, Google aura moins de signal qu'avec. Le `sr-only` + JSON-LD `alternateName` est la meilleure approche "invisible UI" mais reste limitée.
-
----
-
-## Fichiers touchés
-
-- `src/styles.css` — classe `.prose-justify`
-- `index.html` — title, description, keywords, JSON-LD Organization avec `alternateName`, og:site_name
-- `src/routes/__root.tsx` — bloc `sr-only` global + éventuelle meta sitewide
-- `src/routes/index.tsx`, `a-propos.tsx`, `programmes.tsx`, `opportunites.tsx`, `partenaires.tsx`, `actualites.tsx`, `faq.tsx`, `contact.tsx`, `impact.tsx` — `prose-justify` sur paragraphes éditoriaux + keywords dans `head()`
-- `public/robots.txt` — vérification (pas de modification sauf si bloquant)
+→ plus de risque d'oublier `text-justify` ou de mélanger `text-center` / `text-left` au hasard.

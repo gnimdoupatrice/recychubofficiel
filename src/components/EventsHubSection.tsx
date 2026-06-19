@@ -53,7 +53,7 @@ const EventsHubSection = () => (
             Opportunités &{" "}
             <span className="italic text-primary">actualités</span>
           </h2>
-          <p className="mt-6 text-muted-foreground font-light text-lg text-justify hyphens-auto">
+          <p className="editorial-body mt-6 text-muted-foreground font-light text-lg">
             Le journal vivant de l'écosystème : événements, appels à projets,
             formations et histoires d'impact à travers le Togo.
           </p>
@@ -98,7 +98,7 @@ const EventsHubSection = () => (
                 {post.title}
               </Link>
             </h3>
-            <p className="text-[15px] text-muted-foreground leading-relaxed font-light mb-5 flex-1 text-justify hyphens-auto">
+            <p className="editorial-body text-[15px] text-muted-foreground leading-relaxed font-light mb-5 flex-1">
               {post.excerpt}
             </p>
             <div className="flex items-center justify-between text-xs text-muted-foreground border-t border-foreground/10 pt-4">
