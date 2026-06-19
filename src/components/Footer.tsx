@@ -75,7 +75,7 @@ const Footer = () => {
             </ul>
           </div>
 
-          <div className="col-span-2 sm:col-span-2 lg:col-span-3 text-center">
+          <div className="col-span-2 sm:col-span-2 lg:col-span-3">
             <h4 className="text-[10px] font-semibold uppercase tracking-[0.22em] text-primary mb-5">Contact</h4>
             <address className="not-italic space-y-3 text-sm font-light">
               <div className="flex items-center justify-center gap-3 text-background/75">

@@ -593,3 +593,47 @@
     }
   }
 }
+
+/* =========================================================================
+   Typographie centralisée — alignements sémantiques
+   3 classes d'intention + règles automatiques pour limiter les régressions.
+   ========================================================================= */
+@layer components {
+  .editorial-body {
+    text-align: justify;
+    text-justify: inter-word;
+    -webkit-hyphens: auto;
+    hyphens: auto;
+    hyphenate-limit-chars: 6 3 3;
+    text-wrap: pretty;
+  }
+  .editorial-center {
+    text-align: center;
+    text-wrap: balance;
+  }
+  .editorial-lead {
+    text-align: justify;
+    text-justify: inter-word;
+    -webkit-hyphens: auto;
+    hyphens: auto;
+    text-wrap: balance;
+  }
+
+  /* Règles automatiques */
+  footer address,
+  footer address > * {
+    text-align: center;
+  }
+  section[data-align="center"] :where(h1, h2, h3, p) {
+    text-align: center;
+  }
+  section[data-align="justify"] :where(p) {
+    text-align: justify;
+    -webkit-hyphens: auto;
+    hyphens: auto;
+  }
+
+  @media (max-width: 480px) {
+    .editorial-body { hyphenate-limit-chars: 5 2 2; }
+  }
+}
