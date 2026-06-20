@@ -198,8 +198,8 @@ const HeroSection = () => {
           </Link>
         </div>
 
-        {/* Alert pill — left aligned */}
-        <div className="mb-8 animate-slide-up" style={{ animationDelay: "0.3s" }}>
+        {/* Alert pill — centered */}
+        <div className="mb-8 text-center animate-slide-up" style={{ animationDelay: "0.3s" }}>
           <Link
             to="/alerte"
             aria-label="Signaler un dépotoir sauvage"
@@ -212,9 +212,9 @@ const HeroSection = () => {
           </Link>
         </div>
 
-        {/* Meta indicators — left aligned */}
+        {/* Meta indicators — centered */}
         <div
-          className="flex flex-wrap items-center gap-x-6 gap-y-2 text-xs text-foreground/65 animate-slide-up"
+          className="flex flex-wrap items-center justify-center gap-x-6 gap-y-2 text-xs text-foreground/65 animate-slide-up"
           style={{ animationDelay: "0.4s" }}
         >
           <span className="inline-flex items-center gap-2">
