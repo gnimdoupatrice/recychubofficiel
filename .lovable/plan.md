@@ -1,99 +1,119 @@
-## Objectif
 
-Centraliser les règles d'alignement typographique (center / justify) dans `src/index.css` via des classes sémantiques réutilisables, pour que toute nouvelle section hérite automatiquement du bon comportement et éviter d'avoir à patcher composant par composant.
+# Green Academy — Agrégateur de formations hybride
 
-## Principe
+## Vision
 
-On définit **3 classes sémantiques** (intention, pas style) dans `@layer components` de `src/index.css`, plus des règles automatiques pour les éléments qui doivent toujours avoir le même alignement. Le code des composants utilisera ces classes au lieu d'utilitaires Tailwind bruts (`text-justify`, `text-center`, `hyphens-auto`).
+La Green Academy ne produit pas de formations. Elle **agrège, catégorise et héberge** les meilleures formations existantes (YouTube, MOOCs francophones, ADEME, ONU, etc.). L'apprenant reste **dans RECYC HUB TOGO** : il regarde, suit sa progression, obtient des certificats de parcours.
 
-### Les classes
+## Comment ça marche (modèle hybride)
 
-| Classe | Usage | Effet |
-|---|---|---|
-| `.editorial-body` | Paragraphes éditoriaux longs (≥ 2 lignes) — intros de section, excerpts, descriptions | `text-align: justify` + `hyphens: auto` + `text-wrap: pretty` + garde-fou mobile |
-| `.editorial-center` | Titres centrés, baselines de hero, blocs contact compacts | `text-align: center` |
-| `.editorial-lead` | Headlines / H1 / H2 multi-lignes qui doivent rester lisibles | `text-align: justify` + `text-wrap: balance` (équilibre les fins de ligne sans rivières) |
+```text
+┌───────────────────────────────────────────────────────────┐
+│  Catalogue Green Academy (interne)                        │
+├───────────────────────────────────────────────────────────┤
+│                                                           │
+│  ┌─────────────────────┐    ┌────────────────────────┐    │
+│  │ Source: YouTube     │    │ Source: MOOC externe   │    │
+│  │ (embed autorisé)    │    │ (embed bloqué)         │    │
+│  ├─────────────────────┤    ├────────────────────────┤    │
+│  │ ▶ Lecteur natif     │    │ 🔗 Bouton "Suivre"     │    │
+│  │   dans la page      │    │   → nouvel onglet      │    │
+│  │   (iframe YouTube)  │    │   + tracking départ    │    │
+│  │                     │    │   + auto-cochage au    │    │
+│  │ Auto-progression    │    │     retour (déclaratif)│    │
+│  │ via Player API      │    │                        │    │
+│  └─────────────────────┘    └────────────────────────┘    │
+│                                                           │
+│            ↓ progression sauvegardée                      │
+│                                                           │
+│  ┌───────────────────────────────────────────────────┐    │
+│  │ Profil apprenant                                  │    │
+│  │ • Modules vus / en cours / terminés               │    │
+│  │ • % par parcours                                  │    │
+│  │ • Certificats PDF générés à 100 %                 │    │
+│  └───────────────────────────────────────────────────┘    │
+└───────────────────────────────────────────────────────────┘
+```
 
-### Règles automatiques (sans toucher au markup)
+## Étapes
 
-Pour limiter les régressions futures, ajout de sélecteurs automatiques :
+### 1. Activer Lovable Cloud
+Nécessaire pour : authentification (compte obligatoire), base de données (catalogue + progression), génération PDF des certificats.
 
-- `p.leading-relaxed` → justify (déjà en place, conservé)
-- `footer address`, `footer address *` → center (les contacts du footer)
-- `section[data-align="center"] h1, h2, p` → center (opt-in par data-attribute)
-- `section[data-align="justify"] p` → justify
+### 2. Schéma base de données
 
-Ainsi une nouvelle section peut écrire `<section data-align="center">` et tous ses textes hériteront du bon alignement sans toucher au CSS.
+```text
+courses            : id, slug, title, description, cover_url,
+                     track ('tri' | 'circulaire' | 'entrepreneuriat'),
+                     level, language, source_type ('youtube' | 'vimeo' | 'external' | 'pdf'),
+                     source_url, source_provider (YouTube, FUN, Coursera, ADEME…),
+                     duration_minutes, is_free, sort_order, published
+modules            : id, course_id, title, source_type, source_url, video_id,
+                     duration_minutes, position
+profiles           : id (= auth.users.id), full_name, avatar_url, region
+enrollments        : user_id, course_id, started_at, completed_at, progress_pct
+module_progress    : user_id, module_id, status ('not_started'|'in_progress'|'completed'),
+                     watched_seconds, completed_at
+certificates       : id, user_id, course_id, issued_at, pdf_url
+user_roles         : user_id, role ('admin' | 'editor' | 'learner')  ← table séparée + has_role()
+```
 
-## Migration des composants existants
+RLS sur tout. Admin/editor peuvent CRUD le catalogue, learner lit le catalogue + écrit sa propre progression.
 
-Remplacement des classes Tailwind brutes par les classes sémantiques sur :
+### 3. Pages & composants
 
-- `HeroSection.tsx` — H1 : `text-center` → `editorial-center` (sur le H1)
-- `Footer.tsx` — bloc Contact : déjà couvert par la règle auto `footer address`, on peut retirer `text-center` redondant
-- `TestimonialsSection.tsx` — `<p>` témoignage : `text-justify hyphens-auto` → `editorial-body`
-- `EventsHubSection.tsx` — intro + excerpts : `text-justify hyphens-auto` → `editorial-body`
-- `CTASection.tsx` — H2 : `text-justify hyphens-auto` → `editorial-lead`
+- `/academy` — landing (refonte de l'existant) : hero + 3 parcours + catalogue filtré
+- `/academy/parcours/:track` — vue parcours avec ses cours
+- `/academy/cours/:slug` — **page lecture** : 
+  - **YouTube** → `<iframe>` + YouTube IFrame API pour récupérer la position et marquer "terminé" à 90 %
+  - **PDF** → viewer intégré (`react-pdf`)
+  - **MOOC externe** → carte "Suivre sur [provider]" + bouton "J'ai terminé" + lien retour
+  - Sidebar : liste des modules + état (✓ / en cours / verrouillé optionnel)
+- `/academy/mon-parcours` — dashboard apprenant (cours en cours, certificats, % global)
+- `/admin/academy` — back-office (réservé `admin`/`editor`) pour ajouter/éditer cours et modules sans toucher au code
+
+### 4. Auto-import YouTube (optionnel mais puissant)
+
+Edge Function `import-youtube-playlist` :
+- Input : URL playlist + parcours + niveau
+- Appelle YouTube Data API v3 (clé via `add_secret YOUTUBE_API_KEY`)
+- Insère chaque vidéo comme `module` dans la BDD
+
+Ça permet de remplir le catalogue en 2 min au lieu de saisir vidéo par vidéo.
+
+### 5. MOOCs francophones (FUN, OpenClassrooms, Coursera)
+
+Curation manuelle dans le back-office :
+- Titre, description, durée, provider, URL externe, niveau
+- Affichés dans le catalogue comme tous les autres cours
+- Bouton "Suivre la formation" ouvre le MOOC dans un nouvel onglet
+- Au retour, l'apprenant clique "J'ai terminé" → certificat délivré par RECYC HUB TOGO (parcours/découverte, pas de la plateforme tierce)
+
+**Mention légale claire** sur la fiche : "Formation hébergée par [Provider]. Le certificat officiel est délivré par [Provider]. RECYC HUB TOGO délivre un certificat de parcours."
+
+### 6. Certificat PDF
+À 100 % d'un parcours, Edge Function génère un PDF (jsPDF) avec logo, nom, parcours, date, QR code de vérification → URL stockée dans `certificates.pdf_url`.
 
 ## Détails techniques
 
-Ajout dans `src/index.css`, juste après le bloc justify existant (ligne 595) :
+- **Embed YouTube** : `<iframe src="https://www.youtube.com/embed/{id}?enablejsapi=1">` + chargement de `https://www.youtube.com/iframe_api`, listener `onStateChange` → update `module_progress.watched_seconds` toutes les 10 s.
+- **Auth obligatoire** : route `/academy/cours/:slug` protégée par `<AuthGuard>` ; redirection vers `/inscription` si non connecté.
+- **Profils** : table `profiles` créée + trigger `on_auth_user_created` pour insertion auto.
+- **Roles** : enum `app_role` + table `user_roles` + fonction `has_role(uuid, app_role) SECURITY DEFINER` (jamais de rôle sur `profiles`).
+- **SEO** : meta dynamiques par cours, JSON-LD `Course` schema pour visibilité Google.
 
-```css
-@layer components {
-  .editorial-body {
-    text-align: justify;
-    text-justify: inter-word;
-    hyphens: auto;
-    -webkit-hyphens: auto;
-    hyphenate-limit-chars: 6 3 3;
-    text-wrap: pretty;
-  }
-  .editorial-center {
-    text-align: center;
-    text-wrap: balance;
-  }
-  .editorial-lead {
-    text-align: justify;
-    text-justify: inter-word;
-    hyphens: auto;
-    text-wrap: balance;
-  }
+## Secrets à demander (plus tard, à l'étape correspondante)
 
-  /* Règles automatiques (opt-in via data-attribute ou structure) */
-  footer address,
-  footer address > * {
-    text-align: center;
-  }
-  section[data-align="center"] :where(h1, h2, h3, p) {
-    text-align: center;
-  }
-  section[data-align="justify"] :where(p) {
-    text-align: justify;
-    hyphens: auto;
-  }
+- `YOUTUBE_API_KEY` — uniquement si on active l'import auto de playlists (étape 4)
 
-  @media (max-width: 480px) {
-    .editorial-body { hyphenate-limit-chars: 5 2 2; }
-  }
-}
-```
+Aucun autre secret externe : MOOCs sont simplement des liens.
 
-`:where(...)` garde la spécificité à 0 pour qu'une classe Tailwind locale puisse toujours surcharger en cas de besoin exceptionnel.
+## Découpage de livraison proposé
 
-## Fichiers modifiés
+1. **Phase 1 — Fondations** : Lovable Cloud + auth + schéma BDD + back-office minimal + refonte landing `/academy` branchée sur la BDD
+2. **Phase 2 — Lecture** : page cours, lecteur YouTube avec tracking auto, dashboard apprenant
+3. **Phase 3 — MOOCs externes & PDF** : intégration sources externes + viewer PDF
+4. **Phase 4 — Certificats** : génération PDF + QR code de vérification
+5. **Phase 5 (optionnelle)** : import YouTube auto via API
 
-- `src/index.css` — ajout du bloc `@layer components` (≈30 lignes)
-- `src/components/HeroSection.tsx` — 1 classe
-- `src/components/Footer.tsx` — nettoyage redondance
-- `src/components/TestimonialsSection.tsx` — 1 classe
-- `src/components/EventsHubSection.tsx` — 2 classes
-- `src/components/CTASection.tsx` — 1 classe
-
-## Bénéfice
-
-Toute nouvelle section ajoutée plus tard n'a qu'à :
-- utiliser `<p className="editorial-body">` pour un paragraphe long, **ou**
-- envelopper la section avec `<section data-align="center">` / `data-align="justify"`
-
-→ plus de risque d'oublier `text-justify` ou de mélanger `text-center` / `text-left` au hasard.
+On peut démarrer par la Phase 1 dès que tu valides. Veux-tu qu'on enchaîne directement Phase 1 + 2 dans une première implémentation, ou Phase 1 seule pour valider la structure avant ?
