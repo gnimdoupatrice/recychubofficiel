@@ -37,13 +37,8 @@ const TopBar = () => {
           </span>
         </div>
 
-        {/* Horaires + social */}
+        {/* Réseaux sociaux */}
         <div className="flex items-center gap-5">
-          <span className="inline-flex items-center gap-1.5">
-            <Clock className="w-3.5 h-3.5" aria-hidden="true" />
-            Lun au Sam · 7h à 18h
-          </span>
-          <span className="opacity-40" aria-hidden="true">|</span>
           <div className="flex items-center gap-2">
             <a
               href="https://facebook.com/recychubtogo"
