@@ -1,52 +1,60 @@
-import { BookOpen, Play, Award, TrendingUp, GraduationCap, Sprout, Recycle, Briefcase, ArrowUpRight, CheckCircle2, Clock, Users } from "lucide-react";
-import SEO from "@/components/SEO";
+import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import { BookOpen, ArrowUpRight, Clock, Play, Award, Users, TrendingUp, GraduationCap, Recycle, Sprout, Briefcase, ExternalLink } from "lucide-react";
+import SEO from "@/components/SEO";
+import { supabase } from "@/integrations/supabase/client";
+import { useAuth } from "@/contexts/AuthContext";
+import { TRACK_LABELS, TRACK_DESCRIPTIONS, LEVEL_LABELS, formatDuration } from "@/lib/academy";
 
-const tracks = [
-  {
-    icon: Recycle,
-    label: "Tri & recyclage",
-    desc: "Maîtriser l'identification des plastiques, les chaînes de tri et les process de valorisation.",
-    modules: 4,
-  },
-  {
-    icon: Sprout,
-    label: "Économie circulaire",
-    desc: "Comprendre les cycles de la matière, les modèles régénératifs et les politiques publiques.",
-    modules: 3,
-  },
-  {
-    icon: Briefcase,
-    label: "Entrepreneuriat vert",
-    desc: "Lancer son activité dans la collecte, le recyclage ou la sensibilisation au Togo.",
-    modules: 5,
-  },
-];
+type Course = {
+  id: string;
+  slug: string;
+  title: string;
+  description: string | null;
+  cover_url: string | null;
+  track: "tri" | "circulaire" | "entrepreneuriat";
+  level: string;
+  source_type: string;
+  source_provider: string | null;
+  duration_minutes: number | null;
+  is_free: boolean;
+};
 
-const modules = [
-  { title: "Introduction à l'économie circulaire", duration: "15 min", type: "Vidéo", free: true, level: "Débutant" },
-  { title: "Tri des déchets ménagers", duration: "20 min", type: "Texte", free: true, level: "Débutant" },
-  { title: "Identifier les six familles de plastiques", duration: "25 min", type: "Vidéo", free: true, level: "Débutant" },
-  { title: "Métiers verts au Togo", duration: "25 min", type: "Vidéo", free: true, level: "Tous" },
-  { title: "Compostage domestique", duration: "30 min", type: "Vidéo", free: false, level: "Intermédiaire" },
-  { title: "Monter une micro-collecte rentable", duration: "40 min", type: "Cours", free: false, level: "Avancé" },
-  { title: "Entrepreneuriat vert : du projet au financement", duration: "45 min", type: "Cours", free: false, level: "Avancé" },
-  { title: "Sensibilisation communautaire & terrain", duration: "30 min", type: "Atelier", free: false, level: "Intermédiaire" },
-];
-
-const stats = [
-  { icon: Play, val: "12", label: "Modules" },
-  { icon: Award, val: "3", label: "Certifications" },
-  { icon: Users, val: "150+", label: "Apprenants" },
-  { icon: TrendingUp, val: "92%", label: "Taux de réussite" },
-];
+const TRACK_ICONS = { tri: Recycle, circulaire: Sprout, entrepreneuriat: Briefcase } as const;
+const TRACKS: Course["track"][] = ["tri", "circulaire", "entrepreneuriat"];
 
 const GreenAcademy = () => {
+  const { user } = useAuth();
+  const [courses, setCourses] = useState<Course[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [activeTrack, setActiveTrack] = useState<"all" | Course["track"]>("all");
+
+  useEffect(() => {
+    supabase
+      .from("courses")
+      .select("id, slug, title, description, cover_url, track, level, source_type, source_provider, duration_minutes, is_free")
+      .eq("published", true)
+      .order("sort_order", { ascending: true })
+      .then(({ data }) => {
+        setCourses((data ?? []) as Course[]);
+        setLoading(false);
+      });
+  }, []);
+
+  const filtered = activeTrack === "all" ? courses : courses.filter((c) => c.track === activeTrack);
+
+  const stats = [
+    { icon: Play, val: String(courses.length), label: "Formations" },
+    { icon: BookOpen, val: "3", label: "Parcours" },
+    { icon: Award, val: "Certif.", label: "De parcours" },
+    { icon: TrendingUp, val: "100%", label: "Sans quitter l'app" },
+  ];
+
   return (
     <div className="min-h-dvh bg-white font-inter">
       <SEO
-        title="Green Academy · Formations économie circulaire au Togo"
-        description="Apprenez le tri, le compostage, les métiers verts et l'entrepreneuriat durable au Togo. Modules vidéo, ateliers terrain et certifications via la Green Academy de RECYC HUB TOGO."
+        title="Green Academy · Toutes les formations en économie circulaire, dans une seule app"
+        description="Apprenez le tri, le compostage, les métiers verts et l'économie circulaire au Togo. Vidéos, MOOCs et ateliers — agrégés et suivis depuis RECYC HUB TOGO."
         path="/academy"
       />
 
@@ -58,53 +66,55 @@ const GreenAcademy = () => {
               <GraduationCap className="w-4 h-4" /> Green Academy
             </span>
             <h1 className="mt-6 font-editorial font-bold text-5xl md:text-7xl leading-[1.05]">
-              Apprendre le vert,{" "}
-              <span className="italic text-primary">construire l'avenir</span>.
+              Toutes les formations vertes,{" "}
+              <span className="italic text-primary">dans une seule app</span>.
             </h1>
             <p className="mt-8 text-background/75 font-light text-lg md:text-xl max-w-2xl leading-relaxed">
-              Une académie pratique et certifiante pour former la nouvelle
-              génération d'acteurs du recyclage, du tri et de l'économie
-              circulaire au Togo.
+              On ne réinvente pas la roue : on rassemble les meilleurs cours
+              vidéo et MOOCs existants, et vous les suivez sans jamais quitter
+              RECYC HUB TOGO. Progression sauvegardée, certificat de parcours à
+              la clé.
             </p>
             <div className="mt-10 flex flex-wrap gap-4">
               <a
-                href="#modules"
+                href="#catalogue"
                 className="inline-flex items-center gap-2 bg-primary text-primary-foreground px-6 py-3 rounded-sm font-semibold text-sm hover:opacity-90 transition-opacity"
               >
-                Explorer les modules
+                Explorer le catalogue
                 <ArrowUpRight className="w-4 h-4" />
               </a>
-              <Link
-                to="/inscription"
-                className="inline-flex items-center gap-2 border border-background/30 px-6 py-3 rounded-sm font-semibold text-sm hover:bg-background/10 transition-colors"
-              >
-                S'inscrire gratuitement
-              </Link>
+              {!user && (
+                <Link
+                  to="/inscription"
+                  className="inline-flex items-center gap-2 border border-background/30 px-6 py-3 rounded-sm font-semibold text-sm hover:bg-background/10 transition-colors"
+                >
+                  S'inscrire gratuitement
+                </Link>
+              )}
+              {user && (
+                <Link
+                  to="/academy/mon-parcours"
+                  className="inline-flex items-center gap-2 border border-background/30 px-6 py-3 rounded-sm font-semibold text-sm hover:bg-background/10 transition-colors"
+                >
+                  Mon parcours
+                </Link>
+              )}
             </div>
           </div>
 
           <div className="md:col-span-2 grid grid-cols-2 gap-4">
             {stats.map((s) => (
-              <div
-                key={s.label}
-                className="border border-background/15 p-5 rounded-sm backdrop-blur-sm"
-              >
+              <div key={s.label} className="border border-background/15 p-5 rounded-sm backdrop-blur-sm">
                 <s.icon className="w-5 h-5 text-primary mb-3" />
                 <div className="font-editorial text-3xl font-bold">{s.val}</div>
-                <div className="text-xs uppercase tracking-wider text-background/60 mt-1">
-                  {s.label}
-                </div>
+                <div className="text-xs uppercase tracking-wider text-background/60 mt-1">{s.label}</div>
               </div>
             ))}
           </div>
         </div>
         <div
           className="absolute inset-0 opacity-[0.06] pointer-events-none"
-          style={{
-            backgroundImage:
-              "radial-gradient(hsl(var(--primary)) 1px, transparent 1px)",
-            backgroundSize: "32px 32px",
-          }}
+          style={{ backgroundImage: "radial-gradient(hsl(var(--primary)) 1px, transparent 1px)", backgroundSize: "32px 32px" }}
         />
       </header>
 
@@ -112,90 +122,112 @@ const GreenAcademy = () => {
       <section className="py-24 md:py-32 px-6 md:px-12 lg:px-24 bg-[hsl(150_14%_97%)]">
         <div className="max-w-6xl mx-auto">
           <div className="mb-16 max-w-3xl">
-            <span className="text-primary font-semibold tracking-[0.2em] text-xs uppercase">
-              Trois parcours
-            </span>
+            <span className="text-primary font-semibold tracking-[0.2em] text-xs uppercase">Trois parcours</span>
             <h2 className="mt-6 font-editorial font-bold text-4xl md:text-5xl text-foreground leading-tight">
-              Choisissez votre{" "}
-              <span className="italic text-primary">trajectoire verte</span>.
+              Choisissez votre <span className="italic text-primary">trajectoire verte</span>.
             </h2>
           </div>
           <div className="grid md:grid-cols-3 gap-6 md:gap-8">
-            {tracks.map((t) => (
-              <article
-                key={t.label}
-                className="bg-white border border-foreground/10 p-8 md:p-10 rounded-sm hover:border-primary/40 hover:shadow-[14px_14px_0_0_hsl(var(--primary)/0.10)] transition-all"
-              >
-                <div className="w-12 h-12 flex items-center justify-center rounded-sm bg-primary/10 text-primary mb-6">
-                  <t.icon className="w-6 h-6" />
-                </div>
-                <h3 className="font-editorial font-bold text-2xl text-foreground mb-3">
-                  {t.label}
-                </h3>
-                <p className="text-[15px] text-muted-foreground font-light leading-relaxed mb-6">
-                  {t.desc}
-                </p>
-                <span className="text-xs uppercase tracking-widest text-primary font-semibold">
-                  {t.modules} modules
-                </span>
-              </article>
-            ))}
+            {TRACKS.map((t) => {
+              const Icon = TRACK_ICONS[t];
+              const count = courses.filter((c) => c.track === t).length;
+              return (
+                <article
+                  key={t}
+                  onClick={() => { setActiveTrack(t); document.getElementById("catalogue")?.scrollIntoView({ behavior: "smooth" }); }}
+                  className="cursor-pointer bg-white border border-foreground/10 p-8 md:p-10 rounded-sm hover:border-primary/40 hover:shadow-[14px_14px_0_0_hsl(var(--primary)/0.10)] transition-all"
+                >
+                  <div className="w-12 h-12 flex items-center justify-center rounded-sm bg-primary/10 text-primary mb-6">
+                    <Icon className="w-6 h-6" />
+                  </div>
+                  <h3 className="font-editorial font-bold text-2xl text-foreground mb-3">{TRACK_LABELS[t]}</h3>
+                  <p className="text-[15px] text-muted-foreground font-light leading-relaxed mb-6">{TRACK_DESCRIPTIONS[t]}</p>
+                  <span className="text-xs uppercase tracking-widest text-primary font-semibold">
+                    {count} formation{count > 1 ? "s" : ""}
+                  </span>
+                </article>
+              );
+            })}
           </div>
         </div>
       </section>
 
-      {/* MODULES */}
-      <section id="modules" className="py-24 md:py-32 px-6 md:px-12 lg:px-24 bg-white">
-        <div className="max-w-5xl mx-auto">
-          <div className="mb-16 max-w-3xl">
-            <span className="text-primary font-semibold tracking-[0.2em] text-xs uppercase">
-              Catalogue
-            </span>
-            <h2 className="mt-6 font-editorial font-bold text-4xl md:text-5xl text-foreground leading-tight">
-              Modules disponibles
-            </h2>
-            <p className="mt-6 text-muted-foreground font-light text-lg">
-              Vidéos, ateliers et cours certifiants, accessibles depuis
-              n'importe quel téléphone, même en zone à faible débit.
-            </p>
+      {/* CATALOGUE */}
+      <section id="catalogue" className="py-24 md:py-32 px-6 md:px-12 lg:px-24 bg-white">
+        <div className="max-w-6xl mx-auto">
+          <div className="mb-12 flex flex-col md:flex-row md:items-end md:justify-between gap-6">
+            <div className="max-w-2xl">
+              <span className="text-primary font-semibold tracking-[0.2em] text-xs uppercase">Catalogue</span>
+              <h2 className="mt-6 font-editorial font-bold text-4xl md:text-5xl text-foreground leading-tight">
+                Formations disponibles
+              </h2>
+              <p className="mt-4 text-muted-foreground font-light text-lg">
+                Vidéos jouées dans l'app · MOOCs externes ouverts en un clic, progression suivie.
+              </p>
+            </div>
+            <div className="flex flex-wrap gap-2">
+              <button
+                onClick={() => setActiveTrack("all")}
+                className={`px-4 py-2 rounded-sm text-xs font-semibold uppercase tracking-wider border transition-colors ${activeTrack === "all" ? "bg-foreground text-background border-foreground" : "border-foreground/15 hover:border-foreground/40"}`}
+              >Tout</button>
+              {TRACKS.map((t) => (
+                <button
+                  key={t}
+                  onClick={() => setActiveTrack(t)}
+                  className={`px-4 py-2 rounded-sm text-xs font-semibold uppercase tracking-wider border transition-colors ${activeTrack === t ? "bg-foreground text-background border-foreground" : "border-foreground/15 hover:border-foreground/40"}`}
+                >{TRACK_LABELS[t]}</button>
+              ))}
+            </div>
           </div>
 
-          <div className="border-y border-foreground/10 divide-y divide-foreground/10">
-            {modules.map((m, i) => (
-              <div
-                key={i}
-                className="flex flex-col sm:flex-row sm:items-center gap-4 sm:gap-6 py-6 group cursor-pointer hover:bg-[hsl(150_14%_97%)] transition-colors px-2"
-              >
-                <span className="font-editorial font-bold text-primary/40 text-lg tabular-nums w-10 shrink-0">
-                  {String(i + 1).padStart(2, "0")}
-                </span>
-                <div className="flex-1 min-w-0">
-                  <h3 className="font-editorial font-bold text-lg md:text-xl text-foreground group-hover:text-primary transition-colors">
-                    {m.title}
-                  </h3>
-                  <div className="flex flex-wrap gap-x-4 gap-y-1 mt-2 text-xs text-muted-foreground">
-                    <span className="inline-flex items-center gap-1">
-                      <Clock className="w-3.5 h-3.5" /> {m.duration}
-                    </span>
-                    <span>{m.type}</span>
-                    <span>{m.level}</span>
+          {loading ? (
+            <div className="py-20 text-center text-muted-foreground">Chargement…</div>
+          ) : filtered.length === 0 ? (
+            <div className="py-20 text-center text-muted-foreground">Aucune formation pour ce parcours pour l'instant.</div>
+          ) : (
+            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
+              {filtered.map((c) => (
+                <Link
+                  key={c.id}
+                  to={`/academy/cours/${c.slug}`}
+                  className="group block bg-white border border-foreground/10 rounded-sm overflow-hidden hover:border-primary/40 hover:shadow-[14px_14px_0_0_hsl(var(--primary)/0.10)] transition-all"
+                >
+                  <div className="aspect-[16/10] overflow-hidden bg-[hsl(150_14%_94%)]">
+                    {c.cover_url && (
+                      <img src={c.cover_url} alt={c.title} loading="lazy" className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
+                    )}
                   </div>
-                </div>
-                <div className="flex items-center gap-3 shrink-0">
-                  {m.free ? (
-                    <span className="text-[11px] uppercase tracking-widest px-3 py-1 bg-primary/10 text-primary font-bold">
-                      Gratuit
-                    </span>
-                  ) : (
-                    <span className="text-[11px] uppercase tracking-widest px-3 py-1 bg-foreground text-background font-bold">
-                      Premium
-                    </span>
-                  )}
-                  <ArrowUpRight className="w-5 h-5 text-foreground/40 group-hover:text-primary group-hover:-translate-y-0.5 group-hover:translate-x-0.5 transition-all" />
-                </div>
-              </div>
-            ))}
-          </div>
+                  <div className="p-6 md:p-8">
+                    <div className="flex items-center justify-between gap-2 mb-3">
+                      <span className="text-[10px] uppercase tracking-widest text-primary font-bold">{TRACK_LABELS[c.track]}</span>
+                      {c.source_type === "external" ? (
+                        <span className="inline-flex items-center gap-1 text-[10px] uppercase tracking-widest text-muted-foreground"><ExternalLink className="w-3 h-3" />{c.source_provider}</span>
+                      ) : (
+                        <span className="text-[10px] uppercase tracking-widest text-muted-foreground">{c.source_provider}</span>
+                      )}
+                    </div>
+                    <h3 className="font-editorial font-bold text-xl text-foreground group-hover:text-primary transition-colors leading-snug">
+                      {c.title}
+                    </h3>
+                    {c.description && (
+                      <p className="mt-3 text-sm text-muted-foreground font-light line-clamp-2">{c.description}</p>
+                    )}
+                    <div className="mt-5 pt-5 border-t border-foreground/10 flex items-center justify-between text-xs text-muted-foreground">
+                      <div className="flex items-center gap-3">
+                        <span className="inline-flex items-center gap-1"><Clock className="w-3.5 h-3.5" />{formatDuration(c.duration_minutes)}</span>
+                        <span>{LEVEL_LABELS[c.level] ?? c.level}</span>
+                      </div>
+                      {c.is_free ? (
+                        <span className="text-[10px] uppercase tracking-widest px-2 py-1 bg-primary/10 text-primary font-bold">Gratuit</span>
+                      ) : (
+                        <span className="text-[10px] uppercase tracking-widest px-2 py-1 bg-foreground text-background font-bold">Premium</span>
+                      )}
+                    </div>
+                  </div>
+                </Link>
+              ))}
+            </div>
+          )}
         </div>
       </section>
 
@@ -204,35 +236,26 @@ const GreenAcademy = () => {
         <div className="max-w-4xl mx-auto text-center">
           <BookOpen className="w-10 h-10 text-primary mx-auto mb-6" />
           <h2 className="font-editorial font-bold text-4xl md:text-5xl leading-tight">
-            Prêt à rejoindre la{" "}
-            <span className="italic text-primary">Green Academy</span> ?
+            Apprendre, sans jamais <span className="italic text-primary">quitter l'app</span>.
           </h2>
-          <p className="mt-6 text-background/75 font-light text-lg max-w-xl mx-auto">
-            Inscription gratuite, accès immédiat aux modules d'introduction et
-            communauté d'apprenants engagés.
+          <p className="mt-6 text-background/75 font-light text-lg max-w-2xl mx-auto">
+            Connectez-vous pour suivre votre progression, reprendre où vous vous êtes
+            arrêté et recevoir vos certificats de parcours.
           </p>
           <div className="mt-10 flex flex-wrap gap-4 justify-center">
-            <Link
-              to="/inscription"
-              className="inline-flex items-center gap-2 bg-primary text-primary-foreground px-8 py-4 rounded-sm font-semibold text-sm hover:opacity-90 transition-opacity"
-            >
-              Créer mon compte
-              <ArrowUpRight className="w-4 h-4" />
-            </Link>
-            <Link
-              to="/solutions"
-              className="inline-flex items-center gap-2 border border-background/30 px-8 py-4 rounded-sm font-semibold text-sm hover:bg-background/10 transition-colors"
-            >
-              Découvrir nos solutions
+            {user ? (
+              <Link to="/academy/mon-parcours" className="inline-flex items-center gap-2 bg-primary text-primary-foreground px-8 py-4 rounded-sm font-semibold text-sm hover:opacity-90 transition-opacity">
+                Voir mon parcours <ArrowUpRight className="w-4 h-4" />
+              </Link>
+            ) : (
+              <Link to="/inscription" className="inline-flex items-center gap-2 bg-primary text-primary-foreground px-8 py-4 rounded-sm font-semibold text-sm hover:opacity-90 transition-opacity">
+                Créer mon compte <ArrowUpRight className="w-4 h-4" />
+              </Link>
+            )}
+            <Link to="/solutions" className="inline-flex items-center gap-2 border border-background/30 px-8 py-4 rounded-sm font-semibold text-sm hover:bg-background/10 transition-colors">
+              Nos autres solutions
             </Link>
           </div>
-          <ul className="mt-12 grid sm:grid-cols-3 gap-4 text-sm text-background/80">
-            {["Accessible sur mobile", "Certifications reconnues", "Ateliers terrain à Kara"].map((b) => (
-              <li key={b} className="inline-flex items-center justify-center gap-2">
-                <CheckCircle2 className="w-4 h-4 text-primary" /> {b}
-              </li>
-            ))}
-          </ul>
         </div>
       </section>
     </div>

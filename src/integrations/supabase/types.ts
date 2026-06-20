@@ -10,10 +10,108 @@ export type Database = {
   // Allows to automatically instantiate createClient with right options
   // instead of createClient<Database, { PostgrestVersion: 'XX' }>(URL, KEY)
   __InternalSupabase: {
-    PostgrestVersion: "14.1"
+    PostgrestVersion: "14.5"
   }
   public: {
     Tables: {
+      certificates: {
+        Row: {
+          course_id: string
+          id: string
+          issued_at: string
+          pdf_url: string | null
+          user_id: string
+          verification_code: string | null
+        }
+        Insert: {
+          course_id: string
+          id?: string
+          issued_at?: string
+          pdf_url?: string | null
+          user_id: string
+          verification_code?: string | null
+        }
+        Update: {
+          course_id?: string
+          id?: string
+          issued_at?: string
+          pdf_url?: string | null
+          user_id?: string
+          verification_code?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "certificates_course_id_fkey"
+            columns: ["course_id"]
+            isOneToOne: false
+            referencedRelation: "courses"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      courses: {
+        Row: {
+          cover_url: string | null
+          created_at: string
+          description: string | null
+          duration_minutes: number | null
+          id: string
+          is_free: boolean
+          language: string
+          legal_notice: string | null
+          level: Database["public"]["Enums"]["course_level"]
+          published: boolean
+          slug: string
+          sort_order: number
+          source_provider: string | null
+          source_type: Database["public"]["Enums"]["source_type"]
+          source_url: string
+          title: string
+          track: Database["public"]["Enums"]["course_track"]
+          updated_at: string
+        }
+        Insert: {
+          cover_url?: string | null
+          created_at?: string
+          description?: string | null
+          duration_minutes?: number | null
+          id?: string
+          is_free?: boolean
+          language?: string
+          legal_notice?: string | null
+          level?: Database["public"]["Enums"]["course_level"]
+          published?: boolean
+          slug: string
+          sort_order?: number
+          source_provider?: string | null
+          source_type: Database["public"]["Enums"]["source_type"]
+          source_url: string
+          title: string
+          track: Database["public"]["Enums"]["course_track"]
+          updated_at?: string
+        }
+        Update: {
+          cover_url?: string | null
+          created_at?: string
+          description?: string | null
+          duration_minutes?: number | null
+          id?: string
+          is_free?: boolean
+          language?: string
+          legal_notice?: string | null
+          level?: Database["public"]["Enums"]["course_level"]
+          published?: boolean
+          slug?: string
+          sort_order?: number
+          source_provider?: string | null
+          source_type?: Database["public"]["Enums"]["source_type"]
+          source_url?: string
+          title?: string
+          track?: Database["public"]["Enums"]["course_track"]
+          updated_at?: string
+        }
+        Relationships: []
+      }
       dumps_alerts: {
         Row: {
           created_at: string
@@ -21,6 +119,7 @@ export type Database = {
           photo_url: string | null
           repere: string
           status: string
+          updated_at: string
           user_id: string | null
         }
         Insert: {
@@ -29,6 +128,7 @@ export type Database = {
           photo_url?: string | null
           repere: string
           status?: string
+          updated_at?: string
           user_id?: string | null
         }
         Update: {
@@ -37,36 +137,130 @@ export type Database = {
           photo_url?: string | null
           repere?: string
           status?: string
+          updated_at?: string
           user_id?: string | null
         }
         Relationships: []
       }
-      events: {
+      enrollments: {
         Row: {
-          created_at: string
-          description: string | null
-          event_date: string
+          completed_at: string | null
+          course_id: string
           id: string
-          lieu: string | null
-          title: string
+          progress_pct: number
+          started_at: string
+          user_id: string
         }
         Insert: {
-          created_at?: string
-          description?: string | null
-          event_date: string
+          completed_at?: string | null
+          course_id: string
           id?: string
-          lieu?: string | null
-          title: string
+          progress_pct?: number
+          started_at?: string
+          user_id: string
         }
         Update: {
+          completed_at?: string | null
+          course_id?: string
+          id?: string
+          progress_pct?: number
+          started_at?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "enrollments_course_id_fkey"
+            columns: ["course_id"]
+            isOneToOne: false
+            referencedRelation: "courses"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      module_progress: {
+        Row: {
+          completed_at: string | null
+          id: string
+          module_id: string
+          status: Database["public"]["Enums"]["progress_status"]
+          updated_at: string
+          user_id: string
+          watched_seconds: number
+        }
+        Insert: {
+          completed_at?: string | null
+          id?: string
+          module_id: string
+          status?: Database["public"]["Enums"]["progress_status"]
+          updated_at?: string
+          user_id: string
+          watched_seconds?: number
+        }
+        Update: {
+          completed_at?: string | null
+          id?: string
+          module_id?: string
+          status?: Database["public"]["Enums"]["progress_status"]
+          updated_at?: string
+          user_id?: string
+          watched_seconds?: number
+        }
+        Relationships: [
+          {
+            foreignKeyName: "module_progress_module_id_fkey"
+            columns: ["module_id"]
+            isOneToOne: false
+            referencedRelation: "modules"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      modules: {
+        Row: {
+          course_id: string
+          created_at: string
+          description: string | null
+          duration_minutes: number | null
+          id: string
+          position: number
+          source_type: Database["public"]["Enums"]["source_type"]
+          source_url: string
+          title: string
+          video_id: string | null
+        }
+        Insert: {
+          course_id: string
           created_at?: string
           description?: string | null
-          event_date?: string
+          duration_minutes?: number | null
           id?: string
-          lieu?: string | null
-          title?: string
+          position?: number
+          source_type: Database["public"]["Enums"]["source_type"]
+          source_url: string
+          title: string
+          video_id?: string | null
         }
-        Relationships: []
+        Update: {
+          course_id?: string
+          created_at?: string
+          description?: string | null
+          duration_minutes?: number | null
+          id?: string
+          position?: number
+          source_type?: Database["public"]["Enums"]["source_type"]
+          source_url?: string
+          title?: string
+          video_id?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "modules_course_id_fkey"
+            columns: ["course_id"]
+            isOneToOne: false
+            referencedRelation: "courses"
+            referencedColumns: ["id"]
+          },
+        ]
       }
       pickup_requests: {
         Row: {
@@ -74,6 +268,7 @@ export type Database = {
           id: string
           repere: string
           status: string
+          updated_at: string
           user_id: string
         }
         Insert: {
@@ -81,6 +276,7 @@ export type Database = {
           id?: string
           repere: string
           status?: string
+          updated_at?: string
           user_id: string
         }
         Update: {
@@ -88,6 +284,7 @@ export type Database = {
           id?: string
           repere?: string
           status?: string
+          updated_at?: string
           user_id?: string
         }
         Relationships: []
@@ -100,15 +297,17 @@ export type Database = {
           photo_url: string | null
           repere: string
           status: string
+          updated_at: string
           user_id: string
         }
         Insert: {
           created_at?: string
           id?: string
-          kilos?: number
+          kilos: number
           photo_url?: string | null
           repere: string
           status?: string
+          updated_at?: string
           user_id: string
         }
         Update: {
@@ -118,42 +317,46 @@ export type Database = {
           photo_url?: string | null
           repere?: string
           status?: string
+          updated_at?: string
           user_id?: string
         }
         Relationships: []
       }
       profiles: {
         Row: {
-          commune: string
+          avatar_url: string | null
+          commune: string | null
           created_at: string
           id: string
-          nom: string
-          prenom: string
-          pseudo: string
-          quartier: string
-          tel: string
+          nom: string | null
+          prenom: string | null
+          pseudo: string | null
+          quartier: string | null
+          tel: string | null
           updated_at: string
         }
         Insert: {
-          commune: string
+          avatar_url?: string | null
+          commune?: string | null
           created_at?: string
           id: string
-          nom: string
-          prenom: string
-          pseudo: string
-          quartier: string
-          tel: string
+          nom?: string | null
+          prenom?: string | null
+          pseudo?: string | null
+          quartier?: string | null
+          tel?: string | null
           updated_at?: string
         }
         Update: {
-          commune?: string
+          avatar_url?: string | null
+          commune?: string | null
           created_at?: string
           id?: string
-          nom?: string
-          prenom?: string
-          pseudo?: string
-          quartier?: string
-          tel?: string
+          nom?: string | null
+          prenom?: string | null
+          pseudo?: string | null
+          quartier?: string | null
+          tel?: string | null
           updated_at?: string
         }
         Relationships: []
@@ -193,7 +396,11 @@ export type Database = {
       }
     }
     Enums: {
-      app_role: "admin" | "moderator" | "user"
+      app_role: "admin" | "editor" | "learner"
+      course_level: "debutant" | "intermediaire" | "avance" | "tous"
+      course_track: "tri" | "circulaire" | "entrepreneuriat"
+      progress_status: "not_started" | "in_progress" | "completed"
+      source_type: "youtube" | "vimeo" | "external" | "pdf" | "article"
     }
     CompositeTypes: {
       [_ in never]: never
@@ -321,7 +528,11 @@ export type CompositeTypes<
 export const Constants = {
   public: {
     Enums: {
-      app_role: ["admin", "moderator", "user"],
+      app_role: ["admin", "editor", "learner"],
+      course_level: ["debutant", "intermediaire", "avance", "tous"],
+      course_track: ["tri", "circulaire", "entrepreneuriat"],
+      progress_status: ["not_started", "in_progress", "completed"],
+      source_type: ["youtube", "vimeo", "external", "pdf", "article"],
     },
   },
 } as const
