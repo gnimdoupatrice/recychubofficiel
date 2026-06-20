@@ -90,9 +90,9 @@ const HeroSection = () => {
           </span>
         </div>
 
-        {/* Headline — left aligned */}
+        {/* Headline — centered */}
         <h1
-          className="editorial-center font-display font-extrabold leading-[1.08] tracking-tight text-foreground text-[28px] sm:text-4xl md:text-5xl lg:text-6xl max-w-4xl mx-auto mb-5 sm:mb-6 animate-slide-up break-words"
+          className="text-center font-display font-extrabold leading-[1.08] tracking-tight text-foreground text-[28px] sm:text-4xl md:text-5xl lg:text-6xl max-w-4xl mx-auto mb-5 sm:mb-6 animate-slide-up break-words"
           style={{ animationDelay: "0.05s" }}
         >
           Faites collecter vos déchets ménagers{" "}
@@ -102,13 +102,13 @@ const HeroSection = () => {
         </h1>
 
 
-        {/* Subtitle — left aligned */}
+        {/* Subtitle — centered, white for contrast */}
         <p
-          className="text-left text-foreground/75 text-sm sm:text-base md:text-lg max-w-2xl mb-10 animate-slide-up"
+          className="text-center text-white mx-auto text-sm sm:text-base md:text-lg max-w-2xl mb-10 animate-slide-up"
           style={{ animationDelay: "0.15s" }}
         >
-          Choisissez votre parcours : <strong className="text-foreground">vendez vos plastiques au kg</strong>{" "}
-          ou <strong className="text-foreground">demandez un enlèvement</strong> de vos déchets ménagers en quelques clics.
+          Choisissez votre parcours : <strong className="text-white">vendez vos plastiques au kg</strong>{" "}
+          ou <strong className="text-white">demandez un enlèvement</strong> de vos déchets ménagers en quelques clics.
         </p>
 
 
