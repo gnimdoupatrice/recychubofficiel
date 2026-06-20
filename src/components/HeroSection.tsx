@@ -13,11 +13,10 @@ import {
 
 import slide1 from "@/assets/hero/hero-1-sorting.webp";
 import slide2 from "@/assets/hero/hero-2-pickup.webp";
-import slide3 from "@/assets/hero/hero-3-payment.webp";
 import slide4 from "@/assets/hero/hero-4-depot.webp";
 import slide5 from "@/assets/hero/hero-5-cleanup.webp";
 
-const SLIDES = [slide1, slide2, slide3, slide4, slide5];
+const SLIDES = [slide1, slide2, slide4, slide5];
 const BRAND = "RECYC HUB TOGO";
 
 const HeroSection = () => {
@@ -91,9 +90,9 @@ const HeroSection = () => {
           </span>
         </div>
 
-        {/* Headline — left aligned */}
+        {/* Headline — centered */}
         <h1
-          className="editorial-center font-display font-extrabold leading-[1.08] tracking-tight text-foreground text-[28px] sm:text-4xl md:text-5xl lg:text-6xl max-w-4xl mx-auto mb-5 sm:mb-6 animate-slide-up break-words"
+          className="text-center font-display font-extrabold leading-[1.08] tracking-tight text-foreground text-[28px] sm:text-4xl md:text-5xl lg:text-6xl max-w-4xl mx-auto mb-5 sm:mb-6 animate-slide-up break-words"
           style={{ animationDelay: "0.05s" }}
         >
           Faites collecter vos déchets ménagers{" "}
@@ -103,13 +102,13 @@ const HeroSection = () => {
         </h1>
 
 
-        {/* Subtitle — left aligned */}
+        {/* Subtitle — centered, white for contrast */}
         <p
-          className="text-left text-foreground/75 text-sm sm:text-base md:text-lg max-w-2xl mb-10 animate-slide-up"
+          className="text-center text-white mx-auto text-sm sm:text-base md:text-lg max-w-2xl mb-10 animate-slide-up"
           style={{ animationDelay: "0.15s" }}
         >
-          Choisissez votre parcours : <strong className="text-foreground">vendez vos plastiques au kg</strong>{" "}
-          ou <strong className="text-foreground">demandez un enlèvement</strong> de vos déchets ménagers en quelques clics.
+          Choisissez votre parcours : <strong className="text-white">vendez vos plastiques au kg</strong>{" "}
+          ou <strong className="text-white">demandez un enlèvement</strong> de vos déchets ménagers en quelques clics.
         </p>
 
 
@@ -199,8 +198,8 @@ const HeroSection = () => {
           </Link>
         </div>
 
-        {/* Alert pill — left aligned */}
-        <div className="mb-8 animate-slide-up" style={{ animationDelay: "0.3s" }}>
+        {/* Alert pill — centered */}
+        <div className="mb-8 text-center animate-slide-up" style={{ animationDelay: "0.3s" }}>
           <Link
             to="/alerte"
             aria-label="Signaler un dépotoir sauvage"
@@ -213,9 +212,9 @@ const HeroSection = () => {
           </Link>
         </div>
 
-        {/* Meta indicators — left aligned */}
+        {/* Meta indicators — centered */}
         <div
-          className="flex flex-wrap items-center gap-x-6 gap-y-2 text-xs text-foreground/65 animate-slide-up"
+          className="flex flex-wrap items-center justify-center gap-x-6 gap-y-2 text-xs text-foreground/65 animate-slide-up"
           style={{ animationDelay: "0.4s" }}
         >
           <span className="inline-flex items-center gap-2">
