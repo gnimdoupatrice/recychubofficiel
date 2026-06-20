@@ -36,7 +36,6 @@ const AlerteDepotoir = () => {
       setRepere(""); setPhoto(null);
     }
   };
-
   return (
     <div className="pt-24 pb-16 min-h-dvh">
       <SEO title="Alerte Dépotoir Sauvage" description="Signalez en quelques clics un dépotoir sauvage à Kara. Photo + repère et notre équipe intervient pour dépolluer votre quartier." path="/alerte" />

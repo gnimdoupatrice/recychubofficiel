@@ -20,7 +20,6 @@ const Inscription = () => {
     quartier: "",
     password: "",
   });
-
   const update = (key: string, value: string) => setForm((f) => ({ ...f, [key]: value }));
 
   const handleSubmit = async (e: React.FormEvent) => {
