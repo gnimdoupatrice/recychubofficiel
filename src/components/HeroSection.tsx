@@ -83,7 +83,7 @@ const HeroSection = () => {
       {/* Content — alignement gauche éditorial (style ONU / PNUD) */}
       <div className="relative z-[3] container mx-auto px-5 sm:px-6 max-w-6xl py-10 sm:py-12 md:py-20">
         {/* Eyebrow */}
-        <div className="mb-5 sm:mb-6 animate-slide-up">
+        <div className="mb-5 sm:mb-6 text-center animate-slide-up">
           <span className="inline-flex items-center gap-2 px-4 py-2 sm:px-5 sm:py-2.5 rounded-full bg-primary/10 border border-primary/20 backdrop-blur-md text-primary text-[10px] sm:text-xs font-bold uppercase tracking-[0.18em] sm:tracking-[0.2em]">
             <Sparkles className="w-3.5 h-3.5 text-secondary" />
             Bienvenue sur {BRAND}
