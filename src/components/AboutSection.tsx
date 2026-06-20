@@ -142,7 +142,7 @@ const AboutSection = () => {
               }`}
             >
               {/* Image */}
-              <div className="relative">
+              <div className="relative self-center w-full">
                 <div className="relative aspect-[4/3] overflow-hidden rounded-3xl bg-muted border border-border">
                   <img
                     src={c.image}
