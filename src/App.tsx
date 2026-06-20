@@ -13,6 +13,8 @@ import Index from "./pages/Index";
 
 // Lazy-loaded routes — réduit le bundle initial pour réseaux 3G
 const GreenAcademy = lazy(() => import("./pages/GreenAcademy"));
+const AcademyCourseDetail = lazy(() => import("./pages/AcademyCourseDetail"));
+const MyAcademy = lazy(() => import("./pages/MyAcademy"));
 const Solutions = lazy(() => import("./pages/Solutions"));
 const AlerteDepotoir = lazy(() => import("./pages/AlerteDepotoir"));
 const Evenements = lazy(() => import("./pages/Evenements"));
@@ -44,6 +46,8 @@ const App = () => (
             <Routes>
               <Route path="/" element={<Index />} />
               <Route path="/academy" element={<GreenAcademy />} />
+              <Route path="/academy/mon-parcours" element={<MyAcademy />} />
+              <Route path="/academy/cours/:slug" element={<AcademyCourseDetail />} />
               <Route path="/solutions" element={<Solutions />} />
               <Route path="/alerte" element={<AlerteDepotoir />} />
               <Route path="/evenements" element={<Evenements />} />
