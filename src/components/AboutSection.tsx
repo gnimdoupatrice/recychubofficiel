@@ -142,7 +142,7 @@ const AboutSection = () => {
               }`}
             >
               {/* Image */}
-              <div className="relative self-center w-full">
+              <div className="relative w-full">
                 <div className="relative aspect-[4/3] overflow-hidden rounded-3xl bg-muted border border-border">
                   <img
                     src={c.image}
@@ -182,7 +182,7 @@ const AboutSection = () => {
 
 
               {/* Content */}
-              <div className="flex flex-col self-center">
+              <div className="flex flex-col">
                 <span
                   aria-hidden="true"
                   className="font-extrabold text-5xl sm:text-6xl md:text-8xl lg:text-9xl leading-none tracking-tight text-primary/15 mb-4"
