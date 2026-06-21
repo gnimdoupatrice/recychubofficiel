@@ -84,7 +84,7 @@ const HeroSection = () => {
       <div className="relative z-[3] container mx-auto px-5 sm:px-6 max-w-6xl py-10 sm:py-12 md:py-20">
         {/* Eyebrow */}
         <div className="mb-5 sm:mb-6 text-center animate-slide-up">
-          <span className="inline-flex items-center gap-2 px-4 py-2 sm:px-5 sm:py-2.5 rounded-full bg-primary/10 border border-primary/20 backdrop-blur-md text-primary text-[10px] sm:text-xs font-bold uppercase tracking-[0.18em] sm:tracking-[0.2em]">
+          <span className="inline-flex items-center gap-2 px-4 py-2 sm:px-5 sm:py-2.5 rounded-full bg-primary/10 border border-primary/20 backdrop-blur-md text-primary text-[10px] sm:text-xs font-bold uppercase tracking-[0.18em] sm:tracking-[0.2em] text-shadow-strong">
             <Sparkles className="w-3.5 h-3.5 text-secondary" />
             Bienvenue sur {BRAND}
           </span>
@@ -92,7 +92,7 @@ const HeroSection = () => {
 
         {/* Headline — centered */}
         <h1
-          className="text-center font-display font-extrabold leading-[1.08] tracking-tight text-foreground text-[28px] sm:text-4xl md:text-5xl lg:text-6xl max-w-4xl mx-auto mb-5 sm:mb-6 animate-slide-up break-words"
+          className="text-center font-display font-extrabold leading-[1.08] tracking-tight text-white text-shadow-strong text-[28px] sm:text-4xl md:text-5xl lg:text-6xl max-w-4xl mx-auto mb-5 sm:mb-6 animate-slide-up break-words"
           style={{ animationDelay: "0.05s" }}
         >
           Faites collecter vos déchets ménagers{" "}
@@ -206,31 +206,31 @@ const HeroSection = () => {
             className="group inline-flex items-center gap-3 px-5 py-3 rounded-full bg-destructive/10 border border-destructive/30 backdrop-blur-md transition-all hover:bg-destructive/15 hover:border-destructive/50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-destructive focus-visible:ring-offset-2"
           >
             <AlertTriangle className="w-4 h-4 text-destructive animate-pulse" />
-            <span className="text-foreground font-bold text-sm">Signaler un dépotoir sauvage</span>
-            <span className="hidden sm:inline text-muted-foreground text-xs">(ponts, caniveaux, terrains)</span>
-            <ArrowRight className="w-4 h-4 text-foreground/60 transition-transform group-hover:translate-x-1" />
+            <span className="text-white font-bold text-sm text-shadow-strong">Signaler un dépotoir sauvage</span>
+            <span className="hidden sm:inline text-white/80 text-xs text-shadow-strong">(ponts, caniveaux, terrains)</span>
+            <ArrowRight className="w-4 h-4 text-white/70 transition-transform group-hover:translate-x-1" />
           </Link>
         </div>
 
         {/* Meta indicators — centered */}
         <div
-          className="flex flex-wrap items-center justify-center gap-x-6 gap-y-2 text-xs text-foreground/65 animate-slide-up"
+          className="flex flex-wrap items-center justify-center gap-x-6 gap-y-2 text-xs text-white/85 animate-slide-up"
           style={{ animationDelay: "0.4s" }}
         >
-          <span className="inline-flex items-center gap-2">
+          <span className="inline-flex items-center gap-2 text-shadow-strong">
             <span className="w-1.5 h-1.5 rounded-full bg-primary animate-pulse" />
             2 500+ kg de plastiques collectés
           </span>
-          <span className="hidden sm:inline text-foreground/30">·</span>
+          <span className="hidden sm:inline text-white/40">·</span>
           <a
             href="tel:+22897684030"
-            className="inline-flex items-center gap-1.5 hover:text-primary transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/40 rounded"
+            className="inline-flex items-center gap-1.5 hover:text-secondary transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/40 rounded text-shadow-strong"
           >
             <Phone className="w-3.5 h-3.5" />
             +228 97 68 40 30
           </a>
-          <span className="hidden sm:inline text-foreground/30">·</span>
-          <span className="inline-flex items-center gap-1.5">
+          <span className="hidden sm:inline text-white/40">·</span>
+          <span className="inline-flex items-center gap-1.5 text-shadow-strong">
             <MapPin className="w-3.5 h-3.5" />
             Kara, Togo
           </span>
