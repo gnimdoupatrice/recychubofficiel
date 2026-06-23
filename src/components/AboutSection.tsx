@@ -141,6 +141,19 @@ const AboutSection = () => {
                 i % 2 === 1 ? "md:[&>*:first-child]:order-2" : ""
               }`}
             >
+              {/* Mobile-only intro (number + title) — keeps image visually attached to its title */}
+              <div className="md:hidden flex flex-col">
+                <span
+                  aria-hidden="true"
+                  className="font-extrabold text-5xl sm:text-6xl leading-none tracking-tight text-primary/15 mb-3"
+                >
+                  {c.number}
+                </span>
+                <h3 className="font-extrabold text-2xl sm:text-3xl text-foreground leading-tight">
+                  {c.title}
+                </h3>
+              </div>
+
               {/* Image */}
               <div className="relative w-full">
                 <div className="relative aspect-[4/3] overflow-hidden rounded-3xl bg-muted border border-border">
@@ -159,19 +172,19 @@ const AboutSection = () => {
                   </span>
                 </div>
 
-                {/* Floating stat card */}
+                {/* Stat card — flottante en desktop, en bloc plein dessous en mobile */}
                 <motion.div
                   initial={{ opacity: 0, scale: 0.85, y: 10 }}
                   whileInView={{ opacity: 1, scale: 1, y: 0 }}
                   viewport={{ once: true, margin: "-80px" }}
                   transition={{ duration: 0.35, delay: 0.2, ease: "easeOut" }}
-                  className="absolute -top-5 -right-4 md:-top-6 md:-right-6 z-10 w-[180px] md:w-[200px] rounded-2xl bg-card border border-border px-4 py-3 shadow-[0_18px_40px_-12px_hsl(var(--primary)/0.35)] ring-1 ring-primary/10"
+                  className="relative mt-4 w-full md:absolute md:-top-6 md:-right-6 md:mt-0 md:w-[200px] z-10 rounded-2xl bg-card border border-border px-4 py-3 shadow-[0_18px_40px_-12px_hsl(var(--primary)/0.35)] ring-1 ring-primary/10"
                 >
                   <div className="flex items-center gap-1.5 text-[10px] font-bold uppercase tracking-[0.12em] text-primary">
                     <MapPin className="w-3 h-3" strokeWidth={2.5} />
                     {c.stat.location}
                   </div>
-                  <div className="mt-1 font-[Space_Grotesk] font-bold text-2xl md:text-3xl text-foreground leading-tight">
+                  <div className="mt-1 font-display font-bold text-2xl md:text-3xl text-foreground leading-tight">
                     {c.stat.value}
                   </div>
                   <div className="mt-1 text-[11px] md:text-xs text-muted-foreground leading-snug">
@@ -183,13 +196,14 @@ const AboutSection = () => {
 
               {/* Content */}
               <div className="flex flex-col">
+                {/* Desktop-only number + title (mobile shows them above the image) */}
                 <span
                   aria-hidden="true"
-                  className="font-extrabold text-5xl sm:text-6xl md:text-8xl lg:text-9xl leading-none tracking-tight text-primary/15 mb-4"
+                  className="hidden md:block font-extrabold text-5xl sm:text-6xl md:text-8xl lg:text-9xl leading-none tracking-tight text-primary/15 mb-4"
                 >
                   {c.number}
                 </span>
-                <h3 className="font-extrabold text-2xl md:text-3xl lg:text-4xl text-foreground leading-tight mb-5">
+                <h3 className="hidden md:block font-extrabold text-2xl md:text-3xl lg:text-4xl text-foreground leading-tight mb-5">
                   {c.title}
                 </h3>
                 <p className="text-base md:text-lg text-muted-foreground leading-relaxed max-w-xl">
