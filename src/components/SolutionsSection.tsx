@@ -65,13 +65,13 @@ const SolutionsSection = () => (
         </p>
       </div>
 
-      {/* Hero — Solution Pro (B2B) */}
+      {/* Hero — Solution Pro (B2B) — desktop only */}
       <motion.article
         initial={{ opacity: 0, y: 24 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
         transition={{ duration: 0.6 }}
-        className="relative bg-foreground text-background rounded-sm p-8 md:p-12 lg:p-16 mb-10 md:mb-14 shadow-[20px_20px_0_0_hsl(var(--primary)/0.18)] grid md:grid-cols-5 gap-10 items-center"
+        className="hidden md:grid relative bg-foreground text-background rounded-sm p-8 md:p-12 lg:p-16 mb-10 md:mb-14 shadow-[20px_20px_0_0_hsl(var(--primary)/0.18)] md:grid-cols-5 gap-10 items-center"
       >
         <div className="md:col-span-3">
           <div className="flex items-center gap-3 mb-6">
@@ -106,7 +106,39 @@ const SolutionsSection = () => (
         </ul>
       </motion.article>
 
-      <div className="grid md:grid-cols-3 gap-6 md:gap-8">
+      {/* Mobile grid 2-col : Solution Pro compact + 3 solutions ; Desktop : 3-col with hero above */}
+      <div className="grid grid-cols-2 md:grid-cols-3 gap-4 sm:gap-6 md:gap-8">
+        {/* Solution Pro — mobile-only compact card */}
+        <motion.article
+          initial={{ opacity: 0, y: 24 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.5 }}
+          className="md:hidden group relative bg-foreground text-background p-6 rounded-sm"
+        >
+          <div className="flex items-start justify-between mb-5">
+            <div className="w-10 h-10 flex items-center justify-center rounded-sm bg-primary text-primary-foreground">
+              <heroSolution.icon className="w-5 h-5" />
+            </div>
+            <span className="font-editorial font-bold text-2xl text-background/25">
+              00
+            </span>
+          </div>
+          <h3 className="font-editorial font-bold text-base leading-snug mb-2">
+            Solution Pro
+          </h3>
+          <p className="text-[12px] text-background/75 leading-relaxed font-light mb-4">
+            Plateforme B2B de pilotage des tournées de collecte.
+          </p>
+          <Link
+            to={heroSolution.href}
+            className="inline-flex items-center gap-1.5 text-[12px] font-semibold text-background border-b border-background/40 pb-0.5"
+          >
+            Découvrir
+            <ArrowUpRight className="w-3.5 h-3.5" />
+          </Link>
+        </motion.article>
+
         {solutions.map((s, i) => {
           const Icon = s.icon;
           return (
@@ -116,33 +148,34 @@ const SolutionsSection = () => (
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: i * 0.08, duration: 0.5 }}
-              className="group relative bg-white border border-foreground/10 p-8 md:p-10 rounded-sm transition-all duration-300 hover:border-primary/40 hover:shadow-[14px_14px_0_0_hsl(var(--primary)/0.10)]"
+              className="group relative bg-white border border-foreground/10 p-6 md:p-10 rounded-sm transition-all duration-300 hover:border-primary/40 hover:shadow-[14px_14px_0_0_hsl(var(--primary)/0.10)]"
             >
-              <div className="flex items-start justify-between mb-6">
-                <div className="w-12 h-12 flex items-center justify-center rounded-sm bg-primary/10 text-primary">
-                  <Icon className="w-6 h-6" />
+              <div className="flex items-start justify-between mb-5 md:mb-6">
+                <div className="w-10 h-10 md:w-12 md:h-12 flex items-center justify-center rounded-sm bg-primary/10 text-primary">
+                  <Icon className="w-5 h-5 md:w-6 md:h-6" />
                 </div>
-                <span className="font-editorial font-bold text-3xl text-primary/20">
+                <span className="font-editorial font-bold text-2xl md:text-3xl text-primary/20">
                   {s.number}
                 </span>
               </div>
-              <h3 className="font-editorial font-bold text-xl md:text-2xl text-foreground leading-snug mb-3">
+              <h3 className="font-editorial font-bold text-base md:text-2xl text-foreground leading-snug mb-2 md:mb-3">
                 {s.name}
               </h3>
-              <p className="text-[15px] text-muted-foreground leading-relaxed font-light mb-6">
+              <p className="text-[12px] md:text-[15px] text-muted-foreground leading-relaxed font-light mb-4 md:mb-6">
                 {s.desc}
               </p>
               <Link
                 to={s.href}
-                className="inline-flex items-center gap-2 text-sm font-semibold text-primary border-b border-primary/30 pb-1 hover:border-primary transition-colors"
+                className="inline-flex items-center gap-1.5 md:gap-2 text-[12px] md:text-sm font-semibold text-primary border-b border-primary/30 pb-0.5 md:pb-1 hover:border-primary transition-colors"
               >
                 {s.cta}
-                <ArrowUpRight className="w-4 h-4 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+                <ArrowUpRight className="w-3.5 h-3.5 md:w-4 md:h-4 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
               </Link>
             </motion.article>
           );
         })}
       </div>
+
     </div>
   </section>
 );

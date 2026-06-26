@@ -172,25 +172,26 @@ const AboutSection = () => {
                   </span>
                 </div>
 
-                {/* Stat card — flottante en desktop, en bloc plein dessous en mobile */}
+                {/* Stat card — flottante en desktop ET mobile, posée sur l'image (coin opposé au badge) */}
                 <motion.div
                   initial={{ opacity: 0, scale: 0.85, y: 10 }}
                   whileInView={{ opacity: 1, scale: 1, y: 0 }}
                   viewport={{ once: true, margin: "-80px" }}
                   transition={{ duration: 0.35, delay: 0.2, ease: "easeOut" }}
-                  className="relative mt-4 w-full md:absolute md:-top-6 md:-right-6 md:mt-0 md:w-[200px] z-10 rounded-2xl bg-card border border-border px-4 py-3 shadow-[0_18px_40px_-12px_hsl(var(--primary)/0.35)] ring-1 ring-primary/10"
+                  className="absolute -bottom-4 right-3 w-[140px] md:bottom-auto md:-top-6 md:-right-6 md:w-[200px] z-10 rounded-2xl bg-card border border-border px-3 py-2.5 md:px-4 md:py-3 shadow-[0_18px_40px_-12px_hsl(var(--primary)/0.35)] ring-1 ring-primary/10"
                 >
-                  <div className="flex items-center gap-1.5 text-[10px] font-bold uppercase tracking-[0.12em] text-primary">
+                  <div className="flex items-center gap-1.5 text-[9px] md:text-[10px] font-bold uppercase tracking-[0.12em] text-primary">
                     <MapPin className="w-3 h-3" strokeWidth={2.5} />
                     {c.stat.location}
                   </div>
-                  <div className="mt-1 font-display font-bold text-2xl md:text-3xl text-foreground leading-tight">
+                  <div className="mt-1 font-display font-bold text-xl md:text-3xl text-foreground leading-tight">
                     {c.stat.value}
                   </div>
-                  <div className="mt-1 text-[11px] md:text-xs text-muted-foreground leading-snug">
+                  <div className="mt-1 text-[10px] md:text-xs text-muted-foreground leading-snug">
                     {c.stat.label}
                   </div>
                 </motion.div>
+
               </div>
 
 
