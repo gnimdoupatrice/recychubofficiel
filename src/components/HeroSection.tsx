@@ -175,48 +175,49 @@ const HeroSection = () => {
 
         {/* Meta Footer — institutional fiche-pays */}
         <div
-          className="w-full max-w-5xl grid grid-cols-1 sm:grid-cols-3 gap-6 sm:gap-8 pt-8 border-t border-white/10 animate-slide-up"
+          className="w-full max-w-5xl grid grid-cols-3 gap-2 sm:gap-8 pt-8 border-t border-white/10 animate-slide-up"
           style={{ animationDelay: "0.25s" }}
         >
-          <div className="flex items-center gap-4 justify-center sm:justify-start">
-            <div className="w-11 h-11 rounded-xl bg-primary/10 border border-primary/25 flex items-center justify-center text-primary shrink-0">
-              <CheckCircle2 className="w-5 h-5" strokeWidth={2} />
+          <div className="flex items-center gap-2 sm:gap-4 justify-center sm:justify-start">
+            <div className="w-8 h-8 sm:w-11 sm:h-11 rounded-lg sm:rounded-xl bg-primary/10 border border-primary/25 flex items-center justify-center text-primary shrink-0">
+              <CheckCircle2 className="w-4 h-4 sm:w-5 sm:h-5" strokeWidth={2} />
             </div>
-            <div>
-              <div className="text-white text-lg font-bold leading-tight">2 500+ kg</div>
-              <div className="text-white/55 text-[10px] uppercase tracking-[0.18em] font-semibold mt-0.5">
-                plastiques collectés
+            <div className="min-w-0">
+              <div className="text-white text-[11px] sm:text-lg font-bold leading-tight truncate">2 500+ kg</div>
+              <div className="text-white/55 text-[8px] sm:text-[10px] uppercase tracking-[0.12em] sm:tracking-[0.18em] font-semibold mt-0.5 leading-tight">
+                plastiques
               </div>
             </div>
           </div>
 
           <a
             href="tel:+22897684030"
-            className="flex items-center gap-4 justify-center sm:justify-start hover:text-secondary transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-secondary rounded"
+            className="flex items-center gap-2 sm:gap-4 justify-center sm:justify-start hover:text-secondary transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-secondary rounded"
           >
-            <div className="w-11 h-11 rounded-xl bg-secondary/10 border border-secondary/25 flex items-center justify-center text-secondary shrink-0">
-              <Phone className="w-5 h-5" strokeWidth={2} />
+            <div className="w-8 h-8 sm:w-11 sm:h-11 rounded-lg sm:rounded-xl bg-secondary/10 border border-secondary/25 flex items-center justify-center text-secondary shrink-0">
+              <Phone className="w-4 h-4 sm:w-5 sm:h-5" strokeWidth={2} />
             </div>
-            <div>
-              <div className="text-white text-lg font-bold leading-tight">+228 97 68 40 30</div>
-              <div className="text-white/55 text-[10px] uppercase tracking-[0.18em] font-semibold mt-0.5">
-                Support direct
+            <div className="min-w-0">
+              <div className="text-white text-[11px] sm:text-lg font-bold leading-tight truncate">+228 97 68 40 30</div>
+              <div className="text-white/55 text-[8px] sm:text-[10px] uppercase tracking-[0.12em] sm:tracking-[0.18em] font-semibold mt-0.5 leading-tight">
+                Support
               </div>
             </div>
           </a>
 
-          <div className="flex items-center gap-4 justify-center sm:justify-start">
-            <div className="w-11 h-11 rounded-xl bg-white/5 border border-white/15 flex items-center justify-center text-white/80 shrink-0">
-              <MapPin className="w-5 h-5" strokeWidth={2} />
+          <div className="flex items-center gap-2 sm:gap-4 justify-center sm:justify-start">
+            <div className="w-8 h-8 sm:w-11 sm:h-11 rounded-lg sm:rounded-xl bg-white/5 border border-white/15 flex items-center justify-center text-white/80 shrink-0">
+              <MapPin className="w-4 h-4 sm:w-5 sm:h-5" strokeWidth={2} />
             </div>
-            <div>
-              <div className="text-white text-lg font-bold leading-tight">Kara, Togo</div>
-              <div className="text-white/55 text-[10px] uppercase tracking-[0.18em] font-semibold mt-0.5">
-                Siège opérationnel
+            <div className="min-w-0">
+              <div className="text-white text-[11px] sm:text-lg font-bold leading-tight truncate">Kara, Togo</div>
+              <div className="text-white/55 text-[8px] sm:text-[10px] uppercase tracking-[0.12em] sm:tracking-[0.18em] font-semibold mt-0.5 leading-tight">
+                Siège
               </div>
             </div>
           </div>
         </div>
+
 
         {/* Slide indicators */}
         {!reduceMotion && (
