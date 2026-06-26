@@ -55,8 +55,10 @@ const CivicTechSection = () => (
         </p>
       </div>
 
+      {/* Pillars + Visual — visual first on mobile, pillars first on desktop */}
+      <div className="flex flex-col">
       {/* Pillars: horizontal cards */}
-      <div className="grid md:grid-cols-3 gap-5 mb-14">
+      <div className="order-2 md:order-1 grid md:grid-cols-3 gap-5 mt-10 md:mt-0 md:mb-14">
         {pillars.map((p, i) => (
           <motion.div
             key={p.title}
@@ -79,14 +81,16 @@ const CivicTechSection = () => (
         ))}
       </div>
 
+
       {/* Visual band with overlay stats */}
       <motion.div
         initial={{ opacity: 0, y: 24 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
         transition={{ duration: 0.6 }}
-        className="relative rounded-[2rem] overflow-hidden"
+        className="order-1 md:order-2 relative rounded-[2rem] overflow-hidden"
       >
+
         <img
           src={heroImg}
           alt="Citoyen signalant un dépotoir sauvage avec géolocalisation"
@@ -136,7 +140,9 @@ const CivicTechSection = () => (
           </div>
         </div>
       </motion.div>
+      </div>
     </div>
+
   </section>
 );
 

@@ -1,119 +1,64 @@
+# Corrections mobile ciblées (desktop inchangé)
 
-# Green Academy — Agrégateur de formations hybride
+## 1. Hero — Carrousel arrière-plan (`HeroSection.tsx`)
 
-## Vision
+Vérification effectuée sur `hero-2-pickup.webp` : l'image **n'est pas noire/vide** (moyenne 119/255, plage 0–255, contenu réel). Je ne la supprime donc pas. Si tu confirmes vouloir la retirer malgré tout, dis-le et je l'enlève de `SLIDES`.
 
-La Green Academy ne produit pas de formations. Elle **agrège, catégorise et héberge** les meilleures formations existantes (YouTube, MOOCs francophones, ADEME, ONU, etc.). L'apprenant reste **dans RECYC HUB TOGO** : il regarde, suit sa progression, obtient des certificats de parcours.
+## 2. Hero — Méta footer (`HeroSection.tsx`)
 
-## Comment ça marche (modèle hybride)
+« 2 500+ kg / +228 97 68 40 30 / Kara, Togo » doivent tenir **sur une seule ligne en mobile**.
 
-```text
-┌───────────────────────────────────────────────────────────┐
-│  Catalogue Green Academy (interne)                        │
-├───────────────────────────────────────────────────────────┤
-│                                                           │
-│  ┌─────────────────────┐    ┌────────────────────────┐    │
-│  │ Source: YouTube     │    │ Source: MOOC externe   │    │
-│  │ (embed autorisé)    │    │ (embed bloqué)         │    │
-│  ├─────────────────────┤    ├────────────────────────┤    │
-│  │ ▶ Lecteur natif     │    │ 🔗 Bouton "Suivre"     │    │
-│  │   dans la page      │    │   → nouvel onglet      │    │
-│  │   (iframe YouTube)  │    │   + tracking départ    │    │
-│  │                     │    │   + auto-cochage au    │    │
-│  │ Auto-progression    │    │     retour (déclaratif)│    │
-│  │ via Player API      │    │                        │    │
-│  └─────────────────────┘    └────────────────────────┘    │
-│                                                           │
-│            ↓ progression sauvegardée                      │
-│                                                           │
-│  ┌───────────────────────────────────────────────────┐    │
-│  │ Profil apprenant                                  │    │
-│  │ • Modules vus / en cours / terminés               │    │
-│  │ • % par parcours                                  │    │
-│  │ • Certificats PDF générés à 100 %                 │    │
-│  └───────────────────────────────────────────────────┘    │
-└───────────────────────────────────────────────────────────┘
-```
+- Passer la grille de `grid-cols-1 sm:grid-cols-3` → `grid-cols-3` (toujours 3 colonnes).
+- Compacter chaque item en mobile : icône 8×8 (au lieu de 11×11), `gap-2`, valeur en `text-[11px]/text-xs`, label tronqué/masqué en xs (`hidden xs:block` ou taille réduite), centrage vertical, suppression des marges latérales superflues. À partir de `sm:` on garde la version actuelle riche (icône 11×11 + label complet).
 
-## Étapes
+## 3. About — Stat card à côté du titre en mobile (`AboutSection.tsx`)
 
-### 1. Activer Lovable Cloud
-Nécessaire pour : authentification (compte obligatoire), base de données (catalogue + progression), génération PDF des certificats.
+Aujourd'hui en mobile la stat card est rendue en bloc plein sous l'image. Tu veux qu'elle flotte à côté du titre comme en desktop, sans masquer le titre.
 
-### 2. Schéma base de données
+- Supprimer le rendu mobile « relative mt-4 w-full » et garder le positionnement flottant aussi en mobile : `absolute -top-4 right-3 w-[150px]` en xs, puis `md:-top-6 md:-right-6 md:w-[200px]`.
+- La stat card est posée sur **l'image** (zone titre éditorial « 01/02/03 + titre » au-dessus), donc elle ne recouvre pas le titre.
+- Vérifier que le badge « Déficit logistique » reste lisible : décaler la stat card vers `right-3` (au lieu de `-right-4`) pour ne pas chevaucher le badge en haut-gauche (badges et stat card sont sur des coins opposés, OK).
+
+## 4. Green Academy — Ordre mobile (`GreenAcademySection.tsx`)
+
+Ordre actuel mobile : titre + texte + tracks + CTA, puis image **à la fin**.
+Nouvel ordre mobile demandé :
 
 ```text
-courses            : id, slug, title, description, cover_url,
-                     track ('tri' | 'circulaire' | 'entrepreneuriat'),
-                     level, language, source_type ('youtube' | 'vimeo' | 'external' | 'pdf'),
-                     source_url, source_provider (YouTube, FUN, Coursera, ADEME…),
-                     duration_minutes, is_free, sort_order, published
-modules            : id, course_id, title, source_type, source_url, video_id,
-                     duration_minutes, position
-profiles           : id (= auth.users.id), full_name, avatar_url, region
-enrollments        : user_id, course_id, started_at, completed_at, progress_pct
-module_progress    : user_id, module_id, status ('not_started'|'in_progress'|'completed'),
-                     watched_seconds, completed_at
-certificates       : id, user_id, course_id, issued_at, pdf_url
-user_roles         : user_id, role ('admin' | 'editor' | 'learner')  ← table séparée + has_role()
+Eyebrow « 03 Green Academy »
+H2 « Former la prochaine génération du recyclage »
+Texte descriptif
+Image (academy-hero.webp + badges flottants)
+3 axes (Tri / Économie circulaire / Entrepreneuriat vert)
+CTAs
 ```
 
-RLS sur tout. Admin/editor peuvent CRUD le catalogue, learner lit le catalogue + écrit sa propre progression.
+- Sortir l'image de sa colonne et la placer dans le flux mobile entre le H2 et les tracks via deux rendus (un mobile `lg:hidden` entre H2 et tracks, un desktop `hidden lg:block` dans la colonne gauche), **ou** restructurer en `flex flex-col` mobile avec `order-*` Tailwind sur chaque bloc tout en gardant le `lg:grid lg:grid-cols-12`.
+- Réduire la hauteur image mobile (`h-[320px]` au lieu de `h-[420px]`).
+- Déplacer le paragraphe descriptif **après** les 3 axes en mobile (ordre logique demandé).
 
-### 3. Pages & composants
+## 5. Civic Tech — Ordre mobile (`CivicTechSection.tsx`)
 
-- `/academy` — landing (refonte de l'existant) : hero + 3 parcours + catalogue filtré
-- `/academy/parcours/:track` — vue parcours avec ses cours
-- `/academy/cours/:slug` — **page lecture** : 
-  - **YouTube** → `<iframe>` + YouTube IFrame API pour récupérer la position et marquer "terminé" à 90 %
-  - **PDF** → viewer intégré (`react-pdf`)
-  - **MOOC externe** → carte "Suivre sur [provider]" + bouton "J'ai terminé" + lien retour
-  - Sidebar : liste des modules + état (✓ / en cours / verrouillé optionnel)
-- `/academy/mon-parcours` — dashboard apprenant (cours en cours, certificats, % global)
-- `/admin/academy` — back-office (réservé `admin`/`editor`) pour ajouter/éditer cours et modules sans toucher au code
+Ordre actuel mobile : header → 3 piliers → grande carte image+stats.
+Nouvel ordre mobile : header (eyebrow + H2 + texte) → **grande carte image+stats juste après le texte** → 3 piliers en dessous.
 
-### 4. Auto-import YouTube (optionnel mais puissant)
+- En mobile uniquement, placer le bloc image-stats avant la grille des piliers via `order-*` ou en dupliquant le rendu sous flag `md:hidden` / `hidden md:block`. Desktop reste identique.
 
-Edge Function `import-youtube-playlist` :
-- Input : URL playlist + parcours + niveau
-- Appelle YouTube Data API v3 (clé via `add_secret YOUTUBE_API_KEY`)
-- Insère chaque vidéo comme `module` dans la BDD
+## 6. Page Solutions — 2 colonnes en mobile (`SolutionsSection.tsx`)
 
-Ça permet de remplir le catalogue en 2 min au lieu de saisir vidéo par vidéo.
+4 cartes : `Solution Pro` (hero card, pleine largeur) + 3 cartes (Rachat / Alerte / Academy).
+Tu veux en **mobile** : « Solution Pro + Rachat plastique » sur une ligne, « Civic Tech + Green Academy » sur la ligne suivante (2 colonnes).
 
-### 5. MOOCs francophones (FUN, OpenClassrooms, Coursera)
-
-Curation manuelle dans le back-office :
-- Titre, description, durée, provider, URL externe, niveau
-- Affichés dans le catalogue comme tous les autres cours
-- Bouton "Suivre la formation" ouvre le MOOC dans un nouvel onglet
-- Au retour, l'apprenant clique "J'ai terminé" → certificat délivré par RECYC HUB TOGO (parcours/découverte, pas de la plateforme tierce)
-
-**Mention légale claire** sur la fiche : "Formation hébergée par [Provider]. Le certificat officiel est délivré par [Provider]. RECYC HUB TOGO délivre un certificat de parcours."
-
-### 6. Certificat PDF
-À 100 % d'un parcours, Edge Function génère un PDF (jsPDF) avec logo, nom, parcours, date, QR code de vérification → URL stockée dans `certificates.pdf_url`.
+- Aujourd'hui Solution Pro est rendue en hero card pleine largeur séparée. Il faut donc en mobile :
+  1. La sortir de son traitement « hero pleine largeur » et la rendre comme **carte normale** dans une grille `grid-cols-2` (avec les 3 autres).
+  2. À partir de `md:`, revenir au layout actuel (hero pleine largeur + 3 cartes en `md:grid-cols-3`).
+- Implémentation : créer un rendu compact de Solution Pro (icône + nom + cta) pour mobile (`md:hidden`) inclus dans la grille `grid-cols-2 md:grid-cols-3` avec les 3 autres ; et masquer la version « hero » sur mobile (`hidden md:grid`).
 
 ## Détails techniques
 
-- **Embed YouTube** : `<iframe src="https://www.youtube.com/embed/{id}?enablejsapi=1">` + chargement de `https://www.youtube.com/iframe_api`, listener `onStateChange` → update `module_progress.watched_seconds` toutes les 10 s.
-- **Auth obligatoire** : route `/academy/cours/:slug` protégée par `<AuthGuard>` ; redirection vers `/inscription` si non connecté.
-- **Profils** : table `profiles` créée + trigger `on_auth_user_created` pour insertion auto.
-- **Roles** : enum `app_role` + table `user_roles` + fonction `has_role(uuid, app_role) SECURITY DEFINER` (jamais de rôle sur `profiles`).
-- **SEO** : meta dynamiques par cours, JSON-LD `Course` schema pour visibilité Google.
+- Aucune modification de contenu (textes, CTA, routes, données, images sources hors suppression éventuelle si confirmée).
+- Aucune logique métier, aucun changement backend.
+- Accessibilité : conserver les `aria-label`, ordre DOM logique (le réordonnancement Green Academy / Civic Tech se fera via duplication de blocs sous flags `md:hidden` plutôt qu'avec `order-*` pour préserver l'ordre de lecture screen-reader).
+- Fichiers touchés : `src/components/HeroSection.tsx`, `src/components/AboutSection.tsx`, `src/components/GreenAcademySection.tsx`, `src/components/CivicTechSection.tsx`, `src/components/SolutionsSection.tsx`.
 
-## Secrets à demander (plus tard, à l'étape correspondante)
-
-- `YOUTUBE_API_KEY` — uniquement si on active l'import auto de playlists (étape 4)
-
-Aucun autre secret externe : MOOCs sont simplement des liens.
-
-## Découpage de livraison proposé
-
-1. **Phase 1 — Fondations** : Lovable Cloud + auth + schéma BDD + back-office minimal + refonte landing `/academy` branchée sur la BDD
-2. **Phase 2 — Lecture** : page cours, lecteur YouTube avec tracking auto, dashboard apprenant
-3. **Phase 3 — MOOCs externes & PDF** : intégration sources externes + viewer PDF
-4. **Phase 4 — Certificats** : génération PDF + QR code de vérification
-5. **Phase 5 (optionnelle)** : import YouTube auto via API
-
-On peut démarrer par la Phase 1 dès que tu valides. Veux-tu qu'on enchaîne directement Phase 1 + 2 dans une première implémentation, ou Phase 1 seule pour valider la structure avant ?
+Used the accessibility skill.
