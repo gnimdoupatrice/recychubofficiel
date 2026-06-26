@@ -32,7 +32,7 @@ const GreenAcademySection = () => (
     id="green-academy  "
     className="relative band-plain py-24 md:py-32 px-6 md:px-12 lg:px-24 overflow-hidden"
   >
-    <div className="max-w-7xl mx-auto relative grid lg:grid-cols-12 gap-12 lg:gap-16 items-center">
+    <div className="max-w-7xl mx-auto relative flex flex-col lg:grid lg:grid-cols-12 gap-10 lg:gap-16 lg:items-center">
       {/* Visual column */}
       <motion.div
         initial={{ opacity: 0, x: -24 }}
@@ -48,7 +48,7 @@ const GreenAcademySection = () => (
             loading="lazy"
             width={1600}
             height={1024}
-            className="w-full h-[420px] md:h-[560px] object-cover"
+            className="w-full h-[320px] md:h-[480px] lg:h-[560px] object-cover"
           />
         </div>
 
@@ -80,13 +80,72 @@ const GreenAcademySection = () => (
         </div>
       </motion.div>
 
-      {/* Content column */}
+      {/* Header mobile only (eyebrow + H2) — ensures image follows title on mobile */}
+      <div className="order-1 lg:hidden">
+        <div className="inline-flex items-center gap-3 mb-6">
+          <span className="inline-flex items-center justify-center w-12 h-12 rounded-full bg-primary text-primary-foreground font-black text-sm">
+            03
+          </span>
+          <span className="text-xs font-bold tracking-[0.22em] uppercase text-primary">
+            Green Academy
+          </span>
+        </div>
+        <h2 className="font-black text-4xl md:text-5xl text-foreground leading-[1.05] tracking-tight">
+          Former la prochaine génération{" "}
+          <span className="text-primary">du recyclage</span>.
+        </h2>
+      </div>
+
+      {/* Tracks — order 3 mobile (after image), inside desktop content column */}
+      <div className="order-3 lg:hidden grid sm:grid-cols-3 gap-3">
+        {tracks.map((t) => (
+          <div
+            key={t.title}
+            className="p-5 rounded-2xl bg-muted/60 hover:bg-primary/8 transition-colors"
+          >
+            <div className="w-10 h-10 rounded-xl bg-background text-primary flex items-center justify-center mb-3 shadow-sm">
+              <t.icon className="w-5 h-5" />
+            </div>
+            <div className="font-black text-foreground mb-1.5 leading-snug">
+              {t.title}
+            </div>
+            <div className="text-[13px] text-muted-foreground leading-relaxed">
+              {t.desc}
+            </div>
+          </div>
+        ))}
+      </div>
+
+      {/* Description text + CTAs — order 4 on mobile (after tracks) */}
+      <div className="order-4 lg:hidden">
+        <p className="text-muted-foreground text-lg leading-relaxed mb-8 max-w-xl">
+          Une académie verte qui outille étudiants, jeunes professionnels et
+          collecteurs en activité. Modules digitaux, ateliers pratiques sur le
+          terrain et certifications reconnues : le savoir au service de la
+          transition écologique togolaise.
+        </p>
+        <div className="flex flex-wrap gap-3">
+          <Link to="/academy" className="btn-cta px-6 py-3">
+            Explorer les formations
+            <ArrowUpRight className="w-4 h-4" />
+          </Link>
+          <Link
+            to="/academy#ambassadeurs"
+            className="inline-flex items-center gap-2 px-6 py-3 rounded-full font-bold text-sm border-2 border-foreground/15 text-foreground hover:border-foreground/40 transition-colors"
+          >
+            Devenir ambassadeur
+            <ArrowUpRight className="w-4 h-4" />
+          </Link>
+        </div>
+      </div>
+
+      {/* Content column — desktop only (lg+) keeps the original editorial layout */}
       <motion.div
         initial={{ opacity: 0, y: 24 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
         transition={{ duration: 0.6, delay: 0.1 }}
-        className="lg:col-span-7 order-1 lg:order-2"
+        className="hidden lg:block lg:col-span-7 lg:order-2"
       >
         <div className="inline-flex items-center gap-3 mb-6">
           <span className="inline-flex items-center justify-center w-12 h-12 rounded-full bg-primary text-primary-foreground font-black text-sm">
@@ -143,6 +202,7 @@ const GreenAcademySection = () => (
         </div>
       </motion.div>
     </div>
+
   </section>
 );
 
