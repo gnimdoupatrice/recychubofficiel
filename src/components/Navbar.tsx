@@ -172,9 +172,7 @@ const Navbar = () => {
               draggable={false}
               className="w-10 h-10 sm:w-11 sm:h-11 object-contain drop-shadow-lg pointer-events-none"
             />
-            <span className="hidden sm:inline-block font-bold text-[16px] tracking-tight text-foreground leading-none">
-              RECYC <span className="text-primary">HUB</span>
-            </span>
+
 
           </Link>
 
