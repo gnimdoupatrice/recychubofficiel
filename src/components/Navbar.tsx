@@ -172,8 +172,6 @@ const Navbar = () => {
               draggable={false}
               className="w-10 h-10 sm:w-11 sm:h-11 object-contain drop-shadow-lg pointer-events-none"
             />
-
-
           </Link>
 
           <div className="hidden lg:flex flex-1 items-center justify-center gap-0.5 xl:gap-1.5 max-w-3xl">
