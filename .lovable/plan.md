@@ -1,64 +1,64 @@
-# Corrections mobile ciblées (desktop inchangé)
+## Objectif
 
-## 1. Hero — Carrousel arrière-plan (`HeroSection.tsx`)
+Renforcer la qualité responsive (mobile-first, niveau ONU/PNUD) avec 3 corrections ciblées + audit mobile global.
 
-Vérification effectuée sur `hero-2-pickup.webp` : l'image **n'est pas noire/vide** (moyenne 119/255, plage 0–255, contenu réel). Je ne la supprime donc pas. Si tu confirmes vouloir la retirer malgré tout, dis-le et je l'enlève de `SLIDES`.
+## 1. Solution Pro — Stats chip mobile (`SolutionProSection.tsx`)
 
-## 2. Hero — Méta footer (`HeroSection.tsx`)
+Problème : sur mobile, les 3 valeurs (`−35%`, `+60%`, `100%`) se collent dans le chip flottant absolu.
 
-« 2 500+ kg / +228 97 68 40 30 / Kara, Togo » doivent tenir **sur une seule ligne en mobile**.
+- Repositionner le chip : passer de `absolute -bottom-8 left-6 right-6` à un rendu **non absolu en mobile** (`relative mt-6` en xs, `md:absolute md:-bottom-8 md:left-10`) pour libérer la largeur.
+- Resserrer la grille mobile : `grid-cols-3 gap-2 md:gap-4`, valeurs en `text-xl` (au lieu de `text-2xl`) en xs, label `text-[10px] leading-tight`.
+- Ajouter `min-w-0` + `break-words` sur chaque cellule pour éviter le chevauchement des signes `−` / `+`.
+- Padding chip : `p-4 md:p-6`.
 
-- Passer la grille de `grid-cols-1 sm:grid-cols-3` → `grid-cols-3` (toujours 3 colonnes).
-- Compacter chaque item en mobile : icône 8×8 (au lieu de 11×11), `gap-2`, valeur en `text-[11px]/text-xs`, label tronqué/masqué en xs (`hidden xs:block` ou taille réduite), centrage vertical, suppression des marges latérales superflues. À partir de `sm:` on garde la version actuelle riche (icône 11×11 + label complet).
+## 2. Green Academy — Réordonner le texte descriptif (`GreenAcademySection.tsx`)
 
-## 3. About — Stat card à côté du titre en mobile (`AboutSection.tsx`)
+Demande : déplacer le paragraphe descriptif (« Une académie verte qui outille… ») **juste après le H2**, avant les 3 axes et les CTAs, sur mobile ET desktop.
 
-Aujourd'hui en mobile la stat card est rendue en bloc plein sous l'image. Tu veux qu'elle flotte à côté du titre comme en desktop, sans masquer le titre.
-
-- Supprimer le rendu mobile « relative mt-4 w-full » et garder le positionnement flottant aussi en mobile : `absolute -top-4 right-3 w-[150px]` en xs, puis `md:-top-6 md:-right-6 md:w-[200px]`.
-- La stat card est posée sur **l'image** (zone titre éditorial « 01/02/03 + titre » au-dessus), donc elle ne recouvre pas le titre.
-- Vérifier que le badge « Déficit logistique » reste lisible : décaler la stat card vers `right-3` (au lieu de `-right-4`) pour ne pas chevaucher le badge en haut-gauche (badges et stat card sont sur des coins opposés, OK).
-
-## 4. Green Academy — Ordre mobile (`GreenAcademySection.tsx`)
-
-Ordre actuel mobile : titre + texte + tracks + CTA, puis image **à la fin**.
-Nouvel ordre mobile demandé :
-
-```text
-Eyebrow « 03 Green Academy »
-H2 « Former la prochaine génération du recyclage »
-Texte descriptif
-Image (academy-hero.webp + badges flottants)
-3 axes (Tri / Économie circulaire / Entrepreneuriat vert)
-CTAs
+Mobile (bloc `lg:hidden`) :
+```
+eyebrow → H2 → paragraphe descriptif → image → 3 axes → CTAs
 ```
 
-- Sortir l'image de sa colonne et la placer dans le flux mobile entre le H2 et les tracks via deux rendus (un mobile `lg:hidden` entre H2 et tracks, un desktop `hidden lg:block` dans la colonne gauche), **ou** restructurer en `flex flex-col` mobile avec `order-*` Tailwind sur chaque bloc tout en gardant le `lg:grid lg:grid-cols-12`.
-- Réduire la hauteur image mobile (`h-[320px]` au lieu de `h-[420px]`).
-- Déplacer le paragraphe descriptif **après** les 3 axes en mobile (ordre logique demandé).
+Desktop (bloc `hidden lg:block`) : inchangé (le paragraphe est déjà juste après le H2). Vérifier et conserver l'ordre actuel.
 
-## 5. Civic Tech — Ordre mobile (`CivicTechSection.tsx`)
+Action : dans le rendu mobile, déplacer le `<p>` actuellement dans `.order-4` vers le bloc d'en-tête `.order-1`, juste sous le H2. Retirer le `<p>` du bloc CTAs mobile.
 
-Ordre actuel mobile : header → 3 piliers → grande carte image+stats.
-Nouvel ordre mobile : header (eyebrow + H2 + texte) → **grande carte image+stats juste après le texte** → 3 piliers en dessous.
+## 3. Hero — Image noire/vide (`HeroSection.tsx`)
 
-- En mobile uniquement, placer le bloc image-stats avant la grille des piliers via `order-*` ou en dupliquant le rendu sous flag `md:hidden` / `hidden md:block`. Desktop reste identique.
+L'utilisateur voit un écran noir entre deux slides. Lister les `SLIDES`, tester chaque image (chargement + contenu non-noir) et :
 
-## 6. Page Solutions — 2 colonnes en mobile (`SolutionsSection.tsx`)
+- Si une image est cassée/manquante/quasi-noire → la retirer du tableau `SLIDES`.
+- Sinon, renforcer la transition pour éviter le « flash noir » entre slides : assurer que la slide précédente reste visible (`opacity` cross-fade au lieu d'un swap), placer un `bg-muted` ou un fallback gradient derrière le carrousel, et ajouter `loading="eager"` + `decoding="async"` sur la première slide uniquement (déjà fait selon mémoire — vérifier).
+- Si la slide cassée est `hero-2-pickup.webp` (déjà suspectée), la supprimer puisque la mémoire d'analyse précédente note qu'elle n'est pas noire — donc le souci est probablement le **fond noir entre transitions**, pas l'image. Priorité : corriger la transition.
 
-4 cartes : `Solution Pro` (hero card, pleine largeur) + 3 cartes (Rachat / Alerte / Academy).
-Tu veux en **mobile** : « Solution Pro + Rachat plastique » sur une ligne, « Civic Tech + Green Academy » sur la ligne suivante (2 colonnes).
+## 4. Audit mobile-first global (qualité ONU/PNUD)
 
-- Aujourd'hui Solution Pro est rendue en hero card pleine largeur séparée. Il faut donc en mobile :
-  1. La sortir de son traitement « hero pleine largeur » et la rendre comme **carte normale** dans une grille `grid-cols-2` (avec les 3 autres).
-  2. À partir de `md:`, revenir au layout actuel (hero pleine largeur + 3 cartes en `md:grid-cols-3`).
-- Implémentation : créer un rendu compact de Solution Pro (icône + nom + cta) pour mobile (`md:hidden`) inclus dans la grille `grid-cols-2 md:grid-cols-3` avec les 3 autres ; et masquer la version « hero » sur mobile (`hidden md:grid`).
+Passe ciblée sur les sections principales au viewport 390px :
 
-## Détails techniques
+- `HeroSection` : vérifier hauteur, lisibilité H1, padding latéral, chip stats.
+- `AboutSection` : badges « Déficit logistique » + stat card flottante (déjà traité au plan précédent — re-vérifier).
+- `SolutionProSection` : (cf. §1).
+- `ServicesSection` / `SolutionsSection` : grilles, espacements, tailles de police.
+- `CivicTechSection`, `GreenAcademySection`, `EventsHubSection`, `FAQSection`, `ImpactStatsSection`, `TestimonialsSection`, `PartnersSection`, `CTASection`, `Footer` : vérifier débordements horizontaux, tailles de typo, contrastes, `min-h` cohérents, CTAs ≥ 44px tactile.
 
-- Aucune modification de contenu (textes, CTA, routes, données, images sources hors suppression éventuelle si confirmée).
+Critères qualité appliqués partout :
+- Aucun débordement horizontal (`overflow-x-hidden` au besoin sur conteneurs).
+- Typographie fluide : H2 mobile `text-3xl`, descriptifs `text-base leading-relaxed`.
+- Espacement vertical entre sections : `py-16 md:py-24` minimum cohérent.
+- Tailles tactiles ≥ 44px sur tous les CTAs et liens nav.
+- Images en `loading="lazy"` (sauf hero LCP), `decoding="async"`, dimensions explicites.
+- Aucun chevauchement d'éléments absolus en xs.
+
+## Fichiers touchés
+
+- `src/components/SolutionProSection.tsx`
+- `src/components/GreenAcademySection.tsx`
+- `src/components/HeroSection.tsx`
+- Petits ajustements potentiels sur les autres sections si l'audit révèle des défauts mobile.
+
+## Hors scope
+
+- Aucune modification de contenu (textes, CTAs, routes, données).
 - Aucune logique métier, aucun changement backend.
-- Accessibilité : conserver les `aria-label`, ordre DOM logique (le réordonnancement Green Academy / Civic Tech se fera via duplication de blocs sous flags `md:hidden` plutôt qu'avec `order-*` pour préserver l'ordre de lecture screen-reader).
-- Fichiers touchés : `src/components/HeroSection.tsx`, `src/components/AboutSection.tsx`, `src/components/GreenAcademySection.tsx`, `src/components/CivicTechSection.tsx`, `src/components/SolutionsSection.tsx`.
-
-Used the accessibility skill.
+- Desktop : préservé tel quel sauf si l'audit révèle un bug évident.

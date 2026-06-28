@@ -54,7 +54,7 @@ const HeroSection = () => {
             key={src}
             src={src}
             alt=""
-            loading={i === 0 ? "eager" : "lazy"}
+            loading="eager"
             fetchPriority={i === 0 ? "high" : "low"}
             decoding="async"
             className={
@@ -63,6 +63,13 @@ const HeroSection = () => {
             }
           />
         ))}
+        {/* Persistent first slide as fallback to prevent any black flash between transitions */}
+        <img
+          src={SLIDES[0]}
+          alt=""
+          aria-hidden="true"
+          className="absolute inset-0 w-full h-full object-cover opacity-50 -z-10"
+        />
         {/* Institutional vignette — sombre bas, lisibilité maximale */}
         <div className="absolute inset-0 bg-gradient-to-t from-foreground via-foreground/85 to-foreground/45" />
         {/* Voile vert très léger pour ancrer la marque */}

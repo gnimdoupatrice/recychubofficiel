@@ -14,6 +14,95 @@ export type Database = {
   }
   public: {
     Tables: {
+      certificates: {
+        Row: {
+          course_id: string
+          id: string
+          issued_at: string
+          user_id: string
+          verification_code: string
+        }
+        Insert: {
+          course_id: string
+          id?: string
+          issued_at?: string
+          user_id: string
+          verification_code?: string
+        }
+        Update: {
+          course_id?: string
+          id?: string
+          issued_at?: string
+          user_id?: string
+          verification_code?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "certificates_course_id_fkey"
+            columns: ["course_id"]
+            isOneToOne: false
+            referencedRelation: "courses"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      courses: {
+        Row: {
+          cover_url: string | null
+          created_at: string
+          description: string | null
+          duration_minutes: number | null
+          id: string
+          is_free: boolean
+          legal_notice: string | null
+          level: string
+          published: boolean
+          slug: string
+          sort_order: number
+          source_provider: string | null
+          source_type: string
+          source_url: string
+          title: string
+          track: string
+        }
+        Insert: {
+          cover_url?: string | null
+          created_at?: string
+          description?: string | null
+          duration_minutes?: number | null
+          id?: string
+          is_free?: boolean
+          legal_notice?: string | null
+          level?: string
+          published?: boolean
+          slug: string
+          sort_order?: number
+          source_provider?: string | null
+          source_type?: string
+          source_url?: string
+          title: string
+          track: string
+        }
+        Update: {
+          cover_url?: string | null
+          created_at?: string
+          description?: string | null
+          duration_minutes?: number | null
+          id?: string
+          is_free?: boolean
+          legal_notice?: string | null
+          level?: string
+          published?: boolean
+          slug?: string
+          sort_order?: number
+          source_provider?: string | null
+          source_type?: string
+          source_url?: string
+          title?: string
+          track?: string
+        }
+        Relationships: []
+      }
       dumps_alerts: {
         Row: {
           created_at: string
@@ -41,6 +130,41 @@ export type Database = {
         }
         Relationships: []
       }
+      enrollments: {
+        Row: {
+          completed_at: string | null
+          course_id: string
+          id: string
+          progress_pct: number
+          started_at: string
+          user_id: string
+        }
+        Insert: {
+          completed_at?: string | null
+          course_id: string
+          id?: string
+          progress_pct?: number
+          started_at?: string
+          user_id: string
+        }
+        Update: {
+          completed_at?: string | null
+          course_id?: string
+          id?: string
+          progress_pct?: number
+          started_at?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "enrollments_course_id_fkey"
+            columns: ["course_id"]
+            isOneToOne: false
+            referencedRelation: "courses"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       events: {
         Row: {
           created_at: string
@@ -67,6 +191,88 @@ export type Database = {
           title?: string
         }
         Relationships: []
+      }
+      module_progress: {
+        Row: {
+          completed_at: string | null
+          id: string
+          module_id: string
+          status: string
+          updated_at: string
+          user_id: string
+          watched_seconds: number
+        }
+        Insert: {
+          completed_at?: string | null
+          id?: string
+          module_id: string
+          status?: string
+          updated_at?: string
+          user_id: string
+          watched_seconds?: number
+        }
+        Update: {
+          completed_at?: string | null
+          id?: string
+          module_id?: string
+          status?: string
+          updated_at?: string
+          user_id?: string
+          watched_seconds?: number
+        }
+        Relationships: [
+          {
+            foreignKeyName: "module_progress_module_id_fkey"
+            columns: ["module_id"]
+            isOneToOne: false
+            referencedRelation: "modules"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      modules: {
+        Row: {
+          course_id: string
+          created_at: string
+          duration_minutes: number | null
+          id: string
+          position: number
+          source_type: string
+          source_url: string
+          title: string
+          video_id: string | null
+        }
+        Insert: {
+          course_id: string
+          created_at?: string
+          duration_minutes?: number | null
+          id?: string
+          position?: number
+          source_type?: string
+          source_url?: string
+          title: string
+          video_id?: string | null
+        }
+        Update: {
+          course_id?: string
+          created_at?: string
+          duration_minutes?: number | null
+          id?: string
+          position?: number
+          source_type?: string
+          source_url?: string
+          title?: string
+          video_id?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "modules_course_id_fkey"
+            columns: ["course_id"]
+            isOneToOne: false
+            referencedRelation: "courses"
+            referencedColumns: ["id"]
+          },
+        ]
       }
       pickup_requests: {
         Row: {

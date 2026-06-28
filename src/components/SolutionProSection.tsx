@@ -69,15 +69,15 @@ const SolutionProSection = () => (
               className="w-full h-[360px] md:h-[520px] object-cover"
             />
           </div>
-          {/* Floating stat chip */}
-          <div className="absolute -bottom-8 left-6 right-6 md:left-10 md:right-auto md:max-w-md bg-background rounded-2xl shadow-[0_24px_60px_-24px_hsl(var(--foreground)/0.25)] p-5 md:p-6 border border-border">
-            <div className="grid grid-cols-3 gap-4">
+          {/* Floating stat chip — flux normal en mobile pour éviter les chevauchements */}
+          <div className="relative mt-6 md:mt-0 md:absolute md:-bottom-8 md:left-10 md:right-auto md:max-w-md bg-background rounded-2xl shadow-[0_24px_60px_-24px_hsl(var(--foreground)/0.25)] p-4 md:p-6 border border-border">
+            <div className="grid grid-cols-3 gap-2 md:gap-4">
               {stats.map((s) => (
-                <div key={s.label} className="text-center">
-                  <div className="font-black text-2xl md:text-3xl text-primary leading-none">
+                <div key={s.label} className="text-center min-w-0">
+                  <div className="font-black text-xl md:text-3xl text-primary leading-none whitespace-nowrap">
                     {s.value}
                   </div>
-                  <div className="text-[11px] text-muted-foreground mt-1.5 leading-tight">
+                  <div className="text-[10px] md:text-[11px] text-muted-foreground mt-1.5 leading-tight">
                     {s.label}
                   </div>
                 </div>

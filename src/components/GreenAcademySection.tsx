@@ -80,7 +80,7 @@ const GreenAcademySection = () => (
         </div>
       </motion.div>
 
-      {/* Header mobile only (eyebrow + H2) — ensures image follows title on mobile */}
+      {/* Header mobile only (eyebrow + H2 + paragraphe descriptif) */}
       <div className="order-1 lg:hidden">
         <div className="inline-flex items-center gap-3 mb-6">
           <span className="inline-flex items-center justify-center w-12 h-12 rounded-full bg-primary text-primary-foreground font-black text-sm">
@@ -94,6 +94,12 @@ const GreenAcademySection = () => (
           Former la prochaine génération{" "}
           <span className="text-primary">du recyclage</span>.
         </h2>
+        <p className="mt-6 text-muted-foreground text-base md:text-lg leading-relaxed">
+          Une académie verte qui outille étudiants, jeunes professionnels et
+          collecteurs en activité. Modules digitaux, ateliers pratiques sur le
+          terrain et certifications reconnues : le savoir au service de la
+          transition écologique togolaise.
+        </p>
       </div>
 
       {/* Tracks — order 3 mobile (after image), inside desktop content column */}
@@ -116,14 +122,8 @@ const GreenAcademySection = () => (
         ))}
       </div>
 
-      {/* Description text + CTAs — order 4 on mobile (after tracks) */}
+      {/* CTAs — order 4 on mobile (after tracks) */}
       <div className="order-4 lg:hidden">
-        <p className="text-muted-foreground text-lg leading-relaxed mb-8 max-w-xl">
-          Une académie verte qui outille étudiants, jeunes professionnels et
-          collecteurs en activité. Modules digitaux, ateliers pratiques sur le
-          terrain et certifications reconnues : le savoir au service de la
-          transition écologique togolaise.
-        </p>
         <div className="flex flex-wrap gap-3">
           <Link to="/academy" className="btn-cta px-6 py-3">
             Explorer les formations
