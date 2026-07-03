@@ -37,7 +37,7 @@ const CTASection = () => (
           className="inline-flex items-center gap-2 bg-secondary text-secondary-foreground px-7 py-3.5 rounded-full font-bold text-sm hover:translate-y-[-2px] transition-transform shadow-lg"
         >
           <Truck className="w-4 h-4" />
-          Commander un enlèvement
+          Demander un enlèvement
           <ArrowRight className="w-4 h-4" />
         </Link>
         <Link

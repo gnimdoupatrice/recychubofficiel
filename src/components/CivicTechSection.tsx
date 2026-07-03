@@ -129,13 +129,6 @@ const CivicTechSection = () => (
                 Signaler un dépotoir
                 <ArrowUpRight className="w-4 h-4" />
               </Link>
-              <Link
-                to="/alerte#carte"
-                className="inline-flex items-center gap-2 px-6 py-3 rounded-full font-bold text-sm bg-background/15 backdrop-blur text-background border border-background/30 hover:bg-background/25 transition-colors"
-              >
-                Voir la carte
-                <ArrowUpRight className="w-4 h-4" />
-              </Link>
             </div>
           </div>
         </div>
