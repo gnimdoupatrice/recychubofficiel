@@ -20,7 +20,7 @@ const Footer = () => {
               Plateforme phygitale de gestion des déchets et de sensibilisation
               environnementale à Kara, Togo.
             </p>
-            {/* social icons */}
+            {/* social ICOINSSS */}
             <div className="flex gap-2 mt-6" aria-label="Suivez-nous">
               <a href="#" className="w-9 h-9 rounded-sm border border-background/15 flex items-center justify-center text-background/60 hover:text-primary hover:border-primary/40 transition-colors" aria-label="Facebook">
                 <svg
