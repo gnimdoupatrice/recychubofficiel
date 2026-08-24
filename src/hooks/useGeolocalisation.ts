@@ -50,8 +50,10 @@ export function useGeolocalisation() {
         else if (err.code === err.POSITION_UNAVAILABLE) setErreur("unavailable");
         else setErreur("timeout");
 
-        // Au-delà de 3 échecs cumulés, on débloque le mode de secours par texte.
-        setEtat(tentativesRef.current >= SEUIL_TENTATIVES ? "fallback" : "error");
+        // Refus explicite : inutile d'imposer 3 essais, on ouvre tout de suite
+        // le mode de secours par texte (le bouton « Réessayer » reste proposé).
+        const refus = err.code === err.PERMISSION_DENIED;
+        setEtat(refus || tentativesRef.current >= SEUIL_TENTATIVES ? "fallback" : "error");
       },
       OPTIONS
     );
@@ -63,7 +65,15 @@ export function useGeolocalisation() {
       ?.query({ name: "geolocation" as PermissionName })
       .then((res) => {
         setPermission(res.state);
-        res.onchange = () => setPermission(res.state);
+        res.onchange = () => {
+          setPermission(res.state);
+          // L'utilisateur vient d'autoriser depuis les réglages : on relance seul.
+          if (res.state === "granted") {
+            tentativesRef.current = 0;
+            setTentativesGeolocalisation(0);
+            demanderPosition();
+          }
+        };
       })
       .catch(() => setPermission(null));
 
