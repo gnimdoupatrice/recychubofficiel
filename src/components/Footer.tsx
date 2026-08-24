@@ -7,7 +7,7 @@ const Footer = () => {
   return (
     <footer className="bg-foreground text-background/80 pt-20 pb-10 font-inter">
       <div className="max-w-6xl mx-auto px-6 md:px-12 lg:px-24">
-        {/* Editorial top  */}
+        {/* Editorial top  ,nn,nx,cnc,c*/}
         <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-12 gap-10 lg:gap-12 pb-12 lg:pb-14 border-b border-background/10">
           <div className="col-span-2 sm:col-span-2 lg:col-span-5">
             <Link to="/" className="inline-flex items-center gap-3 mb-6 group">
@@ -20,7 +20,7 @@ const Footer = () => {
               Plateforme phygitale de gestion des déchets et de sensibilisation
               environnementale à Kara, Togo.
             </p>
-            {/* social  */}
+            {/* social  ncncncncn*/}
             <div className="flex gap-2 mt-6" aria-label="Suivez-nous">
               <a href="#" className="w-9 h-9 rounded-sm border border-background/15 flex items-center justify-center text-background/60 hover:text-primary hover:border-primary/40 transition-colors" aria-label="Facebook">
                 <svg
