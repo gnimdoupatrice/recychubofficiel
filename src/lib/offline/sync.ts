@@ -141,9 +141,9 @@ export async function syncQueue(force = false): Promise<void> {
       }
 
       const res = await envoyer(item);
-      if (res.ok) {
+      if (res.ok === true) {
         await updateSignalement(item.id, { statut: "sent", derniere_tentative: Date.now(), erreur: undefined });
-      } else if (res.definitif) {
+      } else if (res.definitif === true) {
         await updateSignalement(item.id, {
           statut: "failed",
           derniere_tentative: Date.now(),
@@ -156,6 +156,7 @@ export async function syncQueue(force = false): Promise<void> {
           erreur: res.message,
         });
       }
+
     }
 
     const restants = await getByStatut("pending");
