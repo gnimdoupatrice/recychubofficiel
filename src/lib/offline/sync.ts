@@ -24,9 +24,13 @@ export function delaiAvantRetry(tentatives: number): number {
   return 5 * 60_000; // puis toutes les 5 min
 }
 
-type EnvoiResultat =
-  | { ok: true }
-  | { ok: false; definitif: boolean; message: string };
+interface EnvoiResultat {
+  ok: boolean;
+  /** true = le serveur a explicitement rejeté (4xx) : inutile de retenter */
+  definitif?: boolean;
+  message?: string;
+}
+
 
 function estRejetDefinitif(status?: number | string | null): boolean {
   const code = typeof status === "string" ? parseInt(status, 10) : status;
