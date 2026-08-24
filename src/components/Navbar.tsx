@@ -185,7 +185,7 @@ const Navbar = () => {
               <Underline active={location.pathname === "/"} tone="neutral" />
             </Link>
 
-            {/* Alerte dépotoir — pulsation jaune→rouge + live counter */}
+            {/* Alerte  — pulsation jaune→rouge + live counter */}
             <Link
               to="/alerte"
               onClick={() => { setAlerteToast(true); window.setTimeout(() => setAlerteToast(false), 2600); }}
@@ -210,7 +210,7 @@ const Navbar = () => {
               </span>
             </Link>
 
-            {/* Vendre — vert secondary, icône qui rebondit + badge FCFA au hover */}
+            {/* Vendre — vert secondary, icône qui rebondit +  FCFA au  */}
             <Link to="/vendre" className={linkClass(location.pathname === "/vendre", "secondary")}>
               <ShoppingBag className="w-3.5 h-3.5 group-hover:[animation:nav-bounce_.5s_ease-out]" />
               Vendre mes plastiques
