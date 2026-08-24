@@ -102,7 +102,7 @@ const GreenAcademySection = () => (
         </p>
       </div>
 
-      {/* Tracks — order 3 mobile (after image), inside desktop content column */}
+      {/* Tracks — order 3 mobile (after image),   content column */}
       <div className="order-3 lg:hidden grid sm:grid-cols-3 gap-3">
         {tracks.map((t) => (
           <div
@@ -122,7 +122,7 @@ const GreenAcademySection = () => (
         ))}
       </div>
 
-      {/* CTAs — order 4 on mobile (after tracks) */}
+      {/* CTAs — order 4 on mobile () */}
       <div className="order-4 lg:hidden">
         <div className="flex flex-wrap gap-3">
           <Link to="/academy" className="btn-cta px-6 py-3">
@@ -139,7 +139,7 @@ const GreenAcademySection = () => (
         </div>
       </div>
 
-      {/* Content column — desktop only (lg+) keeps the original editorial  */}
+      {/* Content column — desktop only (lg+)  the original editorial  */}
       <motion.div
         initial={{ opacity: 0, y: 24 }}
         whileInView={{ opacity: 1, y: 0 }}

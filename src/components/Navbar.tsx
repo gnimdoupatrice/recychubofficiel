@@ -216,7 +216,7 @@ const Navbar = () => {
               <Underline active={location.pathname === "/vendre"} tone="secondary" />
             </Link>
 
-            {/* Découvrir dropdown — accent doré */}
+            {/* Découvrir  —  doré */}
             <div ref={discoverRef} className="relative flex">
               <button
                 onClick={() => setDiscoverOpen(o => !o)}

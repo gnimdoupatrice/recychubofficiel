@@ -94,7 +94,7 @@ const Footer = () => {
           </div>
         </div>
 
-        {/* Bottom bar */}
+        {/* Bottom ar */}
         <div className="pt-8 flex flex-col md:flex-row items-center justify-between gap-4 text-xs text-background/45 font-light">
           <div>© {year} RECYC HUB TOGO · Tous droits réservés.</div>
           <div className="flex items-center gap-6">
