@@ -31,7 +31,10 @@ const AlerteDepotoir = () => {
   const messageGeo = () => {
     if (geo.etat === "loading") return "📍 Localisation en cours...";
     if (geo.etat === "success") return "📍 Position détectée";
-    if (geo.etat === "fallback") return "Position indisponible — merci de préciser le lieu ci-dessous";
+    if (geo.etat === "fallback")
+      return geo.erreur === "denied"
+        ? "Localisation refusée — décrivez le lieu ci-dessous, votre alerte sera bien prise en compte."
+        : "Position indisponible — merci de préciser le lieu ci-dessous";
     if (geo.erreur === "denied")
       return "L'accès à votre position a été refusé. Cliquez sur l'icône 🔒 ou ⓘ à côté de l'adresse du site, puis autorisez la localisation.";
     if (geo.erreur === "unavailable")

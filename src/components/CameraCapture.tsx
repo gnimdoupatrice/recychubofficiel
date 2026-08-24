@@ -4,19 +4,52 @@ import { Camera, RefreshCw, X } from "lucide-react";
 /**
  * Prise de photo EN DIRECT uniquement : on ouvre le flux caméra de l'appareil.
  * Aucun accès à la galerie n'est proposé — la photo doit être prise sur place.
- * Fonctionne hors connexion (API navigateur pure, aucun appel réseau).
+ * Tout fonctionne hors connexion (APIs navigateur pures, aucun appel réseau).
+ *
+ * Repli cohérent si `getUserMedia` est indisponible (navigateur ancien, WebView) :
+ * un input `capture="environment"` qui ouvre lui aussi directement l'appareil photo.
  */
 interface Props {
   photo: Blob | null;
   onPhoto: (blob: Blob | null) => void;
 }
 
+type Souci = "denied" | "absente" | "occupee" | "insecure" | "indisponible";
+
+const MESSAGES: Record<Souci, string> = {
+  denied:
+    "Accès à l'appareil photo refusé. Touchez l'icône 🔒 ou ⓘ à côté de l'adresse du site, autorisez la caméra, puis réessayez.",
+  absente: "Aucun appareil photo détecté sur cet appareil.",
+  occupee: "L'appareil photo est déjà utilisé par une autre application. Fermez-la puis réessayez.",
+  insecure: "L'appareil photo nécessite une connexion sécurisée (https).",
+  indisponible: "Appareil photo indisponible. Utilisez le bouton de secours ci-dessous.",
+};
+
 const CameraCapture = ({ photo, onPhoto }: Props) => {
   const videoRef = useRef<HTMLVideoElement>(null);
   const streamRef = useRef<MediaStream | null>(null);
   const [ouvert, setOuvert] = useState(false);
-  const [erreur, setErreur] = useState<string | null>(null);
+  const [souci, setSouci] = useState<Souci | null>(null);
   const [apercu, setApercu] = useState<string | null>(null);
+  const [permission, setPermission] = useState<PermissionState | null>(null);
+
+  // getUserMedia n'existe qu'en contexte sécurisé (https ou localhost).
+  const supporteFluxDirect =
+    typeof navigator !== "undefined" && !!navigator.mediaDevices?.getUserMedia && window.isSecureContext;
+
+  useEffect(() => {
+    // État de la permission caméra quand le navigateur l'expose (Chrome/Android).
+    navigator.permissions
+      ?.query({ name: "camera" as PermissionName })
+      .then((res) => {
+        setPermission(res.state);
+        res.onchange = () => {
+          setPermission(res.state);
+          if (res.state === "granted") setSouci(null);
+        };
+      })
+      .catch(() => setPermission(null));
+  }, []);
 
   useEffect(() => {
     if (!photo) { setApercu(null); return; }
@@ -33,7 +66,11 @@ const CameraCapture = ({ photo, onPhoto }: Props) => {
   useEffect(() => stopStream, [stopStream]);
 
   const ouvrirCamera = async () => {
-    setErreur(null);
+    setSouci(null);
+    if (!supporteFluxDirect) {
+      setSouci(window.isSecureContext ? "indisponible" : "insecure");
+      return;
+    }
     try {
       const stream = await navigator.mediaDevices.getUserMedia({
         video: { facingMode: { ideal: "environment" } },
@@ -50,11 +87,10 @@ const CameraCapture = ({ photo, onPhoto }: Props) => {
       }, 0);
     } catch (e) {
       const nom = (e as Error).name;
-      setErreur(
-        nom === "NotAllowedError"
-          ? "Accès à l'appareil photo refusé. Autorisez la caméra dans les réglages du navigateur puis réessayez."
-          : "Appareil photo indisponible sur cet appareil."
-      );
+      if (nom === "NotAllowedError" || nom === "SecurityError") setSouci("denied");
+      else if (nom === "NotFoundError" || nom === "OverconstrainedError") setSouci("absente");
+      else if (nom === "NotReadableError" || nom === "AbortError") setSouci("occupee");
+      else setSouci("indisponible");
     }
   };
 
@@ -65,7 +101,7 @@ const CameraCapture = ({ photo, onPhoto }: Props) => {
 
   const capturer = () => {
     const video = videoRef.current;
-    if (!video) return;
+    if (!video || !video.videoWidth) return;
     const canvas = document.createElement("canvas");
     canvas.width = video.videoWidth;
     canvas.height = video.videoHeight;
@@ -98,13 +134,16 @@ const CameraCapture = ({ photo, onPhoto }: Props) => {
     );
   }
 
+  // Repli : ouvre l'appareil photo natif du téléphone (jamais la galerie).
+  const replinatif = souci !== null || !supporteFluxDirect;
+
   return (
     <div>
       {apercu ? (
         <div className="rounded-xl overflow-hidden border border-orange-alert/30">
           <img src={apercu} alt="Photo du dépotoir signalé" className="w-full max-h-72 object-cover" />
-          <div className="flex gap-2 p-3">
-            <button type="button" onClick={ouvrirCamera} className="flex-1 py-2 rounded-lg border border-orange-alert/40 text-sm font-medium inline-flex items-center justify-center gap-2">
+          <div className="p-3">
+            <button type="button" onClick={ouvrirCamera} className="w-full py-2 rounded-lg border border-orange-alert/40 text-sm font-medium inline-flex items-center justify-center gap-2">
               <RefreshCw className="w-4 h-4" /> Reprendre la photo
             </button>
           </div>
@@ -119,7 +158,29 @@ const CameraCapture = ({ photo, onPhoto }: Props) => {
           <p className="text-sm text-muted-foreground">Ouvrir l'appareil photo et prendre la photo du dépotoir</p>
         </button>
       )}
-      {erreur && <p className="text-xs text-destructive mt-2">{erreur}</p>}
+
+      {souci && (
+        <p className="text-xs text-destructive mt-2">
+          {MESSAGES[souci]}
+          {permission === "denied" && souci === "denied" ? " La caméra est bloquée pour ce site." : ""}
+        </p>
+      )}
+
+      {replinatif && (
+        <label className="mt-2 block text-center text-xs font-medium text-orange-alert underline cursor-pointer">
+          Utiliser l'appareil photo du téléphone
+          <input
+            type="file"
+            accept="image/*"
+            capture="environment"
+            className="hidden"
+            onChange={(e) => {
+              const f = e.target.files?.[0];
+              if (f) { onPhoto(f); setSouci(null); }
+            }}
+          />
+        </label>
+      )}
     </div>
   );
 };
