@@ -208,7 +208,7 @@ const Navbar = () => {
               </span>
             </Link>
 
-            {/* Vendre — vert secondary, icône qui rebondit + badge FCFA au hover */}
+            {/* Vendre — vert secondary, icône qui rebondit + badge FCFA au hover ,r,gnn,gr,gr */}
             <Link to="/vendre" className={linkClass(location.pathname === "/vendre", "secondary")}>
               <ShoppingBag className="w-3.5 h-3.5 group-hover:[animation:nav-bounce_.5s_ease-out]" />
               Vendre mes plastiques
@@ -216,7 +216,7 @@ const Navbar = () => {
               <Underline active={location.pathname === "/vendre"} tone="secondary" />
             </Link>
 
-            {/* Découvrir  —  doré */}
+            {/* Découvrir  —  dorén rjkrjrjk */}
             <div ref={discoverRef} className="relative flex">
               <button
                 onClick={() => setDiscoverOpen(o => !o)}
@@ -259,7 +259,7 @@ const Navbar = () => {
 
             </div>
 
-            {/* Enlèvement — bleu/teal logistique, camion qui roule à droite */}
+            {/* Enlèvement — bleu/teal logistique, camion qui roule à droite krjkgrjgjg*/}
             <Link to="/enlevement" className={linkClass(location.pathname === "/enlevement", "accent")}>
               <Truck className="w-3.5 h-3.5 group-hover:translate-x-[3px]" />
               Enlèvement de déchets
@@ -323,7 +323,7 @@ const Navbar = () => {
         </div>
       </nav>
 
-      {/* Mobile menu */}
+      {/* Mobile menu ;,ffklfbkrjgrg*/}
       <div className={`fixed inset-0 z-40 lg:hidden transition-all duration-500 ${mobileOpen ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none"}`}>
         <div className="absolute inset-0 bg-background/95 backdrop-blur-2xl" />
         <div className="relative h-full overflow-y-auto pt-24 pb-10 px-6 text-foreground">
