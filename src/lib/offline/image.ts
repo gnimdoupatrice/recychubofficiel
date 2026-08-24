@@ -6,13 +6,13 @@
 const MAX_WIDTH = 1600;
 const QUALITY = 0.8;
 
-function isHeic(file: File) {
+function isHeic(file: Blob) {
   const type = (file.type || "").toLowerCase();
-  const name = file.name.toLowerCase();
+  const name = ((file as File).name || "").toLowerCase();
   return type.includes("heic") || type.includes("heif") || name.endsWith(".heic") || name.endsWith(".heif");
 }
 
-async function toJpegSource(file: File): Promise<Blob> {
+async function toJpegSource(file: Blob): Promise<Blob> {
   if (!isHeic(file)) return file;
   // Import dynamique : la librairie (lourde) n'est chargée que pour les photos iPhone.
   const heic2any = (await import("heic2any")).default;
@@ -20,7 +20,7 @@ async function toJpegSource(file: File): Promise<Blob> {
   return Array.isArray(converted) ? converted[0] : converted;
 }
 
-export async function preparePhoto(file: File): Promise<Blob> {
+export async function preparePhoto(file: Blob): Promise<Blob> {
   const source = await toJpegSource(file);
 
   const bitmap = await createImageBitmap(source).catch(() => null);
