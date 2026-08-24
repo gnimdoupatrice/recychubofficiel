@@ -139,7 +139,7 @@ const GreenAcademySection = () => (
         </div>
       </div>
 
-      {/* Content column — desktop only (lg+) keeps the original editorial layout */}
+      {/* Content column — desktop only (lg+) keeps the original editorial  */}
       <motion.div
         initial={{ opacity: 0, y: 24 }}
         whileInView={{ opacity: 1, y: 0 }}
