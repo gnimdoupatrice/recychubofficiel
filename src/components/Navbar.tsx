@@ -185,7 +185,7 @@ const Navbar = () => {
               <Underline active={location.pathname === "/"} tone="neutral" />
             </Link>
 
-            {/* Alerte  — pulsation jaune→rouge + live counter */}
+            {/* Alerte  — pulsation jaune→rouge + live counter kkkkk */}
             <Link
               to="/alerte"
               onClick={() => { setAlerteToast(true); window.setTimeout(() => setAlerteToast(false), 2600); }}
@@ -218,7 +218,7 @@ const Navbar = () => {
               <Underline active={location.pathname === "/vendre"} tone="secondary" />
             </Link>
 
-            {/* Découvrir dropdown — accent doré */}
+            {/* Découvrir dropdown — accent doré nnnn */}
             <div ref={discoverRef} className="relative flex">
               <button
                 onClick={() => setDiscoverOpen(o => !o)}
@@ -261,7 +261,7 @@ const Navbar = () => {
 
             </div>
 
-            {/* Enlèvement — bleu/teal logistique, camion qui roule à droite */}
+            {/* Enlèvement — bleu/teal logistique, camion qui roule à droite   nnnnn */}
             <Link to="/enlevement" className={linkClass(location.pathname === "/enlevement", "accent")}>
               <Truck className="w-3.5 h-3.5 group-hover:translate-x-[3px]" />
               Enlèvement de déchets
