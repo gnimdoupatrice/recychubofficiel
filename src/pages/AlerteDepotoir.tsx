@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from "react";
-import { AlertTriangle, Camera, MapPin, Send, RefreshCw, CloudOff, CheckCircle2, Trash2 } from "lucide-react";
+import { AlertTriangle, MapPin, Send, RefreshCw, CloudOff, CheckCircle2, Trash2 } from "lucide-react";
+import CameraCapture from "@/components/CameraCapture";
 import { useAuth } from "@/contexts/AuthContext";
 import { toast } from "@/components/ui/sonner";
 import SEO from "@/components/SEO";
@@ -12,11 +13,10 @@ import { isReallyOnline } from "@/lib/offline/network";
 
 const AlerteDepotoir = () => {
   const { user } = useAuth();
-  const [repere, setRepere] = useState("");
   const [description, setDescription] = useState("");
-  const [photo, setPhoto] = useState<File | null>(null);
+  const [photo, setPhoto] = useState<Blob | null>(null);
   const [loading, setLoading] = useState(false);
-  const repereRef = useRef<HTMLInputElement>(null);
+  const repereRef = useRef<HTMLTextAreaElement>(null);
 
   const geo = useGeolocalisation();
   const { enAttente, echecs } = useFileSignalements();
@@ -49,7 +49,7 @@ const AlerteDepotoir = () => {
       toast.error("Nous n'avons pas encore votre position. Appuyez sur « Réessayer ».");
       return;
     }
-    if (geo.etat === "fallback" && !repere.trim()) {
+    if (geo.etat === "fallback" && !description.trim()) {
       toast.error("Merci de décrire précisément le lieu du dépôt.");
       repereRef.current?.focus();
       return;
@@ -66,8 +66,8 @@ const AlerteDepotoir = () => {
         photo_type: blob.type || "image/jpeg",
         latitude: geo.position?.latitude ?? null,
         longitude: geo.position?.longitude ?? null,
-        repere_texte: repere.trim(),
-        description: description.trim(),
+        repere_texte: description.trim(),
+        description: "",
         date_capture: Date.now(),
         statut: "pending",
         tentatives_envoi: 0,
@@ -80,7 +80,7 @@ const AlerteDepotoir = () => {
       await saveSignalement(item);
       demanderBackgroundSync();
 
-      setRepere(""); setDescription(""); setPhoto(null);
+      setDescription(""); setPhoto(null);
 
       const enLigne = await isReallyOnline();
       if (enLigne) {
@@ -150,11 +150,10 @@ const AlerteDepotoir = () => {
           <form onSubmit={handleSubmit} className="p-6 rounded-2xl glass space-y-5">
             <div>
               <label className="block text-sm font-medium mb-2">Photo du dépotoir *</label>
-              <label className="block border-2 border-dashed border-orange-alert/30 rounded-xl p-8 text-center cursor-pointer hover:border-orange-alert/60 transition-colors">
-                <Camera className="w-10 h-10 text-orange-alert/50 mx-auto mb-2" />
-                <p className="text-sm text-muted-foreground">{photo ? photo.name : "Prendre une photo ou choisir depuis la galerie"}</p>
-                <input type="file" accept="image/*" capture="environment" className="hidden" onChange={(e) => setPhoto(e.target.files?.[0] ?? null)} />
-              </label>
+              <CameraCapture photo={photo} onPhoto={setPhoto} />
+              <p className="text-xs text-muted-foreground mt-2">
+                La photo doit être prise sur place avec l'appareil photo — la galerie n'est pas utilisée.
+              </p>
 
               {/* Indicateur de localisation, visible en permanence */}
               <div className="mt-3 text-sm">
@@ -187,35 +186,24 @@ const AlerteDepotoir = () => {
 
             <div>
               <label className="block text-sm font-medium mb-2">
-                Repère / Lieu précis {repereObligatoire ? "*" : "(optionnel)"}
+                Description du lieu {repereObligatoire ? "*" : "(optionnel)"}
               </label>
               <div className="relative">
                 <MapPin className="absolute left-3 top-3 w-4 h-4 text-muted-foreground" />
-                <input
+                <textarea
                   ref={repereRef}
-                  type="text"
+                  rows={3}
                   required={repereObligatoire}
                   placeholder={repereObligatoire
                     ? "Décrivez précisément l'endroit, ex: à 50m derrière le marché central, côté rue principale"
-                    : "Ex: Derrière le marché central, Kozah 2"}
-                  value={repere}
-                  onChange={(e) => setRepere(e.target.value)}
-                  className={`w-full pl-10 pr-4 py-3 rounded-xl bg-background text-sm outline-none focus:ring-2 focus:ring-primary/30 border ${
+                    : "Ex: Derrière le marché central, Kozah 2 — type ou ampleur du dépôt"}
+                  value={description}
+                  onChange={(e) => setDescription(e.target.value)}
+                  className={`w-full pl-10 pr-4 py-3 rounded-xl bg-background text-sm outline-none focus:ring-2 focus:ring-primary/30 border resize-none ${
                     repereObligatoire ? "border-orange-alert ring-1 ring-orange-alert/30" : "border-input"
                   }`}
                 />
               </div>
-            </div>
-
-            <div>
-              <label className="block text-sm font-medium mb-2">Description (optionnel)</label>
-              <textarea
-                rows={3}
-                placeholder="Type ou ampleur du dépôt, depuis quand il est là..."
-                value={description}
-                onChange={(e) => setDescription(e.target.value)}
-                className="w-full px-4 py-3 rounded-xl border border-input bg-background text-sm focus:ring-2 focus:ring-primary/30 outline-none resize-none"
-              />
             </div>
 
             <button type="submit" disabled={loading || geo.etat === "loading"} className="w-full shimmer py-3 rounded-xl bg-orange-alert text-destructive-foreground font-semibold flex items-center justify-center gap-2 transition-transform hover:scale-[1.02] glow-orange disabled:opacity-50">
