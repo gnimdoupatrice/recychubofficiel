@@ -1,0 +1,16 @@
+{
+  "name": "RECYC HUB TOGO",
+  "short_name": "RecycHub",
+  "description": "Signalez les dépotoirs sauvages, vendez vos plastiques et demandez un enlèvement de déchets à Kara.",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#F5821F",
+  "lang": "fr",
+  "icons": [
+    { "src": "/logo.png", "sizes": "192x192", "type": "image/png", "purpose": "any" },
+    { "src": "/logo.png", "sizes": "512x512", "type": "image/png", "purpose": "any" },
+    { "src": "/logo.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
+  ]
+}
