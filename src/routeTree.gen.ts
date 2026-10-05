@@ -10,33 +10,108 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as AuthenticatedRouteRouteImport } from './routes/_authenticated/route'
+import { Route as AuthRouteImport } from './routes/auth'
+import { Route as AuthenticatedDeclarerRouteImport } from './routes/_authenticated/declarer'
+import { Route as AuthenticatedPrixRouteImport } from './routes/_authenticated/prix'
+import { Route as AuthenticatedTableauDeBordRouteImport } from './routes/_authenticated/tableau-de-bord'
+import { Route as AuthenticatedTourneesTourIdRouteImport } from './routes/_authenticated/tournees.$tourId'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AuthenticatedRouteRoute = AuthenticatedRouteRouteImport.update({
+  id: '/_authenticated',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AuthRoute = AuthRouteImport.update({
+  id: '/auth',
+  path: '/auth',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AuthenticatedDeclarerRoute = AuthenticatedDeclarerRouteImport.update({
+  id: '/declarer',
+  path: '/declarer',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
+const AuthenticatedPrixRoute = AuthenticatedPrixRouteImport.update({
+  id: '/prix',
+  path: '/prix',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
+const AuthenticatedTableauDeBordRoute =
+  AuthenticatedTableauDeBordRouteImport.update({
+    id: '/tableau-de-bord',
+    path: '/tableau-de-bord',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
+const AuthenticatedTourneesTourIdRoute =
+  AuthenticatedTourneesTourIdRouteImport.update({
+    id: '/tournees/$tourId',
+    path: '/tournees/$tourId',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/auth': typeof AuthRoute
+  '/declarer': typeof AuthenticatedDeclarerRoute
+  '/prix': typeof AuthenticatedPrixRoute
+  '/tableau-de-bord': typeof AuthenticatedTableauDeBordRoute
+  '/tournees/$tourId': typeof AuthenticatedTourneesTourIdRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/auth': typeof AuthRoute
+  '/declarer': typeof AuthenticatedDeclarerRoute
+  '/prix': typeof AuthenticatedPrixRoute
+  '/tableau-de-bord': typeof AuthenticatedTableauDeBordRoute
+  '/tournees/$tourId': typeof AuthenticatedTourneesTourIdRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/_authenticated': typeof AuthenticatedRouteRouteWithChildren
+  '/auth': typeof AuthRoute
+  '/_authenticated/declarer': typeof AuthenticatedDeclarerRoute
+  '/_authenticated/prix': typeof AuthenticatedPrixRoute
+  '/_authenticated/tableau-de-bord': typeof AuthenticatedTableauDeBordRoute
+  '/_authenticated/tournees/$tourId': typeof AuthenticatedTourneesTourIdRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/'
+  fullPaths:
+    | '/'
+    | '/auth'
+    | '/declarer'
+    | '/prix'
+    | '/tableau-de-bord'
+    | '/tournees/$tourId'
   fileRoutesByTo: FileRoutesByTo
-  to: '/'
-  id: '__root__' | '/'
+  to:
+    | '/'
+    | '/auth'
+    | '/declarer'
+    | '/prix'
+    | '/tableau-de-bord'
+    | '/tournees/$tourId'
+  id:
+    | '__root__'
+    | '/'
+    | '/_authenticated'
+    | '/auth'
+    | '/_authenticated/declarer'
+    | '/_authenticated/prix'
+    | '/_authenticated/tableau-de-bord'
+    | '/_authenticated/tournees/$tourId'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  AuthenticatedRouteRoute: typeof AuthenticatedRouteRouteWithChildren
+  AuthRoute: typeof AuthRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -48,11 +123,72 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/_authenticated': {
+      id: '/_authenticated'
+      path: ''
+      fullPath: '/'
+      preLoaderRoute: typeof AuthenticatedRouteRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/auth': {
+      id: '/auth'
+      path: '/auth'
+      fullPath: '/auth'
+      preLoaderRoute: typeof AuthRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/_authenticated/declarer': {
+      id: '/_authenticated/declarer'
+      path: '/declarer'
+      fullPath: '/declarer'
+      preLoaderRoute: typeof AuthenticatedDeclarerRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/prix': {
+      id: '/_authenticated/prix'
+      path: '/prix'
+      fullPath: '/prix'
+      preLoaderRoute: typeof AuthenticatedPrixRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/tableau-de-bord': {
+      id: '/_authenticated/tableau-de-bord'
+      path: '/tableau-de-bord'
+      fullPath: '/tableau-de-bord'
+      preLoaderRoute: typeof AuthenticatedTableauDeBordRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/tournees/$tourId': {
+      id: '/_authenticated/tournees/$tourId'
+      path: '/tournees/$tourId'
+      fullPath: '/tournees/$tourId'
+      preLoaderRoute: typeof AuthenticatedTourneesTourIdRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
   }
 }
 
+interface AuthenticatedRouteRouteChildren {
+  AuthenticatedDeclarerRoute: typeof AuthenticatedDeclarerRoute
+  AuthenticatedPrixRoute: typeof AuthenticatedPrixRoute
+  AuthenticatedTableauDeBordRoute: typeof AuthenticatedTableauDeBordRoute
+  AuthenticatedTourneesTourIdRoute: typeof AuthenticatedTourneesTourIdRoute
+}
+
+const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
+  AuthenticatedDeclarerRoute: AuthenticatedDeclarerRoute,
+  AuthenticatedPrixRoute: AuthenticatedPrixRoute,
+  AuthenticatedTableauDeBordRoute: AuthenticatedTableauDeBordRoute,
+  AuthenticatedTourneesTourIdRoute: AuthenticatedTourneesTourIdRoute,
+}
+
+const AuthenticatedRouteRouteWithChildren =
+  AuthenticatedRouteRoute._addFileChildren(AuthenticatedRouteRouteChildren)
+
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  AuthenticatedRouteRoute: AuthenticatedRouteRouteWithChildren,
+  AuthRoute: AuthRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

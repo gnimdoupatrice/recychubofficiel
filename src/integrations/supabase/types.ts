@@ -261,6 +261,10 @@ export type Database = {
         Args: { _id: string; _kg: number; _price: number }
         Returns: undefined
       }
+      has_decl_in_tour: {
+        Args: { _tour: string; _user: string }
+        Returns: boolean
+      }
       has_role: {
         Args: {
           _role: Database["public"]["Enums"]["app_role"]
@@ -279,6 +283,7 @@ export type Database = {
           quartier: string
         }[]
       }
+      owns_tour: { Args: { _tour: string; _user: string }; Returns: boolean }
       release_from_tour: { Args: { _id: string }; Returns: undefined }
     }
     Enums: {
