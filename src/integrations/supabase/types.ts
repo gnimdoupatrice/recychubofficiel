@@ -14,16 +14,275 @@ export type Database = {
   }
   public: {
     Tables: {
-      [_ in never]: never
+      companies: {
+        Row: {
+          city: string
+          created_at: string
+          description: string
+          id: string
+          name: string
+        }
+        Insert: {
+          city?: string
+          created_at?: string
+          description?: string
+          id: string
+          name: string
+        }
+        Update: {
+          city?: string
+          created_at?: string
+          description?: string
+          id?: string
+          name?: string
+        }
+        Relationships: []
+      }
+      company_prices: {
+        Row: {
+          company_id: string
+          material_id: string
+          price_per_kg: number
+          updated_at: string
+        }
+        Insert: {
+          company_id: string
+          material_id: string
+          price_per_kg: number
+          updated_at?: string
+        }
+        Update: {
+          company_id?: string
+          material_id?: string
+          price_per_kg?: number
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "company_prices_company_id_fkey"
+            columns: ["company_id"]
+            isOneToOne: false
+            referencedRelation: "companies"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "company_prices_material_id_fkey"
+            columns: ["material_id"]
+            isOneToOne: false
+            referencedRelation: "materials"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      declarations: {
+        Row: {
+          address: string
+          city: string
+          collected_at: string | null
+          collected_kg: number | null
+          created_at: string
+          estimated_kg: number
+          id: string
+          material_id: string
+          note: string
+          price_per_kg: number | null
+          quartier: string
+          status: string
+          tour_id: string | null
+          user_id: string
+        }
+        Insert: {
+          address?: string
+          city?: string
+          collected_at?: string | null
+          collected_kg?: number | null
+          created_at?: string
+          estimated_kg: number
+          id?: string
+          material_id: string
+          note?: string
+          price_per_kg?: number | null
+          quartier: string
+          status?: string
+          tour_id?: string | null
+          user_id: string
+        }
+        Update: {
+          address?: string
+          city?: string
+          collected_at?: string | null
+          collected_kg?: number | null
+          created_at?: string
+          estimated_kg?: number
+          id?: string
+          material_id?: string
+          note?: string
+          price_per_kg?: number | null
+          quartier?: string
+          status?: string
+          tour_id?: string | null
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "declarations_material_id_fkey"
+            columns: ["material_id"]
+            isOneToOne: false
+            referencedRelation: "materials"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "declarations_tour_id_fkey"
+            columns: ["tour_id"]
+            isOneToOne: false
+            referencedRelation: "tours"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      materials: {
+        Row: {
+          category: string
+          id: string
+          name: string
+          sort: number
+        }
+        Insert: {
+          category: string
+          id: string
+          name: string
+          sort?: number
+        }
+        Update: {
+          category?: string
+          id?: string
+          name?: string
+          sort?: number
+        }
+        Relationships: []
+      }
+      profiles: {
+        Row: {
+          address: string
+          city: string
+          created_at: string
+          full_name: string
+          id: string
+          phone: string
+          quartier: string
+        }
+        Insert: {
+          address?: string
+          city?: string
+          created_at?: string
+          full_name?: string
+          id: string
+          phone?: string
+          quartier?: string
+        }
+        Update: {
+          address?: string
+          city?: string
+          created_at?: string
+          full_name?: string
+          id?: string
+          phone?: string
+          quartier?: string
+        }
+        Relationships: []
+      }
+      tours: {
+        Row: {
+          company_id: string
+          created_at: string
+          id: string
+          note: string
+          status: string
+          tour_date: string
+          zone: string
+        }
+        Insert: {
+          company_id: string
+          created_at?: string
+          id?: string
+          note?: string
+          status?: string
+          tour_date: string
+          zone?: string
+        }
+        Update: {
+          company_id?: string
+          created_at?: string
+          id?: string
+          note?: string
+          status?: string
+          tour_date?: string
+          zone?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "tours_company_id_fkey"
+            columns: ["company_id"]
+            isOneToOne: false
+            referencedRelation: "companies"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      user_roles: {
+        Row: {
+          id: string
+          role: Database["public"]["Enums"]["app_role"]
+          user_id: string
+        }
+        Insert: {
+          id?: string
+          role: Database["public"]["Enums"]["app_role"]
+          user_id: string
+        }
+        Update: {
+          id?: string
+          role?: Database["public"]["Enums"]["app_role"]
+          user_id?: string
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
     }
     Functions: {
-      [_ in never]: never
+      assign_to_tour: {
+        Args: { _ids: string[]; _tour: string }
+        Returns: number
+      }
+      cancel_declaration: { Args: { _id: string }; Returns: undefined }
+      complete_stop: {
+        Args: { _id: string; _kg: number; _price: number }
+        Returns: undefined
+      }
+      has_role: {
+        Args: {
+          _role: Database["public"]["Enums"]["app_role"]
+          _user_id: string
+        }
+        Returns: boolean
+      }
+      open_declarations: {
+        Args: never
+        Returns: {
+          city: string
+          created_at: string
+          estimated_kg: number
+          id: string
+          material_id: string
+          quartier: string
+        }[]
+      }
+      release_from_tour: { Args: { _id: string }; Returns: undefined }
     }
     Enums: {
-      [_ in never]: never
+      app_role: "household" | "company" | "admin"
     }
     CompositeTypes: {
       [_ in never]: never
@@ -150,6 +409,8 @@ export type CompositeTypes<
 
 export const Constants = {
   public: {
-    Enums: {},
+    Enums: {
+      app_role: ["household", "company", "admin"],
+    },
   },
 } as const
