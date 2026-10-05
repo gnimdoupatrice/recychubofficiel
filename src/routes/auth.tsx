@@ -54,7 +54,7 @@ function AuthPage() {
         options: { data: { ...f, phone: normalizePhone(f.phone), role } },
       });
       setBusy(false);
-      if (error) return toast.error(error.message.includes("registered") ? "Ce numéro a déjà un compte" : error.message);
+      if (error) return toast.error(error.message.includes("registered") ? "Ce numéro a déjà un compte" : error.message.includes("weak") ? "Mot de passe trop facile à deviner, choisissez-en un autre" : error.message);
       if (!data.session) return toast.error("Inscription incomplète, réessayez de vous connecter");
       toast.success("Bienvenue sur EcoCollecte !");
     }
