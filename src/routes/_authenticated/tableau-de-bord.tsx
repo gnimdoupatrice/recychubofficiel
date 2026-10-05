@@ -64,7 +64,7 @@ function HouseholdHome({ name }: { name: string }) {
 
   return (
     <AppShell title="Mon espace">
-      <p className="text-sm text-muted-foreground">Bonjour {name.split(" ")[0]} 👋</p>
+      <p className="text-sm text-muted-foreground">Bonjour {name.split(" ")[0]}</p>
       <div className="mt-3 grid grid-cols-2 gap-3">
         <Stat label="En cours" value={String(active.length)} />
         <Stat label="Déjà gagné" value={formatFcfa(earned)} />
