@@ -59,6 +59,7 @@ function AuthPage() {
       toast.success("Bienvenue sur EcoCollecte !");
     }
     navigate({ to: "/tableau-de-bord", replace: true });
+    return undefined;
   }
 
   return (

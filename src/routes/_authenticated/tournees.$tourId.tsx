@@ -101,7 +101,7 @@ function TourDetail() {
 type Decl = { id: string; quartier: string; city: string; address: string; note: string; estimated_kg: number; status: string; collected_kg: number | null; price_per_kg: number | null; material_id: string };
 
 function Stop({ index, d, material, defaultPrice, editable, onDone, onRelease }: {
-  index: number; d: Decl; material: string; defaultPrice?: number; editable: boolean; onDone: () => void; onRelease: () => void;
+  index: number; d: Decl; material: string; defaultPrice?: number | undefined; editable: boolean; onDone: () => void; onRelease: () => void;
 }) {
   const [open, setOpen] = useState(false);
   const [kg, setKg] = useState(String(d.estimated_kg));

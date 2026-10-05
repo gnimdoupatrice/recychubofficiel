@@ -69,6 +69,6 @@ export const statusLabel: Record<string, { label: string; cls: string }> = {
 };
 
 export function StatusBadge({ status }: { status: string }) {
-  const s = statusLabel[status] ?? statusLabel.pending;
+  const s = statusLabel[status] ?? { label: "En attente", cls: "bg-muted text-muted-foreground" };
   return <span className={`shrink-0 rounded-full px-2.5 py-1 text-xs font-bold ${s.cls}`}>{s.label}</span>;
 }
