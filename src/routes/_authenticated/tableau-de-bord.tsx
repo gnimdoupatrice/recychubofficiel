@@ -13,9 +13,9 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/u
 export const Route = createFileRoute("/_authenticated/tableau-de-bord")({
   head: () => ({
     meta: [
-      { title: "Tableau de bord — EcoCollecte Kara" },
+      { title: "Tableau de bord — RecycHub Togo" },
       { name: "description", content: "Suivez vos déclarations de déchets recyclables ou vos tournées de collecte." },
-      { property: "og:title", content: "Tableau de bord — EcoCollecte Kara" },
+      { property: "og:title", content: "Tableau de bord — RecycHub Togo" },
       { property: "og:description", content: "Votre espace de recyclage." },
     ],
   }),
@@ -32,7 +32,7 @@ function useMaterials() {
 
 function Dashboard() {
   const { data: me, isLoading } = useMe();
-  if (isLoading || !me) return <AppShell title="EcoCollecte"><p className="text-muted-foreground">Chargement…</p></AppShell>;
+  if (isLoading || !me) return <AppShell title="RecycHub"><p className="text-muted-foreground">Chargement…</p></AppShell>;
   return me.role === "company" ? <CompanyHome /> : <HouseholdHome name={me.profile?.full_name ?? ""} />;
 }
 

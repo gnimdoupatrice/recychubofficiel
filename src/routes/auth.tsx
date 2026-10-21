@@ -6,6 +6,7 @@ import { supabase } from "@/integrations/supabase/client";
 import { phoneToEmail, normalizePhone, type Role } from "@/lib/auth";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import logo from "@/assets/recychub-logo.png.asset.json";
 
 const search = z.object({
   mode: z.enum(["signin", "signup"]).optional(),
@@ -16,9 +17,9 @@ export const Route = createFileRoute("/auth")({
   validateSearch: search,
   head: () => ({
     meta: [
-      { title: "Connexion — EcoCollecte Kara" },
+      { title: "Connexion — RecycHub Togo" },
       { name: "description", content: "Connectez-vous ou créez votre compte ménage ou entreprise avec votre numéro de téléphone." },
-      { property: "og:title", content: "Connexion — EcoCollecte Kara" },
+      { property: "og:title", content: "Connexion — RecycHub Togo" },
       { property: "og:description", content: "Accédez à votre espace de recyclage." },
     ],
   }),
@@ -56,18 +57,18 @@ function AuthPage() {
       setBusy(false);
       if (error) return toast.error(error.message.includes("registered") ? "Ce numéro a déjà un compte" : error.message.includes("weak") ? "Mot de passe trop facile à deviner, choisissez-en un autre" : error.message);
       if (!data.session) return toast.error("Inscription incomplète, réessayez de vous connecter");
-      toast.success("Bienvenue sur EcoCollecte !");
+      toast.success("Bienvenue sur RecycHub !");
     }
     navigate({ to: "/tableau-de-bord", replace: true });
     return undefined;
   }
 
   return (
-    <div className="min-h-screen bg-background px-5 py-6">
+    <div className="min-h-dvh bg-background px-5 pb-[max(1.5rem,env(safe-area-inset-bottom))] pt-[max(1.5rem,env(safe-area-inset-top))]">
       <div className="mx-auto max-w-md">
         <Link to="/" className="flex items-center gap-2">
-          <img src="/icons/icon-192.png" alt="" width={36} height={36} className="h-9 w-9 rounded-xl" />
-          <span className="font-display text-lg font-bold text-primary">EcoCollecte</span>
+          <img src={logo.url} alt="" width={44} height={44} className="h-11 w-11" />
+          <span className="font-display text-lg font-bold text-primary">RecycHub</span>
         </Link>
         <h1 className="mt-8 text-2xl font-bold">{mode === "signin" ? "Bon retour !" : "Créer un compte"}</h1>
         <p className="mt-1 text-sm text-muted-foreground">

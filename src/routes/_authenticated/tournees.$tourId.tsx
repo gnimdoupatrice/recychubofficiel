@@ -7,13 +7,14 @@ import { supabase } from "@/integrations/supabase/client";
 import { formatDate, formatFcfa } from "@/lib/auth";
 import { AppShell, StatusBadge } from "@/components/AppShell";
 import { Input } from "@/components/ui/input";
+import { enqueue, isNetworkError, useOutbox } from "@/lib/offline";
 
 export const Route = createFileRoute("/_authenticated/tournees/$tourId")({
   head: () => ({
     meta: [
-      { title: "Détail de la tournée — EcoCollecte Kara" },
+      { title: "Détail de la tournée — RecycHub Togo" },
       { name: "description", content: "Arrêts, adresses et pesées de votre tournée de collecte." },
-      { property: "og:title", content: "Détail de la tournée — EcoCollecte Kara" },
+      { property: "og:title", content: "Détail de la tournée — RecycHub Togo" },
       { property: "og:description", content: "Gérez les arrêts de votre tournée." },
     ],
   }),
@@ -104,14 +105,24 @@ function Stop({ index, d, material, defaultPrice, editable, onDone, onRelease }:
   index: number; d: Decl; material: string; defaultPrice?: number | undefined; editable: boolean; onDone: () => void; onRelease: () => void;
 }) {
   const [open, setOpen] = useState(false);
+  const pending = useOutbox().some((o) => o.kind === "complete_stop" && o.args._id === d.id);
   const [kg, setKg] = useState(String(d.estimated_kg));
   const [price, setPrice] = useState(defaultPrice != null ? String(defaultPrice) : "");
   const done = useMutation({
     mutationFn: async () => {
-      const { error } = await supabase.rpc("complete_stop", { _id: d.id, _kg: Number(kg), _price: Number(price) });
-      if (error) throw error;
+      const args = { _id: d.id, _kg: Number(kg), _price: Number(price) };
+      if (!navigator.onLine) { enqueue({ kind: "complete_stop", args }); return "queued"; }
+      const { error } = await supabase.rpc("complete_stop", args);
+      if (error) {
+        if (isNetworkError(error)) { enqueue({ kind: "complete_stop", args }); return "queued"; }
+        throw error;
+      }
+      return "sent";
     },
-    onSuccess: () => { toast.success("Collecte enregistrée"); setOpen(false); onDone(); },
+    onSuccess: (r) => {
+      toast.success(r === "queued" ? "Pesée gardée sur le téléphone, envoi au retour du réseau" : "Collecte enregistrée");
+      setOpen(false); if (r === "sent") onDone();
+    },
     onError: (e: Error) => toast.error(e.message),
   });
   return (
@@ -121,7 +132,7 @@ function Stop({ index, d, material, defaultPrice, editable, onDone, onRelease }:
         <div className="min-w-0">
           <p className="truncate font-semibold">{material}</p>
           <p className="text-sm text-muted-foreground">≈ {Number(d.estimated_kg)} kg</p>
-          <p className="mt-1 flex items-start gap-1 text-sm"><MapPin className="mt-0.5 h-4 w-4 shrink-0 text-primary" /><span>{d.quartier}, {d.city}{d.address ? ` — ${d.address}` : ""}</span></p>
+          <p className="mt-1 flex items-start gap-1 text-sm"><MapPin className="mt-0.5 h-4 w-4 shrink-0 text-primary" /><a className="underline decoration-dotted" href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(`${d.address} ${d.quartier} ${d.city} Togo`)}`} target="_blank" rel="noreferrer">{d.quartier}, {d.city}{d.address ? ` — ${d.address}` : ""}</a></p>
           {d.note && <p className="mt-1 text-xs text-muted-foreground">{d.note}</p>}
         </div>
         <StatusBadge status={d.status} />
@@ -129,9 +140,12 @@ function Stop({ index, d, material, defaultPrice, editable, onDone, onRelease }:
       {d.status === "collected" && (
         <p className="mt-3 text-sm font-semibold text-primary">{Number(d.collected_kg)} kg × {formatFcfa(Number(d.price_per_kg))} = {formatFcfa(Number(d.collected_kg) * Number(d.price_per_kg))}</p>
       )}
-      {editable && d.status === "scheduled" && !open && (
+      {pending && (
+        <p className="mt-3 rounded-xl bg-warning p-2 text-sm font-semibold text-warning-foreground">Pesée enregistrée hors connexion : {kg} kg × {price} F — en attente d'envoi</p>
+      )}
+      {editable && d.status === "scheduled" && !open && !pending && (
         <div className="mt-3 flex gap-2">
-          <button onClick={() => setOpen(true)} className="flex flex-1 items-center justify-center gap-1 rounded-full bg-primary py-2.5 text-sm font-semibold text-primary-foreground"><Check className="h-4 w-4" /> Collecté</button>
+          <button onClick={() => setOpen(true)} className="flex min-h-12 flex-1 items-center justify-center gap-1 rounded-full bg-primary py-3 text-sm font-semibold text-primary-foreground"><Check className="h-4 w-4" /> Collecté</button>
           <button onClick={onRelease} className="rounded-full border border-border px-4 py-2.5 text-sm font-semibold text-muted-foreground">Retirer</button>
         </div>
       )}
@@ -141,9 +155,15 @@ function Stop({ index, d, material, defaultPrice, editable, onDone, onRelease }:
             <label className="text-xs font-semibold">Poids réel (kg)<Input type="number" inputMode="decimal" value={kg} onChange={(e) => setKg(e.target.value)} className="mt-1 h-11 rounded-xl bg-card" /></label>
             <label className="text-xs font-semibold">Prix (F/kg)<Input type="number" inputMode="numeric" value={price} onChange={(e) => setPrice(e.target.value)} className="mt-1 h-11 rounded-xl bg-card" /></label>
           </div>
+          <div className="grid grid-cols-4 gap-2">
+            {[-1, 1, 5, 10].map((n) => (
+              <button key={n} type="button" onClick={() => setKg(String(Math.max(0, Math.round((Number(kg) || 0) * 10 + n * 10) / 10)))}
+                className="min-h-12 rounded-xl bg-card text-sm font-bold active:bg-secondary">{n > 0 ? `+${n}` : n} kg</button>
+            ))}
+          </div>
           {Number(kg) > 0 && Number(price) >= 0 && price !== "" && <p className="text-sm font-semibold">À payer : {formatFcfa(Number(kg) * Number(price))}</p>}
           <div className="flex gap-2">
-            <button disabled={!(Number(kg) > 0) || price === "" || done.isPending} onClick={() => done.mutate()} className="flex-1 rounded-full bg-primary py-2.5 text-sm font-semibold text-primary-foreground disabled:opacity-50">Valider</button>
+            <button disabled={!(Number(kg) > 0) || price === "" || done.isPending} onClick={() => done.mutate()} className="min-h-12 flex-1 rounded-full bg-primary py-3 text-sm font-semibold text-primary-foreground disabled:opacity-50">Valider</button>
             <button onClick={() => setOpen(false)} className="rounded-full px-4 text-sm font-semibold text-muted-foreground">Fermer</button>
           </div>
         </div>
