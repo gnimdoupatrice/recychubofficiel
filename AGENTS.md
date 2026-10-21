@@ -14,4 +14,4 @@
 - Roles live in `user_roles` (household/company), set by the signup trigger from metadata; never on profiles.
 - Companies never read household identity/address directly: open declarations come from the `open_declarations()` security-definer RPC; addresses become readable only via RLS once a declaration is in the company's tour.
 - State transitions (assign, release, complete, cancel) go through security-definer RPCs, not direct UPDATEs.
-- PWA is manifest-only (no service worker) until offline support is requested.
+- Offline: query cache persisted to localStorage; writes made offline go to the outbox in `src/lib/offline.ts` and flush on reconnect. No service worker yet (app shell still needs network to open).
