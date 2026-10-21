@@ -11,9 +11,9 @@ import { Label } from "@/components/ui/label";
 export const Route = createFileRoute("/_authenticated/declarer")({
   head: () => ({
     meta: [
-      { title: "Déclarer mes déchets — EcoCollecte Kara" },
+      { title: "Déclarer mes déchets — RecycHub Togo" },
       { name: "description", content: "Déclarez vos plastiques et métaux recyclables pour qu'une entreprise passe les acheter." },
-      { property: "og:title", content: "Déclarer mes déchets — EcoCollecte Kara" },
+      { property: "og:title", content: "Déclarer mes déchets — RecycHub Togo" },
       { property: "og:description", content: "Plastique, fer, cuivre, aluminium : déclarez en un instant." },
     ],
   }),

@@ -11,9 +11,9 @@ import { Input } from "@/components/ui/input";
 export const Route = createFileRoute("/_authenticated/tournees/$tourId")({
   head: () => ({
     meta: [
-      { title: "Détail de la tournée — EcoCollecte Kara" },
+      { title: "Détail de la tournée — RecycHub Togo" },
       { name: "description", content: "Arrêts, adresses et pesées de votre tournée de collecte." },
-      { property: "og:title", content: "Détail de la tournée — EcoCollecte Kara" },
+      { property: "og:title", content: "Détail de la tournée — RecycHub Togo" },
       { property: "og:description", content: "Gérez les arrêts de votre tournée." },
     ],
   }),

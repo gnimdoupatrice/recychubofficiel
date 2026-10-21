@@ -40,6 +40,8 @@
   --color-muted-foreground: var(--muted-foreground);
   --color-accent: var(--accent);
   --color-accent-foreground: var(--accent-foreground);
+  --color-warning: var(--warning);
+  --color-warning-foreground: var(--warning-foreground);
   --color-destructive: var(--destructive);
   --color-destructive-foreground: var(--destructive-foreground);
   --color-border: var(--border);
@@ -69,19 +71,21 @@
   --card-foreground: oklch(0.22 0.04 155);
   --popover: oklch(1 0 0);
   --popover-foreground: oklch(0.22 0.04 155);
-  --primary: oklch(0.38 0.08 152);
+  --primary: oklch(0.5 0.11 148);
   --primary-foreground: oklch(0.99 0.005 150);
   --secondary: oklch(0.95 0.025 150);
   --secondary-foreground: oklch(0.3 0.07 152);
   --muted: oklch(0.96 0.012 150);
   --muted-foreground: oklch(0.5 0.03 155);
-  --accent: oklch(0.88 0.12 125);
-  --accent-foreground: oklch(0.25 0.06 150);
+  --accent: oklch(0.7 0.12 225);
+  --accent-foreground: oklch(0.99 0.005 150);
+  --warning: oklch(0.8 0.15 75);
+  --warning-foreground: oklch(0.25 0.05 60);
   --destructive: oklch(0.577 0.2 27);
   --destructive-foreground: oklch(0.99 0 0);
   --border: oklch(0.91 0.015 150);
   --input: oklch(0.91 0.015 150);
-  --ring: oklch(0.38 0.08 152);
+  --ring: oklch(0.5 0.11 148);
   --chart-1: oklch(0.646 0.222 41.116);
   --chart-2: oklch(0.6 0.118 184.704);
   --chart-3: oklch(0.398 0.07 227.392);
@@ -143,7 +147,11 @@
     border-color: var(--color-border);
   }
 
+  html { -webkit-tap-highlight-color: transparent; }
+  input, select, textarea { font-size: 16px; }
+  button, a { touch-action: manipulation; }
   body {
+    overscroll-behavior-y: none;
     background-color: var(--color-background);
     color: var(--color-foreground);
   }

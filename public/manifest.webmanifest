@@ -1,12 +1,12 @@
 {
-  "name": "EcoCollecte Kara",
-  "short_name": "EcoCollecte",
+  "name": "RecycHub Togo",
+  "short_name": "RecycHub",
   "description": "Déclarez vos déchets recyclables, les entreprises passent les collecter.",
-  "start_url": "/tableau-de-bord",
+  "start_url": "/tableau-de-bord", "orientation": "portrait",
   "scope": "/",
   "display": "standalone",
   "background_color": "#ffffff",
-  "theme_color": "#1F5133",
+  "theme_color": "#5FAE6B",
   "lang": "fr",
   "icons": [
     { "src": "/icons/icon-192.png", "sizes": "192x192", "type": "image/png" },

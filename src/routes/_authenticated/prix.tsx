@@ -10,9 +10,9 @@ import { Input } from "@/components/ui/input";
 export const Route = createFileRoute("/_authenticated/prix")({
   head: () => ({
     meta: [
-      { title: "Prix au kilo — EcoCollecte Kara" },
+      { title: "Prix au kilo — RecycHub Togo" },
       { name: "description", content: "Comparez les prix d'achat au kilo proposés par les entreprises de recyclage." },
-      { property: "og:title", content: "Prix au kilo — EcoCollecte Kara" },
+      { property: "og:title", content: "Prix au kilo — RecycHub Togo" },
       { property: "og:description", content: "Prix des plastiques et métaux recyclables." },
     ],
   }),

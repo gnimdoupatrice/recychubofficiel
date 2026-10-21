@@ -1,4 +1,7 @@
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import type { QueryClient } from "@tanstack/react-query";
+import { PersistQueryClientProvider } from "@tanstack/react-query-persist-client";
+import { createSyncStoragePersister } from "@tanstack/query-sync-storage-persister";
+import { NetworkStatus } from "@/components/NetworkStatus";
 import {
   Outlet,
   Link,
@@ -60,9 +63,9 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1, viewport-fit=cover" },
-      { name: "theme-color", content: "#1F5133" },
+      { name: "theme-color", content: "#5FAE6B" },
       { name: "apple-mobile-web-app-capable", content: "yes" },
-      { name: "apple-mobile-web-app-title", content: "EcoCollecte" },
+      { name: "apple-mobile-web-app-title", content: "RecycHub" },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
     ],
@@ -99,6 +102,11 @@ function RootShell({ children }: { children: ReactNode }) {
   );
 }
 
+const persister = createSyncStoragePersister({
+  storage: typeof window === "undefined" ? undefined : window.localStorage,
+  key: "recychub-cache",
+});
+
 function RootComponent() {
   const { queryClient } = Route.useRouteContext();
   const router = useRouter();
@@ -112,9 +120,10 @@ function RootComponent() {
   }, [router, queryClient]);
 
   return (
-    <QueryClientProvider client={queryClient}>
+    <PersistQueryClientProvider client={queryClient} persistOptions={{ persister, maxAge: 1000 * 60 * 60 * 24 * 7, buster: "v1" }}>
+      <div className="sticky top-0 z-30"><NetworkStatus /></div>
       <Outlet />
       <Toaster position="top-center" />
-    </QueryClientProvider>
+    </PersistQueryClientProvider>
   );
 }

@@ -4,9 +4,9 @@ import { Home, Truck, Recycle, ShieldCheck } from "lucide-react";
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "EcoCollecte Kara — Vos déchets recyclables collectés chez vous" },
+      { title: "RecycHub Togo — Vos déchets recyclables collectés chez vous" },
       { name: "description", content: "Déclarez vos plastiques et métaux recyclables. Les entreprises de recyclage organisent des tournées pour les acheter dans votre quartier." },
-      { property: "og:title", content: "EcoCollecte Kara — Recyclage à domicile" },
+      { property: "og:title", content: "RecycHub Togo — Recyclage à domicile" },
       { property: "og:description", content: "Plastique, fer, cuivre, aluminium : déclarez, on passe collecter et acheter." },
     ],
   }),
@@ -25,7 +25,7 @@ function Landing() {
       <header className="mx-auto flex max-w-5xl items-center justify-between px-5 py-4">
         <div className="flex items-center gap-2">
           <img src="/icons/icon-192.png" alt="" width={36} height={36} className="h-9 w-9 rounded-xl" />
-          <span className="font-display text-lg font-bold text-primary">EcoCollecte</span>
+          <span className="font-display text-lg font-bold text-primary">RecycHub</span>
         </div>
         <Link to="/auth" className="rounded-full border border-border px-4 py-2 text-sm font-semibold text-primary">
           Se connecter

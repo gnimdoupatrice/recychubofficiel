@@ -16,9 +16,9 @@ export const Route = createFileRoute("/auth")({
   validateSearch: search,
   head: () => ({
     meta: [
-      { title: "Connexion — EcoCollecte Kara" },
+      { title: "Connexion — RecycHub Togo" },
       { name: "description", content: "Connectez-vous ou créez votre compte ménage ou entreprise avec votre numéro de téléphone." },
-      { property: "og:title", content: "Connexion — EcoCollecte Kara" },
+      { property: "og:title", content: "Connexion — RecycHub Togo" },
       { property: "og:description", content: "Accédez à votre espace de recyclage." },
     ],
   }),
@@ -56,7 +56,7 @@ function AuthPage() {
       setBusy(false);
       if (error) return toast.error(error.message.includes("registered") ? "Ce numéro a déjà un compte" : error.message.includes("weak") ? "Mot de passe trop facile à deviner, choisissez-en un autre" : error.message);
       if (!data.session) return toast.error("Inscription incomplète, réessayez de vous connecter");
-      toast.success("Bienvenue sur EcoCollecte !");
+      toast.success("Bienvenue sur RecycHub !");
     }
     navigate({ to: "/tableau-de-bord", replace: true });
     return undefined;
@@ -67,7 +67,7 @@ function AuthPage() {
       <div className="mx-auto max-w-md">
         <Link to="/" className="flex items-center gap-2">
           <img src="/icons/icon-192.png" alt="" width={36} height={36} className="h-9 w-9 rounded-xl" />
-          <span className="font-display text-lg font-bold text-primary">EcoCollecte</span>
+          <span className="font-display text-lg font-bold text-primary">RecycHub</span>
         </Link>
         <h1 className="mt-8 text-2xl font-bold">{mode === "signin" ? "Bon retour !" : "Créer un compte"}</h1>
         <p className="mt-1 text-sm text-muted-foreground">
