@@ -6,6 +6,7 @@ import { supabase } from "@/integrations/supabase/client";
 import { phoneToEmail, normalizePhone, type Role } from "@/lib/auth";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import logo from "@/assets/recychub-logo.png.asset.json";
 
 const search = z.object({
   mode: z.enum(["signin", "signup"]).optional(),
@@ -63,10 +64,10 @@ function AuthPage() {
   }
 
   return (
-    <div className="min-h-screen bg-background px-5 py-6">
+    <div className="min-h-dvh bg-background px-5 pb-[max(1.5rem,env(safe-area-inset-bottom))] pt-[max(1.5rem,env(safe-area-inset-top))]">
       <div className="mx-auto max-w-md">
         <Link to="/" className="flex items-center gap-2">
-          <img src="/icons/icon-192.png" alt="" width={36} height={36} className="h-9 w-9 rounded-xl" />
+          <img src={logo.url} alt="" width={44} height={44} className="h-11 w-11" />
           <span className="font-display text-lg font-bold text-primary">RecycHub</span>
         </Link>
         <h1 className="mt-8 text-2xl font-bold">{mode === "signin" ? "Bon retour !" : "Créer un compte"}</h1>
