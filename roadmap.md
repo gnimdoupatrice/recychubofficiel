@@ -7,4 +7,5 @@
 - [x] Ouverture de l'app sans réseau (service worker, app publiée uniquement)
 - [x] Cartes d'accueil compactes sur mobile
 - [x] Bouton « Installer RecycHub sur mon téléphone »
-- [ ] Liste de quartiers prédéfinis, page profil, simulateur de gains
+- [x] Liste de quartiers prédéfinis (Kara)
+- [ ] Page profil, simulateur de gains
