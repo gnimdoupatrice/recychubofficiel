@@ -15,9 +15,9 @@ export const Route = createFileRoute("/")({
 });
 
 const steps = [
-  { icon: Home, t: "Déclarez", d: "Type de déchet et quantité, en 3 touches." },
-  { icon: Truck, t: "On passe", d: "Une tournée est fixée dans votre quartier." },
-  { icon: Scale, t: "Vous êtes payé", d: "Pesée sur place, prix au kilo affiché." },
+  { icon: Home, t: "Déclarez", short: "En 3 clics", d: "Type de déchet et quantité, en 3 touches." },
+  { icon: Truck, t: "On passe", short: "À domicile", d: "Une tournée est fixée dans votre quartier." },
+  { icon: Scale, t: "Vous êtes payé", short: "Cash direct", d: "Pesée sur place, prix au kilo affiché." },
 ];
 
 function Landing() {
@@ -53,16 +53,17 @@ function Landing() {
           J'ai déjà un compte · Se connecter
         </Link>
 
-        <ol className="mt-8 grid grid-cols-1 gap-3 sm:grid-cols-3">
+        <ol aria-label="Comment ça marche" className="mt-8 grid grid-cols-3 gap-2 sm:gap-4">
           {steps.map((s, i) => (
-            <li key={s.t} className="flex items-center gap-3 rounded-2xl bg-secondary p-4 sm:flex-col sm:text-center">
-              <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-card text-primary">
+            <li key={s.t} className="flex min-w-0 flex-col items-center rounded-2xl bg-secondary px-1.5 py-3 text-center sm:p-5">
+              <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-card text-primary shadow-sm sm:h-12 sm:w-12">
                 <s.icon className="h-5 w-5" />
               </div>
-              <div className="min-w-0">
-                <p className="text-sm font-bold">{i + 1}. {s.t}</p>
-                <p className="mt-1 text-pretty text-xs leading-snug text-muted-foreground">{s.d}</p>
-              </div>
+              <p className="mt-2 text-balance text-xs font-bold leading-tight sm:text-sm">
+                <span className="text-primary">{i + 1}.</span> {s.t}
+              </p>
+              <p className="mt-1 text-[11px] leading-snug text-muted-foreground sm:hidden">{s.short}</p>
+              <p className="mt-1 hidden text-pretty text-xs leading-snug text-muted-foreground sm:block">{s.d}</p>
             </li>
           ))}
         </ol>
