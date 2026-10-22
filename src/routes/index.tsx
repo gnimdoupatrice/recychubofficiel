@@ -23,14 +23,24 @@ const steps = [
 function Landing() {
   return (
     <div className="flex min-h-dvh flex-col bg-background">
-      <main className="mx-auto flex w-full max-w-5xl flex-1 flex-col px-5 pb-10 pt-[max(1.5rem,env(safe-area-inset-top))] sm:px-8">
+      <header className="sticky top-0 z-20 border-b border-border bg-background/90 pt-[env(safe-area-inset-top)] backdrop-blur">
+        <div className="mx-auto grid max-w-5xl grid-cols-[minmax(0,1fr)_auto] items-center gap-3 px-5 py-2.5 sm:px-8">
+          <Link to="/" className="flex min-w-0 items-center gap-2">
+            <img src={logo.url} alt="" width={36} height={36} className="h-9 w-9 shrink-0" />
+            <span className="truncate font-display text-lg font-bold text-primary">RecycHub</span>
+          </Link>
+          <Link to="/auth" className="flex min-h-11 shrink-0 items-center rounded-full border border-border px-4 text-sm font-semibold text-primary hover:bg-secondary">
+            Se connecter
+          </Link>
+        </div>
+      </header>
+      <main className="mx-auto flex w-full max-w-5xl flex-1 flex-col px-5 pb-10 pt-6 sm:px-8 sm:pt-10">
         <div className="mx-auto flex max-w-2xl flex-col items-center text-center">
-          <img src={logo.url} alt="RecycHub Togo — Connecter les acteurs du recyclage" width={176} height={176} className="h-36 w-36 sm:h-44 sm:w-44" />
-          <h1 className="mt-2 text-balance text-2xl font-bold leading-tight sm:text-4xl">Vos déchets recyclables valent de l'argent.</h1>
+          <h1 className="text-balance text-2xl font-bold leading-tight sm:text-4xl">Vos déchets recyclables valent de l'argent.</h1>
           <p className="mt-3 text-pretty text-sm text-muted-foreground sm:text-base">Plastique, fer, cuivre, aluminium… sans vous déplacer.</p>
         </div>
 
-        <section aria-label="Choisissez votre espace" className="mt-8 grid gap-4 md:grid-cols-2">
+        <section aria-label="Choisissez votre espace" className="mt-6 grid gap-4 md:grid-cols-2">
           <ActionCard
             to="household"
             icon={Home}
@@ -48,10 +58,6 @@ function Landing() {
             variant="accent"
           />
         </section>
-
-        <Link to="/auth" className="mx-auto mt-4 rounded-full px-4 py-2 text-center text-sm font-semibold text-primary hover:bg-secondary">
-          J'ai déjà un compte · Se connecter
-        </Link>
 
         <ol aria-label="Comment ça marche" className="mt-8 grid grid-cols-3 gap-2 sm:gap-4">
           {steps.map((s, i) => (
