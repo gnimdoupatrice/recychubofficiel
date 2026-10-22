@@ -75,30 +75,25 @@ function ActionCard({ to, icon: Icon, kicker, title, desc, variant }: {
   to: "household" | "company"; icon: typeof Home; kicker: string; title: string; desc: string; variant: "primary" | "accent";
 }) {
   const styles = variant === "primary"
-    ? "bg-primary text-primary-foreground"
-    : "bg-accent text-accent-foreground";
+    ? "bg-primary text-primary-foreground focus-visible:ring-primary"
+    : "bg-accent text-accent-foreground focus-visible:ring-accent";
   return (
     <Link
       to="/auth"
       search={{ mode: "signup", role: to }}
-      className={`group relative flex min-h-44 flex-col justify-between overflow-hidden rounded-3xl p-6 shadow-lg transition hover:-translate-y-0.5 hover:shadow-xl active:scale-[0.99] ${styles}`}
+      className={`group grid min-h-[72px] grid-cols-[auto_minmax(0,1fr)_auto] items-center gap-3 rounded-2xl px-4 py-3 shadow-md transition hover:-translate-y-0.5 hover:shadow-lg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-offset-background active:scale-[0.98] sm:gap-4 sm:p-5 ${styles}`}
     >
-      <div aria-hidden className="pointer-events-none absolute -right-10 -top-10 h-40 w-40 rounded-full bg-current opacity-10" />
-      <div className="flex items-center gap-3">
-        <span className="flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl bg-background/20">
-          <Icon className="h-6 w-6" />
-        </span>
-        <span className="rounded-full bg-background/20 px-3 py-1 text-xs font-semibold uppercase tracking-wide">{kicker}</span>
-      </div>
-      <div className="mt-6 grid grid-cols-[minmax(0,1fr)_auto] items-end gap-4">
-        <div className="min-w-0">
-          <p className="text-balance text-xl font-bold leading-tight sm:text-2xl">{title}</p>
-          <p className="mt-1 text-pretty text-sm opacity-85">{desc}</p>
-        </div>
-        <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-background/25 transition group-hover:translate-x-1">
-          <ChevronRight className="h-5 w-5" />
-        </span>
-      </div>
+      <span aria-hidden className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-background/20 sm:h-12 sm:w-12">
+        <Icon className="h-5 w-5 sm:h-6 sm:w-6" />
+      </span>
+      <span className="min-w-0">
+        <span className="block text-[11px] font-semibold uppercase tracking-wide opacity-80">{kicker}</span>
+        <span className="block truncate text-base font-bold leading-tight sm:text-lg">{title}</span>
+        <span className="mt-1 hidden text-pretty text-sm opacity-85 sm:block">{desc}</span>
+      </span>
+      <span aria-hidden className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-background/25 transition group-hover:translate-x-1">
+        <ChevronRight className="h-5 w-5" />
+      </span>
     </Link>
   );
 }

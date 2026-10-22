@@ -4,5 +4,6 @@
 - [x] Déclaration en 3 touches (paliers de quantité)
 - [x] Pesée rapide (+1/+5/+10 kg), lien itinéraire
 - [x] Données gardées sur le téléphone + envoi différé hors connexion + bandeau réseau
-- [ ] Ouverture de l'app sans réseau (service worker) — à faire, ne fonctionnera que sur l'app publiée
+- [x] Ouverture de l'app sans réseau (service worker, app publiée uniquement)
+- [x] Cartes d'accueil compactes sur mobile
 - [ ] Liste de quartiers prédéfinis, page profil, simulateur de gains
