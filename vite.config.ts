@@ -15,7 +15,7 @@ export default defineConfig({
   },
   vite: {
     plugins: [
-      VitePWA({
+      ...VitePWA({
         strategies: "generateSW",
         registerType: "autoUpdate",
         injectRegister: null,
@@ -53,7 +53,7 @@ export default defineConfig({
             },
           ],
         },
-      }),
+      }).map((pl) => ({ ...pl, applyToEnvironment: (env: { name: string }) => env.name === "client" })),
     ],
   },
 });
