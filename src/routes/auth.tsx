@@ -1,6 +1,6 @@
 import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
 import { useState } from "react";
-import { ArrowLeft, ArrowRight, Check, Eye, EyeOff, Home, LockKeyhole, MapPin, Truck, UserRound, Building2, LoaderCircle } from "lucide-react";
+import { ArrowLeft, ArrowRight, Check, Eye, EyeOff, Home, LockKeyhole, Truck, UserRound, Building2, LoaderCircle } from "lucide-react";
 import { z } from "zod";
 import { toast } from "sonner";
 import { supabase } from "@/integrations/supabase/client";
@@ -70,20 +70,20 @@ function AuthPage() {
   }
 
   return (
-    <div className="min-h-dvh bg-background pb-[calc(9rem+env(safe-area-inset-bottom))]">
+    <div className="flex min-h-dvh flex-col bg-background pb-[env(safe-area-inset-bottom)]">
       <header className="sticky top-0 z-20 border-b border-border/60 bg-background pt-[env(safe-area-inset-top)]">
-        <div className="mx-auto flex max-w-lg items-center gap-3 px-5 py-2.5">
-          <Button asChild variant="ghost" size="icon" className="h-11 w-11 shrink-0 rounded-full hover:bg-secondary" title="Retour à l'accueil">
-            <Link to="/" aria-label="Retour à l'accueil"><ArrowLeft /></Link>
-          </Button>
+        <div className="mx-auto flex max-w-lg items-center justify-between gap-3 px-5 py-2.5">
           <Link to="/" className="flex items-center gap-2.5">
             <img src={logo.url} alt="" width={32} height={32} className="h-8 w-8" />
             <span className="font-display text-base font-bold text-primary">RecycHub</span>
           </Link>
-          <span className="ml-auto flex items-center gap-1 text-xs font-semibold text-muted-foreground"><MapPin className="h-3.5 w-3.5" /> Kara</span>
+          <Button asChild variant="ghost" size="icon" className="h-11 w-11 shrink-0 rounded-full hover:bg-secondary" title="Retour à l'accueil">
+            <Link to="/" aria-label="Retour à l'accueil"><ArrowLeft /></Link>
+          </Button>
         </div>
       </header>
-      <main className={`mx-auto max-w-lg px-5 ${mode === "signin" ? "pt-8 sm:pt-12" : "pt-5"}`}>
+      <main className={`mx-auto flex w-full max-w-lg flex-1 flex-col px-5 pb-8 ${mode === "signin" ? "justify-center py-10" : "pt-7"}`}>
+        <div className="w-full">
         <h1 className="font-display text-xl font-bold [letter-spacing:0]">{mode === "signin" ? "Bon retour !" : "Créer un compte"}</h1>
         <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
           {mode === "signin" ? "Retrouvez votre espace RecycHub." : "Votre espace de recyclage à Kara."}
@@ -128,20 +128,17 @@ function AuthPage() {
             <Field id="quartier" label="Quartier"><QuartierSelect id="quartier" value={f.quartier} onChange={(v) => setF((p) => ({ ...p, quartier: v }))} /></Field>
             <Field id="address" label="Repère / adresse (privé)"><Input id="address" value={f.address} onChange={set("address")} placeholder="Près de la pharmacie…" className={inputClass} /></Field>
           </>}
-        </form>
-      </main>
-      <footer className="fixed inset-x-0 bottom-0 z-20 border-t border-border/60 bg-background pb-[max(0.75rem,env(safe-area-inset-bottom))]">
-        <div className="mx-auto max-w-lg px-5 pt-3">
-          <Button type="submit" form="auth-form" disabled={busy} className="h-12 w-full rounded-full text-base font-bold shadow-none">
+          <Button type="submit" disabled={busy} className="mt-2 h-12 w-full rounded-full text-base font-bold shadow-none">
             {busy ? <LoaderCircle className="animate-spin motion-reduce:animate-none" /> : null}
             {busy ? "Patientez…" : mode === "signin" ? "Se connecter" : "Créer mon compte"}
             {!busy && <ArrowRight />}
           </Button>
-          <Button type="button" variant="link" disabled={busy} onClick={() => { setMode(mode === "signin" ? "signup" : "signin"); setShowPassword(false); }} className="mt-1 min-h-11 w-full whitespace-normal text-center text-sm">
+        </form>
+          <Button type="button" variant="link" disabled={busy} onClick={() => { setMode(mode === "signin" ? "signup" : "signin"); setShowPassword(false); }} className="mt-3 min-h-11 w-full whitespace-normal text-center text-sm">
             {mode === "signin" ? "Pas encore de compte ? S'inscrire" : "Déjà inscrit ? Se connecter"}
           </Button>
         </div>
-      </footer>
+      </main>
     </div>
   );
 }
