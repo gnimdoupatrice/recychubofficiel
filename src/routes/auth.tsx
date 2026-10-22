@@ -1,11 +1,13 @@
 import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
 import { useState } from "react";
+import { ArrowLeft, ArrowRight, Check, Eye, EyeOff, Home, LockKeyhole, MapPin, Truck, UserRound, Building2, LoaderCircle } from "lucide-react";
 import { z } from "zod";
 import { toast } from "sonner";
 import { supabase } from "@/integrations/supabase/client";
 import { phoneToEmail, normalizePhone, type Role } from "@/lib/auth";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { Button } from "@/components/ui/button";
 import { QuartierSelect } from "@/components/QuartierSelect";
 const logo = { url: "/recychub-logo.png" };
 
@@ -22,6 +24,8 @@ export const Route = createFileRoute("/auth")({
       { name: "description", content: "Connectez-vous ou créez votre compte ménage ou entreprise avec votre numéro de téléphone." },
       { property: "og:title", content: "Connexion — RecycHub Togo" },
       { property: "og:description", content: "Accédez à votre espace de recyclage." },
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary_large_image" },
     ],
   }),
   component: AuthPage,
@@ -33,6 +37,7 @@ function AuthPage() {
   const [mode, setMode] = useState<"signin" | "signup">(s.mode ?? "signin");
   const [role, setRole] = useState<Role>(s.role ?? "household");
   const [busy, setBusy] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
   const [f, setF] = useState({ phone: "", password: "", full_name: "", company_name: "", quartier: "", address: "", city: "Kara" });
   const set = (k: keyof typeof f) => (e: React.ChangeEvent<HTMLInputElement>) => setF({ ...f, [k]: e.target.value });
 
@@ -65,63 +70,88 @@ function AuthPage() {
   }
 
   return (
-    <div className="min-h-dvh bg-background px-5 pb-[max(1.5rem,env(safe-area-inset-bottom))] pt-[max(1.5rem,env(safe-area-inset-top))]">
-      <div className="mx-auto max-w-md">
-        <Link to="/" className="flex items-center gap-2">
-          <img src={logo.url} alt="" width={44} height={44} className="h-11 w-11" />
-          <span className="font-display text-lg font-bold text-primary">RecycHub</span>
-        </Link>
-        <h1 className="mt-8 text-2xl font-bold">{mode === "signin" ? "Bon retour !" : "Créer un compte"}</h1>
-        <p className="mt-1 text-sm text-muted-foreground">
-          {mode === "signin" ? "Connectez-vous avec votre numéro de téléphone." : "Quelques informations pour commencer."}
+    <div className="min-h-dvh bg-background pb-[calc(9rem+env(safe-area-inset-bottom))]">
+      <header className="sticky top-0 z-20 border-b border-border/60 bg-background pt-[env(safe-area-inset-top)]">
+        <div className="mx-auto flex max-w-lg items-center gap-3 px-5 py-2.5">
+          <Button asChild variant="ghost" size="icon" className="h-11 w-11 shrink-0 rounded-full hover:bg-secondary" title="Retour à l'accueil">
+            <Link to="/" aria-label="Retour à l'accueil"><ArrowLeft /></Link>
+          </Button>
+          <Link to="/" className="flex items-center gap-2.5">
+            <img src={logo.url} alt="" width={32} height={32} className="h-8 w-8" />
+            <span className="font-display text-base font-bold text-primary">RecycHub</span>
+          </Link>
+          <span className="ml-auto flex items-center gap-1 text-xs font-semibold text-muted-foreground"><MapPin className="h-3.5 w-3.5" /> Kara</span>
+        </div>
+      </header>
+      <main className={`mx-auto max-w-lg px-5 ${mode === "signin" ? "pt-8 sm:pt-12" : "pt-5"}`}>
+        <h1 className="font-display text-xl font-bold [letter-spacing:0]">{mode === "signin" ? "Bon retour !" : "Créer un compte"}</h1>
+        <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
+          {mode === "signin" ? "Retrouvez votre espace RecycHub." : "Votre espace de recyclage à Kara."}
         </p>
-
         {mode === "signup" && (
-          <div className="mt-6 grid grid-cols-2 gap-2 rounded-2xl bg-muted p-1">
-            {(["household", "company"] as const).map((r) => (
-              <button key={r} type="button" onClick={() => setRole(r)}
-                className={`rounded-xl py-2.5 text-sm font-semibold transition ${role === r ? "bg-card text-primary shadow-sm" : "text-muted-foreground"}`}>
+          <div role="group" aria-label="Type de compte" className="mt-5 grid grid-cols-2 gap-3">
+            {(["household", "company"] as const).map((r) => {
+              const selected = role === r;
+              const Icon = r === "household" ? Home : Truck;
+              return <Button key={r} type="button" variant="outline" aria-pressed={selected} disabled={busy} onClick={() => setRole(r)}
+                className={`relative h-20 flex-col gap-2 rounded-xl border-2 text-sm font-bold shadow-none ${selected ? r === "household" ? "border-primary bg-primary text-primary-foreground hover:bg-primary/90 hover:text-primary-foreground" : "border-collector bg-collector text-collector-foreground hover:bg-collector/90 hover:text-collector-foreground" : "border-border bg-card text-muted-foreground hover:bg-secondary hover:text-secondary-foreground"}`}>
+                <Icon className="size-5" />
                 {r === "household" ? "Ménage" : "Entreprise"}
-              </button>
-            ))}
+                {selected && <Check aria-hidden className="absolute right-2 top-2 size-3.5" />}
+              </Button>;
+            })}
           </div>
         )}
-
-        <form onSubmit={submit} className="mt-6 space-y-4">
-          {mode === "signup" && (
-            <Field label={role === "company" ? "Nom du responsable" : "Nom complet"}><Input value={f.full_name} onChange={set("full_name")} className="h-12 rounded-xl" /></Field>
-          )}
-          {mode === "signup" && role === "company" && (
-            <Field label="Nom de l'entreprise"><Input value={f.company_name} onChange={set("company_name")} className="h-12 rounded-xl" /></Field>
-          )}
-          <Field label="Téléphone"><Input type="tel" inputMode="tel" placeholder="90 00 00 00" value={f.phone} onChange={set("phone")} className="h-12 rounded-xl" /></Field>
-          <Field label="Mot de passe"><Input type="password" value={f.password} onChange={set("password")} className="h-12 rounded-xl" /></Field>
-          {mode === "signup" && role === "household" && (
-            <>
-              <div className="grid grid-cols-2 gap-3">
-                <Field label="Quartier"><QuartierSelect value={f.quartier} onChange={(v) => setF((p) => ({ ...p, quartier: v }))} /></Field>
-                <Field label="Ville"><Input value={f.city} onChange={set("city")} className="h-12 rounded-xl" /></Field>
-              </div>
-              <Field label="Repère / adresse (privé)"><Input value={f.address} onChange={set("address")} placeholder="Près de la pharmacie…" className="h-12 rounded-xl" /></Field>
-            </>
-          )}
-          <button disabled={busy} className="h-12 w-full rounded-full bg-primary font-semibold text-primary-foreground disabled:opacity-60">
-            {busy ? "Patientez…" : mode === "signin" ? "Se connecter" : "Créer mon compte"}
-          </button>
+        <form id="auth-form" onSubmit={submit} className="mt-5 space-y-3.5">
+          {mode === "signup" && <Field id="full-name" label={role === "company" ? "Nom du responsable" : "Nom complet"}>
+            <div className="relative"><UserRound aria-hidden className="pointer-events-none absolute left-3.5 top-3.5 h-5 w-5 text-muted-foreground" /><Input id="full-name" autoComplete="name" value={f.full_name} onChange={set("full_name")} className={inputClass + " pl-11"} /></div>
+          </Field>}
+          {mode === "signup" && role === "company" && <Field id="company-name" label="Nom de l'entreprise">
+            <div className="relative"><Building2 aria-hidden className="pointer-events-none absolute left-3.5 top-3.5 h-5 w-5 text-muted-foreground" /><Input id="company-name" autoComplete="organization" value={f.company_name} onChange={set("company_name")} className={inputClass + " pl-11"} /></div>
+          </Field>}
+          <Field id="phone" label="Téléphone">
+            <div className="relative">
+              <span aria-hidden className="pointer-events-none absolute inset-y-0 left-0 z-10 flex items-center gap-2 pl-3.5 text-sm font-semibold"><span>🇹🇬</span><span className="border-r border-form-border pr-3">+228</span></span>
+              <Input id="phone" type="tel" inputMode="tel" autoComplete="tel-national" placeholder="90 00 00 00" value={f.phone} onChange={set("phone")} className={inputClass + " pl-28"} />
+            </div>
+          </Field>
+          <Field id="password" label="Mot de passe">
+            <div className="relative">
+              <LockKeyhole aria-hidden className="pointer-events-none absolute left-3.5 top-3.5 h-5 w-5 text-muted-foreground" />
+              <Input id="password" type={showPassword ? "text" : "password"} autoComplete={mode === "signin" ? "current-password" : "new-password"} value={f.password} onChange={set("password")} className={inputClass + " pl-11 pr-12"} />
+              <Button type="button" variant="ghost" size="icon" aria-label={showPassword ? "Masquer le mot de passe" : "Afficher le mot de passe"} title={showPassword ? "Masquer le mot de passe" : "Afficher le mot de passe"} aria-pressed={showPassword} onClick={() => setShowPassword((v) => !v)} className="absolute right-0.5 top-0.5 h-11 w-11 rounded-lg text-muted-foreground hover:bg-secondary">
+                {showPassword ? <EyeOff /> : <Eye />}
+              </Button>
+            </div>
+          </Field>
+          {mode === "signup" && role === "household" && <>
+            <Field id="quartier" label="Quartier"><QuartierSelect id="quartier" value={f.quartier} onChange={(v) => setF((p) => ({ ...p, quartier: v }))} /></Field>
+            <Field id="address" label="Repère / adresse (privé)"><Input id="address" value={f.address} onChange={set("address")} placeholder="Près de la pharmacie…" className={inputClass} /></Field>
+          </>}
         </form>
-
-        <button onClick={() => setMode(mode === "signin" ? "signup" : "signin")} className="mt-6 w-full text-center text-sm font-semibold text-primary">
-          {mode === "signin" ? "Pas encore de compte ? S'inscrire" : "Déjà inscrit ? Se connecter"}
-        </button>
-      </div>
+      </main>
+      <footer className="fixed inset-x-0 bottom-0 z-20 border-t border-border/60 bg-background pb-[max(0.75rem,env(safe-area-inset-bottom))]">
+        <div className="mx-auto max-w-lg px-5 pt-3">
+          <Button type="submit" form="auth-form" disabled={busy} className="h-12 w-full rounded-full text-base font-bold shadow-none">
+            {busy ? <LoaderCircle className="animate-spin motion-reduce:animate-none" /> : null}
+            {busy ? "Patientez…" : mode === "signin" ? "Se connecter" : "Créer mon compte"}
+            {!busy && <ArrowRight />}
+          </Button>
+          <Button type="button" variant="link" disabled={busy} onClick={() => { setMode(mode === "signin" ? "signup" : "signin"); setShowPassword(false); }} className="mt-1 min-h-11 w-full whitespace-normal text-center text-sm">
+            {mode === "signin" ? "Pas encore de compte ? S'inscrire" : "Déjà inscrit ? Se connecter"}
+          </Button>
+        </div>
+      </footer>
     </div>
   );
 }
 
-function Field({ label, children }: { label: string; children: React.ReactNode }) {
+const inputClass = "h-12 rounded-xl border-form-border bg-card text-base shadow-none focus-visible:ring-2";
+
+function Field({ id, label, children }: { id: string; label: string; children: React.ReactNode }) {
   return (
     <div className="space-y-1.5">
-      <Label className="text-sm font-semibold">{label}</Label>
+      <Label htmlFor={id} className="text-sm font-semibold">{label}</Label>
       {children}
     </div>
   );
