@@ -2,6 +2,7 @@ import type { QueryClient } from "@tanstack/react-query";
 import { PersistQueryClientProvider } from "@tanstack/react-query-persist-client";
 import { createSyncStoragePersister } from "@tanstack/query-sync-storage-persister";
 import { NetworkStatus } from "@/components/NetworkStatus";
+import { InstallPrompt } from "@/components/InstallPrompt";
 import {
   Outlet,
   Link,
@@ -125,6 +126,7 @@ function RootComponent() {
     <PersistQueryClientProvider client={queryClient} persistOptions={{ persister, maxAge: 1000 * 60 * 60 * 24 * 7, buster: "v1" }}>
       <div className="sticky top-0 z-30"><NetworkStatus /></div>
       <Outlet />
+      <InstallPrompt />
       <Toaster position="top-center" />
     </PersistQueryClientProvider>
   );
