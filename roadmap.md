@@ -1,4 +1,5 @@
 # Roadmap
+- [ ] Affiner accueil et authentification : navigation épurée, connexion centrée, actions dans le formulaire, étapes lisibles
 - [x] Finition connexion/inscription : en-tête, champs, quartiers, sélection et action visible
 - [x] Nom RecycHub Togo + logo (en-tête, accueil, connexion, icônes)
 - [x] Accueil façon application mobile, gros boutons au pouce
