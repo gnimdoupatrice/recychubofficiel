@@ -7,7 +7,7 @@ import { phoneToEmail, normalizePhone, type Role } from "@/lib/auth";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { QuartierSelect } from "@/components/QuartierSelect";
-import logo from "@/assets/recychub-logo.png.asset.json";
+const logo = { url: "/recychub-logo.png" };
 
 const search = z.object({
   mode: z.enum(["signin", "signup"]).optional(),
