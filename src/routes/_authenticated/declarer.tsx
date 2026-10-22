@@ -8,6 +8,7 @@ import { enqueue, isNetworkError } from "@/lib/offline";
 import { AppShell } from "@/components/AppShell";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { QuartierSelect } from "@/components/QuartierSelect";
 
 export const Route = createFileRoute("/_authenticated/declarer")({
   head: () => ({
@@ -104,7 +105,7 @@ function Declare() {
         </div>
         <div className="space-y-1.5">
           <Label>Quartier</Label>
-          <Input value={quartier} onChange={(e) => setQuartier(e.target.value)} className="h-12 rounded-xl" />
+          <QuartierSelect key={quartier ? "q" : "e"} value={quartier} onChange={setQuartier} />
         </div>
         <div className="space-y-1.5">
           <Label>Repère / adresse</Label>

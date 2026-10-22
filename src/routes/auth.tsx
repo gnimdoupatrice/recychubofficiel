@@ -6,6 +6,7 @@ import { supabase } from "@/integrations/supabase/client";
 import { phoneToEmail, normalizePhone, type Role } from "@/lib/auth";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { QuartierSelect } from "@/components/QuartierSelect";
 import logo from "@/assets/recychub-logo.png.asset.json";
 
 const search = z.object({
@@ -98,7 +99,7 @@ function AuthPage() {
           {mode === "signup" && role === "household" && (
             <>
               <div className="grid grid-cols-2 gap-3">
-                <Field label="Quartier"><Input value={f.quartier} onChange={set("quartier")} placeholder="Ex : Kpéwa" className="h-12 rounded-xl" /></Field>
+                <Field label="Quartier"><QuartierSelect value={f.quartier} onChange={(v) => setF((p) => ({ ...p, quartier: v }))} /></Field>
                 <Field label="Ville"><Input value={f.city} onChange={set("city")} className="h-12 rounded-xl" /></Field>
               </div>
               <Field label="Repère / adresse (privé)"><Input value={f.address} onChange={set("address")} placeholder="Près de la pharmacie…" className="h-12 rounded-xl" /></Field>
