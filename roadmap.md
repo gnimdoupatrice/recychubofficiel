@@ -6,4 +6,5 @@
 - [x] Données gardées sur le téléphone + envoi différé hors connexion + bandeau réseau
 - [x] Ouverture de l'app sans réseau (service worker, app publiée uniquement)
 - [x] Cartes d'accueil compactes sur mobile
+- [x] Bouton « Installer RecycHub sur mon téléphone »
 - [ ] Liste de quartiers prédéfinis, page profil, simulateur de gains
