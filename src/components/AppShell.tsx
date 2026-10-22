@@ -4,7 +4,7 @@ import { Home, PlusCircle, Tag, LogOut } from "lucide-react";
 import type { ReactNode } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import { useMe } from "@/lib/auth";
-import logo from "@/assets/recychub-logo.png.asset.json";
+const logo = { url: "/recychub-logo.png" };
 
 export function AppShell({ title, children, action }: { title: string; children: ReactNode; action?: ReactNode }) {
   const { data: me } = useMe();
