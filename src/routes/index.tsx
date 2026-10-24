@@ -43,9 +43,10 @@ function Landing() {
     const materialsList = materialsRef.current;
     if (!actions || !materialsList) return;
     const observer = new IntersectionObserver(([entry]) => {
-      if (entry) setShowAction(!entry.isIntersecting && entry.boundingClientRect.bottom <= 56);
-    }, { rootMargin: "-56px 0px 0px 0px" });
-    observer.observe(actions);
+      if (entry) setShowAction(entry.intersectionRatio < 0.9 && entry.boundingClientRect.top < 56);
+    }, { rootMargin: "-56px 0px 0px 0px", threshold: [0, 0.9, 1] });
+    const primaryAction = actions.firstElementChild;
+    if (primaryAction) observer.observe(primaryAction);
     const updateScroll = () => {
       setCanScrollBack(materialsList.scrollLeft > 2);
       setCanScrollForward(materialsList.scrollLeft + materialsList.clientWidth < materialsList.scrollWidth - 2);
@@ -150,11 +151,10 @@ function ActionCard({ to, icon: Icon, kicker, title, desc, variant }: {
     ? "bg-primary text-primary-foreground focus-visible:ring-primary"
     : "border border-accent/25 bg-collector text-collector-foreground focus-visible:ring-accent";
   return (
-    <Button asChild className={`group h-auto justify-start whitespace-normal rounded-2xl px-4 py-3 transition-colors motion-safe:transition-transform motion-safe:active:scale-[0.98] sm:p-5 ${primary ? "shadow-sm hover:bg-primary/95" : "shadow-none hover:bg-collector/80"} ${styles}`}>
+    <Button asChild className={`group grid h-auto grid-cols-[auto_minmax(0,1fr)_auto] items-center gap-3 whitespace-normal rounded-2xl px-4 py-3 transition-colors motion-safe:transition-transform motion-safe:active:scale-[0.98] sm:gap-4 sm:p-5 ${primary ? "min-h-[80px] shadow-sm hover:bg-primary/95" : "min-h-[68px] shadow-none hover:bg-collector/80"} ${styles}`}>
     <Link
       to="/auth"
       search={{ mode: "signup", role: to }}
-      className={`grid grid-cols-[auto_minmax(0,1fr)_auto] items-center gap-3 sm:gap-4 ${primary ? "min-h-[80px]" : "min-h-[68px]"}`}
     >
       <span aria-hidden className={`flex shrink-0 items-center justify-center rounded-xl bg-card ${primary ? "h-12 w-12 text-primary" : "h-10 w-10 text-collector-foreground"}`}>
         <Icon className="!h-6 !w-6" strokeWidth={2} />
