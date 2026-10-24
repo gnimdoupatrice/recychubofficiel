@@ -1,5 +1,5 @@
 # Roadmap
-- [ ] Affiner l’accueil : priorité ménage, matières accessibles, étapes informatives et action au défilement ; vérifier sur mobile et ordinateur.
+- [x] Affiner l’accueil : priorité ménage, matières accessibles, étapes informatives et action au défilement ; vérifié sur mobile et ordinateur.
 - [x] Nom RecycHub Togo + logo (en-tête, accueil, connexion, icônes)
 - [x] Accueil façon application mobile, gros boutons au pouce
 - [x] Déclaration en 3 touches (paliers de quantité)
