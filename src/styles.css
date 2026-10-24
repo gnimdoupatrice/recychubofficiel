@@ -40,6 +40,8 @@
   --color-muted-foreground: var(--muted-foreground);
   --color-accent: var(--accent);
   --color-accent-foreground: var(--accent-foreground);
+  --color-collector: var(--collector);
+  --color-collector-foreground: var(--collector-foreground);
   --color-warning: var(--warning);
   --color-warning-foreground: var(--warning-foreground);
   --color-destructive: var(--destructive);
@@ -79,6 +81,8 @@
   --muted-foreground: oklch(0.5 0.03 155);
   --accent: oklch(0.7 0.12 225);
   --accent-foreground: oklch(0.99 0.005 150);
+  --collector: oklch(0.95 0.025 225);
+  --collector-foreground: oklch(0.38 0.075 225);
   --warning: oklch(0.8 0.15 75);
   --warning-foreground: oklch(0.25 0.05 60);
   --destructive: oklch(0.577 0.2 27);
@@ -116,6 +120,8 @@
   --muted-foreground: oklch(0.704 0.04 256.788);
   --accent: oklch(0.279 0.041 260.031);
   --accent-foreground: oklch(0.984 0.003 247.858);
+  --collector: oklch(0.28 0.045 225);
+  --collector-foreground: oklch(0.88 0.065 225);
   --destructive: oklch(0.704 0.191 22.216);
   --destructive-foreground: oklch(0.984 0.003 247.858);
   --border: oklch(1 0 0 / 10%);
@@ -142,7 +148,7 @@
 }
 
 @layer base {
-  h1, h2, h3 { font-family: var(--font-display); letter-spacing: -0.02em; }
+  h1, h2, h3 { font-family: var(--font-display); letter-spacing: 0; }
   * {
     border-color: var(--color-border);
   }
