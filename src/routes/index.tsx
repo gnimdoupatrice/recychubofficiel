@@ -87,7 +87,7 @@ function Landing() {
 
       <main className="mx-auto flex w-full max-w-5xl flex-1 flex-col px-5 pb-[calc(6rem+env(safe-area-inset-bottom))] pt-4 sm:px-8 sm:pb-10 sm:pt-6">
         <div className="mx-auto flex max-w-2xl flex-col items-center text-center">
-          <h1 className="text-balance text-2xl font-bold leading-tight sm:text-4xl">Vos déchets recyclables valent de l'argent.</h1>
+          <h1 className="text-balance text-[22px] font-bold leading-tight min-[360px]:text-2xl sm:text-4xl">Vos déchets recyclables valent de l'argent.</h1>
           <p className="mt-2 text-pretty text-sm text-muted-foreground sm:text-base">Plastique, fer, cuivre, aluminium… sans vous déplacer.</p>
         </div>
 
@@ -98,7 +98,7 @@ function Landing() {
 
         <section aria-labelledby="buy-title" className="mt-5 sm:mt-8">
           <div className="grid grid-cols-[minmax(0,1fr)_auto] items-center gap-2">
-            <h2 id="buy-title" className="min-w-0 text-base font-bold sm:text-lg">Ce que nous achetons</h2>
+            <h2 id="buy-title" className="min-w-0 truncate text-[15px] font-bold min-[360px]:text-base sm:text-lg">Ce que nous achetons</h2>
             <div className="flex shrink-0 sm:hidden">
               <Button variant="ghost" size="icon" className="h-12 w-12 rounded-full hover:bg-secondary hover:text-primary" aria-label="Matières précédentes" disabled={!canScrollBack} onClick={() => scrollMaterials(-1)}><ChevronLeft /></Button>
               <Button variant="ghost" size="icon" className="h-12 w-12 rounded-full hover:bg-secondary hover:text-primary" aria-label="Matières suivantes" disabled={!canScrollForward} onClick={() => scrollMaterials(1)}><ChevronRight /></Button>
@@ -163,7 +163,7 @@ function ActionCard({ to, icon: Icon, kicker, title, desc, variant }: {
       <span className="min-w-0">
         <span className="block text-[10px] font-semibold uppercase leading-tight tracking-wide opacity-90">{kicker}</span>
         <span className="block text-[15px] font-bold leading-tight sm:text-lg">{title}</span>
-        <span className="mt-0.5 block truncate text-xs leading-snug opacity-90 sm:whitespace-normal sm:text-sm">{desc}</span>
+        <span className="mt-0.5 block text-xs leading-snug opacity-90 sm:text-sm">{desc}</span>
       </span>
       <span aria-hidden className={`flex h-7 w-7 shrink-0 items-center justify-center rounded-full motion-safe:transition-transform motion-safe:group-hover:translate-x-1 sm:h-8 sm:w-8 ${primary ? "bg-background/20" : "bg-card"}`}>
         <ArrowRight className="h-4 w-4 sm:h-5 sm:w-5" />
