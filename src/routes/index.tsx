@@ -1,5 +1,6 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { Recycle, Route as RouteIcon, ClipboardList, Truck, HandCoins, ArrowRight, Milk, Wrench, Package, Cpu, LogIn, ChevronLeft, ChevronRight } from "lucide-react";
+import { House, Truck, ClipboardList, HandCoins, ArrowRight, CircleUserRound, ChevronLeft, ChevronRight } from "lucide-react";
+import { PlasticBottleIcon, CanIcon, CardboardIcon, OldPhoneIcon } from "@/components/MaterialIcons";
 import { useEffect, useRef, useState } from "react";
 import { Button } from "@/components/ui/button";
 const logo = { url: "/recychub-logo.png" };
