@@ -33,21 +33,13 @@ const materials = [
 ];
 
 function Landing() {
-  const actionsRef = useRef<HTMLElement>(null);
   const materialsRef = useRef<HTMLUListElement>(null);
-  const [showAction, setShowAction] = useState(false);
   const [canScrollBack, setCanScrollBack] = useState(false);
   const [canScrollForward, setCanScrollForward] = useState(false);
 
   useEffect(() => {
-    const actions = actionsRef.current;
     const materialsList = materialsRef.current;
-    if (!actions || !materialsList) return;
-    const observer = new IntersectionObserver(([entry]) => {
-      if (entry) setShowAction(entry.intersectionRatio < 0.9 && entry.boundingClientRect.top < 56);
-    }, { rootMargin: "-56px 0px 0px 0px", threshold: [0, 0.9, 1] });
-    const primaryAction = actions.firstElementChild;
-    if (primaryAction) observer.observe(primaryAction);
+    if (!materialsList) return;
     const updateScroll = () => {
       setCanScrollBack(materialsList.scrollLeft > 2);
       setCanScrollForward(materialsList.scrollLeft + materialsList.clientWidth < materialsList.scrollWidth - 2);
@@ -57,7 +49,6 @@ function Landing() {
     materialsList.addEventListener("scroll", updateScroll, { passive: true });
     updateScroll();
     return () => {
-      observer.disconnect();
       resizeObserver.disconnect();
       materialsList.removeEventListener("scroll", updateScroll);
     };
