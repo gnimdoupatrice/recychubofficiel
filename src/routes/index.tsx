@@ -33,21 +33,13 @@ const materials = [
 ];
 
 function Landing() {
-  const actionsRef = useRef<HTMLElement>(null);
   const materialsRef = useRef<HTMLUListElement>(null);
-  const [showAction, setShowAction] = useState(false);
   const [canScrollBack, setCanScrollBack] = useState(false);
   const [canScrollForward, setCanScrollForward] = useState(false);
 
   useEffect(() => {
-    const actions = actionsRef.current;
     const materialsList = materialsRef.current;
-    if (!actions || !materialsList) return;
-    const observer = new IntersectionObserver(([entry]) => {
-      if (entry) setShowAction(entry.intersectionRatio < 0.9 && entry.boundingClientRect.top < 56);
-    }, { rootMargin: "-56px 0px 0px 0px", threshold: [0, 0.9, 1] });
-    const primaryAction = actions.firstElementChild;
-    if (primaryAction) observer.observe(primaryAction);
+    if (!materialsList) return;
     const updateScroll = () => {
       setCanScrollBack(materialsList.scrollLeft > 2);
       setCanScrollForward(materialsList.scrollLeft + materialsList.clientWidth < materialsList.scrollWidth - 2);
@@ -57,7 +49,6 @@ function Landing() {
     materialsList.addEventListener("scroll", updateScroll, { passive: true });
     updateScroll();
     return () => {
-      observer.disconnect();
       resizeObserver.disconnect();
       materialsList.removeEventListener("scroll", updateScroll);
     };
@@ -85,61 +76,58 @@ function Landing() {
         </div>
       </header>
 
-      <main className="mx-auto flex w-full max-w-5xl flex-1 flex-col px-5 pb-[calc(6rem+env(safe-area-inset-bottom))] pt-4 sm:px-8 sm:pb-10 sm:pt-6">
+      <main className="mx-auto flex w-full max-w-5xl flex-1 flex-col justify-between gap-3 px-5 pb-[calc(0.75rem+env(safe-area-inset-bottom))] pt-3 sm:gap-6 sm:px-8 sm:pb-8 sm:pt-6">
         <div className="mx-auto flex max-w-2xl flex-col items-center text-center">
           <h1 className="text-balance text-[22px] font-bold leading-tight min-[360px]:text-2xl sm:text-4xl">Vos déchets recyclables valent de l'argent.</h1>
-          <p className="mt-2 text-pretty text-sm text-muted-foreground sm:text-base">Plastique, fer, cuivre, aluminium… sans vous déplacer.</p>
+          <p className="mt-1.5 text-pretty text-sm text-muted-foreground sm:text-base">Plastique, fer, cuivre, aluminium… sans vous déplacer.</p>
         </div>
 
-        <section ref={actionsRef} aria-label="Choisissez votre espace" className="mt-4 grid gap-2 md:grid-cols-2 md:gap-4">
+        <section aria-label="Choisissez votre espace" className="grid gap-2 md:grid-cols-2 md:gap-4">
           <ActionCard to="household" icon={House} kicker="Je suis un ménage" title="Vendre mes déchets" desc="On passe peser et payer chez vous." variant="primary" />
           <ActionCard to="company" icon={Truck} kicker="Je suis une entreprise" title="Espace collecteur" desc="Déclarations proches et tournées." variant="accent" />
         </section>
 
-        <section aria-labelledby="buy-title" className="mt-5 sm:mt-8">
+        <section aria-labelledby="buy-title">
           <div className="grid grid-cols-[minmax(0,1fr)_auto] items-center gap-2">
             <h2 id="buy-title" className="min-w-0 truncate text-[15px] font-bold min-[360px]:text-base sm:text-lg">Ce que nous achetons</h2>
             <div className="flex shrink-0 sm:hidden">
-              <Button variant="ghost" size="icon" className="h-12 w-12 rounded-full hover:bg-secondary hover:text-primary" aria-label="Matières précédentes" disabled={!canScrollBack} onClick={() => scrollMaterials(-1)}><ChevronLeft /></Button>
-              <Button variant="ghost" size="icon" className="h-12 w-12 rounded-full hover:bg-secondary hover:text-primary" aria-label="Matières suivantes" disabled={!canScrollForward} onClick={() => scrollMaterials(1)}><ChevronRight /></Button>
+              <Button variant="ghost" size="icon" className="h-11 w-11 rounded-full hover:bg-secondary hover:text-primary" aria-label="Matières précédentes" disabled={!canScrollBack} onClick={() => scrollMaterials(-1)}><ChevronLeft /></Button>
+              <Button variant="ghost" size="icon" className="h-11 w-11 rounded-full hover:bg-secondary hover:text-primary" aria-label="Matières suivantes" disabled={!canScrollForward} onClick={() => scrollMaterials(1)}><ChevronRight /></Button>
             </div>
           </div>
-          <ul ref={materialsRef} tabIndex={0} aria-label="Matières achetées" className="-mx-5 flex snap-x snap-mandatory gap-2 overflow-x-auto px-5 pb-2 [scrollbar-width:none] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring sm:mx-0 sm:mt-3 sm:grid sm:grid-cols-4 sm:gap-3 sm:px-0">
+          <ul ref={materialsRef} tabIndex={0} aria-label="Matières achetées" className="-mx-5 flex snap-x snap-mandatory gap-2 overflow-x-auto px-5 pb-1 [scrollbar-width:none] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring sm:mx-0 sm:mt-3 sm:grid sm:grid-cols-4 sm:gap-3 sm:px-0">
             {materials.map((m) => (
-              <li key={m.t} className="flex w-[clamp(6.5rem,30vw,8.5rem)] shrink-0 snap-start flex-col rounded-2xl border border-border bg-card p-2.5 sm:w-auto sm:min-w-0 sm:p-3">
-                <span className="flex h-9 w-9 items-center justify-center rounded-xl bg-secondary text-primary sm:h-10 sm:w-10">
-                  <m.icon className="h-6 w-6" />
+              <li key={m.t} className="flex w-[clamp(7.5rem,36vw,9.5rem)] shrink-0 snap-start items-center gap-2 rounded-xl border border-border bg-card px-2 py-1.5 sm:w-auto sm:min-w-0 sm:p-3">
+                <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-secondary text-primary sm:h-10 sm:w-10">
+                  <m.icon className="h-5 w-5 sm:h-6 sm:w-6" />
                 </span>
-                <span className="mt-1.5 text-[13px] font-bold leading-tight sm:text-sm">{m.t}</span>
-                <span className="text-[11px] leading-snug text-muted-foreground sm:text-xs">{m.d}</span>
+                <span className="min-w-0">
+                  <span className="block truncate text-[13px] font-bold leading-tight sm:text-sm">{m.t}</span>
+                  <span className="block truncate text-[11px] leading-snug text-muted-foreground sm:text-xs">{m.d}</span>
+                </span>
               </li>
             ))}
           </ul>
         </section>
 
-        <h2 className="mt-5 text-base font-bold sm:mt-8 sm:text-lg">Comment ça marche</h2>
-        <ol aria-label="Comment ça marche" className="mt-3 grid grid-cols-3 gap-2 border-t border-border pt-3 sm:gap-4">
-          {steps.map((s, i) => (
-            <li key={s.t} className="flex min-w-0 flex-col items-center px-1 py-1 text-center sm:p-3">
-              <div className="flex h-8 w-8 shrink-0 items-center justify-center text-primary sm:h-10 sm:w-10">
-                <s.icon className="h-5 w-5" />
-              </div>
-              <p className="mt-2 text-balance text-xs font-bold leading-tight sm:text-sm">
-                <span className="text-primary">0{i + 1}</span> {s.t}
-              </p>
-              <p className="mt-1 text-[11px] leading-snug text-muted-foreground sm:hidden">{s.short}</p>
-              <p className="mt-1 hidden text-pretty text-xs leading-snug text-muted-foreground sm:block">{s.d}</p>
-            </li>
-          ))}
-        </ol>
+        <section aria-labelledby="how-title">
+          <h2 id="how-title" className="text-[15px] font-bold min-[360px]:text-base sm:text-lg">Comment ça marche</h2>
+          <ol className="mt-2 grid grid-cols-3 gap-2 border-t border-border pt-2 sm:gap-4 sm:pt-3">
+            {steps.map((s, i) => (
+              <li key={s.t} className="flex min-w-0 flex-col items-center px-1 text-center sm:p-3">
+                <p className="text-balance text-xs font-bold leading-tight sm:text-sm">
+                  <span className="text-primary">0{i + 1}</span> {s.t}
+                </p>
+                <p className="mt-0.5 text-[11px] leading-snug text-muted-foreground sm:hidden">{s.short}</p>
+                <p className="mt-1 hidden text-pretty text-xs leading-snug text-muted-foreground sm:block">{s.d}</p>
+                <div aria-hidden className="mt-2 flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-secondary text-primary sm:h-12 sm:w-12">
+                  <s.icon className="h-5 w-5 sm:h-6 sm:w-6" />
+                </div>
+              </li>
+            ))}
+          </ol>
+        </section>
       </main>
-      {showAction && (
-        <div className="fixed inset-x-0 bottom-0 z-30 border-t border-border bg-background/95 px-5 pb-[calc(0.75rem+env(safe-area-inset-bottom))] pt-3 backdrop-blur sm:hidden">
-          <Button asChild className="h-12 w-full rounded-full font-bold">
-            <Link to="/auth" search={{ mode: "signup", role: "household" }}><House /> Vendre mes déchets <ArrowRight /></Link>
-          </Button>
-        </div>
-      )}
     </div>
   );
 }
