@@ -26,10 +26,10 @@ const steps = [
 ];
 
 const materials = [
-  { icon: Milk, t: "Plastiques", d: "Bouteilles, bidons" },
-  { icon: Wrench, t: "Métaux", d: "Fer, cuivre, alu" },
-  { icon: Package, t: "Cartons", d: "Emballages, papier" },
-  { icon: Cpu, t: "Électronique", d: "Câbles, appareils" },
+  { icon: PlasticBottleIcon, t: "Plastiques", d: "Bouteilles, bidons" },
+  { icon: CanIcon, t: "Métaux", d: "Fer, cuivre, alu" },
+  { icon: CardboardIcon, t: "Cartons", d: "Emballages, papier" },
+  { icon: OldPhoneIcon, t: "Électronique", d: "Câbles, appareils" },
 ];
 
 function Landing() {
@@ -73,13 +73,13 @@ function Landing() {
     <div className="flex min-h-dvh flex-col bg-background">
       <header className="sticky top-0 z-20 border-b border-border/60 bg-background/95 pt-[env(safe-area-inset-top)] backdrop-blur">
         <div className="mx-auto grid h-14 w-full max-w-5xl grid-cols-[minmax(0,1fr)_auto] items-center gap-2 px-4 sm:px-8">
-          <Link to="/" className="flex min-w-0 items-center gap-2" aria-label="RecycHub Togo — accueil">
-            <img src={logo.url} alt="" width={40} height={40} className="h-10 w-10 shrink-0" />
-            <span className="text-base font-bold"><span className="text-accent">Recyc</span><span className="text-primary">Hub</span></span>
+          <Link to="/" className="flex h-12 w-12 items-center justify-center" aria-label="RecycHub Togo — accueil">
+            <img src={logo.url} alt="RecycHub Togo" width={44} height={44} className="h-11 w-11 shrink-0" />
           </Link>
-          <Button asChild variant="outline" className="h-12 shrink-0 rounded-full border-border px-4 font-semibold hover:bg-secondary hover:text-foreground">
-          <Link to="/auth">
-            <LogIn className="h-4 w-4" /> Connexion
+          <Button asChild variant="ghost" className="h-12 shrink-0 gap-2 rounded-full pl-2 pr-3 font-semibold hover:bg-secondary hover:text-foreground">
+          <Link to="/auth" aria-label="Mon espace — se connecter">
+            <CircleUserRound className="!h-7 !w-7 text-primary" strokeWidth={1.75} />
+            <span className="text-sm">Connexion</span>
           </Link>
           </Button>
         </div>
@@ -92,8 +92,8 @@ function Landing() {
         </div>
 
         <section ref={actionsRef} aria-label="Choisissez votre espace" className="mt-4 grid gap-2 md:grid-cols-2 md:gap-4">
-          <ActionCard to="household" icon={Recycle} kicker="Je suis un ménage" title="Vendre mes déchets" desc="On passe peser et payer chez vous." variant="primary" />
-          <ActionCard to="company" icon={RouteIcon} kicker="Je suis une entreprise" title="Espace collecteur" desc="Déclarations proches et tournées." variant="accent" />
+          <ActionCard to="household" icon={House} kicker="Je suis un ménage" title="Vendre mes déchets" desc="On passe peser et payer chez vous." variant="primary" />
+          <ActionCard to="company" icon={Truck} kicker="Je suis une entreprise" title="Espace collecteur" desc="Déclarations proches et tournées." variant="accent" />
         </section>
 
         <section aria-labelledby="buy-title" className="mt-5 sm:mt-8">
