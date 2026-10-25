@@ -104,14 +104,14 @@ function Landing() {
               <Button variant="ghost" size="icon" className="h-12 w-12 rounded-full hover:bg-secondary hover:text-primary" aria-label="Matières suivantes" disabled={!canScrollForward} onClick={() => scrollMaterials(1)}><ChevronRight /></Button>
             </div>
           </div>
-          <ul ref={materialsRef} tabIndex={0} aria-label="Matières achetées" className="-mx-5 flex snap-x snap-mandatory gap-3 overflow-x-auto px-5 pb-2 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring sm:mx-0 sm:mt-3 sm:grid sm:grid-cols-4 sm:px-0">
+          <ul ref={materialsRef} tabIndex={0} aria-label="Matières achetées" className="-mx-5 flex snap-x snap-mandatory gap-2 overflow-x-auto px-5 pb-2 [scrollbar-width:none] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring sm:mx-0 sm:mt-3 sm:grid sm:grid-cols-4 sm:gap-3 sm:px-0">
             {materials.map((m) => (
-              <li key={m.t} className="flex w-[8.5rem] shrink-0 snap-start flex-col rounded-2xl border border-border bg-card p-3 sm:w-auto sm:min-w-0">
-                <span className="flex h-10 w-10 items-center justify-center rounded-xl bg-secondary text-primary">
-                  <m.icon className="h-5 w-5" />
+              <li key={m.t} className="flex w-[clamp(6.5rem,30vw,8.5rem)] shrink-0 snap-start flex-col rounded-2xl border border-border bg-card p-2.5 sm:w-auto sm:min-w-0 sm:p-3">
+                <span className="flex h-9 w-9 items-center justify-center rounded-xl bg-secondary text-primary sm:h-10 sm:w-10">
+                  <m.icon className="h-6 w-6" />
                 </span>
-                <span className="mt-2 text-sm font-bold">{m.t}</span>
-                <span className="text-xs leading-relaxed text-muted-foreground">{m.d}</span>
+                <span className="mt-1.5 text-[13px] font-bold leading-tight sm:text-sm">{m.t}</span>
+                <span className="text-[11px] leading-snug text-muted-foreground sm:text-xs">{m.d}</span>
               </li>
             ))}
           </ul>
@@ -136,7 +136,7 @@ function Landing() {
       {showAction && (
         <div className="fixed inset-x-0 bottom-0 z-30 border-t border-border bg-background/95 px-5 pb-[calc(0.75rem+env(safe-area-inset-bottom))] pt-3 backdrop-blur sm:hidden">
           <Button asChild className="h-12 w-full rounded-full font-bold">
-            <Link to="/auth" search={{ mode: "signup", role: "household" }}><Recycle /> Vendre mes déchets <ArrowRight /></Link>
+            <Link to="/auth" search={{ mode: "signup", role: "household" }}><House /> Vendre mes déchets <ArrowRight /></Link>
           </Button>
         </div>
       )}
@@ -145,28 +145,28 @@ function Landing() {
 }
 
 function ActionCard({ to, icon: Icon, kicker, title, desc, variant }: {
-  to: "household" | "company"; icon: typeof Recycle; kicker: string; title: string; desc: string; variant: "primary" | "accent";
+  to: "household" | "company"; icon: typeof House; kicker: string; title: string; desc: string; variant: "primary" | "accent";
 }) {
   const primary = variant === "primary";
   const styles = primary
-    ? "bg-primary text-primary-foreground focus-visible:ring-primary"
-    : "border border-accent/25 bg-collector text-collector-foreground focus-visible:ring-accent";
+    ? "bg-primary text-primary-foreground shadow-sm hover:bg-primary/95 focus-visible:ring-primary"
+    : "border border-accent/25 bg-collector text-collector-foreground shadow-none hover:bg-collector/80 focus-visible:ring-accent";
   return (
-    <Button asChild className={`group grid h-auto grid-cols-[auto_minmax(0,1fr)_auto] items-center gap-3 whitespace-normal rounded-2xl px-4 py-3 transition-colors motion-safe:transition-transform motion-safe:active:scale-[0.98] sm:gap-4 sm:p-5 ${primary ? "min-h-[80px] shadow-sm hover:bg-primary/95" : "min-h-[68px] shadow-none hover:bg-collector/80"} ${styles}`}>
+    <Button asChild className={`group grid h-auto min-h-14 grid-cols-[auto_minmax(0,1fr)_auto] items-center gap-2.5 whitespace-normal rounded-2xl px-3 py-2.5 transition-colors motion-safe:transition-transform motion-safe:active:scale-[0.98] sm:gap-4 sm:p-5 ${styles}`}>
     <Link
       to="/auth"
       search={{ mode: "signup", role: to }}
     >
-      <span aria-hidden className={`flex shrink-0 items-center justify-center rounded-xl bg-card ${primary ? "h-12 w-12 text-primary" : "h-10 w-10 text-collector-foreground"}`}>
-        <Icon className="!h-6 !w-6" strokeWidth={2} />
+      <span aria-hidden className={`flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-card sm:h-12 sm:w-12 ${primary ? "text-primary" : "text-collector-foreground"}`}>
+        <Icon className="!h-5 !w-5 sm:!h-6 sm:!w-6" strokeWidth={2} />
       </span>
       <span className="min-w-0">
-        <span className="block text-[10px] font-semibold uppercase leading-relaxed">{kicker}</span>
-        <span className="block text-base font-bold leading-tight sm:text-lg">{title}</span>
-        <span className="mt-0.5 block text-xs leading-snug sm:text-sm">{desc}</span>
+        <span className="block text-[10px] font-semibold uppercase leading-tight tracking-wide opacity-90">{kicker}</span>
+        <span className="block text-[15px] font-bold leading-tight sm:text-lg">{title}</span>
+        <span className="mt-0.5 block truncate text-xs leading-snug opacity-90 sm:whitespace-normal sm:text-sm">{desc}</span>
       </span>
-      <span aria-hidden className={`flex h-8 w-8 shrink-0 items-center justify-center rounded-full motion-safe:transition-transform motion-safe:group-hover:translate-x-1 ${primary ? "bg-background/20" : "bg-card"}`}>
-        <ArrowRight className="h-5 w-5" />
+      <span aria-hidden className={`flex h-7 w-7 shrink-0 items-center justify-center rounded-full motion-safe:transition-transform motion-safe:group-hover:translate-x-1 sm:h-8 sm:w-8 ${primary ? "bg-background/20" : "bg-card"}`}>
+        <ArrowRight className="h-4 w-4 sm:h-5 sm:w-5" />
       </span>
     </Link>
     </Button>
