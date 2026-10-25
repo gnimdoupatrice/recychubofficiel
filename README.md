@@ -19,9 +19,6 @@ Continue developing this project in the [Lovable editor](https://lovable.dev/pro
 
 ## Development
 
-
-
-```sh
 git clone <this-repository-url>
 cd <repository-name>
 npm i
