@@ -1,5 +1,5 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { House, Truck, ClipboardList, HandCoins, ArrowRight, CircleUserRound, ChevronLeft, ChevronRight } from "lucide-react";
+import { House, Truck, Building2, ClipboardList, HandCoins, ArrowRight, CircleUserRound, ChevronLeft, ChevronRight } from "lucide-react";
 import { PlasticBottleIcon, CanIcon, CardboardIcon, OldPhoneIcon } from "@/components/MaterialIcons";
 import { useEffect, useRef, useState } from "react";
 import { Button } from "@/components/ui/button";
@@ -84,7 +84,7 @@ function Landing() {
 
         <section aria-label="Choisissez votre espace" className="grid gap-2 md:grid-cols-2 md:gap-4">
           <ActionCard to="household" icon={House} kicker="Je suis un ménage" title="Vendre mes déchets" desc="On passe peser et payer chez vous." variant="primary" />
-          <ActionCard to="company" icon={Truck} kicker="Je suis une entreprise" title="Espace collecteur" desc="Déclarations proches et tournées." variant="accent" />
+          <ActionCard to="company" icon={Building2} kicker="Je suis une entreprise" title="Espace collecteur" desc="Déclarations proches et tournées." variant="accent" />
         </section>
 
         <section aria-labelledby="buy-title">
@@ -145,7 +145,7 @@ function ActionCard({ to, icon: Icon, kicker, title, desc, variant }: {
       to="/auth"
       search={{ mode: "signup", role: to }}
     >
-      <span aria-hidden className={`flex h-8 w-8 shrink-0 items-center justify-center rounded-xl bg-card min-[360px]:h-10 min-[360px]:w-10 sm:h-12 sm:w-12 ${primary ? "text-primary" : "text-collector-foreground"}`}>
+      <span aria-hidden className={`flex h-8 w-8 shrink-0 items-center justify-center rounded-xl bg-card min-[360px]:h-10 min-[360px]:w-10 sm:h-12 sm:w-12 ${primary ? "text-primary" : "text-collector"}`}>
         <Icon className="!h-5 !w-5 sm:!h-6 sm:!w-6" strokeWidth={2} />
       </span>
       <span className="min-w-0">
@@ -153,7 +153,7 @@ function ActionCard({ to, icon: Icon, kicker, title, desc, variant }: {
         <span className="block text-[15px] font-bold leading-tight sm:text-lg">{title}</span>
         <span className="mt-0.5 block text-xs leading-snug opacity-90 sm:text-sm">{desc}</span>
       </span>
-      <span aria-hidden className={`flex h-6 w-6 shrink-0 items-center justify-center rounded-full motion-safe:transition-transform motion-safe:group-hover:translate-x-1 min-[360px]:h-7 min-[360px]:w-7 sm:h-8 sm:w-8 ${primary ? "bg-background/20" : "bg-card"}`}>
+      <span aria-hidden className={`flex h-6 w-6 shrink-0 items-center justify-center rounded-full motion-safe:transition-transform motion-safe:group-hover:translate-x-1 min-[360px]:h-7 min-[360px]:w-7 sm:h-8 sm:w-8 ${primary ? "bg-background/20" : "bg-card text-collector"}`}>
         <ArrowRight className="h-4 w-4 sm:h-5 sm:w-5" />
       </span>
     </Link>
