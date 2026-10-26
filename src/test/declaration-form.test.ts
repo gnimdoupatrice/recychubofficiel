@@ -19,4 +19,7 @@ describe("Declaration rules", () => {
       expect(materialDisplay(material).label).toBe(material.name);
     }
   });
+  it.each([["pet", "PET"], ["pehd", "PEHD"], ["sachets", "Sachets d’eau"], ["fer", "Fer"], ["cuivre", "Cuivre"], ["aluminium", "Aluminium"], ["laiton", "Bronze"], ["batteries", "Batteries"]])("distinguishes %s without changing its stored ID", (id, label) => {
+    expect(materialDisplay({ id, name: "Legacy name", category: "Legacy category" }).label).toBe(label);
+  });
 });
