@@ -76,9 +76,9 @@ function Landing() {
         </div>
       </header>
 
-      <main className="mx-auto flex w-full max-w-5xl flex-1 flex-col justify-between gap-3 px-5 pb-[calc(0.75rem+env(safe-area-inset-bottom))] pt-3 sm:gap-6 sm:px-8 sm:pb-8 sm:pt-6">
+      <main className="mx-auto flex w-full max-w-5xl flex-1 flex-col justify-between gap-2 px-3 pb-[calc(0.5rem+env(safe-area-inset-bottom))] pt-2 min-[360px]:gap-3 min-[360px]:px-5 min-[360px]:pb-[calc(0.75rem+env(safe-area-inset-bottom))] min-[360px]:pt-3 sm:gap-6 sm:px-8 sm:pb-8 sm:pt-6">
         <div className="mx-auto flex max-w-2xl flex-col items-center text-center">
-          <h1 className="text-balance text-[22px] font-bold leading-tight min-[360px]:text-2xl sm:text-4xl">Vos déchets recyclables valent de l'argent.</h1>
+          <h1 className="text-balance text-xl font-bold leading-tight min-[360px]:text-2xl sm:text-4xl">Vos déchets recyclables valent de l'argent.</h1>
           <p className="mt-1.5 text-pretty text-sm text-muted-foreground sm:text-base">Plastique, fer, cuivre, aluminium… sans vous déplacer.</p>
         </div>
 
@@ -91,13 +91,13 @@ function Landing() {
           <div className="grid grid-cols-[minmax(0,1fr)_auto] items-center gap-2">
             <h2 id="buy-title" className="min-w-0 truncate text-[15px] font-bold min-[360px]:text-base sm:text-lg">Ce que nous achetons</h2>
             <div className="flex shrink-0 sm:hidden">
-              <Button variant="ghost" size="icon" className="h-11 w-11 rounded-full hover:bg-secondary hover:text-primary" aria-label="Matières précédentes" disabled={!canScrollBack} onClick={() => scrollMaterials(-1)}><ChevronLeft /></Button>
-              <Button variant="ghost" size="icon" className="h-11 w-11 rounded-full hover:bg-secondary hover:text-primary" aria-label="Matières suivantes" disabled={!canScrollForward} onClick={() => scrollMaterials(1)}><ChevronRight /></Button>
+              <Button variant="ghost" size="icon" className="h-12 w-12 rounded-full hover:bg-secondary hover:text-primary" aria-label="Matières précédentes" disabled={!canScrollBack} onClick={() => scrollMaterials(-1)}><ChevronLeft /></Button>
+              <Button variant="ghost" size="icon" className="h-12 w-12 rounded-full hover:bg-secondary hover:text-primary" aria-label="Matières suivantes" disabled={!canScrollForward} onClick={() => scrollMaterials(1)}><ChevronRight /></Button>
             </div>
           </div>
-          <ul ref={materialsRef} tabIndex={0} aria-label="Matières achetées" className="-mx-5 flex snap-x snap-mandatory gap-2 overflow-x-auto px-5 pb-1 [scrollbar-width:none] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring sm:mx-0 sm:mt-3 sm:grid sm:grid-cols-4 sm:gap-3 sm:px-0">
+          <ul ref={materialsRef} tabIndex={0} aria-label="Matières achetées" className="-mx-3 flex snap-x snap-mandatory gap-2 overflow-x-auto px-3 pb-1 [scrollbar-width:none] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring min-[360px]:-mx-5 min-[360px]:px-5 sm:mx-0 sm:mt-3 sm:grid sm:grid-cols-4 sm:gap-3 sm:px-0">
             {materials.map((m) => (
-              <li key={m.t} className="flex w-[clamp(7.5rem,36vw,9.5rem)] shrink-0 snap-start items-center gap-2 rounded-xl border border-border bg-card px-2 py-1.5 sm:w-auto sm:min-w-0 sm:p-3">
+              <li key={m.t} className="flex w-[clamp(10.25rem,42vw,11rem)] shrink-0 snap-start items-center gap-2 rounded-xl border border-border bg-card px-2 py-1.5 sm:w-auto sm:min-w-0 sm:p-3">
                 <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-secondary text-primary sm:h-10 sm:w-10">
                   <m.icon className="h-5 w-5 sm:h-6 sm:w-6" />
                 </span>
@@ -112,10 +112,10 @@ function Landing() {
 
         <section aria-labelledby="how-title">
           <h2 id="how-title" className="text-[15px] font-bold min-[360px]:text-base sm:text-lg">Comment ça marche</h2>
-          <ol className="mt-2 grid grid-cols-3 gap-2 border-t border-border pt-2 sm:gap-4 sm:pt-3">
+          <ol className="mt-1 grid grid-cols-3 gap-2 border-t border-border pt-1 min-[360px]:mt-2 min-[360px]:pt-2 sm:gap-4 sm:pt-3">
             {steps.map((s, i) => (
               <li key={s.t} className="flex min-w-0 flex-col items-center px-1 text-center sm:p-3">
-                <p className="text-balance text-xs font-bold leading-tight sm:text-sm">
+                <p className="min-h-[30px] text-balance text-xs font-bold leading-tight min-[360px]:min-h-0 sm:text-sm">
                   <span className="text-primary">0{i + 1}</span> {s.t}
                 </p>
                 <p className="mt-0.5 text-[11px] leading-snug text-muted-foreground sm:hidden">{s.short}</p>
@@ -140,12 +140,12 @@ function ActionCard({ to, icon: Icon, kicker, title, desc, variant }: {
     ? "bg-primary text-primary-foreground shadow-sm hover:bg-primary/95 focus-visible:ring-primary"
     : "border border-accent/25 bg-collector text-collector-foreground shadow-none hover:bg-collector/80 focus-visible:ring-accent";
   return (
-    <Button asChild className={`group grid h-auto min-h-14 grid-cols-[auto_minmax(0,1fr)_auto] items-center gap-2.5 whitespace-normal rounded-2xl px-3 py-2.5 transition-colors motion-safe:transition-transform motion-safe:active:scale-[0.98] sm:gap-4 sm:p-5 ${styles}`}>
+    <Button asChild className={`group grid h-auto min-h-14 grid-cols-[auto_minmax(0,1fr)_auto] items-center gap-2 whitespace-normal rounded-2xl px-2 py-2 transition-colors motion-safe:transition-transform motion-safe:active:scale-[0.98] min-[360px]:gap-2.5 min-[360px]:px-3 min-[360px]:py-2.5 sm:gap-4 sm:p-5 ${styles}`}>
     <Link
       to="/auth"
       search={{ mode: "signup", role: to }}
     >
-      <span aria-hidden className={`flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-card sm:h-12 sm:w-12 ${primary ? "text-primary" : "text-collector-foreground"}`}>
+      <span aria-hidden className={`flex h-8 w-8 shrink-0 items-center justify-center rounded-xl bg-card min-[360px]:h-10 min-[360px]:w-10 sm:h-12 sm:w-12 ${primary ? "text-primary" : "text-collector-foreground"}`}>
         <Icon className="!h-5 !w-5 sm:!h-6 sm:!w-6" strokeWidth={2} />
       </span>
       <span className="min-w-0">
@@ -153,7 +153,7 @@ function ActionCard({ to, icon: Icon, kicker, title, desc, variant }: {
         <span className="block text-[15px] font-bold leading-tight sm:text-lg">{title}</span>
         <span className="mt-0.5 block text-xs leading-snug opacity-90 sm:text-sm">{desc}</span>
       </span>
-      <span aria-hidden className={`flex h-7 w-7 shrink-0 items-center justify-center rounded-full motion-safe:transition-transform motion-safe:group-hover:translate-x-1 sm:h-8 sm:w-8 ${primary ? "bg-background/20" : "bg-card"}`}>
+      <span aria-hidden className={`flex h-6 w-6 shrink-0 items-center justify-center rounded-full motion-safe:transition-transform motion-safe:group-hover:translate-x-1 min-[360px]:h-7 min-[360px]:w-7 sm:h-8 sm:w-8 ${primary ? "bg-background/20" : "bg-card"}`}>
         <ArrowRight className="h-4 w-4 sm:h-5 sm:w-5" />
       </span>
     </Link>

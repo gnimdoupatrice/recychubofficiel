@@ -1,4 +1,6 @@
 # Roadmap
+- [ ] Simplifier la connexion et l’inscription ménage/entreprise en deux étapes ; vérifier les petits écrans et la gestion hors connexion.
+- [x] Finaliser l’accueil sur un écran de 320 × 568 et relire le rendu sur plusieurs tailles, sans changer les textes ni les icônes.
 - [x] Affiner l’accueil : priorité ménage, matières accessibles, étapes informatives et action au défilement ; vérifié sur mobile et ordinateur.
 - [x] Nom RecycHub Togo + logo (en-tête, accueil, connexion, icônes)
 - [x] Accueil façon application mobile, gros boutons au pouce
