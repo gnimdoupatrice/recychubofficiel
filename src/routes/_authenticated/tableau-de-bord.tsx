@@ -2,7 +2,8 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { useMemo, useState } from "react";
 import { toast } from "sonner";
-import { CalendarDays, MapPin, Plus, Package, ChevronRight } from "lucide-react";
+import { CalendarDays, MapPin, Plus, ChevronRight } from "lucide-react";
+import { MaterialIcon } from "@/components/MaterialIcon";
 import { supabase } from "@/integrations/supabase/client";
 import { useMe, formatDate, formatFcfa } from "@/lib/auth";
 import { AppShell, StatusBadge } from "@/components/AppShell";
@@ -206,7 +207,7 @@ function CompanyHome() {
                 <li key={d.id}>
                   <button onClick={() => toggle(d.id)} className={`grid w-full grid-cols-[auto_minmax(0,1fr)_auto] items-center gap-3 rounded-2xl border p-3 text-left transition ${on ? "border-primary bg-secondary" : "border-border bg-card"}`}>
                     <span className={`flex h-5 w-5 items-center justify-center rounded-md border-2 ${on ? "border-primary bg-primary" : "border-border"}`}>{on && <span className="h-2 w-2 rounded-sm bg-primary-foreground" />}</span>
-                    <span className="flex min-w-0 items-center gap-2"><Package className="h-4 w-4 shrink-0 text-muted-foreground" /><span className="truncate text-sm font-medium">{matName(d.material_id)}</span></span>
+                    <span className="flex min-w-0 items-center gap-2"><MaterialIcon hint={`${d.material_id} ${matName(d.material_id)}`} className="h-4 w-4 shrink-0 text-primary" /><span className="truncate text-sm font-medium">{matName(d.material_id)}</span></span>
                     <span className="text-sm font-bold">{Number(d.estimated_kg)} kg</span>
                   </button>
                 </li>
