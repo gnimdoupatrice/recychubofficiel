@@ -3,6 +3,7 @@ import { House, Truck, Building2, ClipboardList, HandCoins, ArrowRight, CircleUs
 import { PlasticBottleIcon, CanIcon, CardboardIcon, OldPhoneIcon } from "@/components/MaterialIcons";
 import { useEffect, useRef, useState } from "react";
 import { Button } from "@/components/ui/button";
+import { entrySearch } from "@/lib/declaration-form";
 const logo = { url: "/recychub-logo.png" };
 
 export const Route = createFileRoute("/")({
@@ -143,7 +144,7 @@ function ActionCard({ to, icon: Icon, kicker, title, desc, variant }: {
     <Button asChild className={`group grid h-auto min-h-14 grid-cols-[auto_minmax(0,1fr)_auto] items-center gap-2 whitespace-normal rounded-2xl px-2 py-2 transition-colors motion-safe:transition-transform motion-safe:active:scale-[0.98] min-[360px]:gap-2.5 min-[360px]:px-3 min-[360px]:py-2.5 sm:gap-4 sm:p-5 ${styles}`}>
     <Link
       to="/auth"
-      search={{ mode: "signup", role: to }}
+      search={entrySearch(to)}
     >
       <span aria-hidden className={`flex h-8 w-8 shrink-0 items-center justify-center rounded-xl bg-card min-[360px]:h-10 min-[360px]:w-10 sm:h-12 sm:w-12 ${primary ? "text-primary" : "text-collector"}`}>
         <Icon className="!h-5 !w-5 sm:!h-6 sm:!w-6" strokeWidth={2} />
