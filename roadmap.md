@@ -1,5 +1,5 @@
 # Roadmap
-- [ ] Corrections validées : liens d’accueil vers connexion, inscription entreprise équilibrée, déclaration compacte avec kg et matières distinctes.
+- [x] Corrections validées : liens d’accueil vers connexion, inscription entreprise équilibrée, déclaration compacte avec kg et matières distinctes ; tests réussis, parcours connecté non vérifié faute de session disponible.
 - [ ] Simplifier la connexion et l’inscription ménage/entreprise en deux étapes ; vérifier les petits écrans et la gestion hors connexion.
 - [x] Finaliser l’accueil sur un écran de 320 × 568 et relire le rendu sur plusieurs tailles, sans changer les textes ni les icônes.
 - [x] Affiner l’accueil : priorité ménage, matières accessibles, étapes informatives et action au défilement ; vérifié sur mobile et ordinateur.
