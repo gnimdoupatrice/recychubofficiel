@@ -115,7 +115,7 @@ function Landing() {
           <ol className="mt-1 grid grid-cols-3 gap-2 border-t border-border pt-1 min-[360px]:mt-2 min-[360px]:pt-2 sm:gap-4 sm:pt-3">
             {steps.map((s, i) => (
               <li key={s.t} className="flex min-w-0 flex-col items-center px-1 text-center sm:p-3">
-                <p className="text-balance text-xs font-bold leading-tight sm:text-sm">
+                <p className="min-h-[30px] text-balance text-xs font-bold leading-tight min-[360px]:min-h-0 sm:text-sm">
                   <span className="text-primary">0{i + 1}</span> {s.t}
                 </p>
                 <p className="mt-0.5 text-[11px] leading-snug text-muted-foreground sm:hidden">{s.short}</p>
