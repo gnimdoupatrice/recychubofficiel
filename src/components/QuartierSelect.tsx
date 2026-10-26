@@ -8,12 +8,13 @@ export const QUARTIERS = [
 ];
 const OTHER = "__other";
 
-export function QuartierSelect({ value, onChange }: { value: string; onChange: (v: string) => void }) {
+export function QuartierSelect({ value, onChange, id, placeholder = "Choisir mon quartier" }: { value: string; onChange: (v: string) => void; id?: string; placeholder?: string }) {
   const known = QUARTIERS.includes(value);
   const [other, setOther] = useState(!!value && !known);
   return (
     <div className="space-y-2">
       <select
+        id={id}
         value={other ? OTHER : known ? value : ""}
         onChange={(e) => {
           if (e.target.value === OTHER) { setOther(true); onChange(""); }
@@ -21,7 +22,7 @@ export function QuartierSelect({ value, onChange }: { value: string; onChange: (
         }}
         className="h-12 w-full rounded-xl border border-input bg-background px-3 text-base"
       >
-        <option value="" disabled>Choisir mon quartier</option>
+        <option value="" disabled>{placeholder}</option>
         {QUARTIERS.map((q) => <option key={q} value={q}>{q}</option>)}
         <option value={OTHER}>Autre quartier…</option>
       </select>

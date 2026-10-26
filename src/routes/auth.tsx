@@ -82,7 +82,7 @@ function AuthPage() {
   return (
     <div className="flex min-h-dvh flex-col bg-background px-4 pb-[max(0.75rem,env(safe-area-inset-bottom))] pt-[env(safe-area-inset-top)] sm:px-6">
       <div className="mx-auto flex w-full max-w-sm flex-1 flex-col">
-        <header className="grid h-14 shrink-0 grid-cols-[48px_1fr_48px] items-center">
+        <header className="grid h-12 shrink-0 grid-cols-[48px_1fr_48px] items-center">
           {signup && step === 2 ? (
             <Button variant="ghost" size="icon" className="h-12 w-12 rounded-full" aria-label="Retour à l’étape compte" disabled={busy} onClick={() => { setStep(1); setError(null); }}><ArrowLeft className="!size-5" /></Button>
           ) : (
@@ -99,7 +99,7 @@ function AuthPage() {
           ))}
         </div>
 
-        <div className="pt-3">
+        <div className="pt-2">
           <h1 className="text-xl font-bold">{!signup ? "Bon retour !" : step === 1 ? "Créer un compte" : role === "household" ? "Votre localisation" : "Votre entreprise"}</h1>
           {!signup && <p className="mt-1 text-xs text-muted-foreground">Connectez-vous avec votre numéro de téléphone.</p>}
           {signup && (
@@ -112,7 +112,7 @@ function AuthPage() {
           )}
         </div>
 
-        <form onSubmit={submit} className="flex flex-1 flex-col pt-3" noValidate>
+        <form onSubmit={submit} className="flex flex-1 flex-col pt-2" noValidate>
           <div className="space-y-2.5">
             {signup && step === 1 && <Field id="full-name" label={role === "company" ? "Nom du responsable" : "Nom complet"}><Input id="full-name" autoComplete="name" value={f.full_name} onChange={set("full_name")} className="h-12 rounded-xl" /></Field>}
             {(!signup || step === 1) && <>
@@ -135,7 +135,7 @@ function AuthPage() {
               </div>
               {role === "company" ? <Field id="company-name" label="Nom de l’entreprise"><Input id="company-name" autoComplete="organization" value={f.company_name} onChange={set("company_name")} className="h-12 rounded-xl" /></Field> : <>
                 <div className="grid grid-cols-[minmax(0,1.2fr)_minmax(0,1fr)] gap-2">
-                  <div className="space-y-1"><Label className="text-xs font-semibold">Quartier</Label><QuartierSelect value={f.quartier} onChange={(v) => { setF((p) => ({ ...p, quartier: v })); setError(null); }} /></div>
+                  <div className="space-y-1"><Label htmlFor="quarter" className="text-xs font-semibold">Quartier</Label><QuartierSelect id="quarter" placeholder="Choisir" value={f.quartier} onChange={(v) => { setF((p) => ({ ...p, quartier: v })); setError(null); }} /></div>
                   <Field id="city" label="Ville"><Input id="city" autoComplete="address-level2" value={f.city} onChange={set("city")} className="h-12 rounded-xl" /></Field>
                 </div>
                 <Field id="address" label="Repère / adresse (privé)"><Input id="address" autoComplete="street-address" value={f.address} onChange={set("address")} placeholder="Près de la pharmacie…" className="h-12 rounded-xl" /></Field>
@@ -143,7 +143,7 @@ function AuthPage() {
             </>}
           </div>
 
-          <div className="mt-auto pt-3">
+          <div className="mt-auto pt-2">
             {(error || !online) && <p role="alert" className={`mb-2 flex items-start gap-2 text-xs leading-snug ${error ? "text-destructive" : "text-muted-foreground"}`}>{!online && <WifiOff className="mt-0.5 size-4 shrink-0" />}{error ?? "Connexion Internet requise pour valider votre compte."}</p>}
             <Button type="submit" disabled={busy || (!online && (!signup || step === 2))} className="h-12 w-full rounded-full font-semibold">
               {busy ? <><LoaderCircle className="animate-spin" />Patientez…</> : signup && step === 1 ? <>Continuer<ArrowRight /></> : signup ? "Créer mon compte" : "Se connecter"}
