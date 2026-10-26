@@ -1,6 +1,6 @@
 import { Link, useNavigate } from "@tanstack/react-router";
 import { useQueryClient } from "@tanstack/react-query";
-import { Home, PlusCircle, Tag, LogOut } from "lucide-react";
+import { House, Truck, PlusCircle, Tag, LogOut } from "lucide-react";
 import type { ReactNode } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import { useMe } from "@/lib/auth";
@@ -21,11 +21,11 @@ export function AppShell({ title, children, action }: { title: string; children:
   const nav =
     me?.role === "company"
       ? [
-          { to: "/tableau-de-bord", label: "Tournées", icon: Home },
+          { to: "/tableau-de-bord", label: "Tournées", icon: Truck },
           { to: "/prix", label: "Mes prix", icon: Tag },
         ]
       : [
-          { to: "/tableau-de-bord", label: "Accueil", icon: Home },
+          { to: "/tableau-de-bord", label: "Accueil", icon: House },
           { to: "/declarer", label: "Déclarer", icon: PlusCircle },
           { to: "/prix", label: "Prix", icon: Tag },
         ];
