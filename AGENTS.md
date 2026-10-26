@@ -10,7 +10,8 @@
 <!-- LOVABLE:END -->
 
 ## Architecture rules
-- Homepage scroll actions use IntersectionObserver and native horizontal scrolling; preserve role-specific signup links and avoid adding animation dependencies for these controls.
+- Homepage scroll actions use IntersectionObserver and native horizontal scrolling; use role-specific sign-in links and avoid adding animation dependencies for these controls.
+- Declaration display labels map to existing material IDs without changing stored rows or prices; compact AppShell is opt-in so other screens keep their layout.
 - Login uses phone + password mapped to a synthetic email in `src/lib/auth.ts` (auth requires email; auto-confirm is on).
 - Auth signup uses two in-memory steps with shared validation in `src/lib/auth-form.ts`; credentials never enter persistent storage or the offline outbox because account creation requires a live auth response.
 - Roles live in `user_roles` (household/company), set by the signup trigger from metadata; never on profiles.

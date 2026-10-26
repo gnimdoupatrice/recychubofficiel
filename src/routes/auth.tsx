@@ -109,7 +109,7 @@ function AuthPage() {
           </div>
         )}
 
-        <form onSubmit={submit} noValidate className={`flex min-h-0 flex-1 flex-col ${signup ? "pt-3" : "justify-center"}`}>
+        <form onSubmit={submit} noValidate className={`flex min-h-0 flex-1 flex-col ${signup && !company ? "pt-3" : "justify-center py-3"}`}>
           {!signup && (
             <div className="mb-5 text-center">
               <h1 className="font-display text-2xl font-bold">Bon retour !</h1>
@@ -142,7 +142,7 @@ function AuthPage() {
             </>}
           </div>
 
-          <div className={signup ? "mt-auto pt-3" : "mt-5"}>
+          <div className={signup && !company ? "mt-auto pt-3" : "mt-5"}>
             {(error || !online) && <p role="alert" className={`mb-2 flex items-start gap-2 text-xs leading-snug ${error ? "text-destructive" : "text-muted-foreground"}`}>{!online && <WifiOff className="mt-0.5 size-4 shrink-0" />}{error ?? "Connexion Internet requise pour valider votre compte."}</p>}
             <Button type="submit" disabled={busy || !online} className={`h-12 w-full rounded-full text-base font-semibold ${signup && company ? "bg-collector text-collector-foreground hover:bg-collector/90" : ""}`}>
               {busy ? <><LoaderCircle className="animate-spin" />Patientez…</> : signup ? `Créer mon compte ${company ? "Entreprise" : "Ménage"}` : "Se connecter"}

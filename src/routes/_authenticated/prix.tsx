@@ -14,6 +14,8 @@ export const Route = createFileRoute("/_authenticated/prix")({
       { name: "description", content: "Comparez les prix d'achat au kilo proposés par les entreprises de recyclage." },
       { property: "og:title", content: "Prix au kilo — RecycHub Togo" },
       { property: "og:description", content: "Prix des plastiques et métaux recyclables." },
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary" },
     ],
   }),
   component: Prices,

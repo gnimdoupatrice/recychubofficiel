@@ -4,10 +4,13 @@ import { House, Truck, PlusCircle, Tag, LogOut } from "lucide-react";
 import type { ReactNode } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import { useMe } from "@/lib/auth";
+import { useOnline } from "@/lib/offline";
+import { Button } from "@/components/ui/button";
 const logo = { url: "/recychub-logo.png" };
 
-export function AppShell({ title, children, action }: { title: string; children: ReactNode; action?: ReactNode }) {
+export function AppShell({ title, children, action, compact = false }: { title: string; children: ReactNode; action?: ReactNode; compact?: boolean }) {
   const { data: me } = useMe();
+  const online = useOnline();
   const qc = useQueryClient();
   const navigate = useNavigate();
 
@@ -31,8 +34,8 @@ export function AppShell({ title, children, action }: { title: string; children:
         ];
 
   return (
-    <div className="min-h-dvh bg-background pb-[calc(5rem+env(safe-area-inset-bottom))]">
-      <header className="sticky top-0 z-20 border-b border-border bg-background/90 backdrop-blur">
+    <div className={compact ? `flex flex-col overflow-hidden bg-background pb-[calc(4rem+env(safe-area-inset-bottom))] ${online ? "h-dvh" : "h-[calc(100dvh-2rem)]"}` : "min-h-dvh bg-background pb-[calc(5rem+env(safe-area-inset-bottom))]"}>
+      <header className="sticky top-0 z-20 shrink-0 border-b border-border bg-background/90 pt-[env(safe-area-inset-top)] backdrop-blur">
         <div className="mx-auto grid max-w-2xl grid-cols-[minmax(0,1fr)_auto] items-center gap-3 px-5 py-3">
           <div className="flex min-w-0 items-center gap-2">
             <img src={logo.url} alt="RecycHub" width={36} height={36} className="h-9 w-9 shrink-0" />
@@ -40,13 +43,13 @@ export function AppShell({ title, children, action }: { title: string; children:
           </div>
           <div className="flex items-center gap-1">
             {action}
-            <button onClick={signOut} aria-label="Se déconnecter" className="flex h-11 w-11 items-center justify-center rounded-full text-muted-foreground hover:bg-muted">
+            <Button variant="ghost" size="icon" onClick={signOut} aria-label="Se déconnecter" className="h-12 w-12 rounded-full text-muted-foreground hover:bg-muted">
               <LogOut className="h-5 w-5" />
-            </button>
+            </Button>
           </div>
         </div>
       </header>
-      <main className="mx-auto max-w-2xl px-5 py-5">{children}</main>
+      <main className={compact ? "mx-auto flex min-h-0 w-full max-w-2xl flex-1 flex-col px-4 py-2" : "mx-auto max-w-2xl px-5 py-5"}>{children}</main>
       <nav className="fixed inset-x-0 bottom-0 z-10 border-t border-border bg-card pb-[env(safe-area-inset-bottom)]">
         <div className="mx-auto flex max-w-2xl justify-around">
           {nav.map((n) => (

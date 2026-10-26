@@ -18,6 +18,8 @@ export const Route = createFileRoute("/_authenticated/tableau-de-bord")({
       { name: "description", content: "Suivez vos déclarations de déchets recyclables ou vos tournées de collecte." },
       { property: "og:title", content: "Tableau de bord — RecycHub Togo" },
       { property: "og:description", content: "Votre espace de recyclage." },
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary" },
     ],
   }),
   component: Dashboard,

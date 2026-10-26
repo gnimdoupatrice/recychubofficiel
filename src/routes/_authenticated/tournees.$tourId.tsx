@@ -16,6 +16,8 @@ export const Route = createFileRoute("/_authenticated/tournees/$tourId")({
       { name: "description", content: "Arrêts, adresses et pesées de votre tournée de collecte." },
       { property: "og:title", content: "Détail de la tournée — RecycHub Togo" },
       { property: "og:description", content: "Gérez les arrêts de votre tournée." },
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary" },
     ],
   }),
   component: TourDetail,
