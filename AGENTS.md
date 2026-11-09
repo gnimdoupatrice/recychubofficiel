@@ -18,3 +18,4 @@
 - Companies never read household identity/address directly: open declarations come from the `open_declarations()` security-definer RPC; addresses become readable only via RLS once a declaration is in the company's tour.
 - State transitions (assign, release, complete, cancel) go through security-definer RPCs, not direct UPDATEs.
 - Offline: query cache persisted to localStorage; writes made offline go to the outbox in `src/lib/offline.ts` and flush on reconnect. No service worker yet (app shell still needs network to open).
+- Sale vs donation intent is encoded as a `[DON]` prefix in declarations.note via `src/lib/declaration-form.ts`; works offline and needs no schema change.
