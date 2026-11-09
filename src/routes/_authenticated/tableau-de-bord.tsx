@@ -1,4 +1,5 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
+import { isDonation, payout } from "@/lib/declaration-form";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { useMemo, useState } from "react";
 import { toast } from "sonner";
@@ -63,7 +64,7 @@ function HouseholdHome({ name }: { name: string }) {
   });
   const matName = (id: string) => mats.find((m) => m.id === id)?.name ?? id;
   const active = decls.filter((d) => d.status === "pending" || d.status === "scheduled");
-  const earned = decls.reduce((s, d) => s + (d.status === "collected" ? Number(d.collected_kg ?? 0) * Number(d.price_per_kg ?? 0) : 0), 0);
+  const earned = decls.reduce((s, d) => s + (d.status === "collected" ? payout(d.note, Number(d.collected_kg ?? 0), Number(d.price_per_kg ?? 0)) : 0), 0);
 
   return (
     <AppShell title="Mon espace">
@@ -88,7 +89,7 @@ function HouseholdHome({ name }: { name: string }) {
                   <p className="truncate font-semibold">{matName(d.material_id)}</p>
                   <p className="text-sm text-muted-foreground">≈ {Number(d.estimated_kg)} kg · {d.quartier}</p>
                 </div>
-                <StatusBadge status={d.status} />
+                <div className="flex shrink-0 flex-col items-end gap-1"><StatusBadge status={d.status} />{isDonation(d.note) && <span className="rounded-full bg-secondary px-2 py-0.5 text-[11px] font-semibold text-primary">🎁 Don</span>}</div>
               </div>
               {d.status === "scheduled" && d.tours && (
                 <div className="mt-3 flex items-center gap-2 rounded-xl bg-secondary p-3 text-sm text-secondary-foreground">
@@ -98,7 +99,7 @@ function HouseholdHome({ name }: { name: string }) {
               )}
               {d.status === "collected" && (
                 <p className="mt-3 text-sm font-semibold text-primary">
-                  {Number(d.collected_kg)} kg × {formatFcfa(Number(d.price_per_kg))} = {formatFcfa(Number(d.collected_kg) * Number(d.price_per_kg))}
+                  {isDonation(d.note) ? <>{Number(d.collected_kg)} kg collectés · 🎁 Don pour l'environnement</> : <>{Number(d.collected_kg)} kg × {formatFcfa(Number(d.price_per_kg))} = {formatFcfa(Number(d.collected_kg) * Number(d.price_per_kg))}</>}
                 </p>
               )}
               {(d.status === "pending" || d.status === "scheduled") && (
