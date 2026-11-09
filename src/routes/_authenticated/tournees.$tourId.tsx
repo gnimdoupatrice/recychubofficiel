@@ -156,9 +156,10 @@ function Stop({ index, d, material, defaultPrice, editable, onDone, onRelease }:
       )}
       {open && (
         <div className="mt-3 space-y-2 rounded-xl bg-muted p-3">
-          <div className="grid grid-cols-2 gap-2">
+          {don && <p className="rounded-lg bg-secondary px-3 py-2 text-sm font-semibold text-secondary-foreground">🎁 Don solidaire · 0 FCFA</p>}
+          <div className={`grid gap-2 ${don ? "grid-cols-1" : "grid-cols-2"}`}>
             <label className="text-xs font-semibold">Poids réel (kg)<Input type="number" inputMode="decimal" value={kg} onChange={(e) => setKg(e.target.value)} className="mt-1 h-11 rounded-xl bg-card" /></label>
-            <label className="text-xs font-semibold">Prix (F/kg)<Input type="number" inputMode="numeric" value={price} disabled={don} onChange={(e) => setPrice(e.target.value)} className="mt-1 h-11 rounded-xl bg-card" /></label>
+            {!don && <label className="text-xs font-semibold">Prix (F/kg)<Input type="number" inputMode="numeric" value={price} onChange={(e) => setPrice(e.target.value)} className="mt-1 h-11 rounded-xl bg-card" /></label>}
           </div>
           <div className="grid grid-cols-4 gap-2">
             {[-1, 1, 5, 10].map((n) => (
