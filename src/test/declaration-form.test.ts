@@ -23,3 +23,13 @@ describe("Declaration rules", () => {
     expect(materialDisplay({ id, name: "Legacy name", category: "Legacy category" }).label).toBe(label);
   });
 });
+import { encodeNote, isDonation, payout, stripIntent } from "@/lib/declaration-form";
+describe("vente / don", () => {
+  it("un don est marqué dans la note", () => expect(encodeNote("3 sacs", "donation")).toBe("[DON] 3 sacs"));
+  it("une vente garde la note telle quelle", () => expect(encodeNote("3 sacs", "sale")).toBe("3 sacs"));
+  it("repasser en vente retire la marque", () => expect(encodeNote("[DON] 3 sacs", "sale")).toBe("3 sacs"));
+  it("détecte un don", () => { expect(isDonation("[DON]")).toBe(true); expect(isDonation("sacs")).toBe(false); });
+  it("affiche la note sans marque", () => expect(stripIntent("[DON] fils")).toBe("fils"));
+  it("un don rapporte 0 F", () => expect(payout("[DON]", 10, 150)).toBe(0));
+  it("une vente rapporte kg × prix", () => expect(payout("", 10, 150)).toBe(1500));
+});

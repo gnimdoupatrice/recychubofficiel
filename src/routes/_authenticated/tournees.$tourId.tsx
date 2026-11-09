@@ -1,4 +1,5 @@
 import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
+import { isDonation, payout, stripIntent } from "@/lib/declaration-form";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { useState } from "react";
 import { toast } from "sonner";
@@ -69,7 +70,7 @@ function TourDetail() {
 
   const stops = tour.declarations.filter((d) => d.status !== "cancelled" && d.status !== "pending")
     .sort((a, b) => a.quartier.localeCompare(b.quartier));
-  const total = stops.reduce((s, d) => s + (d.status === "collected" ? Number(d.collected_kg) * Number(d.price_per_kg) : 0), 0);
+  const total = stops.reduce((s, d) => s + (d.status === "collected" ? payout(d.note, Number(d.collected_kg), Number(d.price_per_kg)) : 0), 0);
   const matName = (id: string) => mats.find((m) => m.id === id)?.name ?? id;
   const priceFor = (id: string) => prices.find((p) => p.material_id === id)?.price_per_kg;
 
@@ -109,10 +110,11 @@ function Stop({ index, d, material, defaultPrice, editable, onDone, onRelease }:
   const [open, setOpen] = useState(false);
   const pending = useOutbox().some((o) => o.kind === "complete_stop" && o.args._id === d.id);
   const [kg, setKg] = useState(String(d.estimated_kg));
-  const [price, setPrice] = useState(defaultPrice != null ? String(defaultPrice) : "");
+  const [price, setPrice] = useState(isDonation(d.note) ? "0" : defaultPrice != null ? String(defaultPrice) : "");
+  const don = isDonation(d.note);
   const done = useMutation({
     mutationFn: async () => {
-      const args = { _id: d.id, _kg: Number(kg), _price: Number(price) };
+      const args = { _id: d.id, _kg: Number(kg), _price: don ? 0 : Number(price) };
       if (!navigator.onLine) { enqueue({ kind: "complete_stop", args }); return "queued"; }
       const { error } = await supabase.rpc("complete_stop", args);
       if (error) {
@@ -133,17 +135,18 @@ function Stop({ index, d, material, defaultPrice, editable, onDone, onRelease }:
         <span className="flex h-8 w-8 items-center justify-center rounded-full bg-secondary text-sm font-bold text-primary">{index}</span>
         <div className="min-w-0">
           <p className="truncate font-semibold">{material}</p>
+          {don && <span className="mt-0.5 inline-block rounded-full bg-secondary px-2 py-0.5 text-[11px] font-semibold text-primary">🎁 Don solidaire · rien à payer</span>}
           <p className="text-sm text-muted-foreground">≈ {Number(d.estimated_kg)} kg</p>
           <p className="mt-1 flex items-start gap-1 text-sm"><MapPin className="mt-0.5 h-4 w-4 shrink-0 text-primary" /><a className="underline decoration-dotted" href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(`${d.address} ${d.quartier} ${d.city} Togo`)}`} target="_blank" rel="noreferrer">{d.quartier}, {d.city}{d.address ? ` — ${d.address}` : ""}</a></p>
-          {d.note && <p className="mt-1 text-xs text-muted-foreground">{d.note}</p>}
+          {stripIntent(d.note) && <p className="mt-1 text-xs text-muted-foreground">{stripIntent(d.note)}</p>}
         </div>
         <StatusBadge status={d.status} />
       </div>
       {d.status === "collected" && (
-        <p className="mt-3 text-sm font-semibold text-primary">{Number(d.collected_kg)} kg × {formatFcfa(Number(d.price_per_kg))} = {formatFcfa(Number(d.collected_kg) * Number(d.price_per_kg))}</p>
+        <p className="mt-3 text-sm font-semibold text-primary">{don ? `${Number(d.collected_kg)} kg collectés · Don solidaire` : <>{Number(d.collected_kg)} kg × {formatFcfa(Number(d.price_per_kg))} = {formatFcfa(Number(d.collected_kg) * Number(d.price_per_kg))}</>}</p>
       )}
       {pending && (
-        <p className="mt-3 rounded-xl bg-warning p-2 text-sm font-semibold text-warning-foreground">Pesée enregistrée hors connexion : {kg} kg × {price} F — en attente d'envoi</p>
+        <p className="mt-3 rounded-xl bg-warning p-2 text-sm font-semibold text-warning-foreground">Pesée enregistrée hors connexion : {don ? `${kg} kg (don)` : `${kg} kg × ${price} F`} — en attente d'envoi</p>
       )}
       {editable && d.status === "scheduled" && !open && !pending && (
         <div className="mt-3 flex gap-2">
@@ -155,7 +158,7 @@ function Stop({ index, d, material, defaultPrice, editable, onDone, onRelease }:
         <div className="mt-3 space-y-2 rounded-xl bg-muted p-3">
           <div className="grid grid-cols-2 gap-2">
             <label className="text-xs font-semibold">Poids réel (kg)<Input type="number" inputMode="decimal" value={kg} onChange={(e) => setKg(e.target.value)} className="mt-1 h-11 rounded-xl bg-card" /></label>
-            <label className="text-xs font-semibold">Prix (F/kg)<Input type="number" inputMode="numeric" value={price} onChange={(e) => setPrice(e.target.value)} className="mt-1 h-11 rounded-xl bg-card" /></label>
+            <label className="text-xs font-semibold">Prix (F/kg)<Input type="number" inputMode="numeric" value={price} disabled={don} onChange={(e) => setPrice(e.target.value)} className="mt-1 h-11 rounded-xl bg-card" /></label>
           </div>
           <div className="grid grid-cols-4 gap-2">
             {[-1, 1, 5, 10].map((n) => (
@@ -163,7 +166,7 @@ function Stop({ index, d, material, defaultPrice, editable, onDone, onRelease }:
                 className="min-h-12 rounded-xl bg-card text-sm font-bold active:bg-secondary">{n > 0 ? `+${n}` : n} kg</button>
             ))}
           </div>
-          {Number(kg) > 0 && Number(price) >= 0 && price !== "" && <p className="text-sm font-semibold">À payer : {formatFcfa(Number(kg) * Number(price))}</p>}
+          {Number(kg) > 0 && Number(price) >= 0 && price !== "" && <p className="text-sm font-semibold">{don ? "Don solidaire : rien à payer" : `À payer : ${formatFcfa(Number(kg) * Number(price))}`}</p>}
           <div className="flex gap-2">
             <button disabled={!(Number(kg) > 0) || price === "" || done.isPending} onClick={() => done.mutate()} className="min-h-12 flex-1 rounded-full bg-primary py-3 text-sm font-semibold text-primary-foreground disabled:opacity-50">Valider</button>
             <button onClick={() => setOpen(false)} className="rounded-full px-4 text-sm font-semibold text-muted-foreground">Fermer</button>

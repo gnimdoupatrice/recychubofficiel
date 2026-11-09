@@ -23,3 +23,23 @@ export function validDeclaration(material: string, kg: string, quartier: string)
 export function entrySearch(role: "household" | "company") {
   return { mode: "signin" as const, role };
 }
+
+export type Intent = "sale" | "donation";
+const DON = "[DON]";
+
+/** Encodes the intent in the note so it survives the offline outbox and needs no schema change. */
+export function encodeNote(note: string, intent: Intent) {
+  const clean = stripIntent(note);
+  return intent === "donation" ? (clean ? `${DON} ${clean}` : DON) : clean;
+}
+export function isDonation(note: string | null | undefined) {
+  return (note ?? "").trimStart().startsWith(DON);
+}
+export function stripIntent(note: string | null | undefined) {
+  const n = (note ?? "").trim();
+  return n.startsWith(DON) ? n.slice(DON.length).trim() : n;
+}
+/** Cash owed to the household: donations are always 0. */
+export function payout(note: string | null | undefined, kg: number, pricePerKg: number) {
+  return isDonation(note) ? 0 : kg * pricePerKg;
+}

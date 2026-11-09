@@ -5,6 +5,7 @@ import { toast } from "sonner";
 import { LoaderCircle, Send } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import { useMe } from "@/lib/auth";
+import { encodeNote, type Intent } from "@/lib/declaration-form";
 import { enqueue, isNetworkError } from "@/lib/offline";
 import { materialDisplay, validDeclaration } from "@/lib/declaration-form";
 import { AppShell } from "@/components/AppShell";
@@ -45,6 +46,7 @@ function Declare() {
   const [quartier, setQuartier] = useState("");
   const [address, setAddress] = useState("");
   const [note, setNote] = useState("");
+  const [intent, setIntent] = useState<Intent>("sale");
   const cats = [...new Set(mats.map((m) => m.category))];
   const activeCategory = category || cats[0] || "";
   const selected = mats.find((m) => m.id === material);
@@ -59,7 +61,7 @@ function Declare() {
   const save = useMutation({
     mutationFn: async () => {
       if (!me || me.role !== "household" || !validDeclaration(material, kg, quartier)) throw new Error("Vérifiez la matière, le poids et le quartier.");
-      const row = { user_id: me.id, material_id: material, estimated_kg: Number(kg), quartier: quartier.trim(), city: me.profile?.city ?? "Kara", address: address.trim(), note: note.trim() };
+      const row = { user_id: me.id, material_id: material, estimated_kg: Number(kg), quartier: quartier.trim(), city: me.profile?.city ?? "Kara", address: address.trim(), note: encodeNote(note, intent) };
       if (!navigator.onLine) { enqueue({ kind: "declaration", args: row }); return "queued"; }
       const { error } = await supabase.from("declarations").insert(row);
       if (error) {
@@ -69,7 +71,7 @@ function Declare() {
       return "sent";
     },
     onSuccess: (result) => {
-      toast.success(result === "queued" ? "Enregistré sur votre téléphone · En attente de réseau" : "Déclaration envoyée ! Vous serez prévenu de la date de passage.");
+      toast.success(result === "queued" ? "Enregistré sur votre téléphone · En attente de réseau" : intent === "donation" ? "Merci pour votre don ! Un collecteur passera gratuitement." : "Déclaration envoyée ! Vous serez prévenu de la date de passage.");
       qc.invalidateQueries({ queryKey: ["my-declarations"] });
       navigate({ to: "/tableau-de-bord" });
     },
@@ -101,7 +103,14 @@ function Declare() {
         </div>
         <div className="space-y-1"><Label htmlFor="address" className="text-xs font-semibold">Repère / adresse (privé)</Label><Input id="address" value={address} onChange={(e) => setAddress(e.target.value)} placeholder="Près de la pharmacie…" className="h-12 rounded-lg bg-card" /></div>
         <div className="space-y-1"><Label htmlFor="note" className="text-xs font-semibold">Précision (facultatif)</Label><Input id="note" value={note} onChange={(e) => setNote(e.target.value)} placeholder="Ex. : 3 sacs, vieux fils électriques" className="h-12 rounded-lg bg-card" /></div>
-        <Button type="submit" disabled={!me || !validDeclaration(material, kg, quartier) || save.isPending} className="mt-auto h-12 w-full shrink-0 rounded-full text-sm font-semibold">{save.isPending ? <><LoaderCircle className="animate-spin" />Envoi…</> : <><Send />Envoyer ma déclaration</>}</Button>
+        <div role="group" aria-label="Que voulez-vous faire ?" className="grid grid-cols-2 gap-1.5 rounded-full bg-muted p-1">
+          {([["sale", "💰 À vendre", "Payé en cash"], ["donation", "🎁 Don solidaire", "Enlèvement gratuit"]] as const).map(([v, t, sub]) => (
+            <button key={v} type="button" aria-pressed={intent === v} onClick={() => setIntent(v)} className={`flex min-h-12 flex-col items-center justify-center rounded-full px-2 text-sm font-semibold leading-tight transition-colors focus-visible:ring-2 focus-visible:ring-ring focus-visible:outline-none ${intent === v ? "bg-card text-primary shadow-sm" : "text-muted-foreground"}`}>
+              <span>{t}</span><span className="text-[11px] font-normal">{sub}</span>
+            </button>
+          ))}
+        </div>
+        <Button type="submit" disabled={!me || !validDeclaration(material, kg, quartier) || save.isPending} className="mt-auto h-12 w-full shrink-0 rounded-full text-sm font-semibold">{save.isPending ? <><LoaderCircle className="animate-spin" />Envoi…</> : <><Send />{intent === "donation" ? "Envoyer mon don" : "Envoyer ma déclaration"}</>}</Button>
       </form>
     </AppShell>
   );
