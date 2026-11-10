@@ -43,9 +43,9 @@ type Mat = { id: string; name: string; category: string };
 
 function CategoryTabs({ cats, active, onChange }: { cats: string[]; active: string; onChange: (c: string) => void }) {
   return (
-    <div role="tablist" aria-label="Catégories de déchets" className="flex shrink-0 gap-1 overflow-x-auto pb-1">
+    <div role="tablist" aria-label="Catégories de déchets" className="grid shrink-0 gap-1 rounded-full bg-muted p-1" style={{ gridTemplateColumns: `repeat(${Math.max(cats.length, 1)}, minmax(0, 1fr))` }}>
       {cats.map((c) => (
-        <Button key={c} type="button" role="tab" aria-selected={active === c} variant={active === c ? "secondary" : "ghost"} onClick={() => onChange(c)} className="h-12 shrink-0 rounded-lg px-3 text-sm">{c}</Button>
+        <button key={c} type="button" role="tab" aria-selected={active === c} onClick={() => onChange(c)} className={`flex min-h-11 items-center justify-center gap-1.5 rounded-full px-2 text-sm font-semibold transition-colors focus-visible:ring-2 focus-visible:ring-ring focus-visible:outline-none ${active === c ? "bg-card text-primary shadow-sm" : "text-muted-foreground hover:text-foreground"}`}><MaterialIcon hint={c} className="size-4 shrink-0" /><span className="truncate">{c}</span></button>
       ))}
     </div>
   );
@@ -119,7 +119,7 @@ function CompanyPrices({ companyId }: { companyId: string }) {
   return (
     <AppShell title="Mes prix" compact>
       <CategoryTabs cats={cats} active={active} onChange={setCategory} />
-      <p className="shrink-0 text-xs text-muted-foreground">Laissez vide ce que vous n'achetez pas.</p>
+      <p className="mt-1.5 shrink-0 text-center text-xs text-muted-foreground">Laissez vide ce que vous n'achetez pas.</p>
       <ul className="mt-1 flex min-h-0 flex-1 flex-col gap-1.5 overflow-y-auto">
         {visible.map((m) => {
           const d = materialDisplay(m);

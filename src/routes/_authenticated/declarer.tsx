@@ -91,16 +91,16 @@ function Declare() {
         </div>
         <section aria-labelledby="material-title">
           <h2 id="material-title" className="mb-1 text-sm font-bold">Matière</h2>
-          <div role="tablist" aria-label="Catégories de déchets" className="flex gap-1 overflow-x-auto pb-1">
-            {cats.map((c) => <Button key={c} type="button" role="tab" aria-selected={activeCategory === c} variant={activeCategory === c ? "secondary" : "ghost"} onClick={() => { setCategory(c); setMaterial(""); }} className="h-12 shrink-0 rounded-lg px-3 text-sm">{c}</Button>)}
+          <div role="tablist" aria-label="Catégories de déchets" className="mb-1.5 grid gap-1 rounded-full bg-muted p-1" style={{ gridTemplateColumns: `repeat(${Math.max(cats.length, 1)}, minmax(0, 1fr))` }}>
+            {cats.map((c) => { const on = activeCategory === c; const n = mats.filter((m) => m.category === c).length; return <button key={c} type="button" role="tab" aria-selected={on} onClick={() => { setCategory(c); setMaterial(""); }} className={`flex min-h-11 items-center justify-center gap-1.5 rounded-full px-2 text-sm font-semibold transition-colors focus-visible:ring-2 focus-visible:ring-ring focus-visible:outline-none ${on ? "bg-card text-primary shadow-sm" : "text-muted-foreground hover:text-foreground"}`}><MaterialIcon hint={c} className="size-4 shrink-0" /><span className="truncate">{c}</span><span className="text-[11px] font-normal opacity-70">· {n}</span></button>; })}
           </div>
-          <div role="group" aria-label="Matières recyclables" className="grid grid-cols-3 gap-1.5">
+          <div role="group" aria-label="Matières recyclables" className="flex flex-wrap justify-center gap-1.5">
             {mats.filter((m) => m.category === activeCategory).map((m) => {
               const display = materialDisplay(m);
-              return <Button key={m.id} type="button" variant="outline" aria-pressed={material === m.id} title={display.detail} onClick={() => setMaterial(m.id)} className={`h-12 min-w-0 gap-1 rounded-lg px-1 text-xs whitespace-normal leading-tight ${material === m.id ? "border-primary bg-secondary text-secondary-foreground hover:bg-secondary" : "hover:bg-muted hover:text-foreground"}`}><MaterialIcon hint={`${m.category} ${m.id}`} className="size-4 shrink-0" /><span>{display.label}</span></Button>;
+              return <Button key={m.id} type="button" variant="outline" aria-pressed={material === m.id} title={display.detail} onClick={() => setMaterial(m.id)} className={`h-12 min-w-0 basis-[calc((100%-0.75rem)/3)] justify-center gap-1 rounded-lg px-1 text-center text-xs whitespace-normal leading-tight ${material === m.id ? "border-primary bg-secondary text-secondary-foreground hover:bg-secondary" : "hover:bg-muted hover:text-foreground"}`}><MaterialIcon hint={`${m.category} ${m.id}`} className="size-4 shrink-0" /><span>{display.label}</span></Button>;
             })}
           </div>
-          <p className="mt-1 min-h-4 text-xs leading-4 text-muted-foreground">{selected ? materialDisplay(selected).detail : isPending ? "Chargement des matières…" : "\u00a0"}</p>
+          <p className={`mx-auto mt-1.5 min-h-6 w-fit max-w-full rounded-full px-3 py-1 text-center text-xs leading-4 text-balance ${selected ? "bg-secondary/70 text-secondary-foreground" : "text-muted-foreground"}`}>{selected ? `💡 ${materialDisplay(selected).detail}` : isPending ? "Chargement des matières…" : "\u00a0"}</p>
           {isError && <Button type="button" variant="link" onClick={() => refetch()}>Recharger les matières</Button>}
         </section>
         <div className="grid grid-cols-[minmax(0,0.7fr)_minmax(0,1.3fr)] gap-2">
