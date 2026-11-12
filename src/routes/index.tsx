@@ -1,5 +1,5 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { House, Truck, Building2, ClipboardList, HandCoins, ArrowRight, CircleUserRound, ChevronLeft, ChevronRight } from "lucide-react";
+import { House, Truck, Building2, ClipboardList, HandCoins, ArrowRight, CircleUserRound, ChevronLeft, ChevronRight, ChevronDown, Network, WifiOff, Scale, BadgeCheck, HeartHandshake, Tag, PackageOpen, Users, Leaf } from "lucide-react";
 import { PlasticBottleIcon, CanIcon, CardboardIcon, OldPhoneIcon } from "@/components/MaterialIcons";
 import { useEffect, useRef, useState } from "react";
 import { Button } from "@/components/ui/button";
@@ -9,22 +9,16 @@ const logo = { url: "/recychub-logo.png" };
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "RecycHub Togo — Vendez vos déchets recyclables sans vous déplacer" },
-      { name: "description", content: "Déclarez vos plastiques et métaux depuis votre téléphone. Les entreprises de recyclage passent les acheter dans votre quartier." },
-      { property: "og:title", content: "RecycHub Togo — Recyclage à domicile" },
-      { property: "og:description", content: "Plastique, fer, cuivre, aluminium : déclarez, on passe collecter et payer." },
+      { title: "RecycHub Togo — Agrégateur de matières recyclables à Kara" },
+      { name: "description", content: "RecycHub regroupe les matières recyclables des ménages de Kara et les met en relation avec les entreprises de collecte. Vente ou don." },
+      { property: "og:title", content: "RecycHub — Agrégateur de matières recyclables à Kara" },
+      { property: "og:description", content: "Vendez ou donnez vos plastiques, métaux et cartons : un collecteur partenaire passe chez vous." },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary" },
     ],
   }),
   component: Landing,
 });
-
-const steps = [
-  { icon: ClipboardList, t: "Déclarez", short: "En 3 clics", d: "Type de déchet et quantité, en 3 touches." },
-  { icon: Truck, t: "On passe", short: "À domicile", d: "Une tournée est fixée dans votre quartier." },
-  { icon: HandCoins, t: "Vous êtes payé", short: "Cash direct", d: "Pesée sur place, prix au kilo affiché." },
-];
 
 const materials = [
   { icon: PlasticBottleIcon, t: "Plastiques", d: "Bouteilles, bidons" },
@@ -61,77 +55,164 @@ function Landing() {
     list.scrollBy({ left: direction * 152, behavior: window.matchMedia("(prefers-reduced-motion: reduce)").matches ? "instant" : "smooth" });
   }
 
+  const [intent, setIntent] = useState<"sale" | "don">("sale");
+
   return (
     <div className="flex min-h-dvh flex-col bg-background">
       <header className="sticky top-0 z-20 border-b border-border/60 bg-background/95 pt-[env(safe-area-inset-top)] backdrop-blur">
         <div className="mx-auto grid h-14 w-full max-w-5xl grid-cols-[minmax(0,1fr)_auto] items-center gap-2 px-4 sm:px-8">
-          <Link to="/" className="flex h-12 w-12 items-center justify-center" aria-label="RecycHub Togo — accueil">
-            <img src={logo.url} alt="RecycHub Togo" width={44} height={44} className="h-11 w-11 shrink-0" />
+          <Link to="/" className="flex h-12 items-center gap-2" aria-label="RecycHub Togo — accueil">
+            <img src={logo.url} alt="" width={40} height={40} className="h-10 w-10 shrink-0" />
+            <span className="text-sm font-bold">RecycHub <span className="text-primary">Kara</span></span>
           </Link>
           <Button asChild variant="ghost" className="h-12 shrink-0 gap-2 rounded-full pl-2 pr-3 font-semibold hover:bg-secondary hover:text-foreground">
-          <Link to="/auth" aria-label="Mon espace — se connecter">
-            <CircleUserRound className="!h-7 !w-7 text-primary" strokeWidth={1.75} />
-            <span className="text-sm">Connexion</span>
-          </Link>
+            <Link to="/auth" aria-label="Mon espace — se connecter">
+              <CircleUserRound className="!h-7 !w-7 text-primary" strokeWidth={1.75} />
+              <span className="text-sm">Connexion</span>
+            </Link>
           </Button>
         </div>
       </header>
 
-      <main className="mx-auto flex w-full max-w-5xl flex-1 flex-col justify-between gap-2 px-3 pb-[calc(0.5rem+env(safe-area-inset-bottom))] pt-2 min-[360px]:gap-3 min-[360px]:px-5 min-[360px]:pb-[calc(0.75rem+env(safe-area-inset-bottom))] min-[360px]:pt-3 sm:gap-6 sm:px-8 sm:pb-8 sm:pt-6">
-        <div className="mx-auto flex max-w-2xl flex-col items-center text-center">
-          <h1 className="text-balance text-xl font-bold leading-tight min-[360px]:text-2xl sm:text-4xl">Vos déchets recyclables valent de l'argent.</h1>
-          <p className="mt-1.5 text-pretty text-sm text-muted-foreground sm:text-base">Plastique, fer, cuivre, aluminium… sans vous déplacer.</p>
-        </div>
-
-        <section aria-label="Choisissez votre espace" className="grid gap-2 md:grid-cols-2 md:gap-4">
-          <ActionCard to="household" icon={House} kicker="Je suis un ménage" title="Vendre mes déchets" desc="On passe peser et payer chez vous." variant="primary" />
-          <ActionCard to="company" icon={Building2} kicker="Je suis une entreprise" title="Espace collecteur" desc="Déclarations proches et tournées." variant="accent" />
+      <main className="mx-auto w-full max-w-5xl flex-1 px-4 pb-[calc(1.5rem+env(safe-area-inset-bottom))] sm:px-8">
+        {/* Hero */}
+        <section className="pt-6 text-center sm:pt-12">
+          <p className="mx-auto inline-flex items-center gap-1.5 rounded-full bg-secondary px-3 py-1 text-xs font-semibold text-primary">
+            <Network className="h-3.5 w-3.5" /> Agrégateur de matières recyclables
+          </p>
+          <h1 className="mx-auto mt-3 max-w-3xl text-balance text-2xl font-bold leading-tight sm:text-5xl">
+            Vos matières recyclables trouvent preneur, sans vous déplacer.
+          </h1>
+          <p className="mx-auto mt-3 max-w-2xl text-pretty text-sm text-muted-foreground sm:text-lg">
+            RecycHub regroupe les gisements des ménages et commerces de Kara et les met en relation avec les entreprises de collecte partenaires. Vendez-les ou faites-en don.
+          </p>
         </section>
 
-        <section aria-labelledby="buy-title">
-          <div className="grid grid-cols-[minmax(0,1fr)_auto] items-center gap-2">
-            <h2 id="buy-title" className="min-w-0 truncate text-[15px] font-bold min-[360px]:text-base sm:text-lg">Ce que nous achetons</h2>
-            <div className="flex shrink-0 sm:hidden">
-              <Button variant="ghost" size="icon" className="h-12 w-12 rounded-full hover:bg-secondary hover:text-primary" aria-label="Matières précédentes" disabled={!canScrollBack} onClick={() => scrollMaterials(-1)}><ChevronLeft /></Button>
-              <Button variant="ghost" size="icon" className="h-12 w-12 rounded-full hover:bg-secondary hover:text-primary" aria-label="Matières suivantes" disabled={!canScrollForward} onClick={() => scrollMaterials(1)}><ChevronRight /></Button>
-            </div>
+        <section aria-label="Choisissez votre espace" className="mt-5 grid gap-2 md:mt-8 md:grid-cols-2 md:gap-4">
+          <ActionCard to="household" icon={House} kicker="Ménages et commerces" title="Déclarer un gisement" desc="Vente ou don, en moins d'une minute." variant="primary" />
+          <ActionCard to="company" icon={Building2} kicker="Entreprises de collecte" title="Espace collecteur" desc="Gisements par quartier et tournées." variant="accent" />
+        </section>
+
+        <ul className="mt-4 grid grid-cols-3 gap-2 text-center text-[11px] font-semibold text-muted-foreground sm:text-sm">
+          <li className="flex flex-col items-center gap-1"><WifiOff className="h-4 w-4 text-primary" />Marche hors connexion</li>
+          <li className="flex flex-col items-center gap-1"><Scale className="h-4 w-4 text-primary" />Pesée devant vous</li>
+          <li className="flex flex-col items-center gap-1"><BadgeCheck className="h-4 w-4 text-primary" />Inscription gratuite</li>
+        </ul>
+
+        {/* Vente / Don */}
+        <section aria-labelledby="intent-title" className="mt-10 rounded-3xl bg-secondary/60 p-4 sm:p-8">
+          <h2 id="intent-title" className="text-balance text-center text-lg font-bold sm:text-2xl">Vendre ou donner : c'est vous qui choisissez</h2>
+          <div role="tablist" aria-label="Intention" className="mx-auto mt-4 grid max-w-sm grid-cols-2 gap-1 rounded-full bg-card p-1">
+            {([["sale", "Vendre", HandCoins], ["don", "Donner", HeartHandshake]] as const).map(([k, l, I]) => (
+              <button key={k} role="tab" type="button" aria-selected={intent === k} onClick={() => setIntent(k)}
+                className={`flex min-h-11 items-center justify-center gap-1.5 rounded-full text-sm font-semibold transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring ${intent === k ? "bg-primary text-primary-foreground" : "text-muted-foreground hover:text-foreground"}`}>
+                <I className="h-4 w-4" />{l}
+              </button>
+            ))}
           </div>
-          <ul ref={materialsRef} tabIndex={0} aria-label="Matières achetées" className="-mx-3 flex snap-x snap-mandatory gap-2 overflow-x-auto px-3 pb-1 [scrollbar-width:none] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring min-[360px]:-mx-5 min-[360px]:px-5 sm:mx-0 sm:mt-3 sm:grid sm:grid-cols-4 sm:gap-3 sm:px-0">
-            {materials.map((m) => (
-              <li key={m.t} className="flex w-[clamp(10.25rem,42vw,11rem)] shrink-0 snap-start items-center gap-2 rounded-xl border border-border bg-card px-2 py-1.5 sm:w-auto sm:min-w-0 sm:p-3">
-                <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-secondary text-primary sm:h-10 sm:w-10">
-                  <m.icon className="h-5 w-5 sm:h-6 sm:w-6" />
-                </span>
-                <span className="min-w-0">
-                  <span className="block truncate text-[13px] font-bold leading-tight sm:text-sm">{m.t}</span>
-                  <span className="block truncate text-[11px] leading-snug text-muted-foreground sm:text-xs">{m.d}</span>
-                </span>
+          <ul className="mx-auto mt-5 grid max-w-3xl gap-3 sm:grid-cols-3">
+            {(intent === "sale" ? saleFacts : donFacts).map((f) => (
+              <li key={f.t} className="rounded-2xl bg-card p-4 text-center">
+                <f.icon className="mx-auto h-6 w-6 text-primary" />
+                <p className="mt-2 text-sm font-bold">{f.t}</p>
+                <p className="mt-1 text-pretty text-xs leading-snug text-muted-foreground">{f.d}</p>
               </li>
             ))}
           </ul>
         </section>
 
-        <section aria-labelledby="how-title">
-          <h2 id="how-title" className="text-[15px] font-bold min-[360px]:text-base sm:text-lg">Comment ça marche</h2>
-          <ol className="mt-1 grid grid-cols-3 gap-2 border-t border-border pt-1 min-[360px]:mt-2 min-[360px]:pt-2 sm:gap-4 sm:pt-3">
-            {steps.map((s, i) => (
-              <li key={s.t} className="flex min-w-0 flex-col items-center px-1 text-center sm:p-3">
-                <p className="min-h-[30px] text-balance text-xs font-bold leading-tight min-[360px]:min-h-0 sm:text-sm">
-                  <span className="text-primary">0{i + 1}</span> {s.t}
-                </p>
-                <p className="mt-0.5 text-[11px] leading-snug text-muted-foreground sm:hidden">{s.short}</p>
-                <p className="mt-1 hidden text-pretty text-xs leading-snug text-muted-foreground sm:block">{s.d}</p>
-                <div aria-hidden className="mt-2 flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-secondary text-primary sm:h-12 sm:w-12">
-                  <s.icon className="h-5 w-5 sm:h-6 sm:w-6" />
-                </div>
+        {/* Rôle d'agrégateur */}
+        <section aria-labelledby="role-title" className="mt-10">
+          <h2 id="role-title" className="text-balance text-center text-lg font-bold sm:text-2xl">RecycHub n'achète pas vos déchets. Il les agrège.</h2>
+          <p className="mx-auto mt-2 max-w-2xl text-pretty text-center text-sm text-muted-foreground">
+            Un sac de bouteilles n'intéresse pas un recycleur. Cent sacs regroupés dans un même quartier, si. RecycHub centralise ces petits volumes pour rendre la collecte rentable.
+          </p>
+          <ol className="mt-5 grid gap-3 sm:grid-cols-3">
+            {chain.map((c, i) => (
+              <li key={c.t} className="relative rounded-2xl border border-border bg-card p-4">
+                <span className="text-xs font-bold text-primary">0{i + 1}</span>
+                <c.icon className="mt-1 h-6 w-6 text-primary" />
+                <p className="mt-2 text-sm font-bold">{c.t}</p>
+                <p className="mt-1 text-pretty text-xs leading-snug text-muted-foreground">{c.d}</p>
               </li>
             ))}
           </ol>
         </section>
+
+        {/* Matières */}
+        <section aria-labelledby="buy-title" className="mt-10">
+          <div className="grid grid-cols-[minmax(0,1fr)_auto] items-center gap-2">
+            <h2 id="buy-title" className="min-w-0 text-lg font-bold sm:text-2xl">Matières recherchées par les collecteurs</h2>
+            <div className="flex shrink-0 sm:hidden">
+              <Button variant="ghost" size="icon" className="h-12 w-12 rounded-full hover:bg-secondary hover:text-primary" aria-label="Matières précédentes" disabled={!canScrollBack} onClick={() => scrollMaterials(-1)}><ChevronLeft /></Button>
+              <Button variant="ghost" size="icon" className="h-12 w-12 rounded-full hover:bg-secondary hover:text-primary" aria-label="Matières suivantes" disabled={!canScrollForward} onClick={() => scrollMaterials(1)}><ChevronRight /></Button>
+            </div>
+          </div>
+          <ul ref={materialsRef} tabIndex={0} aria-label="Matières recherchées" className="-mx-4 mt-2 flex snap-x snap-mandatory gap-2 overflow-x-auto px-4 pb-1 [scrollbar-width:none] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring sm:mx-0 sm:mt-4 sm:grid sm:grid-cols-4 sm:gap-3 sm:px-0">
+            {materials.map((m) => (
+              <li key={m.t} className="flex w-[clamp(10.25rem,42vw,11rem)] shrink-0 snap-start flex-col items-center gap-1 rounded-2xl border border-border bg-card p-3 text-center sm:w-auto">
+                <span className="flex h-11 w-11 items-center justify-center rounded-xl bg-secondary text-primary"><m.icon className="h-6 w-6" /></span>
+                <span className="text-sm font-bold">{m.t}</span>
+                <span className="text-xs text-muted-foreground">{m.d}</span>
+              </li>
+            ))}
+          </ul>
+          <p className="mt-3 text-pretty text-center text-xs text-muted-foreground">Le prix au kilo est fixé par chaque entreprise de collecte et affiché dans l'application avant le passage. Gardez vos matières propres et au sec.</p>
+        </section>
+
+        {/* FAQ */}
+        <section aria-labelledby="faq-title" className="mt-10">
+          <h2 id="faq-title" className="text-center text-lg font-bold sm:text-2xl">Questions fréquentes</h2>
+          <div className="mx-auto mt-4 max-w-2xl divide-y divide-border rounded-2xl border border-border bg-card">
+            {faq.map((f) => (
+              <details key={f.q} className="group p-4">
+                <summary className="flex cursor-pointer list-none items-center justify-between gap-3 text-sm font-semibold">
+                  {f.q}<ChevronDown className="h-4 w-4 shrink-0 text-primary transition-transform group-open:rotate-180" />
+                </summary>
+                <p className="mt-2 text-pretty text-sm text-muted-foreground">{f.a}</p>
+              </details>
+            ))}
+          </div>
+        </section>
       </main>
+
+      <footer className="border-t border-border bg-secondary/40 px-4 py-6 pb-[calc(1.5rem+env(safe-area-inset-bottom))] text-center sm:px-8">
+        <div className="mx-auto flex max-w-5xl flex-col items-center gap-2">
+          <img src={logo.url} alt="RecycHub Togo" width={40} height={40} className="h-10 w-10" />
+          <p className="text-pretty text-xs text-muted-foreground">RecycHub — plateforme d'agrégation des matières recyclables à Kara, Togo.</p>
+          <nav aria-label="Liens" className="flex flex-wrap justify-center gap-x-4 gap-y-1 text-sm font-semibold">
+            <Link to="/auth" search={entrySearch("household")} className="hover:text-primary">Espace ménage</Link>
+            <Link to="/auth" search={entrySearch("company")} className="hover:text-primary">Espace collecteur</Link>
+            <Link to="/auth" className="hover:text-primary">Connexion</Link>
+          </nav>
+          <p className="text-[11px] text-muted-foreground">© {new Date().getFullYear()} RecycHub Togo</p>
+        </div>
+      </footer>
     </div>
   );
 }
+
+const saleFacts = [
+  { icon: Tag, t: "Prix affiché d'avance", d: "Le tarif au kilo de l'entreprise est visible avant le passage." },
+  { icon: Scale, t: "Pesée sur place", d: "Le collecteur pèse vos matières devant vous." },
+  { icon: HandCoins, t: "Payé par le collecteur", d: "Règlement direct, en espèces ou mobile money." },
+];
+const donFacts = [
+  { icon: PackageOpen, t: "Enlèvement gratuit", d: "Libérez votre maison ou votre boutique sans frais." },
+  { icon: Users, t: "Soutien aux collecteurs", d: "Vos matières font vivre la filière locale de collecte." },
+  { icon: Leaf, t: "Kara plus propre", d: "Moins de déchets brûlés ou jetés dans les caniveaux." },
+];
+const chain = [
+  { icon: ClipboardList, t: "Vous déclarez", d: "Matière, quantité estimée, quartier, et choix vente ou don." },
+  { icon: Network, t: "RecycHub regroupe", d: "Les déclarations d'un même quartier sont rassemblées et proposées aux entreprises partenaires." },
+  { icon: Truck, t: "Le collecteur passe", d: "Il organise sa tournée, pèse chez vous et conclut directement avec vous." },
+];
+const faq = [
+  { q: "Est-ce RecycHub qui m'achète mes déchets ?", a: "Non. RecycHub est un agrégateur : la plateforme regroupe les déclarations et vous met en relation avec une entreprise de collecte. La transaction se fait entre vous et le collecteur." },
+  { q: "Puis-je donner au lieu de vendre ?", a: "Oui. Choisissez « Don » lors de la déclaration : l'enlèvement est gratuit et aucun paiement n'est demandé." },
+  { q: "Qui fixe le prix au kilo ?", a: "Chaque entreprise de collecte publie ses tarifs dans l'application. Vous les consultez avant le passage." },
+  { q: "Et si je n'ai pas de connexion ?", a: "Votre déclaration est enregistrée sur le téléphone et envoyée automatiquement dès le retour du réseau." },
+];
 
 function ActionCard({ to, icon: Icon, kicker, title, desc, variant }: {
   to: "household" | "company"; icon: typeof House; kicker: string; title: string; desc: string; variant: "primary" | "accent";

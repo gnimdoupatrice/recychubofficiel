@@ -13,3 +13,4 @@
 - [x] Bouton « Installer RecycHub sur mon téléphone »
 - [x] Liste de quartiers prédéfinis (Kara)
 - [ ] Page profil, simulateur de gains
+- [x] Refonte accueil agrégateur (vente/don)
