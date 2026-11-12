@@ -4,6 +4,13 @@ import { PlasticBottleIcon, CanIcon, CardboardIcon, OldPhoneIcon } from "@/compo
 import { useEffect, useRef, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { entrySearch } from "@/lib/declaration-form";
+import heroImg from "@/assets/hero-household.jpg";
+import collectorImg from "@/assets/collector-weighing.jpg";
+import donImg from "@/assets/donation-handover.jpg";
+import matPlastique from "@/assets/mat-plastique.jpg";
+import matCarton from "@/assets/mat-carton.jpg";
+import matMetal from "@/assets/mat-metal.jpg";
+import matElec from "@/assets/mat-electronique.jpg";
 const logo = { url: "/recychub-logo.png" };
 
 export const Route = createFileRoute("/")({
@@ -21,10 +28,10 @@ export const Route = createFileRoute("/")({
 });
 
 const materials = [
-  { icon: PlasticBottleIcon, t: "Plastiques", d: "Bouteilles, bidons" },
-  { icon: CanIcon, t: "Métaux", d: "Fer, cuivre, alu" },
-  { icon: CardboardIcon, t: "Cartons", d: "Emballages, papier" },
-  { icon: OldPhoneIcon, t: "Électronique", d: "Câbles, appareils" },
+  { img: matPlastique, icon: PlasticBottleIcon, t: "Plastiques", d: "Bouteilles, bidons" },
+  { img: matMetal, icon: CanIcon, t: "Métaux", d: "Fer, cuivre, alu" },
+  { img: matCarton, icon: CardboardIcon, t: "Cartons", d: "Emballages, papier" },
+  { img: matElec, icon: OldPhoneIcon, t: "Électronique", d: "Câbles, appareils" },
 ];
 
 function Landing() {
@@ -76,24 +83,35 @@ function Landing() {
 
       <main className="mx-auto w-full max-w-5xl flex-1 px-4 pb-[calc(1.5rem+env(safe-area-inset-bottom))] sm:px-8">
         {/* Hero */}
-        <section className="pt-6 text-center sm:pt-12">
-          <p className="mx-auto inline-flex items-center gap-1.5 rounded-full bg-secondary px-3 py-1 text-xs font-semibold text-primary">
-            <Network className="h-3.5 w-3.5" /> Agrégateur de matières recyclables
-          </p>
-          <h1 className="mx-auto mt-3 max-w-3xl text-balance text-2xl font-bold leading-tight sm:text-5xl">
-            Vos matières recyclables trouvent preneur, sans vous déplacer.
-          </h1>
-          <p className="mx-auto mt-3 max-w-2xl text-pretty text-sm text-muted-foreground sm:text-lg">
-            RecycHub regroupe les gisements des ménages et commerces de Kara et les met en relation avec les entreprises de collecte partenaires. Vendez-les ou faites-en don.
-          </p>
+        <section className="grid items-center gap-6 pt-6 md:grid-cols-[1.1fr_1fr] md:gap-10 md:pt-12">
+          <div className="text-center md:text-left">
+            <p className="inline-flex items-center gap-1.5 rounded-full bg-secondary px-3 py-1 text-xs font-semibold text-primary">
+              <Network className="h-3.5 w-3.5" /> Agrégateur de matières recyclables · Kara
+            </p>
+            <h1 className="mt-3 text-balance text-3xl font-extrabold leading-[1.1] sm:text-5xl">
+              Vos déchets ont de la <span className="text-primary">valeur</span>. Vendez-les ou donnez-les.
+            </h1>
+            <p className="mt-3 text-pretty text-sm text-muted-foreground sm:text-lg">
+              RecycHub regroupe les matières recyclables des ménages et commerces de Kara et les met en relation avec les entreprises de collecte partenaires, qui passent chez vous.
+            </p>
+            <section aria-label="Choisissez votre espace" className="mt-5 grid gap-2 sm:gap-3">
+              <ActionCard to="household" icon={House} kicker="Ménages et commerces" title="Déclarer un gisement" desc="Vente ou don, en moins d'une minute." variant="primary" />
+              <ActionCard to="company" icon={Building2} kicker="Entreprises de collecte" title="Espace collecteur" desc="Gisements par quartier et tournées." variant="accent" />
+            </section>
+          </div>
+          <div className="relative mx-auto w-full max-w-sm md:max-w-none">
+            <div className="absolute -inset-3 -z-0 rotate-3 rounded-[2rem] bg-secondary" aria-hidden />
+            <img src={heroImg} alt="Une habitante de Kara tient un sac de bouteilles plastiques triées" width={850} height={1152} className="relative aspect-[4/5] w-full rounded-[2rem] object-cover shadow-xl" />
+            <div className="absolute -left-2 top-6 flex items-center gap-2 rounded-2xl bg-card px-3 py-2 shadow-lg">
+              <Scale className="h-5 w-5 text-primary" /><span className="text-xs font-bold">Pesée devant vous</span>
+            </div>
+            <div className="absolute -right-2 bottom-6 flex items-center gap-2 rounded-2xl bg-card px-3 py-2 shadow-lg">
+              <HeartHandshake className="h-5 w-5 text-primary" /><span className="text-xs font-bold">Vente ou don</span>
+            </div>
+          </div>
         </section>
 
-        <section aria-label="Choisissez votre espace" className="mt-5 grid gap-2 md:mt-8 md:grid-cols-2 md:gap-4">
-          <ActionCard to="household" icon={House} kicker="Ménages et commerces" title="Déclarer un gisement" desc="Vente ou don, en moins d'une minute." variant="primary" />
-          <ActionCard to="company" icon={Building2} kicker="Entreprises de collecte" title="Espace collecteur" desc="Gisements par quartier et tournées." variant="accent" />
-        </section>
-
-        <ul className="mt-4 grid grid-cols-3 gap-2 text-center text-[11px] font-semibold text-muted-foreground sm:text-sm">
+        <ul className="mt-8 grid grid-cols-3 rounded-2xl bg-secondary/60 py-4 gap-2 text-center text-[11px] font-semibold text-muted-foreground sm:text-sm">
           <li className="flex flex-col items-center gap-1"><WifiOff className="h-4 w-4 text-primary" />Marche hors connexion</li>
           <li className="flex flex-col items-center gap-1"><Scale className="h-4 w-4 text-primary" />Pesée devant vous</li>
           <li className="flex flex-col items-center gap-1"><BadgeCheck className="h-4 w-4 text-primary" />Inscription gratuite</li>
@@ -110,7 +128,8 @@ function Landing() {
               </button>
             ))}
           </div>
-          <ul className="mx-auto mt-5 grid max-w-3xl gap-3 sm:grid-cols-3">
+          <img src={intent === "sale" ? collectorImg : donImg} alt={intent === "sale" ? "Un collecteur pèse les sacs de matières devant une habitante" : "Un commerçant donne ses cartons à un collecteur"} loading="lazy" width={1152} height={864} className="mx-auto mt-5 aspect-[16/9] w-full max-w-3xl rounded-2xl object-cover" />
+          <ul className="mx-auto mt-4 grid max-w-3xl gap-3 sm:grid-cols-3">
             {(intent === "sale" ? saleFacts : donFacts).map((f) => (
               <li key={f.t} className="rounded-2xl bg-card p-4 text-center">
                 <f.icon className="mx-auto h-6 w-6 text-primary" />
@@ -150,10 +169,10 @@ function Landing() {
           </div>
           <ul ref={materialsRef} tabIndex={0} aria-label="Matières recherchées" className="-mx-4 mt-2 flex snap-x snap-mandatory gap-2 overflow-x-auto px-4 pb-1 [scrollbar-width:none] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring sm:mx-0 sm:mt-4 sm:grid sm:grid-cols-4 sm:gap-3 sm:px-0">
             {materials.map((m) => (
-              <li key={m.t} className="flex w-[clamp(10.25rem,42vw,11rem)] shrink-0 snap-start flex-col items-center gap-1 rounded-2xl border border-border bg-card p-3 text-center sm:w-auto">
-                <span className="flex h-11 w-11 items-center justify-center rounded-xl bg-secondary text-primary"><m.icon className="h-6 w-6" /></span>
-                <span className="text-sm font-bold">{m.t}</span>
-                <span className="text-xs text-muted-foreground">{m.d}</span>
+              <li key={m.t} className="flex w-[clamp(10.25rem,42vw,11rem)] shrink-0 snap-start flex-col overflow-hidden rounded-2xl border border-border bg-card text-center sm:w-auto">
+                <img src={m.img} alt={m.t} loading="lazy" width={480} height={480} className="aspect-square w-full object-cover" />
+                <span className="px-3 pt-2 text-sm font-bold">{m.t}</span>
+                <span className="px-3 pb-3 text-xs text-muted-foreground">{m.d}</span>
               </li>
             ))}
           </ul>
