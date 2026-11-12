@@ -70,7 +70,6 @@ function Landing() {
         <div className="mx-auto grid h-14 w-full max-w-5xl grid-cols-[minmax(0,1fr)_auto] items-center gap-2 px-4 sm:px-8">
           <Link to="/" className="flex h-12 items-center gap-2" aria-label="RecycHub Togo — accueil">
             <img src={logo.url} alt="" width={40} height={40} className="h-10 w-10 shrink-0" />
-            <span className="text-sm font-bold">RecycHub <span className="text-primary">Kara</span></span>
           </Link>
           <Button asChild variant="ghost" className="h-12 shrink-0 gap-2 rounded-full pl-2 pr-3 font-semibold hover:bg-secondary hover:text-foreground">
             <Link to="/auth" aria-label="Mon espace — se connecter">
@@ -86,13 +85,13 @@ function Landing() {
         <section className="grid items-center gap-6 pt-6 md:grid-cols-[1.1fr_1fr] md:gap-10 md:pt-12">
           <div className="text-center md:text-left">
             <p className="inline-flex items-center gap-1.5 rounded-full bg-secondary px-3 py-1 text-xs font-semibold text-primary">
-              <Network className="h-3.5 w-3.5" /> Agrégateur de matières recyclables · Kara
+              <Network className="h-3.5 w-3.5" /> Agrégateur de matières recyclables
             </p>
             <h1 className="mt-3 text-balance text-3xl font-extrabold leading-[1.1] sm:text-5xl">
               Vos déchets ont de la <span className="text-primary">valeur</span>. Vendez-les ou donnez-les.
             </h1>
             <p className="mt-3 text-pretty text-sm text-muted-foreground sm:text-lg">
-              RecycHub regroupe les matières recyclables des ménages et commerces de Kara et les met en relation avec les entreprises de collecte partenaires, qui passent chez vous.
+              RecycHub regroupe les matières recyclables des ménages et commerces et les met en relation avec les entreprises de collecte partenaires, qui passent chez vous.
             </p>
             <section aria-label="Choisissez votre espace" className="mt-5 grid gap-2 sm:gap-3">
               <ActionCard to="household" icon={House} kicker="Ménages et commerces" title="Déclarer un gisement" desc="Vente ou don, en moins d'une minute." variant="primary" />
@@ -101,7 +100,7 @@ function Landing() {
           </div>
           <div className="relative mx-auto w-full max-w-sm md:max-w-none">
             <div className="absolute -inset-3 -z-0 rotate-3 rounded-[2rem] bg-secondary" aria-hidden />
-            <img src={heroImg} alt="Une habitante de Kara tient un sac de bouteilles plastiques triées" width={850} height={1152} className="relative aspect-[4/5] w-full rounded-[2rem] object-cover shadow-xl" />
+            <img src={heroImg} alt="Une habitante tient un sac de bouteilles plastiques triées" width={850} height={1152} className="relative aspect-[4/5] w-full rounded-[2rem] object-cover shadow-xl" />
             <div className="absolute -left-2 top-6 flex items-center gap-2 rounded-2xl bg-card px-3 py-2 shadow-lg">
               <Scale className="h-5 w-5 text-primary" /><span className="text-xs font-bold">Pesée devant vous</span>
             </div>
