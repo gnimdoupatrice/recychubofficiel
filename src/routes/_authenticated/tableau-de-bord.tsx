@@ -1,4 +1,4 @@
-import { createFileRoute, Link } from "@tanstack/react-router";
+import { createFileRoute, Link, Navigate } from "@tanstack/react-router";
 import { isDonation, payout } from "@/lib/declaration-form";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { useMemo, useState } from "react";
@@ -37,6 +37,7 @@ function useMaterials() {
 function Dashboard() {
   const { data: me, isLoading } = useMe();
   if (isLoading || !me) return <AppShell title="RecycHub"><p className="text-muted-foreground">Chargement…</p></AppShell>;
+  if (me.role === "admin") return <Navigate to="/admin" replace />;
   return me.role === "company" ? <CompanyHome /> : <HouseholdHome name={me.profile?.full_name ?? ""} />;
 }
 

@@ -12,6 +12,7 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as AuthenticatedRouteRouteImport } from './routes/_authenticated/route'
 import { Route as AuthRouteImport } from './routes/auth'
+import { Route as AuthenticatedAdminRouteImport } from './routes/_authenticated/admin'
 import { Route as AuthenticatedDeclarerRouteImport } from './routes/_authenticated/declarer'
 import { Route as AuthenticatedPrixRouteImport } from './routes/_authenticated/prix'
 import { Route as AuthenticatedTableauDeBordRouteImport } from './routes/_authenticated/tableau-de-bord'
@@ -30,6 +31,11 @@ const AuthRoute = AuthRouteImport.update({
   id: '/auth',
   path: '/auth',
   getParentRoute: () => rootRouteImport,
+} as any)
+const AuthenticatedAdminRoute = AuthenticatedAdminRouteImport.update({
+  id: '/admin',
+  path: '/admin',
+  getParentRoute: () => AuthenticatedRouteRoute,
 } as any)
 const AuthenticatedDeclarerRoute = AuthenticatedDeclarerRouteImport.update({
   id: '/declarer',
@@ -57,6 +63,7 @@ const AuthenticatedTourneesTourIdRoute =
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/auth': typeof AuthRoute
+  '/admin': typeof AuthenticatedAdminRoute
   '/declarer': typeof AuthenticatedDeclarerRoute
   '/prix': typeof AuthenticatedPrixRoute
   '/tableau-de-bord': typeof AuthenticatedTableauDeBordRoute
@@ -65,6 +72,7 @@ export interface FileRoutesByFullPath {
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/auth': typeof AuthRoute
+  '/admin': typeof AuthenticatedAdminRoute
   '/declarer': typeof AuthenticatedDeclarerRoute
   '/prix': typeof AuthenticatedPrixRoute
   '/tableau-de-bord': typeof AuthenticatedTableauDeBordRoute
@@ -75,6 +83,7 @@ export interface FileRoutesById {
   '/': typeof IndexRoute
   '/_authenticated': typeof AuthenticatedRouteRouteWithChildren
   '/auth': typeof AuthRoute
+  '/_authenticated/admin': typeof AuthenticatedAdminRoute
   '/_authenticated/declarer': typeof AuthenticatedDeclarerRoute
   '/_authenticated/prix': typeof AuthenticatedPrixRoute
   '/_authenticated/tableau-de-bord': typeof AuthenticatedTableauDeBordRoute
@@ -85,6 +94,7 @@ export interface FileRouteTypes {
   fullPaths:
     | '/'
     | '/auth'
+    | '/admin'
     | '/declarer'
     | '/prix'
     | '/tableau-de-bord'
@@ -93,6 +103,7 @@ export interface FileRouteTypes {
   to:
     | '/'
     | '/auth'
+    | '/admin'
     | '/declarer'
     | '/prix'
     | '/tableau-de-bord'
@@ -102,6 +113,7 @@ export interface FileRouteTypes {
     | '/'
     | '/_authenticated'
     | '/auth'
+    | '/_authenticated/admin'
     | '/_authenticated/declarer'
     | '/_authenticated/prix'
     | '/_authenticated/tableau-de-bord'
@@ -137,6 +149,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/_authenticated/admin': {
+      id: '/_authenticated/admin'
+      path: '/admin'
+      fullPath: '/admin'
+      preLoaderRoute: typeof AuthenticatedAdminRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
     '/_authenticated/declarer': {
       id: '/_authenticated/declarer'
       path: '/declarer'
@@ -169,6 +188,7 @@ declare module '@tanstack/react-router' {
 }
 
 interface AuthenticatedRouteRouteChildren {
+  AuthenticatedAdminRoute: typeof AuthenticatedAdminRoute
   AuthenticatedDeclarerRoute: typeof AuthenticatedDeclarerRoute
   AuthenticatedPrixRoute: typeof AuthenticatedPrixRoute
   AuthenticatedTableauDeBordRoute: typeof AuthenticatedTableauDeBordRoute
@@ -176,6 +196,7 @@ interface AuthenticatedRouteRouteChildren {
 }
 
 const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
+  AuthenticatedAdminRoute: AuthenticatedAdminRoute,
   AuthenticatedDeclarerRoute: AuthenticatedDeclarerRoute,
   AuthenticatedPrixRoute: AuthenticatedPrixRoute,
   AuthenticatedTableauDeBordRoute: AuthenticatedTableauDeBordRoute,

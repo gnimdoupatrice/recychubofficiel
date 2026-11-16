@@ -12,7 +12,7 @@ export function phoneToEmail(raw: string) {
   return `${normalizePhone(raw)}@tel.ecocollecte.app`;
 }
 
-export type Role = "household" | "company";
+export type Role = "household" | "company" | "admin";
 
 export function useMe() {
   return useQuery({
@@ -24,7 +24,7 @@ export function useMe() {
         supabase.from("user_roles").select("role").eq("user_id", u.user.id),
         supabase.from("profiles").select("*").eq("id", u.user.id).maybeSingle(),
       ]);
-      const role: Role = roles?.some((r) => r.role === "company") ? "company" : "household";
+      const role: Role = roles?.some((r) => r.role === "admin") ? "admin" : roles?.some((r) => r.role === "company") ? "company" : "household";
       return { id: u.user.id, role, profile };
     },
   });
