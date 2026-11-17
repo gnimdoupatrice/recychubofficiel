@@ -118,7 +118,7 @@ function Landing() {
               </section>
             </div>
             <figure className="relative mx-auto w-full max-w-[24rem] md:max-w-none">
-              <div aria-hidden className="absolute -right-3 -top-3 hidden h-full w-full rounded-[1.25rem] border border-primary/25 md:block" />
+              <div aria-hidden className="absolute -right-3 -top-3 bottom-11 hidden w-full rounded-[1.25rem] border border-primary/25 md:block" />
               <div className="relative overflow-hidden rounded-[1.25rem] shadow-lift ring-1 ring-border/60">
                 <img src={heroImg} alt="Une habitante tient un sac de bouteilles plastiques triées dans sa cour" width={850} height={1152} fetchPriority="high" className="aspect-[4/5] w-full object-cover object-[center_30%] [filter:saturate(0.9)_contrast(1.03)]" />
               </div>
