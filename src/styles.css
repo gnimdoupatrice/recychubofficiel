@@ -171,3 +171,27 @@
     color: var(--color-foreground);
   }
 }
+
+:root {
+  --ink: oklch(0.24 0.045 158);
+  --ink-foreground: oklch(0.97 0.012 150);
+  --amber: oklch(0.8 0.13 78);
+  --gradient-hero: radial-gradient(120% 80% at 85% 0%, oklch(0.9 0.06 150) 0%, transparent 55%), radial-gradient(90% 70% at 0% 100%, oklch(0.95 0.04 90) 0%, transparent 60%), var(--background);
+  --shadow-soft: 0 1px 2px oklch(0.22 0.04 155 / 6%), 0 12px 32px -12px oklch(0.22 0.04 155 / 18%);
+  --shadow-lift: 0 2px 4px oklch(0.22 0.04 155 / 8%), 0 28px 60px -20px oklch(0.3 0.08 150 / 35%);
+}
+@theme inline {
+  --color-ink: var(--ink);
+  --color-ink-foreground: var(--ink-foreground);
+  --color-amber: var(--amber);
+  --shadow-soft: var(--shadow-soft);
+  --shadow-lift: var(--shadow-lift);
+}
+@utility bg-hero { background: var(--gradient-hero); }
+@utility reveal {
+  @media (prefers-reduced-motion: no-preference) {
+    opacity: 0; transform: translateY(18px);
+    transition: opacity .7s ease, transform .7s cubic-bezier(.2,.7,.2,1);
+    &[data-shown="true"] { opacity: 1; transform: none; }
+  }
+}
