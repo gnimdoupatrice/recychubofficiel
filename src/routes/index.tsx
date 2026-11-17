@@ -117,24 +117,17 @@ function Landing() {
                 <ActionCard to="company" icon={Building2} kicker="Entreprises de collecte" title="Espace collecteur" desc="Gisements par quartier et tournées." variant="accent" />
               </section>
             </div>
-            <div className="relative mx-auto w-full max-w-[22rem] md:max-w-none">
-              <div aria-hidden className="absolute -right-4 -top-4 h-40 w-40 rounded-full bg-amber/40 blur-3xl" />
-              <div aria-hidden className="absolute -bottom-6 -left-6 h-48 w-48 rounded-full bg-primary/25 blur-3xl" />
-              <div className="relative overflow-hidden rounded-[2.25rem] shadow-lift ring-1 ring-border/60">
-                <img src={heroImg} alt="Une habitante tient un sac de bouteilles plastiques triées" width={850} height={1152} className="aspect-[4/5] w-full object-cover" />
-                <div aria-hidden className="absolute inset-x-0 bottom-0 h-1/3 bg-gradient-to-t from-ink/60 to-transparent" />
-                <p className="absolute bottom-4 left-4 right-4 text-pretty text-sm font-semibold text-ink-foreground">« Mes bouteilles partent chez un recycleur, plus dans le caniveau. »</p>
+            <figure className="relative mx-auto w-full max-w-[24rem] md:max-w-none">
+              <div aria-hidden className="absolute -right-3 -top-3 hidden h-full w-full rounded-[1.25rem] border border-primary/25 md:block" />
+              <div className="relative overflow-hidden rounded-[1.25rem] shadow-lift ring-1 ring-border/60">
+                <img src={heroImg} alt="Une habitante tient un sac de bouteilles plastiques triées dans sa cour" width={850} height={1152} fetchPriority="high" className="aspect-[4/5] w-full object-cover object-[center_30%] [filter:saturate(0.9)_contrast(1.03)]" />
               </div>
-              <div className="absolute -left-3 top-8 flex items-center gap-2.5 rounded-2xl border border-border/60 bg-card/85 px-3 py-2.5 shadow-soft backdrop-blur-md motion-safe:animate-in motion-safe:fade-in motion-safe:slide-in-from-left-4 motion-safe:duration-700">
-                <span className="flex h-9 w-9 items-center justify-center rounded-xl bg-secondary text-primary"><Scale className="h-5 w-5" /></span>
-                <span className="leading-tight"><span className="block text-xs font-bold">Pesée devant vous</span><span className="block text-[11px] text-muted-foreground">Balance du collecteur</span></span>
-              </div>
-              <div className="absolute -right-3 top-1/2 flex items-center gap-2.5 rounded-2xl border border-border/60 bg-card/85 px-3 py-2.5 shadow-soft backdrop-blur-md motion-safe:animate-in motion-safe:fade-in motion-safe:slide-in-from-right-4 motion-safe:duration-1000">
-                <span className="flex h-9 w-9 items-center justify-center rounded-xl bg-amber/30 text-foreground"><HeartHandshake className="h-5 w-5" /></span>
-                <span className="leading-tight"><span className="block text-xs font-bold">Vente ou don</span><span className="block text-[11px] text-muted-foreground">Vous choisissez</span></span>
-              </div>
-            </div>
-          </div>
+              <figcaption className="mt-3 flex items-center gap-2 text-xs text-muted-foreground">
+                <span aria-hidden className="h-px w-6 bg-primary/50" />
+                Tri à la maison, avant le passage du collecteur
+              </figcaption>
+            </figure>
+                    </div>
           <div className="border-y border-border/60 bg-card/60 backdrop-blur">
             <ul className="mx-auto grid max-w-6xl grid-cols-3 divide-x divide-border/60 px-2 py-4 text-center sm:px-8">
               {[[WifiOff, "Marche hors connexion"], [Scale, "Pesée devant vous"], [BadgeCheck, "Inscription gratuite"]].map(([I, t]) => {
@@ -154,7 +147,7 @@ function Landing() {
               <h2 id="sim-title" className="mt-2 text-balance text-2xl font-bold leading-tight sm:text-4xl">Combien valent vos matières ?</h2>
               <p className="mx-auto mt-3 max-w-md text-pretty text-sm text-muted-foreground sm:text-base md:mx-0">Choisissez une matière et une quantité. En vente, vous voyez un ordre de grandeur ; en don, ce que vous retirez de la rue.</p>
             </div>
-            <div className="rounded-[1.75rem] border border-border/70 bg-card p-4 shadow-lift sm:p-6">
+            <div className="rounded-[1.25rem] border border-border/70 bg-card p-4 shadow-lift sm:p-6">
               <div role="tablist" aria-label="Intention" className="grid grid-cols-2 gap-1 rounded-full bg-muted p-1">
                 {([["sale", "Vendre", HandCoins], ["don", "Donner", HeartHandshake]] as const).map(([k, l, I]) => (
                   <button key={k} role="tab" type="button" aria-selected={intent === k} onClick={() => setIntent(k)}
@@ -196,9 +189,10 @@ function Landing() {
 
         {/* Vente / Don */}
         <section data-reveal aria-labelledby="intent-title" className="reveal pt-14 sm:pt-20">
-          <div className="grid overflow-hidden rounded-[2rem] bg-secondary/70 md:grid-cols-2">
+          <div className="grid overflow-hidden rounded-[1.25rem] border border-border/70 bg-secondary/60 md:grid-cols-2">
             <div className="relative min-h-56">
-              <img src={intent === "sale" ? collectorImg : donImg} alt={intent === "sale" ? "Un collecteur pèse les sacs de matières devant une habitante" : "Un commerçant donne ses cartons à un collecteur"} loading="lazy" width={1152} height={864} className="absolute inset-0 h-full w-full object-cover" />
+              <img src={intent === "sale" ? collectorImg : donImg} alt={intent === "sale" ? "Un collecteur pèse les sacs de matières devant une habitante" : "Un commerçant donne ses cartons à un collecteur"} loading="lazy" width={1152} height={864} className="absolute inset-0 h-full w-full object-cover [filter:saturate(0.9)_contrast(1.03)]" />
+              <p className="absolute bottom-3 left-3 rounded-md bg-ink/70 px-2 py-1 text-[11px] font-medium text-ink-foreground backdrop-blur">{intent === "sale" ? "Pesée au peson, devant le ménage" : "Remise de cartons par un commerçant"}</p>
             </div>
             <div className="p-5 sm:p-10">
               <p className="text-[11px] font-bold uppercase tracking-[0.18em] text-primary">{intent === "sale" ? "Vendre" : "Donner"}</p>
@@ -219,7 +213,7 @@ function Landing() {
         </section>
 
         {/* Rôle d'agrégateur */}
-        <section id="modele" data-reveal aria-labelledby="role-title" className="reveal -mx-4 mt-14 scroll-mt-24 bg-ink px-4 py-12 text-ink-foreground sm:mx-0 sm:mt-20 sm:rounded-[2rem] sm:px-10 sm:py-16">
+        <section id="modele" data-reveal aria-labelledby="role-title" className="reveal -mx-4 mt-14 scroll-mt-24 bg-ink px-4 py-12 text-ink-foreground sm:mx-0 sm:mt-20 sm:rounded-[1.25rem] sm:px-10 sm:py-16">
           <div className="grid gap-8 md:grid-cols-[0.9fr_1.1fr] md:gap-12">
             <div>
               <p className="text-[11px] font-bold uppercase tracking-[0.18em] text-amber">Le modèle</p>
@@ -252,7 +246,7 @@ function Landing() {
           </div>
           <ul ref={materialsRef} tabIndex={0} aria-label="Matières recherchées" className="-mx-4 mt-5 flex snap-x snap-mandatory gap-3 overflow-x-auto px-4 pb-2 [scrollbar-width:none] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring sm:mx-0 sm:grid sm:grid-cols-4 sm:px-0">
             {materials.map((m, i) => (
-              <li key={m.t} className={`group relative w-[clamp(10.5rem,44vw,12rem)] shrink-0 snap-start overflow-hidden rounded-[1.5rem] shadow-soft sm:w-auto ${i % 2 ? "sm:translate-y-6" : ""}`}>
+              <li key={m.t} className={`group relative w-[clamp(10.5rem,44vw,12rem)] shrink-0 snap-start overflow-hidden rounded-xl ring-1 ring-border/60 sm:w-auto`}>
                 <img src={m.img} alt={m.t} loading="lazy" width={480} height={480} className="aspect-[3/4] w-full object-cover transition-transform duration-700 motion-safe:group-hover:scale-105" />
                 <div aria-hidden className="absolute inset-0 bg-gradient-to-t from-ink/85 via-ink/10 to-transparent" />
                 <span className="absolute left-3 top-3 flex h-9 w-9 items-center justify-center rounded-xl bg-card/85 text-primary backdrop-blur"><m.icon className="h-5 w-5" /></span>
@@ -260,7 +254,7 @@ function Landing() {
               </li>
             ))}
           </ul>
-          <p className="mx-auto mt-10 max-w-2xl text-pretty text-center text-xs text-muted-foreground sm:text-sm">Le prix au kilo est fixé par chaque entreprise de collecte et affiché dans l'application avant le passage. Gardez vos matières propres et au sec.</p>
+          <p className="mx-auto mt-6 max-w-2xl text-pretty text-center text-xs text-muted-foreground sm:text-sm">Le prix au kilo est fixé par chaque entreprise de collecte et affiché dans l'application avant le passage. Gardez vos matières propres et au sec.</p>
         </section>
 
         {/* FAQ */}

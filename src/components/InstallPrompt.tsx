@@ -23,7 +23,7 @@ export function InstallPrompt() {
 
   if (hidden || !evt) return null;
   return (
-    <div className="fixed inset-x-3 bottom-[calc(5.5rem+env(safe-area-inset-bottom))] z-40 mx-auto flex max-w-md items-center gap-3 rounded-2xl border border-border bg-card p-3 shadow-lg">
+    <div className="fixed inset-x-3 bottom-[calc(0.75rem+env(safe-area-inset-bottom))] z-40 mx-auto flex max-w-sm sm:left-auto sm:right-4 sm:mx-0 items-center gap-3 rounded-2xl border border-border bg-card p-3 shadow-lg">
       <Download className="h-6 w-6 shrink-0 text-primary" />
       <p className="flex-1 text-sm font-semibold">Installer RecycHub sur mon téléphone</p>
       <button
