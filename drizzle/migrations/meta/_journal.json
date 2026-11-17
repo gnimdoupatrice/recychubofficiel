@@ -15,6 +15,13 @@
       "when": 1791207119831,
       "tag": "0001_fix_rls_recursion",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1794936543300,
+      "tag": "0002_admin_supervision",
+      "breakpoints": true
     }
   ]
 }
