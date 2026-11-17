@@ -73,7 +73,7 @@ function Landing() {
 
   const [simMat, setSimMat] = useState(0);
   const [simKg, setSimKg] = useState(15);
-  const sim = simMaterials[simMat];
+  const sim = simMaterials[simMat] ?? simMaterials[0]!;
 
   return (
     <div className="flex min-h-dvh flex-col bg-background">
