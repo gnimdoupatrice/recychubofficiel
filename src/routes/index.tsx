@@ -122,7 +122,7 @@ function Landing() {
             <figure className="relative mx-auto w-full max-w-[24rem] md:max-w-none">
               <div aria-hidden className="absolute -right-3 -top-3 bottom-11 hidden w-full rounded-[1.25rem] border border-primary/25 md:block" />
               <div className="relative overflow-hidden rounded-[1.25rem] shadow-lift ring-1 ring-border/60">
-                <img src={heroImg} alt="Des collecteurs en gilet trient des bouteilles plastiques dans de grands sacs" width={1289} height={860} fetchPriority="high" className="aspect-[4/5] w-full object-cover object-[72%_center] sm:aspect-[4/3] sm:object-center [filter:saturate(0.9)_contrast(1.03)]" />
+                <img src={heroImg} alt="Des collecteurs en gilet trient des bouteilles plastiques dans de grands sacs" width={1289} height={860} fetchPriority="high" className="aspect-[3/2] h-auto w-full object-contain [filter:saturate(0.9)_contrast(1.03)]" />
               </div>
               <figcaption className="mt-3 flex items-center gap-2 text-xs text-muted-foreground">
                 <span aria-hidden className="h-px w-6 bg-primary/50" />
