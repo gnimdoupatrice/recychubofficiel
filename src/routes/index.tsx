@@ -192,8 +192,8 @@ function Landing() {
         {/* Vente / Don */}
         <section data-reveal aria-labelledby="intent-title" className="reveal pt-14 sm:pt-20">
           <div className="grid overflow-hidden rounded-[1.25rem] border border-border/70 bg-secondary/60 md:grid-cols-2">
-            <div className="relative min-h-56">
-              <img src={intent === "sale" ? collectorImg : donImg} alt={intent === "sale" ? "Un collecteur pèse un sac de matières devant une habitante" : "Un commerçant donne ses cartons à un collecteur"} loading="lazy" width={1152} height={864} className="absolute inset-0 h-full w-full object-cover [filter:saturate(0.9)_contrast(1.03)]" />
+            <div className="relative">
+              <img src={intent === "sale" ? collectorImg : donImg} alt={intent === "sale" ? "Un collecteur pèse un sac de matières devant une habitante" : "Un commerçant donne ses cartons à un collecteur"} loading="lazy" width={830} height={553} className="block aspect-[3/2] h-auto w-full object-contain md:absolute md:inset-0 md:h-full md:aspect-auto md:object-cover [filter:saturate(0.9)_contrast(1.03)]" />
               <p className="absolute bottom-3 left-3 rounded-md bg-ink/70 px-2 py-1 text-[11px] font-medium text-ink-foreground backdrop-blur">{intent === "sale" ? "Pesée au peson, devant le ménage" : "Remise de cartons par un commerçant"}</p>
             </div>
             <div className="p-5 sm:p-10">
