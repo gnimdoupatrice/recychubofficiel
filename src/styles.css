@@ -195,3 +195,15 @@
     &[data-shown="true"] { opacity: 1; transform: none; }
   }
 }
+
+@utility bg-night {
+  background:
+    radial-gradient(60% 50% at 50% 38%, oklch(0.55 0.14 160 / 38%), transparent 70%),
+    radial-gradient(40% 35% at 85% 10%, oklch(0.8 0.13 78 / 14%), transparent 70%),
+    oklch(0.16 0.035 160);
+}
+@utility glass {
+  background: oklch(0.97 0.012 150 / 6%);
+  border: 1px solid oklch(0.97 0.012 150 / 14%);
+  backdrop-filter: blur(18px) saturate(140%);
+}

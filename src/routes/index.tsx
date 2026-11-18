@@ -74,62 +74,69 @@ function Landing() {
 
   return (
     <div className="flex min-h-dvh flex-col bg-background">
+      <div className="bg-night text-ink-foreground">
       <header className="sticky top-0 z-30 pt-[env(safe-area-inset-top)]">
-        <div className="mx-auto mt-2 flex h-14 w-[calc(100%-1rem)] max-w-6xl items-center justify-between gap-2 rounded-full border border-border/70 bg-background/80 pl-3 pr-1.5 shadow-soft backdrop-blur-xl sm:mt-3">
+        <div className="glass mx-auto mt-2 flex h-14 w-[calc(100%-1rem)] max-w-5xl items-center justify-between gap-2 rounded-full pl-3 pr-1.5 sm:mt-4">
           <Link to="/" className="flex h-12 items-center" aria-label="RecycHub Togo — accueil">
-            <img src={logo.url} alt="" width={40} height={40} className="h-10 w-10" />
+            <img src={logo.url} alt="" width={40} height={40} className="h-9 w-9 rounded-lg bg-ink-foreground p-0.5" />
           </Link>
-          <nav aria-label="Sections" className="hidden items-center gap-6 text-sm font-semibold text-muted-foreground md:flex">
-            <a href="#modele" className="transition-colors hover:text-foreground">Le modèle</a>
-            <a href="#matieres" className="transition-colors hover:text-foreground">Matières</a>
-            <a href="#faq" className="transition-colors hover:text-foreground">FAQ</a>
+          <nav aria-label="Sections" className="hidden items-center gap-7 text-sm font-medium opacity-80 md:flex">
+            <a href="#modele" className="hover:text-amber">Le modèle</a>
+            <a href="#matieres" className="hover:text-amber">Matières</a>
+            <a href="#faq" className="hover:text-amber">FAQ</a>
           </nav>
-          <Button asChild variant="ghost" className="h-11 gap-2 rounded-full pl-2 pr-4 font-semibold hover:bg-secondary">
-            <Link to="/auth" aria-label="Mon espace — se connecter">
-              <CircleUserRound className="!h-6 !w-6 text-primary" strokeWidth={1.75} />
-              <span className="text-sm">Connexion</span>
-            </Link>
-          </Button>
+          <Link to="/auth" className="inline-flex h-11 items-center gap-2 rounded-full bg-ink-foreground px-4 text-sm font-bold text-ink transition-transform motion-safe:hover:-translate-y-0.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-amber">
+            <CircleUserRound className="h-5 w-5" strokeWidth={1.75} />Connexion
+          </Link>
         </div>
       </header>
 
-      <main className="flex-1 pb-[env(safe-area-inset-bottom)]">
-        {/* Hero */}
-        <section className="bg-hero -mt-16 pt-20 sm:pt-24">
-          <div className="mx-auto grid max-w-6xl items-center gap-8 px-4 pb-10 sm:px-8 md:grid-cols-[1.05fr_1fr] md:gap-12 md:pb-16">
-            <div className="text-center md:text-left">
-              <p className="inline-flex items-center gap-2 rounded-full border border-primary/20 bg-card/70 px-3 py-1 text-[11px] font-bold uppercase tracking-[0.14em] text-primary backdrop-blur">
-                <span className="relative flex h-2 w-2"><span className="absolute inline-flex h-full w-full rounded-full bg-primary opacity-60 motion-safe:animate-ping" /><span className="relative inline-flex h-2 w-2 rounded-full bg-primary" /></span>
-                Agrégateur de matières recyclables
-              </p>
-              <h1 className="mt-4 text-balance text-[2.1rem] font-bold leading-[1.06] tracking-tight sm:text-6xl">
-                La collecte organisée des <span className="text-primary">matières recyclables</span>.
-              </h1>
-              <p className="mx-auto mt-4 max-w-xl text-pretty text-[15px] leading-relaxed text-muted-foreground sm:text-lg md:mx-0">
-                RecycHub met en relation les ménages et commerces avec des opérateurs de collecte partenaires. Enlèvement planifié, pesée sur place, vente ou don.
-              </p>
-              <section aria-label="Choisissez votre espace" className="mt-6 grid gap-2.5 sm:grid-cols-2 sm:gap-3">
-                <ActionCard to="household" icon={House} kicker="Ménages et commerces" title="Déclarer un gisement" desc="Vente ou don, en moins d'une minute." variant="primary" />
-                <ActionCard to="company" icon={Building2} kicker="Entreprises de collecte" title="Espace collecteur" desc="Gisements par quartier et tournées." variant="accent" />
-              </section>
+      <main className="pb-2">
+        <section className="mx-auto max-w-5xl px-4 pb-12 pt-12 text-center sm:px-8 sm:pt-20">
+          <p className="glass inline-flex items-center gap-2 rounded-full px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.16em] text-amber">
+            Agrégateur de matières recyclables
+          </p>
+          <h1 className="mx-auto mt-5 max-w-4xl text-balance text-[2.3rem] font-bold leading-[1.02] tracking-[-0.03em] sm:text-7xl">
+            La collecte organisée des <span className="text-amber">matières recyclables</span>.
+          </h1>
+          <p className="mx-auto mt-5 max-w-2xl text-pretty text-[15px] leading-relaxed opacity-75 sm:text-lg">
+            RecycHub met en relation les ménages et commerces avec des opérateurs de collecte partenaires. Enlèvement planifié, pesée sur place, vente ou don.
+          </p>
+          <div className="mx-auto mt-7 flex max-w-md flex-col gap-2.5 sm:max-w-none sm:flex-row sm:justify-center">
+            <Link to="/auth" search={entrySearch("household")} className="group inline-flex min-h-12 items-center justify-center gap-2 rounded-full bg-amber px-6 text-sm font-bold text-ink shadow-lift transition-transform motion-safe:hover:-translate-y-0.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ink-foreground">
+              <House className="h-4 w-4" />Déclarer un gisement<ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5" />
+            </Link>
+            <Link to="/auth" search={entrySearch("company")} className="glass inline-flex min-h-12 items-center justify-center gap-2 rounded-full px-6 text-sm font-bold transition-colors hover:bg-ink-foreground/15 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-amber">
+              <Building2 className="h-4 w-4" />Espace collecteur
+            </Link>
+          </div>
+
+          <div className="relative mx-auto mt-12 max-w-4xl">
+            <div className="glass overflow-hidden rounded-[1.5rem] p-1.5 sm:p-2">
+              <img src={heroImg} alt="Des collecteurs en gilet trient des bouteilles plastiques dans de grands sacs" width={1289} height={860} fetchPriority="high" className="aspect-[16/10] w-full rounded-[1.1rem] object-cover" />
             </div>
-            <figure className="relative mx-auto w-full max-w-[24rem] md:max-w-none">
-              <div aria-hidden className="absolute -right-3 -top-3 bottom-11 hidden w-full rounded-[1.25rem] border border-primary/25 md:block" />
-              <div className="relative overflow-hidden rounded-[1.25rem] shadow-lift ring-1 ring-border/60">
-                <img src={heroImg} alt="Des collecteurs en gilet trient des bouteilles plastiques dans de grands sacs" width={1289} height={860} fetchPriority="high" className="aspect-[3/2] h-auto w-full object-contain [filter:saturate(0.9)_contrast(1.03)]" />
-              </div>
-            </figure>
-                    </div>
-          <div className="border-y border-border/60 bg-card/60 backdrop-blur">
-            <ul className="mx-auto grid max-w-6xl grid-cols-3 divide-x divide-border/60 px-2 py-4 text-center sm:px-8">
-              {[[Truck, "Enlèvement planifié"], [Scale, "Pesée sur place"], [BadgeCheck, "Opérateurs partenaires"]].map(([I, t]) => {
-                const Icon = I as typeof Scale;
-                return <li key={t as string} className="flex flex-col items-center gap-1.5 px-1 text-[11px] font-semibold text-muted-foreground sm:flex-row sm:justify-center sm:gap-2 sm:text-sm"><Icon className="h-4 w-4 text-primary" />{t as string}</li>;
-              })}
-            </ul>
+            <div className="glass absolute -bottom-6 left-3 rounded-2xl px-4 py-3 text-left shadow-lift sm:-left-8 sm:bottom-10">
+              <p className="text-[10px] font-semibold uppercase tracking-[0.14em] opacity-70">Gisement déclaré</p>
+              <p className="mt-0.5 flex items-center gap-2 font-display text-lg font-bold"><Scale className="h-4 w-4 text-amber" />Pesée sur place</p>
+            </div>
+            <div className="glass absolute -right-2 -top-5 hidden rounded-2xl px-4 py-3 text-left shadow-lift sm:-right-8 sm:top-10 sm:block">
+              <p className="text-[10px] font-semibold uppercase tracking-[0.14em] opacity-70">Tournée</p>
+              <p className="mt-0.5 flex items-center gap-2 font-display text-lg font-bold"><Truck className="h-4 w-4 text-amber" />Enlèvement planifié</p>
+            </div>
           </div>
         </section>
+        <div className="border-t border-ink-foreground/10">
+          <ul className="mx-auto grid max-w-5xl grid-cols-3 px-2 py-6 text-center sm:px-8">
+            {[[Truck, "Enlèvement planifié"], [Scale, "Pesée sur place"], [BadgeCheck, "Opérateurs partenaires"]].map(([I, t]) => {
+              const Icon = I as typeof Scale;
+              return <li key={t as string} className="flex flex-col items-center gap-1.5 px-1 text-[11px] font-semibold opacity-80 sm:flex-row sm:justify-center sm:gap-2 sm:text-sm"><Icon className="h-4 w-4 text-amber" />{t as string}</li>;
+            })}
+          </ul>
+        </div>
+      </main>
+      </div>
 
+      <main className="flex-1 pb-[env(safe-area-inset-bottom)]">
         <div className="mx-auto max-w-6xl px-4 sm:px-8">
         {/* Vente / Don */}
         <section data-reveal aria-labelledby="intent-title" className="reveal pt-14 sm:pt-20">
@@ -259,32 +266,3 @@ const faq = [
   { q: "Qui fixe le prix au kilo ?", a: "Chaque entreprise de collecte publie ses tarifs dans l'application. Vous les consultez avant le passage." },
   { q: "Comment préparer mes matières ?", a: "Triez-les par type, gardez-les propres et au sec. Aplatissez les cartons et videz les bouteilles avant le passage." },
 ];
-
-function ActionCard({ to, icon: Icon, kicker, title, desc, variant }: {
-  to: "household" | "company"; icon: typeof House; kicker: string; title: string; desc: string; variant: "primary" | "accent";
-}) {
-  const primary = variant === "primary";
-  const styles = primary
-    ? "bg-primary text-primary-foreground shadow-sm hover:bg-primary/95 focus-visible:ring-primary"
-    : "border border-accent/25 bg-collector text-collector-foreground shadow-none hover:bg-collector/80 focus-visible:ring-accent";
-  return (
-    <Button asChild className={`group grid h-auto min-h-14 grid-cols-[auto_minmax(0,1fr)_auto] items-center gap-2 whitespace-normal rounded-2xl px-2 py-2 shadow-soft transition-all motion-safe:hover:-translate-y-0.5 motion-safe:transition-transform motion-safe:active:scale-[0.98] min-[360px]:gap-2.5 min-[360px]:px-3 min-[360px]:py-2.5 sm:gap-4 sm:p-5 ${styles}`}>
-    <Link
-      to="/auth"
-      search={entrySearch(to)}
-    >
-      <span aria-hidden className={`flex h-8 w-8 shrink-0 items-center justify-center rounded-xl bg-card min-[360px]:h-10 min-[360px]:w-10 sm:h-12 sm:w-12 ${primary ? "text-primary" : "text-collector"}`}>
-        <Icon className="!h-5 !w-5 sm:!h-6 sm:!w-6" strokeWidth={2} />
-      </span>
-      <span className="min-w-0">
-        <span className="block text-[10px] font-semibold uppercase leading-tight tracking-wide opacity-90">{kicker}</span>
-        <span className="block text-[15px] font-bold leading-tight sm:text-lg">{title}</span>
-        <span className="mt-0.5 block text-xs leading-snug opacity-90 sm:text-sm">{desc}</span>
-      </span>
-      <span aria-hidden className={`flex h-6 w-6 shrink-0 items-center justify-center rounded-full motion-safe:transition-transform motion-safe:group-hover:translate-x-1 min-[360px]:h-7 min-[360px]:w-7 sm:h-8 sm:w-8 ${primary ? "bg-background/20" : "bg-card text-collector"}`}>
-        <ArrowRight className="h-4 w-4 sm:h-5 sm:w-5" />
-      </span>
-    </Link>
-    </Button>
-  );
-}
