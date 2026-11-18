@@ -4,10 +4,8 @@ import { PlasticBottleIcon, CanIcon, CardboardIcon, OldPhoneIcon } from "@/compo
 import { useEffect, useRef, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { entrySearch } from "@/lib/declaration-form";
-import heroAsset from "@/assets/tri-plastique-collecteurs.jpg.asset.json";
-const heroImg = heroAsset.url;
-import collectorAsset from "@/assets/pesee-menage-collecteur.jpg.asset.json";
-const collectorImg = collectorAsset.url;
+import heroImg from "@/assets/tri-plastique-collecteurs.jpg";
+import collectorImg from "@/assets/pesee-menage-collecteur.jpg";
 import donImg from "@/assets/donation-handover.jpg";
 import matPlastique from "@/assets/mat-plastique.jpg";
 import matCarton from "@/assets/mat-carton.jpg";
