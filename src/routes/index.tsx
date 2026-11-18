@@ -1,5 +1,5 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { House, Truck, Building2, ClipboardList, HandCoins, ArrowRight, CircleUserRound, ChevronLeft, ChevronRight, ChevronDown, Network, WifiOff, Scale, BadgeCheck, HeartHandshake, Tag, PackageOpen, Users, Leaf } from "lucide-react";
+import { House, Truck, Building2, ClipboardList, HandCoins, ArrowRight, CircleUserRound, ChevronLeft, ChevronRight, ChevronDown, Network, Scale, BadgeCheck, Tag, PackageOpen, Users, Leaf } from "lucide-react";
 import { PlasticBottleIcon, CanIcon, CardboardIcon, OldPhoneIcon } from "@/components/MaterialIcons";
 import { useEffect, useRef, useState } from "react";
 import { Button } from "@/components/ui/button";
@@ -71,9 +71,6 @@ function Landing() {
     return () => io.disconnect();
   }, []);
 
-  const [simMat, setSimMat] = useState(0);
-  const [simKg, setSimKg] = useState(15);
-  const sim = simMaterials[simMat] ?? simMaterials[0]!;
 
   return (
     <div className="flex min-h-dvh flex-col bg-background">
@@ -83,7 +80,6 @@ function Landing() {
             <img src={logo.url} alt="" width={40} height={40} className="h-10 w-10" />
           </Link>
           <nav aria-label="Sections" className="hidden items-center gap-6 text-sm font-semibold text-muted-foreground md:flex">
-            <a href="#simulateur" className="transition-colors hover:text-foreground">Simulateur</a>
             <a href="#modele" className="transition-colors hover:text-foreground">Le modèle</a>
             <a href="#matieres" className="transition-colors hover:text-foreground">Matières</a>
             <a href="#faq" className="transition-colors hover:text-foreground">FAQ</a>
@@ -106,11 +102,11 @@ function Landing() {
                 <span className="relative flex h-2 w-2"><span className="absolute inline-flex h-full w-full rounded-full bg-primary opacity-60 motion-safe:animate-ping" /><span className="relative inline-flex h-2 w-2 rounded-full bg-primary" /></span>
                 Agrégateur de matières recyclables
               </p>
-              <h1 className="mt-4 text-balance text-[2.1rem] font-bold leading-[1.04] tracking-tight sm:text-6xl">
-                Vos déchets ont de la <em className="not-italic text-primary">valeur</em>.<br className="hidden sm:block" /> Vendez-les ou <span className="relative whitespace-nowrap">donnez-les<svg aria-hidden viewBox="0 0 200 12" className="absolute -bottom-1 left-0 h-2.5 w-full text-amber"><path d="M2 9C50 3 150 3 198 8" fill="none" stroke="currentColor" strokeWidth="4" strokeLinecap="round" /></svg></span>.
+              <h1 className="mt-4 text-balance text-[2.1rem] font-bold leading-[1.06] tracking-tight sm:text-6xl">
+                La collecte organisée des <span className="text-primary">matières recyclables</span>.
               </h1>
               <p className="mx-auto mt-4 max-w-xl text-pretty text-[15px] leading-relaxed text-muted-foreground sm:text-lg md:mx-0">
-                RecycHub regroupe les matières recyclables des ménages et commerces et les met en relation avec les entreprises de collecte partenaires, qui passent chez vous.
+                RecycHub met en relation les ménages et commerces avec des opérateurs de collecte partenaires. Enlèvement planifié, pesée sur place, vente ou don.
               </p>
               <section aria-label="Choisissez votre espace" className="mt-6 grid gap-2.5 sm:grid-cols-2 sm:gap-3">
                 <ActionCard to="household" icon={House} kicker="Ménages et commerces" title="Déclarer un gisement" desc="Vente ou don, en moins d'une minute." variant="primary" />
@@ -122,15 +118,11 @@ function Landing() {
               <div className="relative overflow-hidden rounded-[1.25rem] shadow-lift ring-1 ring-border/60">
                 <img src={heroImg} alt="Des collecteurs en gilet trient des bouteilles plastiques dans de grands sacs" width={1289} height={860} fetchPriority="high" className="aspect-[3/2] h-auto w-full object-contain [filter:saturate(0.9)_contrast(1.03)]" />
               </div>
-              <figcaption className="mt-3 flex items-center gap-2 text-xs text-muted-foreground">
-                <span aria-hidden className="h-px w-6 bg-primary/50" />
-                Tri des bouteilles plastiques par les collecteurs
-              </figcaption>
             </figure>
                     </div>
           <div className="border-y border-border/60 bg-card/60 backdrop-blur">
             <ul className="mx-auto grid max-w-6xl grid-cols-3 divide-x divide-border/60 px-2 py-4 text-center sm:px-8">
-              {[[WifiOff, "Marche hors connexion"], [Scale, "Pesée devant vous"], [BadgeCheck, "Inscription gratuite"]].map(([I, t]) => {
+              {[[Truck, "Enlèvement planifié"], [Scale, "Pesée sur place"], [BadgeCheck, "Opérateurs partenaires"]].map(([I, t]) => {
                 const Icon = I as typeof Scale;
                 return <li key={t as string} className="flex flex-col items-center gap-1.5 px-1 text-[11px] font-semibold text-muted-foreground sm:flex-row sm:justify-center sm:gap-2 sm:text-sm"><Icon className="h-4 w-4 text-primary" />{t as string}</li>;
               })}
@@ -139,60 +131,11 @@ function Landing() {
         </section>
 
         <div className="mx-auto max-w-6xl px-4 sm:px-8">
-        {/* Simulateur */}
-        <section id="simulateur" data-reveal aria-labelledby="sim-title" className="reveal scroll-mt-24 pt-14 sm:pt-20">
-          <div className="grid gap-6 md:grid-cols-[0.9fr_1.1fr] md:items-center md:gap-12">
-            <div className="text-center md:text-left">
-              <p className="text-[11px] font-bold uppercase tracking-[0.18em] text-primary">Simulateur</p>
-              <h2 id="sim-title" className="mt-2 text-balance text-2xl font-bold leading-tight sm:text-4xl">Combien valent vos matières ?</h2>
-              <p className="mx-auto mt-3 max-w-md text-pretty text-sm text-muted-foreground sm:text-base md:mx-0">Choisissez une matière et une quantité. En vente, vous voyez un ordre de grandeur ; en don, ce que vous retirez de la rue.</p>
-            </div>
-            <div className="rounded-[1.25rem] border border-border/70 bg-card p-4 shadow-lift sm:p-6">
-              <div role="tablist" aria-label="Intention" className="grid grid-cols-2 gap-1 rounded-full bg-muted p-1">
-                {([["sale", "Vendre", HandCoins], ["don", "Donner", HeartHandshake]] as const).map(([k, l, I]) => (
-                  <button key={k} role="tab" type="button" aria-selected={intent === k} onClick={() => setIntent(k)}
-                    className={`flex min-h-11 items-center justify-center gap-1.5 rounded-full text-sm font-semibold transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring ${intent === k ? "bg-card text-foreground shadow-soft" : "text-muted-foreground hover:text-foreground"}`}>
-                    <I className="h-4 w-4" />{l}
-                  </button>
-                ))}
-              </div>
-              <div className="mt-4 grid grid-cols-4 gap-1.5" role="radiogroup" aria-label="Matière">
-                {simMaterials.map((m, i) => (
-                  <button key={m.t} type="button" role="radio" aria-checked={simMat === i} onClick={() => setSimMat(i)}
-                    className={`flex min-h-16 flex-col items-center justify-center gap-1 rounded-2xl border text-[11px] font-semibold transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring sm:text-xs ${simMat === i ? "border-primary bg-secondary text-primary" : "border-border text-muted-foreground hover:border-primary/40"}`}>
-                    <m.icon className="h-6 w-6" />{m.t}
-                  </button>
-                ))}
-              </div>
-              <label className="mt-5 block">
-                <span className="flex items-baseline justify-between text-sm font-semibold"><span>Quantité estimée</span><span className="font-display text-lg text-primary">{simKg} kg</span></span>
-                <input type="range" min={1} max={100} value={simKg} onChange={(e) => setSimKg(Number(e.target.value))} className="mt-2 h-11 w-full accent-[var(--primary)]" />
-              </label>
-              <div className="mt-3 rounded-2xl bg-ink p-4 text-ink-foreground">
-                {intent === "sale" ? (
-                  <>
-                    <p className="text-xs font-semibold uppercase tracking-wider opacity-70">Ordre de grandeur</p>
-                    <p className="mt-1 font-display text-3xl font-bold">{(sim.min * simKg).toLocaleString("fr-FR")} – {(sim.max * simKg).toLocaleString("fr-FR")} <span className="text-base">FCFA</span></p>
-                    <p className="mt-1 text-xs opacity-70">Indicatif. Le prix réel est fixé par l'entreprise de collecte et affiché avant le passage.</p>
-                  </>
-                ) : (
-                  <>
-                    <p className="text-xs font-semibold uppercase tracking-wider opacity-70">Votre don</p>
-                    <p className="mt-1 font-display text-3xl font-bold">{simKg} kg <span className="text-base">retirés de la rue</span></p>
-                    <p className="mt-1 text-xs opacity-70">Enlèvement gratuit, matières remises à la filière locale de recyclage.</p>
-                  </>
-                )}
-              </div>
-            </div>
-          </div>
-        </section>
-
         {/* Vente / Don */}
         <section data-reveal aria-labelledby="intent-title" className="reveal pt-14 sm:pt-20">
           <div className="grid overflow-hidden rounded-[1.25rem] border border-border/70 bg-secondary/60 md:grid-cols-2">
             <div className="relative">
               <img src={intent === "sale" ? collectorImg : donImg} alt={intent === "sale" ? "Un collecteur pèse un sac de matières devant une habitante" : "Un commerçant donne ses cartons à un collecteur"} loading="lazy" width={830} height={553} className="block aspect-[3/2] h-auto w-full object-contain md:absolute md:inset-0 md:h-full md:aspect-auto md:object-cover [filter:saturate(0.9)_contrast(1.03)]" />
-              <p className="absolute bottom-3 left-3 rounded-md bg-ink/70 px-2 py-1 text-[11px] font-medium text-ink-foreground backdrop-blur">{intent === "sale" ? "Pesée au peson, devant le ménage" : "Remise de cartons par un commerçant"}</p>
             </div>
             <div className="p-5 sm:p-10">
               <p className="text-[11px] font-bold uppercase tracking-[0.18em] text-primary">{intent === "sale" ? "Vendre" : "Donner"}</p>
@@ -218,7 +161,7 @@ function Landing() {
             <div>
               <p className="text-[11px] font-bold uppercase tracking-[0.18em] text-amber">Le modèle</p>
               <h2 id="role-title" className="mt-2 text-balance text-2xl font-bold leading-tight sm:text-4xl">RecycHub n'achète pas vos déchets. Il les agrège.</h2>
-              <p className="mt-4 max-w-md text-pretty text-sm leading-relaxed opacity-75 sm:text-base">Un sac de bouteilles n'intéresse pas un recycleur. Cent sacs regroupés dans un même quartier, si. RecycHub centralise ces petits volumes pour rendre la collecte rentable.</p>
+              <p className="mt-4 max-w-md text-pretty text-sm leading-relaxed opacity-75 sm:text-base">RecycHub regroupe les volumes déclarés par quartier, planifie les tournées des opérateurs et standardise la pesée. La transaction reste entre vous et le collecteur.</p>
             </div>
             <ol className="relative grid gap-3">
               <span aria-hidden className="absolute bottom-6 left-[1.6rem] top-6 w-px bg-ink-foreground/20" />
@@ -295,22 +238,15 @@ function Landing() {
   );
 }
 
-const simMaterials = [
-  { t: "Plastique", icon: PlasticBottleIcon, min: 50, max: 100 },
-  { t: "Métal", icon: CanIcon, min: 100, max: 250 },
-  { t: "Carton", icon: CardboardIcon, min: 25, max: 50 },
-  { t: "Électro", icon: OldPhoneIcon, min: 150, max: 400 },
-];
-
 const saleFacts = [
   { icon: Tag, t: "Prix affiché d'avance", d: "Le tarif au kilo de l'entreprise est visible avant le passage." },
   { icon: Scale, t: "Pesée sur place", d: "Le collecteur pèse vos matières devant vous." },
   { icon: HandCoins, t: "Payé par le collecteur", d: "Règlement direct, en espèces ou mobile money." },
 ];
 const donFacts = [
-  { icon: PackageOpen, t: "Enlèvement gratuit", d: "Libérez votre maison ou votre boutique sans frais." },
-  { icon: Users, t: "Soutien aux collecteurs", d: "Vos matières font vivre la filière locale de collecte." },
-  { icon: Leaf, t: "Kara plus propre", d: "Moins de déchets brûlés ou jetés dans les caniveaux." },
+  { icon: PackageOpen, t: "Enlèvement sans frais", d: "Vos matières sont collectées à domicile ou en boutique, sans contrepartie." },
+  { icon: Users, t: "Remise en filière", d: "Les matières rejoignent directement le circuit de recyclage des opérateurs." },
+  { icon: Leaf, t: "Traçabilité", d: "Chaque don est pesé et enregistré dans votre historique." },
 ];
 const chain = [
   { icon: ClipboardList, t: "Vous déclarez", d: "Matière, quantité estimée, quartier, et choix vente ou don." },
@@ -321,7 +257,7 @@ const faq = [
   { q: "Est-ce RecycHub qui m'achète mes déchets ?", a: "Non. RecycHub est un agrégateur : la plateforme regroupe les déclarations et vous met en relation avec une entreprise de collecte. La transaction se fait entre vous et le collecteur." },
   { q: "Puis-je donner au lieu de vendre ?", a: "Oui. Choisissez « Don » lors de la déclaration : l'enlèvement est gratuit et aucun paiement n'est demandé." },
   { q: "Qui fixe le prix au kilo ?", a: "Chaque entreprise de collecte publie ses tarifs dans l'application. Vous les consultez avant le passage." },
-  { q: "Et si je n'ai pas de connexion ?", a: "Votre déclaration est enregistrée sur le téléphone et envoyée automatiquement dès le retour du réseau." },
+  { q: "Comment préparer mes matières ?", a: "Triez-les par type, gardez-les propres et au sec. Aplatissez les cartons et videz les bouteilles avant le passage." },
 ];
 
 function ActionCard({ to, icon: Icon, kicker, title, desc, variant }: {
