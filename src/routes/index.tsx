@@ -4,8 +4,10 @@ import { PlasticBottleIcon, CanIcon, CardboardIcon, OldPhoneIcon } from "@/compo
 import { useEffect, useRef, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { entrySearch } from "@/lib/declaration-form";
-import heroImg from "@/assets/hero-household.jpg";
-import collectorImg from "@/assets/collector-weighing.jpg";
+import heroAsset from "@/assets/tri-plastique-collecteurs.jpg.asset.json";
+const heroImg = heroAsset.url;
+import collectorAsset from "@/assets/pesee-menage-collecteur.jpg.asset.json";
+const collectorImg = collectorAsset.url;
 import donImg from "@/assets/donation-handover.jpg";
 import matPlastique from "@/assets/mat-plastique.jpg";
 import matCarton from "@/assets/mat-carton.jpg";
@@ -120,11 +122,11 @@ function Landing() {
             <figure className="relative mx-auto w-full max-w-[24rem] md:max-w-none">
               <div aria-hidden className="absolute -right-3 -top-3 bottom-11 hidden w-full rounded-[1.25rem] border border-primary/25 md:block" />
               <div className="relative overflow-hidden rounded-[1.25rem] shadow-lift ring-1 ring-border/60">
-                <img src={heroImg} alt="Une habitante tient un sac de bouteilles plastiques triées dans sa cour" width={850} height={1152} fetchPriority="high" className="aspect-[4/5] w-full object-cover object-[center_30%] [filter:saturate(0.9)_contrast(1.03)]" />
+                <img src={heroImg} alt="Des collecteurs en gilet trient des bouteilles plastiques dans de grands sacs" width={1289} height={860} fetchPriority="high" className="aspect-[4/5] w-full object-cover object-[72%_center] sm:aspect-[4/3] sm:object-center [filter:saturate(0.9)_contrast(1.03)]" />
               </div>
               <figcaption className="mt-3 flex items-center gap-2 text-xs text-muted-foreground">
                 <span aria-hidden className="h-px w-6 bg-primary/50" />
-                Tri à la maison, avant le passage du collecteur
+                Tri des bouteilles plastiques par les collecteurs
               </figcaption>
             </figure>
                     </div>
@@ -191,7 +193,7 @@ function Landing() {
         <section data-reveal aria-labelledby="intent-title" className="reveal pt-14 sm:pt-20">
           <div className="grid overflow-hidden rounded-[1.25rem] border border-border/70 bg-secondary/60 md:grid-cols-2">
             <div className="relative min-h-56">
-              <img src={intent === "sale" ? collectorImg : donImg} alt={intent === "sale" ? "Un collecteur pèse les sacs de matières devant une habitante" : "Un commerçant donne ses cartons à un collecteur"} loading="lazy" width={1152} height={864} className="absolute inset-0 h-full w-full object-cover [filter:saturate(0.9)_contrast(1.03)]" />
+              <img src={intent === "sale" ? collectorImg : donImg} alt={intent === "sale" ? "Un collecteur pèse un sac de matières devant une habitante" : "Un commerçant donne ses cartons à un collecteur"} loading="lazy" width={1152} height={864} className="absolute inset-0 h-full w-full object-cover [filter:saturate(0.9)_contrast(1.03)]" />
               <p className="absolute bottom-3 left-3 rounded-md bg-ink/70 px-2 py-1 text-[11px] font-medium text-ink-foreground backdrop-blur">{intent === "sale" ? "Pesée au peson, devant le ménage" : "Remise de cartons par un commerçant"}</p>
             </div>
             <div className="p-5 sm:p-10">
